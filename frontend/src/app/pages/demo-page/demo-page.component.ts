@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js';
+import SalonOwner from '../../module/salonOwner';
+import Salon from '../../module/salon';
+import { SalonUtilsService } from '../../salon-utils.service';
 
 @Component({
   selector: 'app-demo-page',
@@ -8,11 +11,15 @@ import Chart from 'chart.js';
 })
 export class DemoPageComponent implements OnInit {
 
+  salonOwners: SalonOwner[] = [];
+  salons: Salon[] = [];
 
-  constructor() { }
+  constructor(private salonUtilService: SalonUtilsService) { }
 
-    ngOnInit() {
-    }
+  ngOnInit() {
+    this.salonUtilService.getSalonOwners()
+      .subscribe((salonOwners: SalonOwner[]) => this.salonOwners = salonOwners);
+  }
 
 
 }
