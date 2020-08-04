@@ -18,5 +18,10 @@ export class DemoPageComponent implements OnInit {
       .subscribe((salonOwners: SalonOwner[]) => this.salonOwners = salonOwners);
   }
 
+  createNewSalonOwner() {
+    console.log('Create new salon owner');
+    // TODO: Implement create new salon owner form popup
+  }
+
 
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import Salon from '../../module/salon';
 import { SalonUtilsService } from '../../salon-utils.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-salon-view',
@@ -26,6 +27,11 @@ export class SalonViewComponent implements OnInit {
       }
       this.salonUtilService.getSalons(ownerId).subscribe((salons: Salon[]) => this.salons = salons);
     });
+  }
+
+  createNewSalon() {
+    console.log('Create new salon');
+    // TODO: Implement create new salon form popup
   }
 
 }
