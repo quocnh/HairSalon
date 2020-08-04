@@ -15,6 +15,7 @@ import { NotificationsComponent } from '../../pages/notifications/notifications.
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DemoPageComponent } from '../../pages/demo-page/demo-page.component';
+import { SalonViewComponent } from '../../pages/salon-view/salon-view.component';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { DemoPageComponent } from '../../pages/demo-page/demo-page.component';
     TypographyComponent,
     IconsComponent,
     MapsComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    SalonViewComponent
   ]
 })
 

@@ -62,7 +62,7 @@ app.get('/salonOwners/:salonOwnerId/salons', (req, res) => {
 });
 
 app.post('/salonOwners/:salonOwnerId/salons', (req, res) => {
-    (new Salon({ '_salonOwnerId': req.params.salonOwnerId, 'title': req.body.name}))
+    (new Salon({ '_salonOwnerId': req.params.salonOwnerId, 'name': req.body.name}))
     .save()
     .then(salons => res.send(salons))
     .catch((error) => console.log(error));

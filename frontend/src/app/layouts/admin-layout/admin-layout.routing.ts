@@ -8,6 +8,7 @@ import { IconsComponent } from '../../pages/icons/icons.component';
 import { MapsComponent } from '../../pages/maps/maps.component';
 import { NotificationsComponent } from '../../pages/notifications/notifications.component';
 import { DemoPageComponent } from '../../pages/demo-page/demo-page.component';
+import { SalonViewComponent } from '../../pages/salon-view/salon-view.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -18,4 +19,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'maps',           component: MapsComponent },
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'demopage',      component: DemoPageComponent },
+    { path: 'owner/:ownerId',      component: SalonViewComponent },
 ];

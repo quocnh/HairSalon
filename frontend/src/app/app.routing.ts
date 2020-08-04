@@ -7,16 +7,14 @@ export const AppRoutes: Routes = [
     path: '',
     redirectTo: 'demopage',
     pathMatch: 'full',
-  }, {
+  },
+  {
     path: '',
     component: AdminLayoutComponent,
     children: [
-        {
-      path: '',
-      loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
-  }]},
-  {
-    path: '**',
-    redirectTo: 'demopage'
-  }
+      {
+        path: '',
+        loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
+      }]
+  },
 ]
