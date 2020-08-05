@@ -5,6 +5,10 @@
 brew install node
 ```
 2. Install Angular
+```python
+npm install -g @angular/cli
+ng serve --open. => build
+```
 3. Install MongoDB (https://medium.com/better-programming/installing-mongodb-on-macos-catalina-aab1cbe0c836)
 ```python
 brew tap mongodb/brew
