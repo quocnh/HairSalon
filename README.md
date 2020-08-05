@@ -15,7 +15,7 @@ ng serve --open. => build
 brew tap mongodb/brew
 brew install mongodb-community
 brew services start mongodb-community 
-Note: you can create data/db anywhere and don't forget to add the path using the command below 
+Note: you can create data/db folder (sudo mkdir -p data/db) anywhere and don't forget to add the path using the command below 
 => sudo mongod --dbpath /System/Volumes/Data/data/db
 => mongod
 => mongo
