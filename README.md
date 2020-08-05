@@ -44,5 +44,7 @@ npm install --save-dev @angular-devkit/build-angular
 ng generate component pages/<"page_name">
 ```
 # import/export mongodb
+```python
 mongoimport --host="localhost" --port=27017 --collection=salonowners --db=salondbmanager --file=salonowners.json
 mongoexport --host="localhost" --port=27017 --collection=salonowners --db=salondbmanager --out=salonowners.json
+```
