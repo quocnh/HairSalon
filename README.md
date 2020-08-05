@@ -1,5 +1,5 @@
 # hairsalon
-# prerequisite
+# prerequisite (this guide for macOs environment)
 0. Clone the source 
 1. Install NodeJS
 ```python
