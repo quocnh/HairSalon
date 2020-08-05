@@ -17,7 +17,9 @@ brew services start mongodb-community
 => sudo mongod --dbpath /System/Volumes/Data/data/db
 => mongod
 => mongo
+=> Connect to database: url = 'mongodb://localhost:27017/salondbmanager'
 ```
+
 4. Install express
 ```python
  npm install express
