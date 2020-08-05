@@ -1,5 +1,6 @@
 # hairsalon
 # prerequisite
+0. Clone the source 
 1. Install NodeJS
 ```python
 brew install node
@@ -24,6 +25,10 @@ brew services start mongodb-community
 ```python
  npm install express
  ```
+5. Install Angular dependency 
+```python
+npm install --save-dev @angular-devkit/build-angular
+```
 # how to run
 1. How to run frontend > cd frontend > npm start
 2. How to run backend > cd backend > nodemon app.js
