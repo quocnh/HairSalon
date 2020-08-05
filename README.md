@@ -18,6 +18,10 @@ brew services start mongodb-community
 => mongod
 => mongo
 ```
+4. Install express
+```python
+ npm install express
+ ```
 # how to run
 1. How to run frontend > cd frontend > npm start
 2. How to run backend > cd backend > nodemon app.js
