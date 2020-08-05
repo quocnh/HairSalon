@@ -19,7 +19,12 @@ Note: you can create data/db folder (sudo mkdir -p data/db) anywhere and don't f
 => sudo mongod --dbpath /System/Volumes/Data/data/db
 => mongod
 => mongo
+=> show all db: show dbs
+=> select db: use "db_name"
+=> show all collections: show collections
 => Connect to database: url = 'mongodb://localhost:27017/salondbmanager'
+* Install mongoexport
+brew install mongodb/brew/mongodb-database-tools
 ```
 
 4. Install express
@@ -30,6 +35,7 @@ Note: you can create data/db folder (sudo mkdir -p data/db) anywhere and don't f
 ```python
 npm install --save-dev @angular-devkit/build-angular
 ```
+
 # how to run
 1. How to run frontend > cd frontend > npm start
 2. How to run backend > cd backend > nodemon app.js
@@ -37,3 +43,6 @@ npm install --save-dev @angular-devkit/build-angular
 ```python
 ng generate component pages/<"page_name">
 ```
+# import/export mongodb
+mongoimport --host="localhost" --port=27017 --collection=salonowners --db=salondbmanager --file=salonowners.json
+mongoexport --host="localhost" --port=27017 --collection=salonowners --db=salondbmanager --out=salonowners.json
