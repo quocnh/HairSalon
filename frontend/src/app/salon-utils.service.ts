@@ -13,6 +13,7 @@ export class SalonUtilsService {
   }
 
   createSalonOwner(name: string) {
+    console.log('Insert new salon Owner' + name);
     return this.webService.post('salonOwners', { name });
   }
 
