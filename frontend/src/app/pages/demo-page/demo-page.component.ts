@@ -3,6 +3,7 @@ import SalonOwner from '../../module/salonOwner';
 import { SalonUtilsService } from '../../salon-utils.service';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddNewSalonOwnerComponent } from '../../popup/add-new-salon-owner/add-new-salon-owner.component';
+import { DeleteSalonOwnerComponent } from '../../popup/delete-salon-owner/delete-salon-owner.component';
 
 @Component({
   selector: 'app-demo-page',
@@ -13,7 +14,10 @@ export class DemoPageComponent implements OnInit {
 
   salonOwners: SalonOwner[] = [];
   addedSalonOwner: SalonOwner;
+  salonOwner: SalonOwner;
   name: string;
+  public deletedSalonOwner: SalonOwner;
+
   constructor(
     private salonUtilService: SalonUtilsService,
     private modalService: NgbModal
@@ -24,7 +28,6 @@ export class DemoPageComponent implements OnInit {
   }
 
   createNewSalonOwner() {
-    console.log('Create new salon owner');
     // TODO: Implement create new salon owner form popup
     const ref = this.modalService.open(AddNewSalonOwnerComponent);
 
@@ -37,6 +40,27 @@ export class DemoPageComponent implements OnInit {
         this.salonUtilService.createSalonOwner(this.name).subscribe();
         this.refreshSalonOwnerList();
       }
+    },
+    (cancel) => {
+      console.log('cancel click');
+    })
+  }
+
+  deleteSalonOwner(ownerId: string) {
+    // TODO: Implement create new salon owner form popup
+    console.log('Delete owner ' + ownerId);
+    this.salonUtilService.getOneSalonOwner(ownerId)
+      .subscribe((salonOwner: SalonOwner) => this.salonOwner = salonOwner);
+
+      console.log('Delete owner ' + this.salonOwner);
+
+    const ref = this.modalService.open(DeleteSalonOwnerComponent);
+    ref.componentInstance.deletedSalonOwner = this.salonOwner;
+
+    ref.result.then((yes) => {
+      console.log('Delete owner ' + ownerId);
+      this.salonUtilService.deleteSalonOwner(ownerId).subscribe();
+      this.refreshSalonOwnerList();
     },
     (cancel) => {
       console.log('cancel click');

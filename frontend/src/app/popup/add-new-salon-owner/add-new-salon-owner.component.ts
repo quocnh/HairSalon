@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import SalonOwner from '../../module/salonOwner';
-import { SalonUtilsService } from '../../salon-utils.service';
 
 @Component({
   selector: 'app-add-new-salon-owner',

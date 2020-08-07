@@ -17,13 +17,17 @@ import { SalonViewComponent } from './pages/salon-view/salon-view.component';
 import { AddNewSalonOwnerComponent } from './popup/add-new-salon-owner/add-new-salon-owner.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AddNewSalonComponent } from './popup/add-new-salon/add-new-salon.component';
+import { DeleteSalonOwnerComponent } from './popup/delete-salon-owner/delete-salon-owner.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AddNewSalonOwnerComponent
+    AddNewSalonOwnerComponent,
+    AddNewSalonComponent,
+    DeleteSalonOwnerComponent
   ],
   imports: [
     BrowserAnimationsModule,

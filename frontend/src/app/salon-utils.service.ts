@@ -12,6 +12,11 @@ export class SalonUtilsService {
     return this.webService.get('salonOwners');
   }
 
+  getOneSalonOwner(ownerId: string) {
+    console.log('LARRY ownerId= ' + ownerId);
+    return this.webService.get(`salonOwners/${ownerId}`);
+  }
+
   createSalonOwner(name: string) {
     console.log('Insert new salon Owner' + name);
     return this.webService.post('salonOwners', { name });
@@ -22,15 +27,15 @@ export class SalonUtilsService {
     return this.webService.get(`salonOwners/${ownerId}/salons`);
   }
 
-  createTasks(ownerId: string, name: string) {
+  createSalons(ownerId: string, name: string) {
     return this.webService.post( `salonOwners/${ownerId}/salons`, { name });
   }
 
-  deleteList(ownerId: string) {
+  deleteSalonOwner(ownerId: string) {
     return this.webService.delete(`salonOwners/${ownerId}`);
   }
 
-  deleteTask(ownerId: string, salonId: string) {
+  deleteSalons(ownerId: string, salonId: string) {
     return this.webService.delete(`salonOwners/${ownerId}/salons/${salonId}`);
   }
 
