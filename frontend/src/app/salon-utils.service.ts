@@ -13,7 +13,7 @@ export class SalonUtilsService {
   }
 
   getOneSalonOwner(ownerId: string) {
-    console.log('LARRY ownerId= ' + ownerId);
+    console.log('LARRY ownerId= ' + this.webService.get(`salonOwners/${ownerId}`));
     return this.webService.get(`salonOwners/${ownerId}`);
   }
 

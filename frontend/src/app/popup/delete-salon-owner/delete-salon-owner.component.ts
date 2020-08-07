@@ -14,7 +14,7 @@ export class DeleteSalonOwnerComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('delete ' + this.deletedSalonOwner);
+     console.log('delete ' + this.deletedSalonOwner);
   }
 
 }

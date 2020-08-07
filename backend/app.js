@@ -38,13 +38,13 @@ app.post('/salonOwners', (req, res) => {
 
 app.get('/salonOwners/:salonOwnerId', (req, res) => {
     SalonOwner.find({ _id: req.params.salonOwnerId})
-        .then(salonOwners => res.send(salonOwners))
+        .then(salonOwner => res.send(salonOwner))
         .catch((error) => console.log(error));
 });
 
 app.patch('/salonOwners/:salonOwnerId', (req, res) => {
     SalonOwner.findOneAndUpdate({ '_id': req.params.salonOwnerId}, {$set: req.body})
-        .then(salonOwners => res.send(salonOwners))
+        .then(salonOwner => res.send(salonOwner))
         .catch((error) => console.log(error));
 });
 

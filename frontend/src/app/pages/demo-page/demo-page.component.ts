@@ -49,28 +49,27 @@ export class DemoPageComponent implements OnInit {
   deleteSalonOwner(ownerId: string) {
     // TODO: Implement create new salon owner form popup
     console.log('Delete owner ' + ownerId);
+
+
     this.salonUtilService.getOneSalonOwner(ownerId)
-      .subscribe((salonOwner: SalonOwner) => this.salonOwner = salonOwner);
+      .subscribe((salonOwners: SalonOwner[]) =>  {
+        this.deletedSalonOwner = salonOwners[0];
 
-      console.log('Delete owner ' + this.salonOwner);
-
-    const ref = this.modalService.open(DeleteSalonOwnerComponent);
-    ref.componentInstance.deletedSalonOwner = this.salonOwner;
-
-    ref.result.then((yes) => {
-      console.log('Delete owner ' + ownerId);
-      this.salonUtilService.deleteSalonOwner(ownerId).subscribe();
-      this.refreshSalonOwnerList();
-    },
-    (cancel) => {
-      console.log('cancel click');
-    })
+        const ref = this.modalService.open(DeleteSalonOwnerComponent);
+        ref.componentInstance.deletedSalonOwner = this.deletedSalonOwner;
+        ref.result.then((yes) => {
+          this.salonUtilService.deleteSalonOwner(ownerId).subscribe();
+          this.refreshSalonOwnerList();
+        },
+        (cancel) => {
+          console.log('cancel click');
+        })
+      });
   }
 
   refreshSalonOwnerList() {
     this.salonUtilService.getSalonOwners()
       .subscribe((salonOwners: SalonOwner[]) => this.salonOwners = salonOwners);
-
   }
 
 }
