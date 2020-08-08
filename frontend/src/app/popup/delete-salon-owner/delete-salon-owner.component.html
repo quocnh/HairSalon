@@ -5,7 +5,8 @@
     </button>
   </div>
   <div class="modal-body">
-    <p><strong>Bạn có muốn xóa tài khoản chủ salon <input [(ngModel)]="deletedSalonOwner.name" class="text-primary"> không?</strong></p>
+      <input [(ngModel)]="deletedSalonOwner.name" type="hidden">
+    <p><strong>Bạn có muốn xóa tài khoản chủ salon "{{deletedSalonOwner.name}}" không?</strong></p>
     <p>Tất cả thông tin của chủ salon sẽ bị xóa vĩnh viễn.
     <span class="text-danger">Tài khoản chủ salon sẽ không thể phục hồi.</span>
     </p>
