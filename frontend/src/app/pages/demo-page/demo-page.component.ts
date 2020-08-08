@@ -48,13 +48,11 @@ export class DemoPageComponent implements OnInit {
 
   deleteSalonOwner(ownerId: string) {
     // TODO: Implement create new salon owner form popup
-    console.log('Delete owner ' + ownerId);
-
 
     this.salonUtilService.getOneSalonOwner(ownerId)
       .subscribe((salonOwners: SalonOwner[]) =>  {
         this.deletedSalonOwner = salonOwners[0];
-
+        console.log('Delete owner ' + this.deletedSalonOwner.name);
         const ref = this.modalService.open(DeleteSalonOwnerComponent);
         ref.componentInstance.deletedSalonOwner = this.deletedSalonOwner;
         ref.result.then((yes) => {

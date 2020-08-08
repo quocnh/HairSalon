@@ -19,6 +19,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddNewSalonComponent } from './popup/add-new-salon/add-new-salon.component';
 import { DeleteSalonOwnerComponent } from './popup/delete-salon-owner/delete-salon-owner.component';
+import { DeleteSalonComponent } from './popup/delete-salon/delete-salon.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { DeleteSalonOwnerComponent } from './popup/delete-salon-owner/delete-sal
     AdminLayoutComponent,
     AddNewSalonOwnerComponent,
     AddNewSalonComponent,
-    DeleteSalonOwnerComponent
+    DeleteSalonOwnerComponent,
+    DeleteSalonComponent
   ],
   imports: [
     BrowserAnimationsModule,

@@ -227,6 +227,35 @@
     }
 }
 
+.btn-salonCard {
+    @include btn-styles($white-color, $white-color);
+    color: $default-color;
+    &:hover,
+    &:focus{
+        background-color: $info-color !important;
+    }
+
+    &.btn-border{
+        &:hover,
+        &:focus{
+            color: $default-color;
+        }
+
+        &:active,
+        &.active,
+        .open > &.dropdown-toggle{
+             background-color: $white-color;
+             color: $default-color;
+        }
+    }
+
+    &.btn-link:active,
+    &.btn-link.active{
+        background-color: transparent;
+    }
+}
+
+
 .no-caret {
   &.dropdown-toggle::after {
     display: none;

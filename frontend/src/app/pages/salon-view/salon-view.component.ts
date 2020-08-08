@@ -5,6 +5,7 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddNewSalonComponent } from '../../popup/add-new-salon/add-new-salon.component';
+import { DeleteSalonComponent } from '../../popup/delete-salon/delete-salon.component';
 
 @Component({
   selector: 'app-salon-view',
@@ -16,6 +17,7 @@ export class SalonViewComponent implements OnInit {
   salons: Salon[] = [];
   name: string;
   ownerId: string;
+  public deletedSalon: Salon;
 
   constructor(
     private salonUtilService: SalonUtilsService,
@@ -53,6 +55,25 @@ export class SalonViewComponent implements OnInit {
     (cancel) => {
       console.log('cancel click');
     })
+  }
+
+  deleteSalon(salonId: string) {
+    // TODO: Implement create new salon owner form popup
+
+    this.salonUtilService.getOneSalon(this.ownerId, salonId)
+      .subscribe((salons: Salon[]) =>  {
+        this.deletedSalon = salons[0];
+        console.log('Delete owner ' + this.deletedSalon.name);
+        const ref = this.modalService.open(DeleteSalonComponent);
+        ref.componentInstance.deletedSalon = this.deletedSalon;
+        ref.result.then((yes) => {
+          this.salonUtilService.deleteSalons(this.ownerId, salonId).subscribe();
+          this.refreshSalonList();
+        },
+        (cancel) => {
+          console.log('cancel click');
+        })
+      });
   }
 
   refreshSalonList() {

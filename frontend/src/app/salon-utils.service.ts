@@ -13,18 +13,21 @@ export class SalonUtilsService {
   }
 
   getOneSalonOwner(ownerId: string) {
-    console.log('LARRY ownerId= ' + this.webService.get(`salonOwners/${ownerId}`));
     return this.webService.get(`salonOwners/${ownerId}`);
   }
 
   createSalonOwner(name: string) {
-    console.log('Insert new salon Owner' + name);
+    console.log('Create a new salon Owner: ' + name);
     return this.webService.post('salonOwners', { name });
   }
 
   getSalons(ownerId: string) {
-    console.log('LARRY ownerId= ' + ownerId);
+    console.log('Get Salons from ownerId:' + ownerId);
     return this.webService.get(`salonOwners/${ownerId}/salons`);
+  }
+
+  getOneSalon(ownerId: string, salonId: string) {
+    return this.webService.get(`salonOwners/${ownerId}/salons/${salonId}`);
   }
 
   createSalons(ownerId: string, name: string) {
