@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import SalonOwner from '../../module/salonOwner';
 import { SalonUtilsService } from '../../salon-utils.service';
@@ -6,11 +7,12 @@ import { AddNewSalonOwnerComponent } from '../../popup/add-new-salon-owner/add-n
 import { DeleteSalonOwnerComponent } from '../../popup/delete-salon-owner/delete-salon-owner.component';
 
 @Component({
-  selector: 'app-demo-page',
+  selector: 'app-salon-owners-list',
   moduleId: module.id,
-  templateUrl: 'demo-page.component.html'
+  templateUrl: 'salon-owners-list.component.html'
 })
-export class DemoPageComponent implements OnInit {
+
+export class SalonOwnersListComponent implements OnInit {
 
   salonOwners: SalonOwner[] = [];
   addedSalonOwner: SalonOwner;
@@ -24,7 +26,7 @@ export class DemoPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.refreshSalonOwnerList();
+    this.refreshSalonOwnersList();
   }
 
   createNewSalonOwner() {
@@ -38,7 +40,7 @@ export class DemoPageComponent implements OnInit {
         // this.addedSalonOwner.name = result;
 
         this.salonUtilService.createSalonOwner(this.name).subscribe();
-        this.refreshSalonOwnerList();
+        this.refreshSalonOwnersList();
       }
     },
     (cancel) => {
@@ -57,7 +59,7 @@ export class DemoPageComponent implements OnInit {
         ref.componentInstance.deletedSalonOwner = this.deletedSalonOwner;
         ref.result.then((yes) => {
           this.salonUtilService.deleteSalonOwner(ownerId).subscribe();
-          this.refreshSalonOwnerList();
+          this.refreshSalonOwnersList();
         },
         (cancel) => {
           console.log('cancel click');
@@ -65,7 +67,7 @@ export class DemoPageComponent implements OnInit {
       });
   }
 
-  refreshSalonOwnerList() {
+  refreshSalonOwnersList() {
     this.salonUtilService.getSalonOwners()
       .subscribe((salonOwners: SalonOwner[]) => this.salonOwners = salonOwners);
   }

@@ -16,7 +16,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/user',          title: 'User Profile',      icon: 'nc-single-02',  class: '' },
     { path: '/table',         title: 'Table List',        icon: 'nc-tile-56',    class: '' },
     { path: '/typography',    title: 'Typography',        icon: 'nc-caps-small', class: '' },
-    { path: '/demopage',      title: 'DemoPage',          icon: 'nc-scissors',   class: '' },
+    { path: '/salonOwnersList',      title: 'Danh sách chủ salon',          icon: 'nc-scissors',   class: '' },
 ];
 
 @Component({

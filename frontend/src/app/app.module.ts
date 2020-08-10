@@ -20,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddNewSalonComponent } from './popup/add-new-salon/add-new-salon.component';
 import { DeleteSalonOwnerComponent } from './popup/delete-salon-owner/delete-salon-owner.component';
 import { DeleteSalonComponent } from './popup/delete-salon/delete-salon.component';
+import { CustomerViewComponent } from './pages/customer-view/customer-view.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { DeleteSalonComponent } from './popup/delete-salon/delete-salon.componen
     AddNewSalonOwnerComponent,
     AddNewSalonComponent,
     DeleteSalonOwnerComponent,
-    DeleteSalonComponent
+    DeleteSalonComponent,
+    CustomerViewComponent
   ],
   imports: [
     BrowserAnimationsModule,

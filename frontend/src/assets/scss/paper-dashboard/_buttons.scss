@@ -232,7 +232,7 @@
     color: $default-color;
     &:hover,
     &:focus{
-        background-color: $info-color !important;
+        border: 2px solid $info-color !important;
     }
 
     &.btn-border{

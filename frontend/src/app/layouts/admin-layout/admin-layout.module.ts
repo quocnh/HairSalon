@@ -14,7 +14,7 @@ import { MapsComponent } from '../../pages/maps/maps.component';
 import { NotificationsComponent } from '../../pages/notifications/notifications.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DemoPageComponent } from '../../pages/demo-page/demo-page.component';
+import { SalonOwnersListComponent } from '../../pages/salon-owners-list/salon-owners-list.component';
 import { SalonViewComponent } from '../../pages/salon-view/salon-view.component';
 
 @NgModule({
@@ -25,7 +25,7 @@ import { SalonViewComponent } from '../../pages/salon-view/salon-view.component'
     NgbModule
   ],
   declarations: [
-    DemoPageComponent,
+    SalonOwnersListComponent,
     DashboardComponent,
     UserComponent,
     TableComponent,
