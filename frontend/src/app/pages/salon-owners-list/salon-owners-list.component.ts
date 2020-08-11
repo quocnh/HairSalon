@@ -9,7 +9,7 @@ import { DeleteSalonOwnerComponent } from '../../popup/delete-salon-owner/delete
 @Component({
   selector: 'app-salon-owners-list',
   moduleId: module.id,
-  templateUrl: 'salon-owners-list.component.html'
+  templateUrl: './salon-owners-list.component.html'
 })
 
 export class SalonOwnersListComponent implements OnInit {

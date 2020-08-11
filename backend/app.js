@@ -86,4 +86,36 @@ app.delete('/salonOwners/:salonOwnerId/salons/:salonId', (req, res) => {
         .catch((error) => console.log(error));
 });
 
+// Customer
+app.get('/customers', (req, res) => {
+    Customer.find({})
+        .then(customers => res.send(customers))
+        .catch((error) => console.log(error));
+});
+
+app.post('/customers', (req, res) => {
+    (new Customer({ 'name': req.body.name}))
+    .save()
+    .then(customers => res.send(customers))
+    .catch((error) => console.log(error));
+});
+
+app.get('/customers/:customerId', (req, res) => {
+    Customer.find({ _id: req.params.customerId})
+        .then(customer => res.send(customer))
+        .catch((error) => console.log(error));
+});
+
+app.patch('/customers/:customerId', (req, res) => {
+    Customer.findOneAndUpdate({ '_id': req.params.customerId}, {$set: req.body})
+        .then(customer => res.send(customer))
+        .catch((error) => console.log(error));
+});
+
+app.delete('/customers/:customerId', (req, res) => {
+    Customer.findByIdAndDelete(req.params.customerId)
+        .then(customer => res.send(customer))
+        .catch((error) => console.log(error));
+});
+
 app.listen(3000, () => console.log("Server Connected on port 3000"));

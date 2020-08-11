@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 
 
@@ -17,6 +18,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/table',         title: 'Table List',        icon: 'nc-tile-56',    class: '' },
     { path: '/typography',    title: 'Typography',        icon: 'nc-caps-small', class: '' },
     { path: '/salonOwnersList',      title: 'Danh sách chủ salon',          icon: 'nc-scissors',   class: '' },
+    { path: '/customersList',      title: 'Danh sách khách hàng',          icon: 'nc-scissors',   class: '' },
 ];
 
 @Component({

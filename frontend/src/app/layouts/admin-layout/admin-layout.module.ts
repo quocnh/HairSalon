@@ -16,6 +16,7 @@ import { NotificationsComponent } from '../../pages/notifications/notifications.
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SalonOwnersListComponent } from '../../pages/salon-owners-list/salon-owners-list.component';
 import { SalonViewComponent } from '../../pages/salon-view/salon-view.component';
+import { CustomersListComponent } from '../../pages/customers-list/customers-list.component';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { SalonViewComponent } from '../../pages/salon-view/salon-view.component'
   ],
   declarations: [
     SalonOwnersListComponent,
+    CustomersListComponent,
     DashboardComponent,
     UserComponent,
     TableComponent,
@@ -33,7 +35,7 @@ import { SalonViewComponent } from '../../pages/salon-view/salon-view.component'
     IconsComponent,
     MapsComponent,
     NotificationsComponent,
-    SalonViewComponent
+    SalonViewComponent,
   ]
 })
 

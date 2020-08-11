@@ -21,6 +21,8 @@ import { AddNewSalonComponent } from './popup/add-new-salon/add-new-salon.compon
 import { DeleteSalonOwnerComponent } from './popup/delete-salon-owner/delete-salon-owner.component';
 import { DeleteSalonComponent } from './popup/delete-salon/delete-salon.component';
 import { CustomerViewComponent } from './pages/customer-view/customer-view.component';
+import { AddNewCustomerComponent } from './popup/add-new-customer/add-new-customer.component';
+import { DeleteCustomerComponent } from './popup/delete-customer/delete-customer.component';
 
 
 @NgModule({
@@ -31,7 +33,9 @@ import { CustomerViewComponent } from './pages/customer-view/customer-view.compo
     AddNewSalonComponent,
     DeleteSalonOwnerComponent,
     DeleteSalonComponent,
-    CustomerViewComponent
+    CustomerViewComponent,
+    AddNewCustomerComponent,
+    DeleteCustomerComponent
   ],
   imports: [
     BrowserAnimationsModule,
