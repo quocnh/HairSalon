@@ -20,6 +20,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'maps',           component: MapsComponent },
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'salonOwnersList',      component: SalonOwnersListComponent },
-    { path: 'owner/:ownerId',      component: SalonViewComponent },
-    { path: 'customersList',      component: CustomersListComponent },
+    { path: 'owner/:ownerId',       component: SalonViewComponent },
+    { path: 'customersList',        component: CustomersListComponent },
+    { path: 'salons',               component: SalonViewComponent },
 ];

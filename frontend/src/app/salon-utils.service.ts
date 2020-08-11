@@ -32,6 +32,11 @@ export class SalonUtilsService {
     return this.webService.get(`salonOwners/${ownerId}/salons`);
   }
 
+  getAllSalons() {
+    console.log('Get all Salons');
+    return this.webService.get(`salons`);
+  }
+
   getOneSalon(ownerId: string, salonId: string) {
     return this.webService.get(`salonOwners/${ownerId}/salons/${salonId}`);
   }

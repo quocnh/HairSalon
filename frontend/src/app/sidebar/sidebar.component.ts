@@ -19,6 +19,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/typography',    title: 'Typography',        icon: 'nc-caps-small', class: '' },
     { path: '/salonOwnersList',      title: 'Danh sách chủ salon',          icon: 'nc-scissors',   class: '' },
     { path: '/customersList',      title: 'Danh sách khách hàng',          icon: 'nc-scissors',   class: '' },
+    { path: '/salons',      title: 'Danh sách salon',          icon: 'nc-scissors',   class: '' },
 ];
 
 @Component({

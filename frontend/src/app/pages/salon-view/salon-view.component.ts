@@ -17,6 +17,7 @@ export class SalonViewComponent implements OnInit {
   salons: Salon[] = [];
   name: string;
   ownerId: string;
+  isListAllSalons: boolean;
   public deletedSalon: Salon;
 
   constructor(
@@ -30,9 +31,12 @@ export class SalonViewComponent implements OnInit {
     this.route.params.subscribe((param: Params) => {
       this.ownerId = param.ownerId;
       if (!this.ownerId) {
-        return;
+        this.isListAllSalons = true;
+        this.refreshAllSalonList();
+      } else {
+        this.refreshSalonList();
+        this.isListAllSalons = false;
       }
-      this.refreshSalonList();
     });
 
   }
@@ -78,6 +82,10 @@ export class SalonViewComponent implements OnInit {
 
   refreshSalonList() {
     this.salonUtilService.getSalons(this.ownerId).subscribe((salons: Salon[]) => this.salons = salons);
+  }
+
+  refreshAllSalonList() {
+    this.salonUtilService.getAllSalons().subscribe((salons: Salon[]) => this.salons = salons);
   }
 
 }

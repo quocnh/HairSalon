@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="!isListAllSalons; else elseBlock">
     <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let salon of salons">
         <div class="btn btn-salonCard card card-stats" >
             <div class="card-body ">
@@ -49,5 +49,56 @@
             </div>
         </div>
     </div>
-</div>   
+</div>
+<ng-template #elseBlock>
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title"> Danh sách salon</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class=" text-primary">
+                      <th>
+                        Name
+                      </th>
+                      <th>
+                        Id
+                      </th>
+                      <th>
+                        Email
+                      </th>    
+                    </thead>
+                    <tbody>
+                        
+                        <tr *ngFor="let salon of salons">
+                            
+                            <td>
+                                <a href="#/salon/{{salon._id}}">{{ salon.name }}</a>
+                            </td>
+                            <td>
+                                id-{{ salon.name }}
+                            </td>
+                            <td>
+                                {{ salon.name }}@email.com
+                            </td>
+                            <td >
+                                <p class="btn btn-primary pull-right" (click)= "deleteSalon(salon._id)"> Xóa </p>
+                                <p class="pull-right"> &#160; </p>
+                                <p class="btn btn-primary pull-right"> Sửa </p>
+                            </td>
+                        </tr>
+                      
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>   
+      
+</ng-template>
   

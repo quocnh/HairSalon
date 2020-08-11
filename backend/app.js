@@ -74,6 +74,12 @@ app.get('/salonOwners/:salonOwnerId/salons/:salonId', (req, res) => {
         .catch((error) => console.log(error));
 });
 
+app.get('/salons', (req, res) => {
+    Salon.find({})
+        .then(salons => res.send(salons))
+        .catch((error) => console.log(error));
+});
+
 app.patch('/salonOwners/:salonOwnerId/salons/:salonId', (req, res) => {
     Salon.findOneAndUpdate({ _salonOwnerId: req.params.salonOwnerId, _id:req.params.salonId}, {$set: req.body})
         .then(salon => res.send(salon))
