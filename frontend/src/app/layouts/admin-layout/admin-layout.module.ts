@@ -17,6 +17,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SalonOwnersListComponent } from '../../pages/salon-owners-list/salon-owners-list.component';
 import { SalonViewComponent } from '../../pages/salon-view/salon-view.component';
 import { CustomersListComponent } from '../../pages/customers-list/customers-list.component';
+import { DistributorViewComponent } from '../../pages/distributor-view/distributor-view.component';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { CustomersListComponent } from '../../pages/customers-list/customers-lis
   declarations: [
     SalonOwnersListComponent,
     CustomersListComponent,
+    DistributorViewComponent,
     DashboardComponent,
     UserComponent,
     TableComponent,

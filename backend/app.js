@@ -124,4 +124,36 @@ app.delete('/customers/:customerId', (req, res) => {
         .catch((error) => console.log(error));
 });
 
+// Distributor
+app.get('/distributors', (req, res) => {
+    Distributor.find({})
+        .then(distributors => res.send(distributors))
+        .catch((error) => console.log(error));
+});
+
+app.post('/distributors', (req, res) => {
+    (new Distributor({ 'name': req.body.name}))
+    .save()
+    .then(distributors => res.send(distributors))
+    .catch((error) => console.log(error));
+});
+
+app.get('/distributors/:distributorId', (req, res) => {
+    Distributor.find({ _id: req.params.distributorId})
+        .then(distributor => res.send(distributor))
+        .catch((error) => console.log(error));
+});
+
+app.patch('/distributors/:distributorId', (req, res) => {
+    Distributor.findOneAndUpdate({ '_id': req.params.distributorId}, {$set: req.body})
+        .then(distributor => res.send(distributor))
+        .catch((error) => console.log(error));
+});
+
+app.delete('/distributors/:distributorId', (req, res) => {
+    Distributor.findByIdAndDelete(req.params.distributorId)
+        .then(distributor => res.send(distributor))
+        .catch((error) => console.log(error));
+});
+
 app.listen(3000, () => console.log("Server Connected on port 3000"));

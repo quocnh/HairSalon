@@ -65,4 +65,21 @@ export class SalonUtilsService {
   deleteCustomers(customerId: string) {
     return this.webService.delete(`customers/${customerId}`);
   }
+
+  // Distributor
+  getDistributors() {
+    return this.webService.get(`distributors`);
+  }
+
+  getOneDistributor(distributorId: string) {
+    return this.webService.get(`distributors/${distributorId}`);
+  }
+
+  createDistributor(name: string) {
+    return this.webService.post( `distributors`, { name });
+  }
+
+  deleteDistributors(distributorId: string) {
+    return this.webService.delete(`distributors/${distributorId}`);
+  }
 }

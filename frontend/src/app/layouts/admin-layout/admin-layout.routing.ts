@@ -10,6 +10,7 @@ import { NotificationsComponent } from '../../pages/notifications/notifications.
 import { SalonOwnersListComponent } from '../../pages/salon-owners-list/salon-owners-list.component';
 import { SalonViewComponent } from '../../pages/salon-view/salon-view.component';
 import { CustomersListComponent } from '../../pages/customers-list/customers-list.component';
+import { DistributorViewComponent } from '../../pages/distributor-view/distributor-view.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -23,4 +24,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'owner/:ownerId',       component: SalonViewComponent },
     { path: 'customersList',        component: CustomersListComponent },
     { path: 'salons',               component: SalonViewComponent },
+    { path: 'distributors',         component: DistributorViewComponent },
 ];
