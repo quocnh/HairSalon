@@ -6,10 +6,6 @@ const SalonOwnerSchema = new mongoose.Schema({
         type: String,
         trim: true,
         minlength: 3
-    },
-    _salonId: {
-        type: mongoose.Types.ObjectId,
-        require: true
     }
 });
 

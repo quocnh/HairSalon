@@ -14,12 +14,34 @@ import { AppRoutes } from './app.routing';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { SalonViewComponent } from './pages/salon-view/salon-view.component';
+import { AddNewSalonOwnerComponent } from './popup/add-new-salon-owner/add-new-salon-owner.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AddNewSalonComponent } from './popup/add-new-salon/add-new-salon.component';
+import { DeleteSalonOwnerComponent } from './popup/delete-salon-owner/delete-salon-owner.component';
+import { DeleteSalonComponent } from './popup/delete-salon/delete-salon.component';
+import { CustomerViewComponent } from './pages/customer-view/customer-view.component';
+import { AddNewCustomerComponent } from './popup/add-new-customer/add-new-customer.component';
+import { DeleteCustomerComponent } from './popup/delete-customer/delete-customer.component';
+import { AddNewDistributorComponent } from './popup/add-new-distributor/add-new-distributor.component';
+import { DeleteDistributorComponent } from './popup/delete-distributor/delete-distributor.component';
+import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
+    AddNewSalonOwnerComponent,
+    AddNewSalonComponent,
+    DeleteSalonOwnerComponent,
+    DeleteSalonComponent,
+    CustomerViewComponent,
+    AddNewCustomerComponent,
+    DeleteCustomerComponent,
+    AddNewDistributorComponent,
+    DeleteDistributorComponent,
+    MainLayoutComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -31,7 +53,10 @@ import { SalonViewComponent } from './pages/salon-view/salon-view.component';
     ToastrModule.forRoot(),
     FooterModule,
     FixedPluginModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

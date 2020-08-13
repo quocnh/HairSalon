@@ -38,13 +38,13 @@ app.post('/salonOwners', (req, res) => {
 
 app.get('/salonOwners/:salonOwnerId', (req, res) => {
     SalonOwner.find({ _id: req.params.salonOwnerId})
-        .then(salonOwners => res.send(salonOwners))
+        .then(salonOwner => res.send(salonOwner))
         .catch((error) => console.log(error));
 });
 
 app.patch('/salonOwners/:salonOwnerId', (req, res) => {
     SalonOwner.findOneAndUpdate({ '_id': req.params.salonOwnerId}, {$set: req.body})
-        .then(salonOwners => res.send(salonOwners))
+        .then(salonOwner => res.send(salonOwner))
         .catch((error) => console.log(error));
 });
 
@@ -74,6 +74,12 @@ app.get('/salonOwners/:salonOwnerId/salons/:salonId', (req, res) => {
         .catch((error) => console.log(error));
 });
 
+app.get('/salons', (req, res) => {
+    Salon.find({})
+        .then(salons => res.send(salons))
+        .catch((error) => console.log(error));
+});
+
 app.patch('/salonOwners/:salonOwnerId/salons/:salonId', (req, res) => {
     Salon.findOneAndUpdate({ _salonOwnerId: req.params.salonOwnerId, _id:req.params.salonId}, {$set: req.body})
         .then(salon => res.send(salon))
@@ -83,6 +89,70 @@ app.patch('/salonOwners/:salonOwnerId/salons/:salonId', (req, res) => {
 app.delete('/salonOwners/:salonOwnerId/salons/:salonId', (req, res) => {
     Salon.findByIdAndDelete({ _salonOwnerId: req.params.salonOwnerId, _id:req.params.salonId})
         .then(salon => res.send(salon))
+        .catch((error) => console.log(error));
+});
+
+// Customer
+app.get('/customers', (req, res) => {
+    Customer.find({})
+        .then(customers => res.send(customers))
+        .catch((error) => console.log(error));
+});
+
+app.post('/customers', (req, res) => {
+    (new Customer({ 'name': req.body.name}))
+    .save()
+    .then(customers => res.send(customers))
+    .catch((error) => console.log(error));
+});
+
+app.get('/customers/:customerId', (req, res) => {
+    Customer.find({ _id: req.params.customerId})
+        .then(customer => res.send(customer))
+        .catch((error) => console.log(error));
+});
+
+app.patch('/customers/:customerId', (req, res) => {
+    Customer.findOneAndUpdate({ '_id': req.params.customerId}, {$set: req.body})
+        .then(customer => res.send(customer))
+        .catch((error) => console.log(error));
+});
+
+app.delete('/customers/:customerId', (req, res) => {
+    Customer.findByIdAndDelete(req.params.customerId)
+        .then(customer => res.send(customer))
+        .catch((error) => console.log(error));
+});
+
+// Distributor
+app.get('/distributors', (req, res) => {
+    Distributor.find({})
+        .then(distributors => res.send(distributors))
+        .catch((error) => console.log(error));
+});
+
+app.post('/distributors', (req, res) => {
+    (new Distributor({ 'name': req.body.name}))
+    .save()
+    .then(distributors => res.send(distributors))
+    .catch((error) => console.log(error));
+});
+
+app.get('/distributors/:distributorId', (req, res) => {
+    Distributor.find({ _id: req.params.distributorId})
+        .then(distributor => res.send(distributor))
+        .catch((error) => console.log(error));
+});
+
+app.patch('/distributors/:distributorId', (req, res) => {
+    Distributor.findOneAndUpdate({ '_id': req.params.distributorId}, {$set: req.body})
+        .then(distributor => res.send(distributor))
+        .catch((error) => console.log(error));
+});
+
+app.delete('/distributors/:distributorId', (req, res) => {
+    Distributor.findByIdAndDelete(req.params.distributorId)
+        .then(distributor => res.send(distributor))
         .catch((error) => console.log(error));
 });
 
