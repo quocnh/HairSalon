@@ -2,6 +2,10 @@
 const express = require('express');
 const app = express();
 const mongoose = require('./database/mongoose');
+const salonOwnerRoutes = require('./routes/salonOwner');
+const salonRoutes = require('./routes/salon');
+const customerRoutes = require('./routes/customer');
+const distributorRoutes = require('./routes/distributor');
 /*
 localhost:3000 - backend api
 localhost:4200 - frontent 
@@ -11,6 +15,7 @@ const Distributor = require('./database/models/distributor');
 const Item = require('./database/models/item');
 const Salon = require('./database/models/salon');
 const SalonOwner = require('./database/models/salonOwner');
+const customerRouter = require('./routes/customer');
 app.use(express.json());
 
 app.use((req, res, next) => {
@@ -23,137 +28,10 @@ app.use((req, res, next) => {
 /*
 Create, Update, ReadOne, ReadAll, Delete
 */
-app.get('/salonOwners', (req, res) => {
-    SalonOwner.find({})
-        .then(salonOwners => res.send(salonOwners))
-        .catch((error) => console.log(error));
-});
 
-app.post('/salonOwners', (req, res) => {
-    (new SalonOwner({ 'name': req.body.name}))
-    .save()
-    .then(salonOwners => res.send(salonOwners))
-    .catch((error) => console.log(error));
-});
-
-app.get('/salonOwners/:salonOwnerId', (req, res) => {
-    SalonOwner.find({ _id: req.params.salonOwnerId})
-        .then(salonOwner => res.send(salonOwner))
-        .catch((error) => console.log(error));
-});
-
-app.patch('/salonOwners/:salonOwnerId', (req, res) => {
-    SalonOwner.findOneAndUpdate({ '_id': req.params.salonOwnerId}, {$set: req.body})
-        .then(salonOwner => res.send(salonOwner))
-        .catch((error) => console.log(error));
-});
-
-app.delete('/salonOwners/:salonOwnerId', (req, res) => {
-    SalonOwner.findByIdAndDelete(req.params.salonOwnerId)
-        .then(salonOwner => res.send(salonOwner))
-        .catch((error) => console.log(error));
-});
-
-/* http:/localhost:3000/salonOwners/:salonOwnerId/salons/:salonId */
-app.get('/salonOwners/:salonOwnerId/salons', (req, res) => {
-    Salon.find({_salonOwnerId: req.params.salonOwnerId})
-        .then(salons => res.send(salons))
-        .catch((error) => console.log(error));
-});
-
-app.post('/salonOwners/:salonOwnerId/salons', (req, res) => {
-    (new Salon({ '_salonOwnerId': req.params.salonOwnerId, 'name': req.body.name}))
-    .save()
-    .then(salons => res.send(salons))
-    .catch((error) => console.log(error));
-});
-
-app.get('/salonOwners/:salonOwnerId/salons/:salonId', (req, res) => {
-    Salon.find({_salonOwnerId: req.params.salonOwnerId, _id:req.params.salonId})
-        .then(salons => res.send(salons))
-        .catch((error) => console.log(error));
-});
-
-app.get('/salons', (req, res) => {
-    Salon.find({})
-        .then(salons => res.send(salons))
-        .catch((error) => console.log(error));
-});
-
-app.patch('/salonOwners/:salonOwnerId/salons/:salonId', (req, res) => {
-    Salon.findOneAndUpdate({ _salonOwnerId: req.params.salonOwnerId, _id:req.params.salonId}, {$set: req.body})
-        .then(salon => res.send(salon))
-        .catch((error) => console.log(error));
-});
-
-app.delete('/salonOwners/:salonOwnerId/salons/:salonId', (req, res) => {
-    Salon.findByIdAndDelete({ _salonOwnerId: req.params.salonOwnerId, _id:req.params.salonId})
-        .then(salon => res.send(salon))
-        .catch((error) => console.log(error));
-});
-
-// Customer
-app.get('/customers', (req, res) => {
-    Customer.find({})
-        .then(customers => res.send(customers))
-        .catch((error) => console.log(error));
-});
-
-app.post('/customers', (req, res) => {
-    (new Customer({ 'name': req.body.name}))
-    .save()
-    .then(customers => res.send(customers))
-    .catch((error) => console.log(error));
-});
-
-app.get('/customers/:customerId', (req, res) => {
-    Customer.find({ _id: req.params.customerId})
-        .then(customer => res.send(customer))
-        .catch((error) => console.log(error));
-});
-
-app.patch('/customers/:customerId', (req, res) => {
-    Customer.findOneAndUpdate({ '_id': req.params.customerId}, {$set: req.body})
-        .then(customer => res.send(customer))
-        .catch((error) => console.log(error));
-});
-
-app.delete('/customers/:customerId', (req, res) => {
-    Customer.findByIdAndDelete(req.params.customerId)
-        .then(customer => res.send(customer))
-        .catch((error) => console.log(error));
-});
-
-// Distributor
-app.get('/distributors', (req, res) => {
-    Distributor.find({})
-        .then(distributors => res.send(distributors))
-        .catch((error) => console.log(error));
-});
-
-app.post('/distributors', (req, res) => {
-    (new Distributor({ 'name': req.body.name}))
-    .save()
-    .then(distributors => res.send(distributors))
-    .catch((error) => console.log(error));
-});
-
-app.get('/distributors/:distributorId', (req, res) => {
-    Distributor.find({ _id: req.params.distributorId})
-        .then(distributor => res.send(distributor))
-        .catch((error) => console.log(error));
-});
-
-app.patch('/distributors/:distributorId', (req, res) => {
-    Distributor.findOneAndUpdate({ '_id': req.params.distributorId}, {$set: req.body})
-        .then(distributor => res.send(distributor))
-        .catch((error) => console.log(error));
-});
-
-app.delete('/distributors/:distributorId', (req, res) => {
-    Distributor.findByIdAndDelete(req.params.distributorId)
-        .then(distributor => res.send(distributor))
-        .catch((error) => console.log(error));
-});
+app.use('/salonOwners',     salonOwnerRoutes);
+app.use('/salons',          salonRoutes);
+app.use('/customers',       customerRoutes);
+app.use('/distributors',    distributorRoutes);
 
 app.listen(3000, () => console.log("Server Connected on port 3000"));
