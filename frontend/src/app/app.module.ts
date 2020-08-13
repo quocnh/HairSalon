@@ -23,9 +23,9 @@ import { DeleteSalonComponent } from './popup/delete-salon/delete-salon.componen
 import { CustomerViewComponent } from './pages/customer-view/customer-view.component';
 import { AddNewCustomerComponent } from './popup/add-new-customer/add-new-customer.component';
 import { DeleteCustomerComponent } from './popup/delete-customer/delete-customer.component';
-import { DistributorViewComponent } from './pages/distributor-view/distributor-view.component';
 import { AddNewDistributorComponent } from './popup/add-new-distributor/add-new-distributor.component';
 import { DeleteDistributorComponent } from './popup/delete-distributor/delete-distributor.component';
+import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 
 
 @NgModule({
@@ -41,6 +41,7 @@ import { DeleteDistributorComponent } from './popup/delete-distributor/delete-di
     DeleteCustomerComponent,
     AddNewDistributorComponent,
     DeleteDistributorComponent,
+    MainLayoutComponent,
   ],
   imports: [
     BrowserAnimationsModule,
