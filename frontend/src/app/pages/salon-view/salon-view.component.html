@@ -70,7 +70,10 @@
                       </th>
                       <th>
                         Email
-                      </th>    
+                      </th> 
+                      <th class="text-right">
+                        &#160;
+                      </th> 
                     </thead>
                     <tbody>
                         
@@ -86,9 +89,13 @@
                                 {{ salon.name }}@email.com
                             </td>
                             <td >
-                                <p class="btn btn-primary pull-right" (click)= "deleteSalon(salon._id)"> Xóa </p>
-                                <p class="pull-right"> &#160; </p>
-                                <p class="btn btn-primary pull-right"> Sửa </p>
+                                <button class="btn btn-sm btn-danger btn-round btn-icon pull-right" (click)= "deleteSalon(salon._id)">
+                                    <a data-toggle="tooltip" data-placement="top" title="Xóa"> <i class="fa fa-trash"></i></a>
+                                  </button>
+                                  <p class="pull-right"> &#160; </p>
+                                  <button class="btn btn-sm btn-info btn-round btn-icon pull-right" (click)= "deleteSalon(salon._id)">
+                                    <a data-toggle="tooltip" data-placement="top" title="Sửa"><i class="fa fa-pencil"></i></a>
+                                  </button>
                             </td>
                         </tr>
                       

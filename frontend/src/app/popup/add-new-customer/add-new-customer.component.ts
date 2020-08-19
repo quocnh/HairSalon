@@ -8,8 +8,12 @@ import Customer from '../../module/customer';
   styleUrls: ['./add-new-customer.component.css']
 })
 export class AddNewCustomerComponent implements OnInit {
-  customer: Customer;
-  addedCustomerName: string;
+  public customer: Customer = new Customer();
+  firstName: string;
+  lastName: string;
+  city: string;
+  district: string;
+  address: string;
 
   constructor(
     public modal: NgbActiveModal,
@@ -20,9 +24,13 @@ export class AddNewCustomerComponent implements OnInit {
   }
 
   addNewCustomer() {
-    // this.salonOwner.name = this.ownerName;
-    console.log(this.addedCustomerName);
-    this.modal.close(this.addedCustomerName);
+    this.getCustomerInfo();
+    console.log(this.customer);
+    this.modal.close(this.customer);
+  }
+
+  getCustomerInfo() {
+    this.customer.fullname = this.firstName + ' ' + this.lastName;
   }
 
 }

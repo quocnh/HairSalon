@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { WebService } from './web.service';
+import Customer from './module/customer';
 
 @Injectable({
   providedIn: 'root'
@@ -58,8 +59,9 @@ export class SalonUtilsService {
     return this.webService.get(`customers/${customerId}`);
   }
 
-  createCustomer(name: string) {
-    return this.webService.post( `customers`, { name });
+  createCustomer(customer: Customer) {
+    console.log('create Customer : ' + customer.username);
+    return this.webService.post( `customers`, { customer });
   }
 
   deleteCustomers(customerId: string) {

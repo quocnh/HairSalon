@@ -13,9 +13,20 @@ customerRouter.get('/', (req, res) => {
 });
 
 customerRouter.post('/', (req, res) => {
-    (new Customer({ 'name': req.body.name}))
-    .save()
-    .then(customers => res.send(customers))
+    var strBody = JSON.parse(JSON.stringify(req.body));
+    const customer = new Customer({
+        username : strBody.customer.username,
+        phone: strBody.customer.phone,
+        fullname: strBody.customer.fullname,
+        email: strBody.customer.email,
+        dob: strBody.customer.dob,
+        gender: strBody.customer.gender,
+
+    });
+    
+    // console.log('LARRY ~~~ ' + customer);
+    customer.save()
+    .then(savedCustomer => res.send(savedCustomer))
     .catch((error) => console.log(error));
 });
 

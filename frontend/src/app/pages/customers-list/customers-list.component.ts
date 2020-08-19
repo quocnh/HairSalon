@@ -34,9 +34,8 @@ export class CustomersListComponent implements OnInit {
     ref.result.then((result) => {
       if (result) {
         console.log(result);
-        this.name = result;
 
-        this.salonUtilService.createCustomer(this.name).subscribe();
+        this.salonUtilService.createCustomer(result).subscribe();
         this.refreshCustomerList();
       }
     },
@@ -51,7 +50,7 @@ export class CustomersListComponent implements OnInit {
     this.salonUtilService.getOneCustomer(customerId)
       .subscribe((customers: Customer[]) =>  {
         this.deletedCustomer = customers[0];
-        console.log('Delete owner ' + this.deletedCustomer.name);
+        console.log('Delete owner ' + this.deletedCustomer.username);
         const ref = this.modalService.open(DeleteCustomerComponent);
         ref.componentInstance.deletedCustomer = this.deletedCustomer;
         ref.result.then((yes) => {

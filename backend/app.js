@@ -6,6 +6,7 @@ const salonOwnerRoutes = require('./routes/salonOwner');
 const salonRoutes = require('./routes/salon');
 const customerRoutes = require('./routes/customer');
 const distributorRoutes = require('./routes/distributor');
+var bodyParser = require('body-parser');
 /*
 localhost:3000 - backend api
 localhost:4200 - frontent 
@@ -17,6 +18,8 @@ const Salon = require('./database/models/salon');
 const SalonOwner = require('./database/models/salonOwner');
 const customerRouter = require('./routes/customer');
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json());
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
