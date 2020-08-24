@@ -9,11 +9,6 @@ import Customer from '../../module/customer';
 })
 export class AddNewCustomerComponent implements OnInit {
   public customer: Customer = new Customer();
-  firstName: string;
-  lastName: string;
-  city: string;
-  district: string;
-  address: string;
 
   constructor(
     public modal: NgbActiveModal,
@@ -24,13 +19,8 @@ export class AddNewCustomerComponent implements OnInit {
   }
 
   addNewCustomer() {
-    this.getCustomerInfo();
     console.log(this.customer);
     this.modal.close(this.customer);
-  }
-
-  getCustomerInfo() {
-    this.customer.fullname = this.firstName + ' ' + this.lastName;
   }
 
 }
