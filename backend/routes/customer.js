@@ -16,11 +16,15 @@ customerRouter.post('/', (req, res) => {
     var strBody = JSON.parse(JSON.stringify(req.body));
     const customer = new Customer({
         username : strBody.customer.username,
+        firstname: strBody.customer.firstname,
+        lastname: strBody.customer.lastname,
         phone: strBody.customer.phone,
-        fullname: strBody.customer.fullname,
         email: strBody.customer.email,
         dob: strBody.customer.dob,
         gender: strBody.customer.gender,
+        city: strBody.customer.city,
+        district: strBody.customer.district,
+        address: strBody.customer.address
 
     });
     

@@ -34,6 +34,7 @@ brew install mongodb/brew/mongodb-database-tools
 5. Install Angular dependency 
 ```python
 npm install --save-dev @angular-devkit/build-angular
+npm install --save body-parser
 ```
 
 # how to run

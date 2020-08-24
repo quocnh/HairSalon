@@ -5,14 +5,18 @@ const GeoSchema = require('./common');
 const CustomerSchema = new mongoose.Schema({
     username: { 
         type: String,
-        trim: true,
         minlength: 3,
-        required: [true, 'Full name must be provided']
+        required: [false, 'username must be provided']
     },
 
-    fullname: { 
+    firstname: { 
         type: String,
-        required: [true, 'Full name must be provided']
+        required: [false, 'firstname']
+    },
+
+    lastname: { 
+        type: String,
+        required: [false, 'lastname']
     },
     
     phone: {
@@ -33,8 +37,18 @@ const CustomerSchema = new mongoose.Schema({
         type: String , 
         required: [false, 'Gender must be provided']
     },
-    geometry: GeoSchema
-    
+    district: { 
+        type: String,
+        required: [false, 'district']
+    },
+    city: { 
+        type: String,
+        required: [false, 'city']
+    },
+    address: { 
+        type: String,
+        required: [false, 'address']
+    },
 });
 
 const Customer = mongoose.model('Customer', CustomerSchema);

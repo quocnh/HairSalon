@@ -10,13 +10,13 @@
             <div class="row">
               <div class="col-md-5 pr-1">
                 <div class="form-group">
-                    <label>Username</label>
+                    <label>Username(*)</label>
                     <input type="text" class="form-control" [(ngModel)]="customer.username" [ngModelOptions]="{standalone: true}" placeholder="michael23" >
                   </div>
               </div>
               <div class="col-md-7 pl-1">
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Email</label>
+                  <label for="exampleInputEmail1">Email(*)</label>
                   <input type="email" class="form-control" [(ngModel)]="customer.email" [ngModelOptions]="{standalone: true}" placeholder="Email">
                 </div>
               </div>
@@ -25,19 +25,19 @@
               <div class="col-md-4 pr-1">
                 <div class="form-group">
                   <label>Họ</label>
-                  <input type="text" class="form-control" [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}" placeholder="Last Name">
+                  <input type="text" class="form-control" [(ngModel)]="customer.lastname" [ngModelOptions]="{standalone: true}">
                 </div>
               </div>
               <div class="col-md-5 pr-1">
                 <div class="form-group">
                   <label>Tên</label>
-                  <input type="text" class="form-control" [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}" placeholder="First Name">
+                  <input type="text" class="form-control" [(ngModel)]="customer.firstname" [ngModelOptions]="{standalone: true}">
                 </div>
               </div>
               <div class="col-md-3 pl-1">
                 <div class="form-group">
                     <label>Giới tính</label>
-                    <select input type="text" class="form-control" [(ngModel)]="customer.gender" [ngModelOptions]="{standalone: true}" >
+                    <select input type="text" class="form-control" [(ngModel)]="customer.gender" [ngModelOptions]="{standalone: true}" value="Nam">
                         <option value="0">Nam</option>
                         <option value="1">Nữ</option>
                         <option value="2">Khác</option>
@@ -48,13 +48,14 @@
             <div class="row">
                 <div class="col-md-6 pr-1">
                   <div class="form-group">
-                    <label>Ngày sinh</label>
+                    <label>Ngày sinh(*)</label>
+                    
                     <input type="text" class="form-control" [(ngModel)]="customer.dob" [ngModelOptions]="{standalone: true}">
                   </div>
                 </div>
                 <div class="col-md-6 pl-1">
                     <div class="form-group">
-                      <label>Số điện thoại</label>
+                      <label>Số điện thoại(*)</label>
                       <input type="text" class="form-control" [(ngModel)]="customer.phone" [ngModelOptions]="{standalone: true}" placeholder="000-000-000" value="000-000-000">
                     </div>
                   </div>
@@ -65,13 +66,13 @@
                 <div class="col-md-6 pr-1">
                     <div class="form-group">
                       <label>Thành Phố</label>
-                      <input type="text" class="form-control" [(ngModel)]="city" [ngModelOptions]="{standalone: true}" placeholder="Hồ Chí Minh" value="Hồ Chí Minh">
+                      <input type="text" class="form-control" [(ngModel)]="customer.city" [ngModelOptions]="{standalone: true}" placeholder="Hồ Chí Minh" value="Hồ Chí Minh">
                     </div>
                   </div>
               <div class="col-md-6 pl-1">
                 <div class="form-group">
                   <label>Quận</label>
-                  <input type="text" class="form-control" [(ngModel)]="district" [ngModelOptions]="{standalone: true}" placeholder="Quận 1" value="Quận 1">
+                  <input type="text" class="form-control" [(ngModel)]="customer.district" [ngModelOptions]="{standalone: true}" placeholder="Quận 1" value="Quận 1">
                 </div>
               </div>
               
@@ -80,7 +81,7 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>Địa chỉ</label>
-                    <input type="text" class="form-control" [(ngModel)]="address" [ngModelOptions]="{standalone: true}" placeholder="1 Điện Biên Phủ">
+                    <input type="text" class="form-control" [(ngModel)]="customer.address" [ngModelOptions]="{standalone: true}" placeholder="1 Điện Biên Phủ">
                   </div>
                 </div>
               </div>

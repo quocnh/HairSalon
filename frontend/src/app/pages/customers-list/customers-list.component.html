@@ -26,10 +26,10 @@
                     
                     <tr *ngFor="let customer of customers">
                         
-                        <td><a href="#/owner/{{customer._id}}">{{ customer.username }}</a></td>
-                        <td>{{ customer.fullname }}</td>
-                        <td>{{ customer.dob }}</td>
-                        <td>{{ customer.phone }}</td>
+                        <td><a href="#/customers/{{customer._id}}">{{ customer.username }}</a></td>
+                        <td>{{ customer.firstname }} {{ customer.lastname }}</td>
+                        <td>{{ customer.dob | date}}</td>
+                        <td>{{ customer.phone}}</td>
                         <td>{{ customer.email }}</td>
                         
                         <td >

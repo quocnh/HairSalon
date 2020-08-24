@@ -1,5 +1,5 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule  } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
@@ -25,7 +25,6 @@ import { DeleteCustomerComponent } from './popup/delete-customer/delete-customer
 import { AddNewDistributorComponent } from './popup/add-new-distributor/add-new-distributor.component';
 import { DeleteDistributorComponent } from './popup/delete-distributor/delete-distributor.component';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
-
 
 @NgModule({
   declarations: [
@@ -54,9 +53,10 @@ import { MainLayoutComponent } from './layouts/main-layout/main-layout.component
     HttpClientModule,
     NgbModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
