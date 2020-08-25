@@ -1,4 +1,10 @@
 
+<link href="https://cdn.syncfusion.com/ej2/ej2-base/styles/material.css" rel="stylesheet" />
+<link href="https://cdn.syncfusion.com/ej2/ej2-buttons/styles/material.css" rel="stylesheet" />
+<link href="https://cdn.syncfusion.com/ej2/ej2-inputs/styles/material.css" rel="stylesheet" />
+<link href="https://cdn.syncfusion.com/ej2/ej2-popups/styles/material.css" rel="stylesheet" />
+<link href="https://cdn.syncfusion.com/ej2/ej2-lists/styles/material.css" rel="stylesheet" />
+<link href="https://cdn.syncfusion.com/ej2/ej2-calendars/styles/material.css" rel="stylesheet" />
 
 <div class="modal-body">
     <div class="card card-user">
@@ -47,11 +53,20 @@
             </div>
             <div class="row">
                 <div class="col-md-6 pr-1">
-                  <div class="form-group">
-                    <label>Ngày sinh(*)</label>
-                    
-                    <input type="text" class="form-control" [(ngModel)]="customer.dob" [ngModelOptions]="{standalone: true}">
-                  </div>
+
+                    <div class="form-group">
+                      <label>Ngày sinh(*)</label>
+
+                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker
+                          [footerTemplate]="footerTemplate" #d="ngbDatepicker" [minDate]="today" (click)="d.toggle()">
+
+                        <ng-template #footerTemplate>
+                          <hr class="my-0">
+                          <button class="btn btn-primary btn-sm m-2 float-left" (click)="model = today; d.close()">Today</button>
+                          <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Close</button>
+                        </ng-template>
+
+                    </div>
                 </div>
                 <div class="col-md-6 pl-1">
                     <div class="form-group">

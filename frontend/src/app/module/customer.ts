@@ -5,7 +5,7 @@ export default class Customer {
     lastname: string;
     phone: number;
     email: string;
-    dob: Date;
+    dob: string;
     gender: string;
     district: string;
     city: string;

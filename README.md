@@ -35,6 +35,7 @@ brew install mongodb/brew/mongodb-database-tools
 ```python
 npm install --save-dev @angular-devkit/build-angular
 npm install --save body-parser
+npm install --save @syncfusion/ej2-angular-calendars
 ```
 
 # how to run
