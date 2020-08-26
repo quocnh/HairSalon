@@ -14,7 +14,7 @@ import { DistributorViewComponent } from '../../pages/distributor-view/distribut
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
-    { path: 'user',           component: UserComponent },
+    { path: 'profile',           component: UserComponent },
     { path: 'table',          component: TableComponent },
     { path: 'typography',     component: TypographyComponent },
     { path: 'icons',          component: IconsComponent },
@@ -25,4 +25,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'customersList',        component: CustomersListComponent },
     { path: 'salons',               component: SalonViewComponent },
     { path: 'distributors',         component: DistributorViewComponent },
+    { path: 'profile/:userId',           component: UserComponent },
 ];

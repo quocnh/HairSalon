@@ -38,6 +38,7 @@ customerRouter.get('/:customerId', (req, res) => {
     Customer.find({ _id: req.params.customerId})
         .then(customer => res.send(customer))
         .catch((error) => console.log(error));
+        
 });
 
 customerRouter.patch('/:customerId', (req, res) => {
