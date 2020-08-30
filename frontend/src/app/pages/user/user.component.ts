@@ -12,6 +12,12 @@ import Customer from '../../module/customer';
 export class UserComponent implements OnInit {
     userId: String;
     customer: Customer = new Customer();
+    genders = [
+        {value: 'Nam'},
+        {value: 'Nữ'},
+        {value: 'Khác'}
+      ];
+    selectedGender: String;
 
     constructor(
         private salonUtilService: SalonUtilsService,
@@ -25,6 +31,7 @@ export class UserComponent implements OnInit {
               this.refreshUserProfile(this.userId);
             }
           });
+        this.selectedGender = this.customer.gender;
 
     }
     refreshUserProfile(profileId) {

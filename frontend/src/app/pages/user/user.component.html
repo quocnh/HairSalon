@@ -90,13 +90,17 @@
             <div class="col-md-5 px-1">
               <div class="form-group">
                 <label for="exampleInputEmail1">Số điện thoại</label>
-                <input type="email" class="form-control" placeholder="Phone number">
+                <input type="email" class="form-control" placeholder="Phone number" value="{{customer.phone}}">
               </div>
             </div>
             <div class="col-md-2 pl-1">
               <div class="form-group">
-                <label>Giới Tính</label>
-                <input type="text" class="form-control" placeholder="Gender" value="{{ customer.gender }}">
+                <label>Giới Tính </label>
+                <select input type="text" class="form-control"  [(ngModel)]="customer.gender" [ngModelOptions]="{standalone: true}">
+                  <option [selected]="customer.gender == 'customer.gender' " *ngFor="let gender of genders">
+                    {{gender.value}}
+                  </option>
+                </select>
               </div>
             </div>
           </div>

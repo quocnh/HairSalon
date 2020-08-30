@@ -10,8 +10,13 @@ import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 })
 export class AddNewCustomerComponent implements OnInit {
   public customer: Customer = new Customer();
+  genders = [
+    {value: 'Nam'},
+    {value: 'Nữ'},
+    {value: 'Khác'}
+  ];
 
-  model: NgbDateStruct;
+  modelDob: NgbDateStruct;
   today = this.calendar.getToday();
 
   constructor(
@@ -25,7 +30,7 @@ export class AddNewCustomerComponent implements OnInit {
   }
 
   addNewCustomer() {
-    this.customer.dob = this.ngbDateParserFormatter.format(this.model);
+    this.customer.dob = this.ngbDateParserFormatter.format(this.modelDob);
     console.log(this.customer);
     this.modal.close(this.customer);
   }

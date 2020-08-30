@@ -31,23 +31,24 @@
               <div class="col-md-4 pr-1">
                 <div class="form-group">
                   <label>Họ</label>
-                  <input type="text" class="form-control" [(ngModel)]="customer.lastname" [ngModelOptions]="{standalone: true}">
+                  <input type="text" class="form-control" [(ngModel)]="customer.lastname" [ngModelOptions]="{standalone: true}" placeholder="Họ">
                 </div>
               </div>
               <div class="col-md-5 pr-1">
                 <div class="form-group">
                   <label>Tên</label>
-                  <input type="text" class="form-control" [(ngModel)]="customer.firstname" [ngModelOptions]="{standalone: true}">
+                  <input type="text" class="form-control" [(ngModel)]="customer.firstname" [ngModelOptions]="{standalone: true}" placeholder="Tên">
                 </div>
               </div>
               <div class="col-md-3 pl-1">
                 <div class="form-group">
                     <label>Giới tính</label>
-                    <select input type="text" class="form-control" [(ngModel)]="customer.gender" [ngModelOptions]="{standalone: true}" value="Nam">
-                        <option value="Nam">Nam</option>
-                        <option value="Nữ">Nữ</option>
-                        <option value="Khác">Khác</option>
+                    <select input type="text" class="form-control"  [(ngModel)]="customer.gender" [ngModelOptions]="{standalone: true}">
+                      <option [selected]="gender.value=='Nam'" *ngFor="let gender of genders">
+                        {{gender.value}}
+                      </option>
                     </select>
+                    
                 </div>
               </div>
             </div>
@@ -57,7 +58,7 @@
                     <div class="form-group">
                       <label>Ngày sinh(*)</label>
 
-                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker
+                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelDob" [ngModelOptions]="{standalone: true}" ngbDatepicker
                           [footerTemplate]="footerTemplate" #d="ngbDatepicker" [minDate]="today" (click)="d.toggle()">
 
                         <ng-template #footerTemplate>
