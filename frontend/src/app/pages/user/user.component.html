@@ -8,10 +8,10 @@
         <div class="author">
           <a href="#">
             <img class="avatar border-gray" src="assets/img/default-avatar.png" alt="...">
-            <h5 class="title">{{ customer.firstname }} {{ customer.lastname }}</h5>
+            <h5 class="title">{{ customerDb.firstname }} {{ customerDb.lastname }}</h5>
           </a>
           <p class="description">
-            @{{ customer.username }}
+            @{{ customerDb.username }}
           </p>
         </div>
       </div>
@@ -61,7 +61,7 @@
             <div class="col-md-8 pl-1">
               <div class="form-group">
                 <label for="exampleInputEmail1">Email</label>
-                <input type="email" class="form-control" placeholder="Email" value="{{ customer.email }}">
+                <input type="email" class="form-control" placeholder="Email" value="{{ customer.email }}" [(ngModel)]="customer.email" [ngModelOptions]="{standalone: true}">
               </div>
             </div>
           </div>
@@ -69,13 +69,13 @@
             <div class="col-md-6 pr-1">
               <div class="form-group">
                 <label>Họ</label>
-                <input type="text" class="form-control" placeholder="Last Name" value="{{ customer.lastname }}">
+                <input type="text" class="form-control" placeholder="Last Name" value="{{ customer.lastname }}" [(ngModel)]="customer.lastname" [ngModelOptions]="{standalone: true}">
               </div>
             </div>
             <div class="col-md-6 px-1">
               <div class="form-group">
                 <label>Tên</label>
-                <input type="text" class="form-control" placeholder="First Name" value= "{{ customer.firstname }}">
+                <input type="text" class="form-control" placeholder="First Name" value= "{{ customer.firstname }}" [(ngModel)]="customer.firstname" [ngModelOptions]="{standalone: true}">
               </div>
             </div>
             
@@ -84,13 +84,13 @@
             <div class="col-md-5 pr-1">
               <div class="form-group">
                 <label>Ngày sinh</label>
-                <input type="text" class="form-control" placeholder="Date of birth" value="{{ customer.dob | date}}">
+                <input type="text" class="form-control" placeholder="Date of birth" value="{{ customer.dob | date}}" [(ngModel)]="customer.dob" name="dob">
               </div>
             </div>
             <div class="col-md-5 px-1">
               <div class="form-group">
                 <label for="exampleInputEmail1">Số điện thoại</label>
-                <input type="email" class="form-control" placeholder="Phone number" value="{{customer.phone}}">
+                <input type="email" class="form-control" placeholder="Phone number" value="{{customer.phone}}" [(ngModel)]="customer.phone" name="phone">
               </div>
             </div>
             <div class="col-md-2 pl-1">
@@ -108,7 +108,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label>Địa chỉ</label>
-                <input type="text" class="form-control" placeholder="Home Address" value="{{ customer.address }}">
+                <input type="text" class="form-control" placeholder="Home Address" value="{{ customer.address }}" [(ngModel)]="customer.address" [ngModelOptions]="{standalone: true}">
               </div>
             </div>
           </div>
@@ -116,13 +116,13 @@
             <div class="col-md-6 pr-1">
               <div class="form-group">
                 <label>Quận</label>
-                <input type="text" class="form-control" placeholder="District" value="{{ customer.district }}">
+                <input type="text" class="form-control" placeholder="District" value="{{ customer.district }}" [(ngModel)]="customer.district" [ngModelOptions]="{standalone: true}">
               </div>
             </div>
             <div class="col-md-6 pl-1">
               <div class="form-group">
                 <label>Thành phố</label>
-                <input type="text" class="form-control" placeholder="City" value="{{ customer.city }}">
+                <input type="text" class="form-control" placeholder="City" value="{{ customer.city }}" [(ngModel)]="customer.city" [ngModelOptions]="{standalone: true}">
               </div>
             </div>
             
@@ -130,7 +130,7 @@
           
           <div class="row">
             <div class="update ml-auto mr-auto">
-              <button type="submit" class="btn btn-primary btn-round">Thay đổi</button>
+              <button type="submit" class="btn btn-primary btn-round" (click)="updateCustomerProfile()">Thay đổi</button>
             </div>
           </div>
         </form>

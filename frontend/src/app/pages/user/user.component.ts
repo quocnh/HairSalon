@@ -10,14 +10,14 @@ import Customer from '../../module/customer';
 })
 
 export class UserComponent implements OnInit {
-    userId: String;
+    userId: string;
+    customerDb: Customer = new Customer();
     customer: Customer = new Customer();
     genders = [
         {value: 'Nam'},
         {value: 'Nữ'},
         {value: 'Khác'}
       ];
-    selectedGender: String;
 
     constructor(
         private salonUtilService: SalonUtilsService,
@@ -31,13 +31,23 @@ export class UserComponent implements OnInit {
               this.refreshUserProfile(this.userId);
             }
           });
-        this.selectedGender = this.customer.gender;
-
     }
+
+    updateCustomerProfile() {
+        if (JSON.stringify(this.customerDb) === JSON.stringify(this.customer)) {
+            console.log('Giong' + JSON.stringify(this.customerDb) + '---' + JSON.stringify(this.customer));
+        } else {
+            console.log('Khac' + JSON.stringify(this.customerDb) + '---' + JSON.stringify(this.customer));
+            this.salonUtilService.updateCustomer(this.userId, this.customer).subscribe();
+            this.refreshUserProfile(this.userId);
+        }
+      }
+
     refreshUserProfile(profileId) {
         this.salonUtilService.getOneCustomer(profileId).subscribe(
             (customer: Customer) => {
-                this.customer = customer[0];
+                this.customer = Object.assign({}, customer[0]);
+                this.customerDb = Object.assign({}, customer[0]);
             });
       }
 }

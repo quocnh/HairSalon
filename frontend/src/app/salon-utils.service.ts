@@ -64,6 +64,11 @@ export class SalonUtilsService {
     return this.webService.post( `customers`, { customer });
   }
 
+  updateCustomer(customerId: string, customer: Customer) {
+    console.log('update Customer : ' + customerId);
+    return this.webService.patch( `customers/${customerId}`, { customer });
+  }
+
   deleteCustomers(customerId: string) {
     return this.webService.delete(`customers/${customerId}`);
   }

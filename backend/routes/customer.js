@@ -42,7 +42,20 @@ customerRouter.get('/:customerId', (req, res) => {
 });
 
 customerRouter.patch('/:customerId', (req, res) => {
-    Customer.findOneAndUpdate({ '_id': req.params.customerId}, {$set: req.body})
+    var strBody = JSON.parse(JSON.stringify(req.body));
+    Customer.findOneAndUpdate({ '_id': req.params.customerId}, 
+        {$set: 
+            {   username : strBody.customer.username,
+                firstname: strBody.customer.firstname,
+                lastname: strBody.customer.lastname,
+                phone: strBody.customer.phone,
+                email: strBody.customer.email,
+                dob: strBody.customer.dob,
+                gender: strBody.customer.gender,
+                city: strBody.customer.city,
+                district: strBody.customer.district,
+                address: strBody.customer.address}
+        })
         .then(customer => res.send(customer))
         .catch((error) => console.log(error));
 });
