@@ -4,6 +4,8 @@ const Customer = require('../database/models/customer');
 
 var express = require('express');
 var customerRouter = express.Router();
+const multer = require('multer');
+const upload = multer({dest: 'uploads/customerAvatar/'});
 
 // Customer
 customerRouter.get('/', (req, res) => {
@@ -12,23 +14,32 @@ customerRouter.get('/', (req, res) => {
         .catch((error) => console.log(error));
 });
 
-customerRouter.post('/', (req, res) => {
-    var strBody = JSON.parse(JSON.stringify(req.body));
+customerRouter.post('/', upload.single('avatar'), (req, res) => {
+    var strAvatarPath = "";
+    if(req.file){
+        console.log(req.file);
+        strAvatarPath = req.file.path;
+    }
+    
+    console.log(req.body);
+    console.log(req.body.username);
+    //var strBody = JSON.parse(JSON.stringify(req.body));
+    
     const customer = new Customer({
-        username : strBody.customer.username,
-        firstname: strBody.customer.firstname,
-        lastname: strBody.customer.lastname,
-        phone: strBody.customer.phone,
-        email: strBody.customer.email,
-        dob: strBody.customer.dob,
-        gender: strBody.customer.gender,
-        city: strBody.customer.city,
-        district: strBody.customer.district,
-        address: strBody.customer.address
+        username : req.body.username,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        phone: req.body.phone,
+        email: req.body.email,
+        dob: req.body.dob,
+        gender: req.body.gender,
+        city: req.body.city,
+        district: req.body.district,
+        address: req.body.address,
+        avatar: strAvatarPath,
 
     });
     
-    // console.log('LARRY ~~~ ' + customer);
     customer.save()
     .then(savedCustomer => res.send(savedCustomer))
     .catch((error) => console.log(error));
@@ -41,23 +52,38 @@ customerRouter.get('/:customerId', (req, res) => {
         
 });
 
-customerRouter.patch('/:customerId', (req, res) => {
-    var strBody = JSON.parse(JSON.stringify(req.body));
-    Customer.findOneAndUpdate({ '_id': req.params.customerId}, 
-        {$set: 
-            {   username : strBody.customer.username,
-                firstname: strBody.customer.firstname,
-                lastname: strBody.customer.lastname,
-                phone: strBody.customer.phone,
-                email: strBody.customer.email,
-                dob: strBody.customer.dob,
-                gender: strBody.customer.gender,
-                city: strBody.customer.city,
-                district: strBody.customer.district,
-                address: strBody.customer.address}
-        })
-        .then(customer => res.send(customer))
-        .catch((error) => console.log(error));
+customerRouter.patch('/:customerId', upload.single('avatar'), (req, res) => {
+    var strAvatarPath = "";
+    if(req.file){
+        console.log(req.file);
+        strAvatarPath = req.file.path;
+    }
+    else
+    {
+        strAvatarPath = req.body.avatar;
+    }
+    if (req.body.username) {
+        console.log(req.body);
+        console.log(req.body.username);
+        Customer.findOneAndUpdate({ '_id': req.params.customerId}, 
+            {$set: 
+                {   
+                    username : req.body.username,
+                    firstname: req.body.firstname,
+                    lastname: req.body.lastname,
+                    phone: req.body.phone,
+                    email: req.body.email,
+                    dob: req.body.dob,
+                    gender: req.body.gender,
+                    city: req.body.city,
+                    district: req.body.district,
+                    address: req.body.address,
+                    avatar: strAvatarPath,
+                }
+            })
+            .then(customer => res.send(customer))
+            .catch((error) => console.log(error));
+    }
 });
 
 customerRouter.delete('/:customerId', (req, res) => {

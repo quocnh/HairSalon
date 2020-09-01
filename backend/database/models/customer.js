@@ -6,7 +6,7 @@ const CustomerSchema = new mongoose.Schema({
     username: { 
         type: String,
         minlength: 3,
-        required: [false, 'username must be provided']
+        required: [true, 'username must be provided']
     },
 
     firstname: { 
@@ -21,7 +21,7 @@ const CustomerSchema = new mongoose.Schema({
     
     phone: {
         type: Number,
-        required: [true, 'Full name must be provided']
+        required: [true, 'Phone number must be provided']
     },
     email: {
         type: String,
@@ -49,6 +49,10 @@ const CustomerSchema = new mongoose.Schema({
         type: String,
         required: [false, 'address']
     },
+    avatar: {
+        type: String,
+        require: [false, 'profile avatar']
+    }
 });
 
 const Customer = mongoose.model('Customer', CustomerSchema);

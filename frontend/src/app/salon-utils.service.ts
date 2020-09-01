@@ -59,14 +59,35 @@ export class SalonUtilsService {
     return this.webService.get(`customers/${customerId}`);
   }
 
-  createCustomer(customer: Customer) {
+  createCustomer(customer: Customer, file: File) {
+    const fd = new FormData();
+    let key;
+    if (file) {
+      fd.append('avatar', file, file.name);
+    }
+
+    // tslint:disable-next-line: forin
+    for (key in customer) {
+      fd.append(key, customer[key]);
+    }
     console.log('create Customer : ' + customer.username);
-    return this.webService.post( `customers`, { customer });
+    return this.webService.post( `customers`, fd);
   }
 
-  updateCustomer(customerId: string, customer: Customer) {
+  updateCustomer(customerId: string, customer: Customer, file: File) {
+    const fd = new FormData();
+    let key;
+    if (file) {
+      fd.append('avatar', file, file.name);
+    }
+
+    // tslint:disable-next-line: forin
+    for (key in customer) {
+      fd.append(key, customer[key]);
+    }
+
     console.log('update Customer : ' + customerId);
-    return this.webService.patch( `customers/${customerId}`, { customer });
+    return this.webService.patch( `customers/${customerId}`, fd);
   }
 
   deleteCustomers(customerId: string) {

@@ -10,5 +10,6 @@ export default class Customer {
     district: string;
     city: string;
     address: string;
+    avatar: string;
 
 }

@@ -17,6 +17,7 @@ export class CustomersListComponent implements OnInit {
   customer: Customer;
   name: string;
   public deletedCustomer: Customer;
+  addedCustomer: Customer = new Customer();
 
   constructor(
     private salonUtilService: SalonUtilsService,
@@ -35,7 +36,18 @@ export class CustomersListComponent implements OnInit {
       if (result) {
         console.log(result);
 
-        this.salonUtilService.createCustomer(result).subscribe();
+        this.addedCustomer.username = result.username;
+        this.addedCustomer.firstname = result.firstname;
+        this.addedCustomer.lastname = result.lastname;
+        this.addedCustomer.phone = result.phone;
+        this.addedCustomer.email = result.email;
+        this.addedCustomer.dob = result.dob;
+        this.addedCustomer.gender = result.gender;
+        this.addedCustomer.city = result.city;
+        this.addedCustomer.district = result.district;
+        this.addedCustomer.address = result.address;
+
+        this.salonUtilService.createCustomer(this.addedCustomer, null).subscribe();
         this.refreshCustomerList();
       }
     },
