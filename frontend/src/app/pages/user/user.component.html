@@ -8,7 +8,7 @@
       <div class="card-body">
         <div class="author">
           <a>
-            <img class="avatar border-gray" src="assets/img/default-avatar.png" >
+            <img class="avatar border-gray" src={{strAvatar}} >
             <button class="btn btn-sm btn-info btn-round btn-icon fa fa-pencil" (click)="fileInput.click()">
               <input #fileInput type="file" (change)="onFileSelected($event)" style="display:none;" />
             </button>

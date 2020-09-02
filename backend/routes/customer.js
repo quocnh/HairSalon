@@ -5,7 +5,31 @@ const Customer = require('../database/models/customer');
 var express = require('express');
 var customerRouter = express.Router();
 const multer = require('multer');
-const upload = multer({dest: 'uploads/customerAvatar/'});
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, './uploads/customerAvatar/');
+    },
+    filename: function(req, file, cb) {
+        cb(null, new Date().toISOString().replace(/:/g, '-') + '_' + file.originalname);
+    }
+});
+
+const fileFilter = (req, file, cb) => {
+    // reject a file
+    if ((file.mimetype === 'image/jpeg') || (file.mimetype === 'image/png') || (file.mimetype === 'image/jpg')) {
+        cb(null, true);
+    } else {
+        cb(new Error('File extention is not supported ' + file.mimetype), false);
+    }
+};
+const upload = multer({
+    storage: storage, 
+    limits: {
+        fileSize: 1024*1024*5
+    },
+    fileFilter: fileFilter
+});
 
 // Customer
 customerRouter.get('/', (req, res) => {
@@ -55,13 +79,11 @@ customerRouter.get('/:customerId', (req, res) => {
 customerRouter.patch('/:customerId', upload.single('avatar'), (req, res) => {
     var strAvatarPath = "";
     if(req.file){
-        console.log(req.file);
         strAvatarPath = req.file.path;
-    }
-    else
-    {
+    } else {
         strAvatarPath = req.body.avatar;
     }
+    console.log('File upload: ' + req.file);
     if (req.body.username) {
         console.log(req.body);
         console.log(req.body.username);

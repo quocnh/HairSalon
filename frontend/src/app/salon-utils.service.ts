@@ -86,7 +86,7 @@ export class SalonUtilsService {
       fd.append(key, customer[key]);
     }
 
-    console.log('update Customer : ' + customerId);
+    console.log('update Customer : ' + customerId + file.name);
     return this.webService.patch( `customers/${customerId}`, fd);
   }
 
