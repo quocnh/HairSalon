@@ -27,6 +27,11 @@ export class AddNewCustomerComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('Load modal');
+    this.modelDob = {
+      year: 1985,
+      month: 4,
+      day: 4
+    }
   }
 
   addNewCustomer() {

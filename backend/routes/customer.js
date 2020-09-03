@@ -78,18 +78,29 @@ customerRouter.get('/:customerId', (req, res) => {
 
 customerRouter.patch('/:customerId', upload.single('avatar'), (req, res) => {
     var strAvatarPath = "";
+    var fs = require('fs');
+
     if(req.file){
         strAvatarPath = req.file.path;
+        //delete old file avatar
+        fs.exists(req.body.avatar, function(exists) {
+            if(exists) {
+                fs.unlink(req.body.avatar, (err) => {
+                    if (err) throw err;
+                    console.log(req.body.avatar + ' was deleted.');
+                  });
+            }
+            });
     } else {
         strAvatarPath = req.body.avatar;
     }
-    console.log('File upload: ' + req.file);
+    
     if (req.body.username) {
-        console.log(req.body);
+        
         console.log(req.body.username);
         Customer.findOneAndUpdate({ '_id': req.params.customerId}, 
             {$set: 
-                {   
+                { 
                     username : req.body.username,
                     firstname: req.body.firstname,
                     lastname: req.body.lastname,
@@ -101,11 +112,13 @@ customerRouter.patch('/:customerId', upload.single('avatar'), (req, res) => {
                     district: req.body.district,
                     address: req.body.address,
                     avatar: strAvatarPath,
-                }
+                },
             })
             .then(customer => res.send(customer))
             .catch((error) => console.log(error));
+        console.log(req.body);
     }
+
 });
 
 customerRouter.delete('/:customerId', (req, res) => {

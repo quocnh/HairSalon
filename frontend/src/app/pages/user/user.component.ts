@@ -3,6 +3,7 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { SalonUtilsService } from '../../salon-utils.service';
 import Customer from '../../module/customer';
 import { HttpClient } from '@angular/common/http';
+import { NgbDateStruct, NgbDateParserFormatter, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-user-profile',
@@ -21,11 +22,15 @@ export class UserComponent implements OnInit {
         {value: 'Khác'}
     ];
     selectedFile: File = null;
+    modelDob: NgbDateStruct;
+    today = this.calendar.getToday();
 
     constructor(
         private salonUtilService: SalonUtilsService,
         private route: ActivatedRoute,
         private http: HttpClient,
+        private calendar: NgbCalendar,
+        private ngbDateParserFormatter: NgbDateParserFormatter,
         ) { }
 
     ngOnInit() {
@@ -36,6 +41,7 @@ export class UserComponent implements OnInit {
               this.refreshUserProfile(this.userId);
             }
           });
+
     }
 
     updateCustomerProfile() {
@@ -60,7 +66,9 @@ export class UserComponent implements OnInit {
                     this.strAvatar = 'http://localhost:3000/' + this.customer.avatar;
                 }
                 console.log(this.strAvatar);
+                this.modelDob = this.ngbDateParserFormatter.parse(this.customer.dob);
             });
+
     }
 
     onFileSelected(event) {

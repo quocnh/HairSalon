@@ -59,7 +59,10 @@
                       <label>Ngày sinh(*)</label>
 
                         <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="modelDob" [ngModelOptions]="{standalone: true}" ngbDatepicker
-                          [footerTemplate]="footerTemplate" #d="ngbDatepicker" [minDate]="today" (click)="d.toggle()">
+                          [footerTemplate]="footerTemplate" 
+                          #d="ngbDatepicker" 
+                          [minDate]="{year: 1920, month: 1, day: 1}" [maxDate]="today" 
+                          (click)="d.toggle()">
 
                         <ng-template #footerTemplate>
                           <hr class="my-0">

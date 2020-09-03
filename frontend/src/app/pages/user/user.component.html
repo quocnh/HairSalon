@@ -89,7 +89,19 @@
             <div class="col-md-5 pr-1">
               <div class="form-group">
                 <label>Ngày sinh</label>
-                <input type="text" class="form-control" placeholder="Date of birth" value="{{ customer.dob | date}}" [(ngModel)]="customer.dob" name="dob">
+
+                  <input class="form-control" placeholder="{{ customer.dob | date}}" name="dp" [(ngModel)]="modelDob" value="{{ customer.dob | date}}" ngbDatepicker
+                    [footerTemplate]="footerTemplate" 
+                    #d="ngbDatepicker" 
+                    [minDate]="{year: 1920, month: 1, day: 1}" [maxDate]="today"
+                    (click)="d.toggle()">
+
+                  <ng-template #footerTemplate>
+                    <hr class="my-0">
+                    <button class="btn btn-primary btn-sm m-2 float-left" (click)="model = today; d.close()">Today</button>
+                    <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Close</button>
+                  </ng-template>
+
               </div>
             </div>
             <div class="col-md-5 px-1">
