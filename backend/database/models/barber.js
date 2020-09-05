@@ -1,7 +1,12 @@
 /*jshint esversion: 6 */
 const mongoose = require('../mongoose');
 
-const CustomerSchema = new mongoose.Schema({
+const BarberSchema = new mongoose.Schema({
+    _salonId: {
+        type: mongoose.Types.ObjectId,
+        require: [true, 'Salon id']
+    },
+
     username: { 
         type: String,
         minlength: 3,
@@ -36,17 +41,9 @@ const CustomerSchema = new mongoose.Schema({
         type: String , 
         required: [false, 'Gender must be provided']
     },
-    district: { 
+    profile: { 
         type: String,
-        required: [false, 'district']
-    },
-    city: { 
-        type: String,
-        required: [false, 'city']
-    },
-    address: { 
-        type: String,
-        required: [false, 'address']
+        required: [false, 'Barber Profile']
     },
     avatar: {
         type: String,
@@ -54,5 +51,5 @@ const CustomerSchema = new mongoose.Schema({
     }
 });
 
-const Customer = mongoose.model('Customer', CustomerSchema);
-module.exports = Customer;
+const Barber = mongoose.model('Barber', BarberSchema);
+module.exports = Barber;

@@ -16,7 +16,8 @@ export class CustomersListComponent implements OnInit {
   addedcustomer: Customer;
   customer: Customer;
   name: string;
-  public deletedCustomer: Customer;
+  public itemName: string;
+  deletedCustomer: Customer;
   addedCustomer: Customer = new Customer();
 
   constructor(
@@ -62,9 +63,9 @@ export class CustomersListComponent implements OnInit {
     this.salonUtilService.getOneCustomer(customerId)
       .subscribe((customers: Customer[]) =>  {
         this.deletedCustomer = customers[0];
-        console.log('Delete owner ' + this.deletedCustomer.username);
+        console.log('Delete customer ' + this.deletedCustomer.username);
         const ref = this.modalService.open(DeleteCustomerComponent);
-        ref.componentInstance.deletedCustomer = this.deletedCustomer;
+        ref.componentInstance.itemName = this.deletedCustomer.username;
         ref.result.then((yes) => {
           this.salonUtilService.deleteCustomers(customerId).subscribe();
           this.refreshCustomerList();

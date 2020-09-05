@@ -19,6 +19,7 @@ export class SalonViewComponent implements OnInit {
   ownerId: string;
   isListAllSalons: boolean;
   public deletedSalon: Salon;
+  addedSalon: Salon = new Salon();
 
   constructor(
     private salonUtilService: SalonUtilsService,
@@ -49,10 +50,9 @@ export class SalonViewComponent implements OnInit {
     ref.result.then((result) => {
       if (result) {
         console.log(result);
-        this.name = result;
-        // this.addedSalonOwner.name = result;
+        this.addedSalon.name = result.name;
 
-        this.salonUtilService.createSalons(this.ownerId, this.name).subscribe();
+        this.salonUtilService.createSalons(this.ownerId, this.addedSalon).subscribe();
         this.refreshSalonList();
       }
     },
@@ -81,7 +81,7 @@ export class SalonViewComponent implements OnInit {
   }
 
   refreshSalonList() {
-    this.salonUtilService.getSalons(this.ownerId).subscribe((salons: Salon[]) => this.salons = salons);
+    this.salonUtilService.getSalonsFromOwnerId(this.ownerId).subscribe((salons: Salon[]) => this.salons = salons);
   }
 
   refreshAllSalonList() {

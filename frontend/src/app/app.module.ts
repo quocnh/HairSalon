@@ -26,6 +26,7 @@ import { AddNewDistributorComponent } from './popup/add-new-distributor/add-new-
 import { DeleteDistributorComponent } from './popup/delete-distributor/delete-distributor.component';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
+import { BookingViewComponent } from './pages/booking-view/booking-view.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
     AddNewDistributorComponent,
     DeleteDistributorComponent,
     MainLayoutComponent,
+    BookingViewComponent,
   ],
   imports: [
     BrowserAnimationsModule,

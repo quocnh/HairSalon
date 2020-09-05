@@ -1,10 +1,9 @@
 
 /*jshint esversion: 6 */
-const Salon = require('../database/models/salon');
 const Barber = require('../database/models/barber');
 
 var express = require('express');
-var salonRouter = express.Router();
+var barberRouter = express.Router();
 const multer = require('multer');
 
 const storage = multer.diskStorage({
@@ -32,27 +31,20 @@ const upload = multer({
     fileFilter: fileFilter
 });
 
-salonRouter.get('/', (req, res) => {
-    Salon.find({})
-        .then(salons => res.send(salons))
-        .catch((error) => console.log(error));
-});
-
-salonRouter.get('/:salonId', (req, res) => {
-    Salon.find({ _id: req.params.salonId})
-        .then(salon => res.send(salon))
-        .catch((error) => console.log(error));
-        
-});
-
 // Barber
-salonRouter.get('/:salonId/barbers', (req, res) => {
-    Barber.find({_salonId: req.params.salonId})
+barberRouter.get('/:barberId', (req, res) => {
+    Barber.find({_id:req.params.barberId})
         .then(barbers => res.send(barbers))
         .catch((error) => console.log(error));
 });
 
-salonRouter.post('/:salonId/barbers', upload.single('avatar'), (req, res) => {
+barberRouter.get('/', (req, res) => {
+    Barber.find({})
+        .then(barbers => res.send(barbers))
+        .catch((error) => console.log(error));
+});
+
+barberRouter.post('/', upload.single('avatar'), (req, res) => {
     var strAvatarPath = "";
     if(req.file){
         console.log(req.file);
@@ -82,10 +74,10 @@ salonRouter.post('/:salonId/barbers', upload.single('avatar'), (req, res) => {
 });
 
 
-salonRouter.delete('/:salonId/barbers/:barberId', (req, res) => {
-    Barber.findByIdAndDelete({ _salonId: req.params.salonId, _id:req.params.barberId})
+barberRouter.delete('/:barberId', (req, res) => {
+    Barber.findByIdAndDelete({_id:req.params.barberId})
         .then(barber => res.send(barber))
         .catch((error) => console.log(error));
 });
 
-module.exports = salonRouter;
+module.exports = barberRouter;

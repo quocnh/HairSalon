@@ -18,6 +18,7 @@ import { SalonOwnersListComponent } from '../../pages/salon-owners-list/salon-ow
 import { SalonViewComponent } from '../../pages/salon-view/salon-view.component';
 import { CustomersListComponent } from '../../pages/customers-list/customers-list.component';
 import { DistributorViewComponent } from '../../pages/distributor-view/distributor-view.component';
+import { BarberViewComponent } from '../../pages/barber-view/barber-view.component';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import { DistributorViewComponent } from '../../pages/distributor-view/distribut
     SalonOwnersListComponent,
     CustomersListComponent,
     DistributorViewComponent,
+    BarberViewComponent,
     DashboardComponent,
     UserComponent,
     TableComponent,

@@ -1,0 +1,54 @@
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title"> Danh sách thợ cắt tóc</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+                    <th>username</th>
+                  <th>Full Name</th>
+                  <th>Date of Birth</th>
+                  <th>Phone</th>
+                  <th>Email</th>
+                  <th>Profile</th>
+                  
+                  <th class="text-right">
+                    <button class="btn btn-sm btn-success btn-round btn-icon " (click)= "createNewBarber()">
+                      <a data-toggle="tooltip" data-placement="top" title="Thêm mới"> <i class="nc-icon nc-simple-add"></i></a>
+                    </button>
+                  </th>
+
+                </thead>
+                <tbody>
+                    
+                    <tr *ngFor="let barber of barbers">
+                        <td><a href="#/profile/{{barber._id}}">{{ barber.username }}</a></td>
+                        <td>{{ barber.firstname }} {{ barber.lastname }}</td>
+                        <td>{{ barber.dob | date}}</td>
+                        <td>{{ barber.phone}}</td>
+                        <td>{{ barber.email }}</td>
+                        <td>{{ barber.profile }}</td>
+                        
+                        <td >
+                            <button class="btn btn-sm btn-danger btn-round btn-icon pull-right" (click)= "deleteBarber(barber._id)">
+                              <a data-toggle="tooltip" data-placement="top" title="Xóa"> <i class="fa fa-trash"></i></a>
+                            </button>
+                            <p class="pull-right"> &#160; </p>
+                            <button class="btn btn-sm btn-info btn-round btn-icon pull-right" (click)= "deleteBarber(barber._id)">
+                              <a data-toggle="tooltip" data-placement="top" title="Sửa"><i class="fa fa-pencil"></i></a>
+                            </button>
+                        </td>
+                    </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>   
+  

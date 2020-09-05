@@ -1,6 +1,7 @@
 
 /*jshint esversion: 6 */
 const SalonOwner = require('../database/models/salonOwner');
+const Salon = require('../database/models/salon');
 
 var express = require('express');
 var salonOwnerRouter = express.Router();
