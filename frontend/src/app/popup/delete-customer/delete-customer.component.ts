@@ -15,6 +15,7 @@ export class DeleteCustomerComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log('delete ' + this.itemName);
   }
 
 }

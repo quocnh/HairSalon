@@ -18,6 +18,7 @@ export class BarberViewComponent implements OnInit {
   public itemName: string;
   public deletedBarber: Barber;
   addedBarber: Barber = new Barber();
+  public objectName: string;
 
   constructor(
     private salonUtilService: SalonUtilsService,
@@ -31,7 +32,7 @@ export class BarberViewComponent implements OnInit {
   createNewBarber() {
     // TODO: Implement create new customer form popup
     const ref = this.modalService.open(AddNewCustomerComponent);
-
+    ref.componentInstance.objectName = 'barber';
     ref.result.then((result) => {
       if (result) {
         console.log(result);
@@ -44,6 +45,7 @@ export class BarberViewComponent implements OnInit {
         this.addedBarber.dob = result.dob;
         this.addedBarber.gender = result.gender;
         this.addedBarber.profile = result.profile;
+        this.addedBarber._salonId = result._salonId;
 
         this.salonUtilService.createBarber(this.addedBarber, null).subscribe();
         this.refreshBarberList();

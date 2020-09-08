@@ -55,7 +55,7 @@ barberRouter.post('/', upload.single('avatar'), (req, res) => {
     //var strBody = JSON.parse(JSON.stringify(req.body));
     
     const barber = new Barber({
-        _salonId: req.params.salonId,
+        _salonId: req.body._salonId,
         username: req.body.username,
         firstname: req.body.firstname,
         lastname: req.body.lastname,
@@ -73,6 +73,49 @@ barberRouter.post('/', upload.single('avatar'), (req, res) => {
     .catch((error) => console.log(error));
 });
 
+barberRouter.patch('/:barberId', upload.single('avatar'), (req, res) => {
+    var strAvatarPath = "";
+    var fs = require('fs');
+
+    if(req.file){
+        strAvatarPath = req.file.path;
+        //delete old file avatar
+        fs.exists(req.body.avatar, function(exists) {
+            if(exists) {
+                fs.unlink(req.body.avatar, (err) => {
+                    if (err) throw err;
+                    console.log(req.body.avatar + ' was deleted.');
+                  });
+            }
+            });
+    } else {
+        strAvatarPath = req.body.avatar;
+    }
+    
+    if (req.body.username) {
+        
+        console.log(req.body.username);
+        Barber.findOneAndUpdate({ '_id': req.params.barberId}, 
+            {$set: 
+                { 
+                    _salonId: req.body._salonId,
+                    username : req.body.username,
+                    firstname: req.body.firstname,
+                    lastname: req.body.lastname,
+                    phone: req.body.phone,
+                    email: req.body.email,
+                    dob: req.body.dob,
+                    gender: req.body.gender,
+                    profile: req.body.profile,
+                    avatar: strAvatarPath,
+                },
+            })
+            .then(barber => res.send(barber))
+            .catch((error) => console.log(error));
+        console.log(req.body);
+    }
+
+});
 
 barberRouter.delete('/:barberId', (req, res) => {
     Barber.findByIdAndDelete({_id:req.params.barberId})

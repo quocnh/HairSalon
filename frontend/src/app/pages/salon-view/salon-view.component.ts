@@ -64,7 +64,7 @@ export class SalonViewComponent implements OnInit {
   deleteSalon(salonId: string) {
     // TODO: Implement create new salon owner form popup
 
-    this.salonUtilService.getOneSalon(this.ownerId, salonId)
+    this.salonUtilService.getOneSalonFromOwner(this.ownerId, salonId)
       .subscribe((salons: Salon[]) =>  {
         this.deletedSalon = salons[0];
         console.log('Delete owner ' + this.deletedSalon.name);

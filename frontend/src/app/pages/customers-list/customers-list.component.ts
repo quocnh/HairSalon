@@ -17,6 +17,7 @@ export class CustomersListComponent implements OnInit {
   customer: Customer;
   name: string;
   public itemName: string;
+  public objectName: string;
   deletedCustomer: Customer;
   addedCustomer: Customer = new Customer();
 
@@ -32,7 +33,7 @@ export class CustomersListComponent implements OnInit {
   createNewCustomer() {
     // TODO: Implement create new customer form popup
     const ref = this.modalService.open(AddNewCustomerComponent);
-
+    ref.componentInstance.objectName = 'customer';
     ref.result.then((result) => {
       if (result) {
         console.log(result);

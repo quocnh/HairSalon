@@ -17,13 +17,13 @@
               <div class="col-md-5 pr-1">
                 <div class="form-group">
                     <label>Username(*)</label>
-                    <input type="text" class="form-control" [(ngModel)]="customer.username" [ngModelOptions]="{standalone: true}" placeholder="michael23" >
+                    <input type="text" class="form-control" [(ngModel)]="username" [ngModelOptions]="{standalone: true}" placeholder="username" >
                   </div>
               </div>
               <div class="col-md-7 pl-1">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Email(*)</label>
-                  <input type="email" class="form-control" [(ngModel)]="customer.email" [ngModelOptions]="{standalone: true}" placeholder="Email">
+                  <input type="email" class="form-control" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="Email">
                 </div>
               </div>
             </div>
@@ -31,19 +31,19 @@
               <div class="col-md-4 pr-1">
                 <div class="form-group">
                   <label>Họ</label>
-                  <input type="text" class="form-control" [(ngModel)]="customer.lastname" [ngModelOptions]="{standalone: true}" placeholder="Họ">
+                  <input type="text" class="form-control" [(ngModel)]="lastname" [ngModelOptions]="{standalone: true}" placeholder="Họ">
                 </div>
               </div>
               <div class="col-md-5 pr-1">
                 <div class="form-group">
                   <label>Tên</label>
-                  <input type="text" class="form-control" [(ngModel)]="customer.firstname" [ngModelOptions]="{standalone: true}" placeholder="Tên">
+                  <input type="text" class="form-control" [(ngModel)]="firstname" [ngModelOptions]="{standalone: true}" placeholder="Tên">
                 </div>
               </div>
               <div class="col-md-3 pl-1">
                 <div class="form-group">
                     <label>Giới tính</label>
-                    <select input type="text" class="form-control"  [(ngModel)]="customer.gender" [ngModelOptions]="{standalone: true}">
+                    <select input type="text" class="form-control"  [(ngModel)]="gender" [ngModelOptions]="{standalone: true}">
                       <option [selected]="gender.value=='Nam'" *ngFor="let gender of genders">
                         {{gender.value}}
                       </option>
@@ -75,39 +75,60 @@
                 <div class="col-md-6 pl-1">
                     <div class="form-group">
                       <label>Số điện thoại(*)</label>
-                      <input type="text" class="form-control" [(ngModel)]="customer.phone" [ngModelOptions]="{standalone: true}" placeholder="000-000-000" value="000-000-000">
+                      <input type="text" class="form-control" [(ngModel)]="phone" [ngModelOptions]="{standalone: true}" placeholder="000-000-000" value="000-000-000">
                     </div>
                   </div>
               </div>
 
-            
-            <div class="row">
-                <div class="col-md-6 pr-1">
+            <div *ngIf="objectName == 'customer'; else profileBlock">
+              <div class="row">
+                  <div class="col-md-6 pr-1">
+                      <div class="form-group">
+                        <label>Thành Phố</label>
+                        <input type="text" class="form-control" [(ngModel)]="customer.city" [ngModelOptions]="{standalone: true}" placeholder="Hồ Chí Minh" value="Hồ Chí Minh">
+                      </div>
+                    </div>
+                <div class="col-md-6 pl-1">
+                  <div class="form-group">
+                    <label>Quận</label>
+                    <input type="text" class="form-control" [(ngModel)]="customer.district" [ngModelOptions]="{standalone: true}" placeholder="Quận 1" value="Quận 1">
+                  </div>
+                </div>
+                
+              </div>
+              <div class="row">
+                  <div class="col-md-12">
                     <div class="form-group">
-                      <label>Thành Phố</label>
-                      <input type="text" class="form-control" [(ngModel)]="customer.city" [ngModelOptions]="{standalone: true}" placeholder="Hồ Chí Minh" value="Hồ Chí Minh">
+                      <label>Địa chỉ</label>
+                      <input type="text" class="form-control" [(ngModel)]="customer.address" [ngModelOptions]="{standalone: true}" placeholder="1 Điện Biên Phủ">
                     </div>
                   </div>
-              <div class="col-md-6 pl-1">
-                <div class="form-group">
-                  <label>Quận</label>
-                  <input type="text" class="form-control" [(ngModel)]="customer.district" [ngModelOptions]="{standalone: true}" placeholder="Quận 1" value="Quận 1">
                 </div>
-              </div>
-              
             </div>
-            <div class="row">
+            <ng-template #profileBlock>
+              <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label>Địa chỉ</label>
-                    <input type="text" class="form-control" [(ngModel)]="customer.address" [ngModelOptions]="{standalone: true}" placeholder="1 Điện Biên Phủ">
+                    <label>Thong tin</label>
+                    <input type="text" class="form-control" [(ngModel)]="barber.profile" [ngModelOptions]="{standalone: true}" placeholder="Cây kéo vàng 2020">
                   </div>
                 </div>
               </div>
+
+              <div class="form-group">
+                <label>Salon</label>
+                <select input type="text" class="form-control"  [(ngModel)]="chosenSalon" [ngModelOptions]="{standalone: true}">
+                  <option *ngFor="let salon of salons" [ngValue]="salon">
+                    {{salon.name}}
+                  </option>
+                </select>
+              </div>
+             </ng-template>
+
             <div class="row">
               <div class="update ml-auto mr-auto">
                 <button type="submit" class="btn btn-primary btn-round" (click)="modal.dismiss()"> Cancel</button>
-                <button type="submit" class="btn btn-primary btn-round" (click)="addNewCustomer()"> Ok</button>
+                <button type="submit" class="btn btn-primary btn-round" (click)="addNewObject()"> Ok</button>
               </div>
             </div>
           </form>

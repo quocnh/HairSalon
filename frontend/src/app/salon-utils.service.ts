@@ -40,8 +40,12 @@ export class SalonUtilsService {
     return this.webService.get(`salons`);
   }
 
-  getOneSalon(ownerId: string, salonId: string) {
+  getOneSalonFromOwner(ownerId: string, salonId: string) {
     return this.webService.get(`salonOwners/${ownerId}/salons/${salonId}`);
+  }
+
+  getOneSalon(salonId: string) {
+    return this.webService.get(`salons/${salonId}`);
   }
 
   createSalons(ownerId: string, salon: Salon) {
@@ -127,7 +131,7 @@ export class SalonUtilsService {
     for (key in barber) {
       fd.append(key, barber[key]);
     }
-    console.log('create Customer : ' + barber.firstname);
+    console.log('create Barber : ' + barber.firstname);
     return this.webService.post( `barbers`, fd);
   }
 

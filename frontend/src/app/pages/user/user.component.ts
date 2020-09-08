@@ -35,10 +35,10 @@ export class UserComponent implements OnInit {
 
     ngOnInit() {
         this.strAvatar = 'assets/img/default-avatar.png';
-        this.route.params.subscribe((param: Params) => {
-            this.userId = param.userId;
+        this.route.params.subscribe((params: Params) => {
+            this.userId = params.userId;
             if (this.userId) {
-              this.refreshUserProfile(this.userId);
+                this.refreshUserProfile(this.userId);
             }
           });
 
@@ -46,13 +46,13 @@ export class UserComponent implements OnInit {
 
     updateCustomerProfile() {
         if ((JSON.stringify(this.customerDb) !== JSON.stringify(this.customer)) || (this.selectedFile !== null)) {
-            console.log('Khac' + JSON.stringify(this.customerDb) + '---' + JSON.stringify(this.customer));
+            // console.log('Khac' + JSON.stringify(this.customerDb) + '---' + JSON.stringify(this.customer));
             // update user profile
             this.salonUtilService.updateCustomer(this.userId, this.customer, this.selectedFile).subscribe();
             // refresh page
             this.refreshUserProfile(this.userId);
         } else {
-            console.log('Giong' + JSON.stringify(this.customerDb) + '---' + JSON.stringify(this.customer));
+            // console.log('Giong' + JSON.stringify(this.customerDb) + '---' + JSON.stringify(this.customer));
         }
       }
 
@@ -61,8 +61,7 @@ export class UserComponent implements OnInit {
             (customer: Customer) => {
                 this.customer = Object.assign({}, customer[0]);
                 this.customerDb = Object.assign({}, customer[0]);
-                console.log(this.strAvatar);
-                if (this.customer.avatar !== 'null') {
+                if (this.customer.avatar) {
                     this.strAvatar = 'http://localhost:3000/' + this.customer.avatar;
                 }
                 console.log(this.strAvatar);
