@@ -7,17 +7,12 @@ const salonRoutes = require('./routes/salon');
 const customerRoutes = require('./routes/customer');
 const distributorRoutes = require('./routes/distributor');
 const barberRoutes = require('./routes/barber');
+const bookingRoutes = require('./routes/booking');
 var bodyParser = require('body-parser');
 /*
 localhost:3000 - backend api
 localhost:4200 - frontent 
 */
-const Customer = require('./database/models/customer');
-const Distributor = require('./database/models/distributor');
-const Item = require('./database/models/item');
-const Salon = require('./database/models/salon');
-const SalonOwner = require('./database/models/salonOwner');
-const customerRouter = require('./routes/customer');
 
 
 mongoose.set('useFindAndModify', false);
@@ -42,5 +37,7 @@ app.use('/salons',          salonRoutes);
 app.use('/customers',       customerRoutes);
 app.use('/distributors',    distributorRoutes);
 app.use('/barbers',         barberRoutes);
+app.use('/bookings',        bookingRoutes);
+
 
 app.listen(3000, () => console.log("Server Connected on port 3000"));

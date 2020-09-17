@@ -96,7 +96,7 @@
 
 // Apply the mixin to the buttons
 // .btn-default { @include btn-styles($default-color, $default-states-color); }
-.btn-primary { @include btn-styles($primary-color, $primary-states-color); }
+.btn-primary { @include btn-styles($primary-color, $primary-states-color); cursor: pointer;}
 .btn-success { @include btn-styles($success-color, $success-states-color); }
 .btn-info    { @include btn-styles($info-color, $info-states-color); }
 .btn-warning { @include btn-styles($warning-color, $warning-states-color); }
@@ -118,6 +118,7 @@
 }
 .btn-neutral {
     @include btn-styles($white-color, $white-color);
+    cursor: pointer;
     color: $default-color;
     &:hover,
     &:focus{
@@ -230,6 +231,7 @@
 .btn-salonCard {
     @include btn-styles($white-color, $white-color);
     color: $default-color;
+    cursor: pointer;
     &:hover,
     &:focus{
         border: 2px solid $info-color !important;
