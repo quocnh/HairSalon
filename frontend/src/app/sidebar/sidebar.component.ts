@@ -10,19 +10,19 @@ export interface RouteInfo {
 }
 
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard',     title: 'Dashboard',         icon: 'nc-bank',       class: '' },
-    { path: '/icons',         title: 'Icons',             icon: 'nc-diamond',    class: '' },
-    { path: '/maps',          title: 'Maps',              icon: 'nc-pin-3',      class: '' },
-    { path: '/notifications', title: 'Notifications',     icon: 'nc-bell-55',    class: '' },
-    { path: '/profile',          title: 'Thông tin cá nhân',      icon: 'nc-single-02',  class: '' },
-    { path: '/table',         title: 'Table List',        icon: 'nc-tile-56',    class: '' },
-    { path: '/typography',    title: 'Typography',        icon: 'nc-caps-small', class: '' },
-    { path: '/salonOwnersList',     title: 'Danh sách chủ salon',           icon: 'nc-scissors',   class: '' },
-    { path: '/customersList',       title: 'Danh sách khách hàng',          icon: 'nc-scissors',   class: '' },
-    { path: '/salons',              title: 'Danh sách salon',               icon: 'nc-scissors',   class: '' },
-    { path: '/distributors',        title: 'Danh sách nhà phân phối',       icon: 'nc-scissors',   class: '' },
-    { path: '/barbers',              title: 'Danh sách thợ cắt tóc',         icon: 'nc-scissors',   class: '' },
-    { path: '/main',                title: 'Main Page',                     icon: 'nc-scissors',   class: '' },
+    { path: 'dashboard',     title: 'Dashboard',         icon: 'nc-bank',       class: '' },
+    { path: 'icons',         title: 'Icons',             icon: 'nc-diamond',    class: '' },
+    { path: 'maps',          title: 'Maps',              icon: 'nc-pin-3',      class: '' },
+    { path: 'notifications', title: 'Notifications',     icon: 'nc-bell-55',    class: '' },
+    { path: 'profile',          title: 'Thông tin cá nhân',      icon: 'nc-single-02',  class: '' },
+    { path: 'table',         title: 'Table List',        icon: 'nc-tile-56',    class: '' },
+    { path: 'typography',    title: 'Typography',        icon: 'nc-caps-small', class: '' },
+    { path: 'salonOwnersList',     title: 'Danh sách chủ salon',           icon: 'nc-scissors',   class: '' },
+    { path: 'customersList',       title: 'Danh sách khách hàng',          icon: 'nc-scissors',   class: '' },
+    { path: 'salons',              title: 'Danh sách salon',               icon: 'nc-scissors',   class: '' },
+    { path: 'distributors',        title: 'Danh sách nhà phân phối',       icon: 'nc-scissors',   class: '' },
+    { path: 'barbers',              title: 'Danh sách thợ cắt tóc',         icon: 'nc-scissors',   class: '' },
+    { path: 'main',                title: 'Main Page',                     icon: 'nc-scissors',   class: '' },
 ];
 
 @Component({
