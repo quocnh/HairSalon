@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import Salon from '../../module/salon';
 
 @Component({
   selector: 'app-add-new-salon',
@@ -9,7 +10,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class AddNewSalonComponent implements OnInit {
 
   addedSalonName: string;
-
+  public salon: Salon = new Salon();
   constructor(
     public modal: NgbActiveModal,
     ) {}
@@ -20,7 +21,7 @@ export class AddNewSalonComponent implements OnInit {
 
   addNewSalon() {
     console.log(this.addedSalonName);
-    this.modal.close(this.addedSalonName);
+    this.modal.close(this.salon);
   }
 
 }

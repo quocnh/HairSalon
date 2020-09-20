@@ -15,7 +15,7 @@ import { DeleteSalonOwnerComponent } from '../../popup/delete-salon-owner/delete
 export class SalonOwnersListComponent implements OnInit {
 
   salonOwners: SalonOwner[] = [];
-  addedSalonOwner: SalonOwner;
+  addedSalonOwner: SalonOwner ;
   salonOwner: SalonOwner;
   name: string;
   public deletedSalonOwner: SalonOwner;

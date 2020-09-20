@@ -16,6 +16,8 @@ export class MainPageComponent implements OnInit {
   ownerId: string;
   isListAllSalons: boolean;
   public deletedSalon: Salon;
+  FromValue = 500000;
+  ToValue = 2000000;
 
   constructor(
     private salonUtilService: SalonUtilsService,

@@ -5,46 +5,54 @@ import { Location} from '@angular/common';
 
 @Component({
     moduleId: module.id,
+    // tslint:disable-next-line: component-selector
     selector: 'navbar-cmp',
     templateUrl: 'navbar.component.html'
 })
 
-export class NavbarComponent implements OnInit{
+export class NavbarComponent implements OnInit {
     private listTitles: any[];
+    // tslint:disable-next-line: member-ordering
     location: Location;
     private nativeElement: Node;
     private toggleButton;
     private sidebarVisible: boolean;
 
+    // tslint:disable-next-line: member-ordering
     public isCollapsed = true;
-    @ViewChild("navbar-cmp", {static: false}) button;
+    // tslint:disable-next-line: member-ordering
+    @ViewChild('navbar-cmp', {static: false}) button;
 
-    constructor(location:Location, private renderer : Renderer2, private element : ElementRef, private router: Router) {
+    // tslint:disable-next-line: member-ordering
+    constructor(location: Location, private renderer: Renderer2, private element: ElementRef, private router: Router) {
         this.location = location;
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
     }
 
-    ngOnInit(){
+    // tslint:disable-next-line: member-ordering
+    ngOnInit() {
         this.listTitles = ROUTES.filter(listTitle => listTitle);
-        var navbar : HTMLElement = this.element.nativeElement;
+        const navbar: HTMLElement = this.element.nativeElement;
         this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];
-        this.router.events.subscribe((event) => {
+        this.router.events.subscribe(() => {
           this.sidebarClose();
        });
     }
-    getTitle(){
-      var titlee = this.location.prepareExternalUrl(this.location.path());
-      if(titlee.charAt(0) === '#'){
+    // tslint:disable-next-line: member-ordering
+    getTitle() {
+      let titlee = this.location.prepareExternalUrl(this.location.path());
+      if (titlee.charAt(0) === '#') {
           titlee = titlee.slice( 1 );
       }
-      for(var item = 0; item < this.listTitles.length; item++){
-          if(this.listTitles[item].path === titlee){
+      for (let item = 0; item < this.listTitles.length; item++) {
+          if (this.listTitles[item].path === titlee) {
               return this.listTitles[item].title;
           }
       }
       return 'Dashboard';
     }
+    // tslint:disable-next-line: member-ordering
     sidebarToggle() {
         if (this.sidebarVisible === false) {
             this.sidebarOpen();
@@ -52,11 +60,12 @@ export class NavbarComponent implements OnInit{
             this.sidebarClose();
         }
       }
+      // tslint:disable-next-line: member-ordering
       sidebarOpen() {
           const toggleButton = this.toggleButton;
           const html = document.getElementsByTagName('html')[0];
           const mainPanel =  <HTMLElement>document.getElementsByClassName('main-panel')[0];
-          setTimeout(function(){
+          setTimeout(function() {
               toggleButton.classList.add('toggled');
           }, 500);
 
@@ -66,11 +75,12 @@ export class NavbarComponent implements OnInit{
           }
           this.sidebarVisible = true;
       };
+      // tslint:disable-next-line: member-ordering
       sidebarClose() {
           const html = document.getElementsByTagName('html')[0];
           const mainPanel =  <HTMLElement>document.getElementsByClassName('main-panel')[0];
           if (window.innerWidth < 991) {
-            setTimeout(function(){
+            setTimeout(function() {
               mainPanel.style.position = '';
             }, 500);
           }
@@ -78,14 +88,15 @@ export class NavbarComponent implements OnInit{
           this.sidebarVisible = false;
           html.classList.remove('nav-open');
       };
-      collapse(){
+      // tslint:disable-next-line: member-ordering
+      collapse() {
         this.isCollapsed = !this.isCollapsed;
         const navbar = document.getElementsByTagName('nav')[0];
         console.log(navbar);
         if (!this.isCollapsed) {
           navbar.classList.remove('navbar-transparent');
           navbar.classList.add('bg-white');
-        }else{
+        } else {
           navbar.classList.add('navbar-transparent');
           navbar.classList.remove('bg-white');
         }

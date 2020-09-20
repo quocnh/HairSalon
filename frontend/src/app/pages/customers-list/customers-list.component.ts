@@ -16,7 +16,10 @@ export class CustomersListComponent implements OnInit {
   addedcustomer: Customer;
   customer: Customer;
   name: string;
-  public deletedCustomer: Customer;
+  public itemName: string;
+  public objectName: string;
+  deletedCustomer: Customer;
+  addedCustomer: Customer = new Customer();
 
   constructor(
     private salonUtilService: SalonUtilsService,
@@ -30,13 +33,23 @@ export class CustomersListComponent implements OnInit {
   createNewCustomer() {
     // TODO: Implement create new customer form popup
     const ref = this.modalService.open(AddNewCustomerComponent);
-
+    ref.componentInstance.objectName = 'customer';
     ref.result.then((result) => {
       if (result) {
         console.log(result);
-        this.name = result;
 
-        this.salonUtilService.createCustomer(this.name).subscribe();
+        this.addedCustomer.username = result.username;
+        this.addedCustomer.firstname = result.firstname;
+        this.addedCustomer.lastname = result.lastname;
+        this.addedCustomer.phone = result.phone;
+        this.addedCustomer.email = result.email;
+        this.addedCustomer.dob = result.dob;
+        this.addedCustomer.gender = result.gender;
+        this.addedCustomer.city = result.city;
+        this.addedCustomer.district = result.district;
+        this.addedCustomer.address = result.address;
+
+        this.salonUtilService.createCustomer(this.addedCustomer, null).subscribe();
         this.refreshCustomerList();
       }
     },
@@ -51,9 +64,9 @@ export class CustomersListComponent implements OnInit {
     this.salonUtilService.getOneCustomer(customerId)
       .subscribe((customers: Customer[]) =>  {
         this.deletedCustomer = customers[0];
-        console.log('Delete owner ' + this.deletedCustomer.name);
+        console.log('Delete customer ' + this.deletedCustomer.username);
         const ref = this.modalService.open(DeleteCustomerComponent);
-        ref.componentInstance.deletedCustomer = this.deletedCustomer;
+        ref.componentInstance.itemName = this.deletedCustomer.username;
         ref.result.then((yes) => {
           this.salonUtilService.deleteCustomers(customerId).subscribe();
           this.refreshCustomerList();

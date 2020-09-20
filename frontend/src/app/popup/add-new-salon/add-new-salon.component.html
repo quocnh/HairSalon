@@ -1,19 +1,95 @@
-<div class="modal-header">
-    <h4 class="modal-title" id="modal-title">Thêm salon mới</h4>
-    <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div>
-    <form #simpleForm="ngForm"> 
-      <input type="text" [(ngModel)]="addedSalonName" [ngModelOptions]="{standalone: true}" placeholder="Enter salon Name" required>
-    </form>
-    
-  
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss()">Cancel</button>
-    <button type="button" ngbAutofocus class="btn btn-danger" (click)="addNewSalon()">Ok</button>
-  </div>
+
+<link href="https://cdn.syncfusion.com/ej2/ej2-base/styles/material.css" rel="stylesheet" />
+<link href="https://cdn.syncfusion.com/ej2/ej2-buttons/styles/material.css" rel="stylesheet" />
+<link href="https://cdn.syncfusion.com/ej2/ej2-inputs/styles/material.css" rel="stylesheet" />
+<link href="https://cdn.syncfusion.com/ej2/ej2-popups/styles/material.css" rel="stylesheet" />
+<link href="https://cdn.syncfusion.com/ej2/ej2-lists/styles/material.css" rel="stylesheet" />
+<link href="https://cdn.syncfusion.com/ej2/ej2-calendars/styles/material.css" rel="stylesheet" />
+
+<div class="modal-body">
+    <div class="card card-user">
+        <div class="card-header">
+          <h5 class="card-title">Thông tin user</h5>
+        </div>
+        <div class="card-body">
+          <form #customerForm="ngForm">
+            <div class="row">
+              <div class="col-md-5 pr-1">
+                <div class="form-group">
+                    <label>Name(*)</label>
+                    <input type="text" class="form-control" [(ngModel)]="salon.name" [ngModelOptions]="{standalone: true}" placeholder="username" >
+                  </div>
+              </div>
+              <div class="col-md-7 pl-1">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Email(*)</label>
+                  <input type="email" class="form-control" [(ngModel)]="salon.email" [ngModelOptions]="{standalone: true}" placeholder="Email">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 pr-1">
+                <div class="form-group">
+                  <label>Thông tin</label>
+                  <input type="text" class="form-control" [(ngModel)]="salon.info" [ngModelOptions]="{standalone: true}" placeholder="Họ">
+                </div>
+              </div>
+              <div class="col-md-5 pr-1">
+                <div class="form-group">
+                  <label>Tên</label>
+                  <input type="text" class="form-control" [(ngModel)]="salon.name" [ngModelOptions]="{standalone: true}" placeholder="Tên">
+                </div>
+              </div>
+              
+            </div>
+            <div class="row">
+                <div class="col-md-6 pr-1">
+
+   
+                </div>
+                <div class="col-md-6 pl-1">
+                    <div class="form-group">
+                      <label>Số điện thoại(*)</label>
+                      <input type="text" class="form-control" [(ngModel)]="salon.phone" [ngModelOptions]="{standalone: true}" placeholder="000-000-000" value="000-000-000">
+                    </div>
+                  </div>
+              </div>
+
+              <div class="row">
+                  <div class="col-md-6 pr-1">
+                      <div class="form-group">
+                        <label>Thành Phố</label>
+                        <input type="text" class="form-control" [(ngModel)]="salon.city" [ngModelOptions]="{standalone: true}" placeholder="Hồ Chí Minh" value="Hồ Chí Minh">
+                      </div>
+                    </div>
+                <div class="col-md-6 pl-1">
+                  <div class="form-group">
+                    <label>Quận</label>
+                    <input type="text" class="form-control" [(ngModel)]="salon.district" [ngModelOptions]="{standalone: true}" placeholder="Quận 1" value="Quận 1">
+                  </div>
+                </div>
+                
+              </div>
+              <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Địa chỉ</label>
+                      <input type="text" class="form-control" [(ngModel)]="salon.address" [ngModelOptions]="{standalone: true}" placeholder="1 Điện Biên Phủ">
+                    </div>
+                  </div>
+                </div>
+
+            
+            <div class="row">
+              <div class="update ml-auto mr-auto">
+                <button type="submit" class="btn btn-primary btn-round" (click)="modal.dismiss()"> Cancel</button>
+                <button type="submit" class="btn btn-primary btn-round" (click)="addNewSalon()"> Ok</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+</div>
   
   

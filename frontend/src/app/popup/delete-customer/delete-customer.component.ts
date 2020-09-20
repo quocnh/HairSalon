@@ -8,13 +8,14 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class DeleteCustomerComponent implements OnInit {
 
-  @Input() public deletedCustomer;
+  @Input() public itemName;
 
   constructor(
     public modal: NgbActiveModal
   ) { }
 
   ngOnInit(): void {
+    console.log('delete ' + this.itemName);
   }
 
 }
