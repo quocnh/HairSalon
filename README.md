@@ -37,6 +37,10 @@ npm install --save-dev @angular-devkit/build-angular
 npm install --save body-parser
 npm install --save @syncfusion/ej2-angular-calendars
 ```
+6. Install multer
+npm i multer
+7. Install calendar
+npm install @syncfusion/ej2-angular-calendars
 
 # how to run
 1. How to run frontend > cd frontend > npm start
