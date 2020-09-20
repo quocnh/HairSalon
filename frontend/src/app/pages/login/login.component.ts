@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-//mark testing
+//mark test
 @Component({
   selector: 'app-login',
   moduleId: module.id,
