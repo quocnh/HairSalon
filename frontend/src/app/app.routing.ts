@@ -6,14 +6,23 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 
 export const AppRoutes: Routes = [
 
+  // {
+  //   path: '',
+  //   redirectTo: 'salonOwnerList',
+  //   pathMatch: 'full',
+  // },
+  // {
+  //   path: '',
+  //   component: MainLayoutComponent,
+  //   children: [
+  //     {
+  //       path: '',
+  //       loadChildren: './layouts/admin-layout/admin-layout.module#MainLayoutModule'
+  //     }]
+  // },
+ 
   {
-    path: '',
-    redirectTo: 'salonOwnerList',
-    pathMatch: 'full',
-  },
-
-  {
-    path: '',
+    path: 'admin',
     component: AdminLayoutComponent,
     children: [
       {
