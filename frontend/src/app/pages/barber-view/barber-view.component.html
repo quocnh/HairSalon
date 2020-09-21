@@ -26,7 +26,7 @@
                 <tbody>
                     
                     <tr *ngFor="let barber of barbers">
-                        <td><a href="#/profile/barber/{{barber._id}}">{{ barber.username }}</a></td>
+                        <td><a href="#/admin/profile/barber/{{barber._id}}">{{ barber.username }}</a></td>
                         <td>{{ barber.firstname }} {{ barber.lastname }}</td>
                         <td>{{ barber.dob | date}}</td>
                         <td>{{ barber.phone}}</td>

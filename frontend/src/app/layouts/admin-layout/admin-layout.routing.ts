@@ -15,7 +15,7 @@ import { BarberViewComponent } from '../../pages/barber-view/barber-view.compone
 import { BarberProfileViewComponent } from '../../pages/barber-profile-view/barber-profile-view.component';
 
 export const AdminLayoutRoutes: Routes = [
-    
+
     { path: '',      component: DashboardComponent },
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'profile',           component: UserComponent },
