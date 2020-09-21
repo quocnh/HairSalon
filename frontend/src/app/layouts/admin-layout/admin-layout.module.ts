@@ -20,6 +20,7 @@ import { CustomersListComponent } from '../../pages/customers-list/customers-lis
 import { DistributorViewComponent } from '../../pages/distributor-view/distributor-view.component';
 import { BarberViewComponent } from '../../pages/barber-view/barber-view.component';
 import { BarberProfileViewComponent } from '../../pages/barber-profile-view/barber-profile-view.component';
+import { SalonsListViewComponent } from '../../pages/salons-list-view/salons-list-view.component';
 
 @NgModule({
   imports: [
@@ -41,7 +42,8 @@ import { BarberProfileViewComponent } from '../../pages/barber-profile-view/barb
     MapsComponent,
     NotificationsComponent,
     SalonViewComponent,
-    BarberProfileViewComponent
+    BarberProfileViewComponent,
+    SalonsListViewComponent
   ]
 })
 
