@@ -28,8 +28,12 @@ import { MainLayoutComponent } from './layouts/main-layout/main-layout.component
 import { DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { BookingViewComponent } from './pages/booking-view/booking-view.component';
 import { BarberProfileViewComponent } from './pages/barber-profile-view/barber-profile-view.component';
+
 import { LoginComponent } from './popup/login/login.component';
 import { SignupComponent } from './popup/signup/signup.component';
+
+import { SalonsListViewComponent } from './pages/salons-list-view/salons-list-view.component';
+ 
 
 @NgModule({
   declarations: [

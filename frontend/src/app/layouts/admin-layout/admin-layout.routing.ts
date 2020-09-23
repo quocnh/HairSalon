@@ -13,9 +13,10 @@ import { CustomersListComponent } from '../../pages/customers-list/customers-lis
 import { DistributorViewComponent } from '../../pages/distributor-view/distributor-view.component';
 import { BarberViewComponent } from '../../pages/barber-view/barber-view.component';
 import { BarberProfileViewComponent } from '../../pages/barber-profile-view/barber-profile-view.component';
+import { SalonsListViewComponent } from '../../pages/salons-list-view/salons-list-view.component';
 
 export const AdminLayoutRoutes: Routes = [
-    
+
     { path: '',      component: DashboardComponent },
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'profile',           component: UserComponent },
@@ -25,11 +26,12 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'maps',           component: MapsComponent },
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'salonOwnersList',      component: SalonOwnersListComponent },
-    { path: 'owner/:ownerId',       component: SalonViewComponent },
+    { path: 'owner/:ownerId',       component: SalonsListViewComponent },
     { path: 'customersList',        component: CustomersListComponent },
-    { path: 'salons',               component: SalonViewComponent },
+    { path: 'salons',               component: SalonsListViewComponent },
     { path: 'distributors',         component: DistributorViewComponent },
     { path: 'barbers',               component: BarberViewComponent },
     { path: 'profile/customer/:userId',           component: UserComponent },
     { path: 'profile/barber/:userId',           component: BarberProfileViewComponent },
+    { path: 'salons/:salonId',               component: SalonViewComponent },
 ];
