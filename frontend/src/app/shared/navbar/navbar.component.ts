@@ -2,7 +2,8 @@ import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/co
 import { ROUTES } from '../../sidebar/sidebar.component';
 import { Router } from '@angular/router';
 import { Location} from '@angular/common';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {SignupComponent} from '../../popup/signup/signup.component';
 @Component({
     moduleId: module.id,
     // tslint:disable-next-line: component-selector
@@ -24,10 +25,11 @@ export class NavbarComponent implements OnInit {
     @ViewChild('navbar-cmp', {static: false}) button;
 
     // tslint:disable-next-line: member-ordering
-    constructor(location: Location, private renderer: Renderer2, private element: ElementRef, private router: Router) {
+    constructor(location: Location, private renderer: Renderer2, private element: ElementRef, private router: Router, private modalService: NgbModal) {
         this.location = location;
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
+        
     }
 
     // tslint:disable-next-line: member-ordering
@@ -38,6 +40,20 @@ export class NavbarComponent implements OnInit {
         this.router.events.subscribe(() => {
           this.sidebarClose();
        });
+    }
+    // call signup modal function
+    signUp(){
+      console.log('call signup modal');
+      const ref = this.modalService.open(SignupComponent);
+      ref.result.then((result) => {
+        if (result) {
+          console.log(result);
+          
+        }
+      },
+      (cancel) => {
+        console.log('cancel click');
+      })
     }
     // tslint:disable-next-line: member-ordering
     getTitle() {

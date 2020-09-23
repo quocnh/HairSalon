@@ -1,0 +1,35 @@
+<link href="https://cdn.syncfusion.com/ej2/ej2-base/styles/material.css" rel="stylesheet" />
+<link href="https://cdn.syncfusion.com/ej2/ej2-buttons/styles/material.css" rel="stylesheet" />
+<link href="https://cdn.syncfusion.com/ej2/ej2-inputs/styles/material.css" rel="stylesheet" />
+<link href="https://cdn.syncfusion.com/ej2/ej2-popups/styles/material.css" rel="stylesheet" />
+<link href="https://cdn.syncfusion.com/ej2/ej2-lists/styles/material.css" rel="stylesheet" />
+<link href="https://cdn.syncfusion.com/ej2/ej2-calendars/styles/material.css" rel="stylesheet" />
+
+<div class="modal-body">
+    <div class="card card-user">
+        <div class="card-header">
+            <h5 class="card-title">Thông tin user</h5>
+        </div>
+        <div class="card-body">
+            <form #customerForm="ngForm">
+                <div class="row">
+                    <div class="col-md-5 pr-1">
+                        <div class="form-group">
+                            <label>Name(*)</label>
+                            <!-- <input type="text" class="form-control" [(ngModel)]="salon.name" [ngModelOptions]="{standalone: true}" placeholder="username" > -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="update ml-auto mr-auto">
+                        <button type="submit" class="btn btn-primary btn-round" (click)="modal.dismiss()">
+                            Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-round" (click)="addNewSalon()"> Ok</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
