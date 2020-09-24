@@ -58,13 +58,63 @@
     <div class="col-md-4">
       <div class="card pull-right">
         <div class="card-header ">
-          <h5 class="card-title">Email Statistics</h5>
-          <p class="card-category">Last Campaign Performance</p>
+          <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Chọn ngày</label>
+  
+                <input class="form-control" name="dp" [(ngModel)]="modelDob" [ngModelOptions]="{standalone: true}" ngbDatepicker
+                  [footerTemplate]="footerTemplate" 
+                  #d="ngbDatepicker" 
+                  [minDate]="today"
+                  (click)="d.toggle()">
+  
+                <ng-template #footerTemplate>
+                  <hr class="my-0">
+                  <button class="btn btn-primary btn-sm m-2 float-left" (click)="model = today; d.close()">Today</button>
+                  <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Close</button>
+                </ng-template>
+  
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Chọn giờ</label>
+  
+                <input class="form-control" name="dp" [(ngModel)]="modelDob" [ngModelOptions]="{standalone: true}" ngbDatepicker
+                  [footerTemplate]="footerTemplate" 
+                  #d="ngbDatepicker" 
+                  [minDate]="today"
+                  (click)="d.toggle()">
+  
+                <ng-template #footerTemplate>
+                  <hr class="my-0">
+                  <button class="btn btn-primary btn-sm m-2 float-left" (click)="model = today; d.close()">Today</button>
+                  <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Close</button>
+                </ng-template>
+  
+            </div>
+          </div>
+        </div>
         </div>
         <div class="card-body ">
-          <canvas id="chartEmail"></canvas>
-          <div class="btn btn-booking card card-btn" (click)= "showImageSlider()">
-            Booking
+          <div class="form-group">
+            <select input type="text" class="form-control">
+              <option >
+                <p>Service 1   (30$)</p>
+              </option>
+              <option >
+                <p>Service 2   (50$)</p>
+              </option>
+              <option >
+                <p>Service 3   (130$)</p>
+              </option>
+            </select>
+            
+          </div>
+
+          <div class="btn btn-booking card card-btn" (click)= "reserveService()">
+            Đặt chỗ
           </div>
         </div>
         <div class="card-footer ">
