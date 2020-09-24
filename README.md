@@ -45,6 +45,10 @@ npm i multer
 ```python
 npm install @syncfusion/ej2-angular-calendars
 ```
+8. Install calendar
+```python
+npm install ng-image-slider --save
+```
 # how to run
 1. How to run frontend > cd frontend > npm start
 2. How to run backend > cd backend > nodemon app.js

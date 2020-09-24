@@ -33,7 +33,6 @@ import { LoginComponent } from './popup/login/login.component';
 import { SignupComponent } from './popup/signup/signup.component';
 
 import { SalonsListViewComponent } from './pages/salons-list-view/salons-list-view.component';
- 
 
 @NgModule({
   declarations: [

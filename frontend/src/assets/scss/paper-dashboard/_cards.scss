@@ -76,8 +76,8 @@
         overflow: hidden;
         height: 200px;
         position: relative;
-        border-top-right-radius: 10px;
-        border-top-left-radius: 10px;
+        border-top-right-radius: 1px;
+        border-top-left-radius: 1px;
     }
 
     .avatar{
@@ -90,6 +90,10 @@
 
     .numbers {
       font-size: 2em;
+    }
+
+    .card-btn {
+        background-color: $success-color;
     }
 
     .big-title {
