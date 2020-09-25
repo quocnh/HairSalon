@@ -30,9 +30,10 @@ import { BookingViewComponent } from './pages/booking-view/booking-view.componen
 import { BarberProfileViewComponent } from './pages/barber-profile-view/barber-profile-view.component';
 
 import { LoginComponent } from './popup/login/login.component';
-import { SignupComponent } from './popup/signup/signup.component';
 
 import { SalonsListViewComponent } from './pages/salons-list-view/salons-list-view.component';
+import { RegisterComponent } from './popup/register/register.component';
+
  
 
 @NgModule({
@@ -50,7 +51,7 @@ import { SalonsListViewComponent } from './pages/salons-list-view/salons-list-vi
     MainLayoutComponent,
     BookingViewComponent,
     LoginComponent,
-    SignupComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserAnimationsModule,

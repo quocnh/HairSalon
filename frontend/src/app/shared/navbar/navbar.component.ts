@@ -3,7 +3,8 @@ import { ROUTES } from '../../sidebar/sidebar.component';
 import { Router } from '@angular/router';
 import { Location} from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {SignupComponent} from '../../popup/signup/signup.component';
+import {RegisterComponent} from '../../popup/register/register.component';
+import {LoginComponent} from '../../popup/login/login.component';
 @Component({
     moduleId: module.id,
     // tslint:disable-next-line: component-selector
@@ -41,10 +42,24 @@ export class NavbarComponent implements OnInit {
           this.sidebarClose();
        });
     }
+    // call signin modal function
+    login(){
+      console.log('call login modal');
+      const ref = this.modalService.open(LoginComponent);
+      ref.result.then((result) => {
+        if (result) {
+          console.log(result);
+          
+        }
+      },
+      (cancel) => {
+        console.log('cancel click');
+      })
+    }
     // call signup modal function
-    signUp(){
-      console.log('call signup modal');
-      const ref = this.modalService.open(SignupComponent);
+    register(){
+      console.log('call register modal');
+      const ref = this.modalService.open(RegisterComponent);
       ref.result.then((result) => {
         if (result) {
           console.log(result);
