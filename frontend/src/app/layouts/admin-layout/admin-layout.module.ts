@@ -21,13 +21,15 @@ import { DistributorViewComponent } from '../../pages/distributor-view/distribut
 import { BarberViewComponent } from '../../pages/barber-view/barber-view.component';
 import { BarberProfileViewComponent } from '../../pages/barber-profile-view/barber-profile-view.component';
 import { SalonsListViewComponent } from '../../pages/salons-list-view/salons-list-view.component';
+import { NgImageSliderModule } from 'ng-image-slider';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
-    NgbModule
+    NgbModule,
+    NgImageSliderModule,
   ],
   declarations: [
     SalonOwnersListComponent,

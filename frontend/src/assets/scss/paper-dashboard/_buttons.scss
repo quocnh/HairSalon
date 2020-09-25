@@ -183,6 +183,16 @@
   background-color: $transparent-bg;
 }
 
+.btn-image{
+    border: $none;
+    padding: $none;
+    background-color: $transparent-bg;
+    cursor: pointer;
+    &:hover{
+        opacity: .8;
+    }
+  }
+
 .btn-lg{
    @include btn-size($padding-large-vertical, $padding-large-horizontal, $font-size-large, $border-radius-large);
 }
@@ -257,6 +267,11 @@
     }
 }
 
+.btn-booking {
+    background-color: $success-color;
+    @include btn-styles($success-color, $success-states-color);
+    cursor: pointer;
+}
 
 .no-caret {
   &.dropdown-toggle::after {

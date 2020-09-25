@@ -32,9 +32,8 @@ import { BarberProfileViewComponent } from './pages/barber-profile-view/barber-p
 import { LoginComponent } from './popup/login/login.component';
 
 import { SalonsListViewComponent } from './pages/salons-list-view/salons-list-view.component';
-import { RegisterComponent } from './popup/register/register.component';
 
- 
+import { RegisterComponent } from './popup/register/register.component';
 
 @NgModule({
   declarations: [
