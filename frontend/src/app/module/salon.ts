@@ -1,3 +1,7 @@
+export class Service {
+    name: string;
+    price: number;
+}
 export default class Salon {
     _id: string;
     name: string;
@@ -9,7 +13,7 @@ export default class Salon {
     address: string;
     local: string;
     info: string;
-    services: string;
+    services: Service;
     priceFrom: number;
     priceTo: number;
     rate: number;

@@ -61,7 +61,11 @@ salonRouter.post('/', (req, res) => {
     .catch((error) => console.log(error));
 });
 
-
+salonRouter.delete('/:salonId', (req, res) => {
+    Salon.findByIdAndDelete({_id:req.params.salonId})
+        .then(salon => res.send(salon))
+        .catch((error) => console.log(error));
+});
 
 salonRouter.get('/:salonId', (req, res) => {
     Salon.find({ _id: req.params.salonId})

@@ -60,11 +60,11 @@ export class SalonUtilsService {
       fd.append(key, salon[key]);
     }
     console.log('create Salon : ' + salon.name);
-    return this.webService.post( `salonOwners/${ownerId}/salons`, fd);
+    return this.webService.post( `salons`, fd);
   }
 
-  deleteSalons(ownerId: string, salonId: string) {
-    return this.webService.delete(`salonOwners/${ownerId}/salons/${salonId}`);
+  deleteSalons(salonId: string) {
+    return this.webService.delete(`salons/${salonId}`);
   }
 
   // Customer

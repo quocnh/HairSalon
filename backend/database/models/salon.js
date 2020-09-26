@@ -1,6 +1,15 @@
 /*jshint esversion: 6 */
 const mongoose = require('../mongoose');
 
+const Service = new mongoose.Schema({
+    name: {
+        type: String
+    },
+    price: {
+        type: Number
+    }
+});
+
 const SalonSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -43,7 +52,7 @@ const SalonSchema = new mongoose.Schema({
         required: [false, 'Salon short Info ']
     },
     services: { 
-        type: String, 
+        type: Service, 
         required: [false, 'Salon full services Info ']
     },
     priceFrom: { 

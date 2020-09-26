@@ -46,9 +46,26 @@ salonOwnerRouter.get('/:salonOwnerId/salons', (req, res) => {
 });
 
 salonOwnerRouter.post('/:salonOwnerId/salons', (req, res) => {
-    (new Salon({ '_salonOwnerId': req.params.salonOwnerId, 'name': req.body.name}))
+    console.log('Create new salon' + req.body.name);
+    (new Salon({ 
+        'name': req.body.name,
+        '_salonOwnerId': req.body._salonOwnerId,
+        'phone': req.body.phone,
+        'email': req.body.email,
+        'district': req.body.district,
+        'city': req.body.city,
+        'address': req.body.address,
+        'local': req.body.local,
+        'info': req.body.info,
+        'services': req.body.services,
+        'priceFrom': req.body.priceFrom,
+        'priceTo': req.body.priceTo,
+        'rate': req.body.rate,
+        'numRate': req.body.numRate,
+        'photo': req.body.photo,
+    }))
     .save()
-    .then(salons => res.send(salons))
+    .then(salon => res.send(salon))
     .catch((error) => console.log(error));
 });
 

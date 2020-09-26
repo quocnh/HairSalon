@@ -9,43 +9,43 @@
 <div class="modal-body">
     <div class="card card-user">
         <div class="card-header">
-          <h5 class="card-title">Thông tin user</h5>
+          <h5 class="card-title">Thông tin Salon mới</h5>
         </div>
         <div class="card-body">
           <form #customerForm="ngForm">
             <div class="row">
-              <div class="col-md-5 pr-1">
+              <div class="col-md-7 pr-1">
                 <div class="form-group">
-                    <label>Name(*)</label>
-                    <input type="text" class="form-control" [(ngModel)]="salon.name" [ngModelOptions]="{standalone: true}" placeholder="username" >
+                    <label>Tên Salon(*)</label>
+                    <input type="text" class="form-control" [(ngModel)]="salon.name" [ngModelOptions]="{standalone: true}">
                   </div>
               </div>
-              <div class="col-md-7 pl-1">
+              <div class="col-md-5 pl-1">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Email(*)</label>
-                  <input type="email" class="form-control" [(ngModel)]="salon.email" [ngModelOptions]="{standalone: true}" placeholder="Email">
+                  <input type="email" class="form-control" [(ngModel)]="salon.email" [ngModelOptions]="{standalone: true}" placeholder="abc@xyz.com">
                 </div>
               </div>
             </div>
             <div class="row">
-              <div class="col-md-4 pr-1">
+              <div class="col-md-12">
                 <div class="form-group">
-                  <label>Thông tin</label>
-                  <input type="text" class="form-control" [(ngModel)]="salon.info" [ngModelOptions]="{standalone: true}" placeholder="Họ">
+                  <label>Thông tin salon</label>
+                  <input type="text" class="form-control" [(ngModel)]="salon.info" [ngModelOptions]="{standalone: true}" placeholder="Thêm thông tin về dịch vụ và thợ làm tóc">
                 </div>
               </div>
-              <div class="col-md-5 pr-1">
-                <div class="form-group">
-                  <label>Tên</label>
-                  <input type="text" class="form-control" [(ngModel)]="salon.name" [ngModelOptions]="{standalone: true}" placeholder="Tên">
-                </div>
-              </div>
-              
             </div>
+
             <div class="row">
                 <div class="col-md-6 pr-1">
-
-   
+                  <div class="form-group">
+                    <label>Chủ Salon(*)</label>
+                    <select input type="text" class="form-control"  [(ngModel)]="chosenSalonOwner" [ngModelOptions]="{standalone: true}">
+                      <option *ngFor="let salonOwner of salonOwners" [ngValue]="salonOwner">
+                        {{salonOwner.name}}
+                      </option>
+                    </select>
+                  </div>
                 </div>
                 <div class="col-md-6 pl-1">
                     <div class="form-group">
