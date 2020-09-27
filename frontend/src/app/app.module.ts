@@ -34,6 +34,7 @@ import { LoginComponent } from './popup/login/login.component';
 import { SalonsListViewComponent } from './pages/salons-list-view/salons-list-view.component';
 
 import { RegisterComponent } from './popup/register/register.component';
+import { SalonEditComponent } from './pages/salon-edit/salon-edit.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { RegisterComponent } from './popup/register/register.component';
     BookingViewComponent,
     LoginComponent,
     RegisterComponent,
+    SalonEditComponent,
   ],
   imports: [
     BrowserAnimationsModule,

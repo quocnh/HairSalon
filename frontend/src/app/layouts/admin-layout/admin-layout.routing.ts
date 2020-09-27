@@ -14,6 +14,7 @@ import { DistributorViewComponent } from '../../pages/distributor-view/distribut
 import { BarberViewComponent } from '../../pages/barber-view/barber-view.component';
 import { BarberProfileViewComponent } from '../../pages/barber-profile-view/barber-profile-view.component';
 import { SalonsListViewComponent } from '../../pages/salons-list-view/salons-list-view.component';
+import { SalonEditComponent } from '../../pages/salon-edit/salon-edit.component';
 
 export const AdminLayoutRoutes: Routes = [
 
@@ -33,5 +34,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'barbers',               component: BarberViewComponent },
     { path: 'profile/customer/:userId',           component: UserComponent },
     { path: 'profile/barber/:userId',           component: BarberProfileViewComponent },
-    { path: 'salons/:salonId',               component: SalonViewComponent },
+    { path: 'salons/:salonId',               component: SalonEditComponent },
 ];
