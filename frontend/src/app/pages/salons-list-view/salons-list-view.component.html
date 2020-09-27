@@ -63,14 +63,17 @@
                   <table class="table">
                     <thead class=" text-primary">
                       <th>
-                        Name
+                        Tên salon
                       </th>
                       <th>
-                        Id
+                        Số điện thoại
                       </th>
                       <th>
                         Email
                       </th> 
+                      <th>
+                        Thông tin
+                      </th>
                       <th class="text-right">
                         <button class="btn btn-sm btn-success btn-round btn-icon " (click)= "createNewSalon()">
                           <a data-toggle="tooltip" data-placement="top" title="Thêm mới"> <i class="nc-icon nc-simple-add"></i></a>
@@ -85,10 +88,13 @@
                                 <a href="#/admin/salons/{{salon._id}}">{{ salon.name }}</a>
                             </td>
                             <td>
-                                id-{{ salon.name }}
+                                {{ salon.phone }}
                             </td>
                             <td>
-                                {{ salon.name }}@email.com
+                                {{ salon.email }}
+                            </td>
+                            <td>
+                                {{ salon.info }}
                             </td>
                             <td >
                                 <button class="btn btn-sm btn-danger btn-round btn-icon pull-right" (click)= "deleteSalon(salon._id)">

@@ -47,8 +47,9 @@ export class BarberViewComponent implements OnInit {
         this.addedBarber.profile = result.profile;
         this.addedBarber._salonId = result._salonId;
 
-        this.salonUtilService.createBarber(this.addedBarber, null).subscribe();
-        this.refreshBarberList();
+        this.salonUtilService.createBarber(this.addedBarber, null).subscribe(
+          (yes) => this.refreshBarberList()
+        );
       }
     },
     (cancel) => {

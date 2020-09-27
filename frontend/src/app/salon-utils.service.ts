@@ -48,12 +48,12 @@ export class SalonUtilsService {
     return this.webService.get(`salons/${salonId}`);
   }
 
-  createSalons(ownerId: string, salon: Salon) {
+  createSalons(salon: Salon, file: File) {
     const fd = new FormData();
     let key;
-    // if (file) {
-    //  fd.append('avatar', file, file.name);
-    // }
+    if (file) {
+      fd.append('photo', file, file.name);
+    }
 
     // tslint:disable-next-line: forin
     for (key in salon) {

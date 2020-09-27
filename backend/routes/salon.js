@@ -38,26 +38,34 @@ salonRouter.get('/', (req, res) => {
         .catch((error) => console.log(error));
 });
 
-salonRouter.post('/', (req, res) => {
-    (new Salon({ 
-        'name': req.body.name,
-        '_salonOwnerId': req.body._salonOwnerId,
-        'phone': req.body.phone,
-        'email': req.body.email,
-        'district': req.body.district,
-        'city': req.body.city,
-        'address': req.body.address,
-        'local': req.body.local,
-        'info': req.body.info,
-        'services': req.body.services,
-        'priceFrom': req.body.priceFrom,
-        'priceTo': req.body.priceTo,
-        'rate': req.body.rate,
-        'numRate': req.body.numRate,
-        'photo': req.body.photo,
-    }))
-    .save()
-    .then(salon => res.send(salon))
+salonRouter.post('/', upload.single('photo'), (req, res) => {
+    var strPhotoPath = "";
+    if(req.file){
+        console.log(req.file);
+        strPhotoPath = req.file.path;
+    }
+    console.log(req.body);
+
+    const salon = new Salon({ 
+        name: req.body.name,
+        _salonOwnerId: req.body._salonOwnerId,
+        phone: req.body.phone,
+        email: req.body.email,
+        district: req.body.district,
+        city: req.body.city,
+        address: req.body.address,
+        local: req.body.local,
+        info: req.body.info,
+        services: req.body.services,
+        priceFrom: req.body.priceFrom,
+        priceTo: req.body.priceTo,
+        rate: req.body.rate,
+        numRate: req.body.numRate,
+        photo: req.body.photo,
+    });
+    
+    salon.save()
+    .then(newSalon => res.send(newSalon))
     .catch((error) => console.log(error));
 });
 

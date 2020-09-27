@@ -47,20 +47,26 @@ export class SalonsListViewComponent implements OnInit {
 
     ref.result.then((result) => {
       if (result) {
-        console.log('RESULT: ' + result);
-        this.addedSalon.name = result.name;
+        console.log('RESULT: added salon name' + result.name);
+        this.addedSalon = result;
+        console.log('RESULT: owner salon id' + this.addedSalon._salonOwnerId);
+        this.addedSalon.rate = 0;
+        this.addedSalon.numRate = 0;
         if (this.isListAllSalons) {
           // Case list all salons from admin account
           if ((this.addedSalon.name !== null) && (this.addedSalon._salonOwnerId !== null)) {
             console.log('Create Salon from admin');
-            this.salonUtilService.createSalons(this.addedSalon._salonOwnerId, this.addedSalon).subscribe();
-            this.refreshAllSalonList();
+            this.salonUtilService.createSalons(this.addedSalon, null).subscribe(
+              () => this.refreshAllSalonList()
+            );
           }
         } else if ((this.addedSalon.name !== null) && (this.ownerId !== null)) {
           // Case add salon from owner account
           console.log('Create Salon from owner');
-          this.salonUtilService.createSalons(this.ownerId, this.addedSalon).subscribe();
-          this.refreshSalonList();
+          this.salonUtilService.createSalons(this.addedSalon, null).subscribe(
+            () => this.refreshSalonList()
+          );
+
         }
       }
     },
@@ -79,12 +85,16 @@ export class SalonsListViewComponent implements OnInit {
         const ref = this.modalService.open(DeleteSalonComponent);
         ref.componentInstance.deletedSalon = this.deletedSalon;
         ref.result.then((yes) => {
-          this.salonUtilService.deleteSalons(salonId).subscribe();
-          if (this.isListAllSalons) {
-            this.refreshAllSalonList();
-          } else {
-            this.refreshSalonList();
-          }
+          this.salonUtilService.deleteSalons(salonId).subscribe(
+            () => {
+                if (this.isListAllSalons) {
+                  this.refreshAllSalonList();
+                } else {
+                  this.refreshSalonList();
+                }
+              }
+          );
+
         },
         (cancel) => {
           console.log('cancel click');
