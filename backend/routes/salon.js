@@ -172,6 +172,32 @@ salonRouter.patch('/:salonId/delService', (req, res) => {
 
 });
 
+salonRouter.patch('/:salonId/updateService/:sIndex', (req, res) => {
+    const Service = {
+        name: String,
+        price: Number
+    };
+    const index = req.params.sIndex;
+    const service = Object.create(Service);
+    let tid = {["services." + index] : service};
+    if (req.body.name) {
+        //console.log(req.body);
+        service.name = req.body.name;
+        service.price = req.body.price;
+        console.log(tid);
+        Salon.findOneAndUpdate({ '_id': req.params.salonId}, 
+            {
+                $set: tid
+            })
+            .then(salon => console.log(salon))
+            .catch((error) => console.log(error));
+
+        Salon.findOneAndUpdate({ '_id': req.params.salonId}, {})
+            .then(salon => res.send(salon))
+            .catch((error) => console.log(error));
+    }
+
+});
 // Barber
 salonRouter.get('/:salonId/barbers', (req, res) => {
     Barber.find({_salonId: req.params.salonId})
