@@ -48,9 +48,11 @@ export class UserComponent implements OnInit {
         if ((JSON.stringify(this.customerDb) !== JSON.stringify(this.customer)) || (this.selectedFile !== null)) {
             // console.log('Khac' + JSON.stringify(this.customerDb) + '---' + JSON.stringify(this.customer));
             // update user profile
-            this.salonUtilService.updateCustomer(this.userId, this.customer, this.selectedFile).subscribe();
-            // refresh page
-            this.refreshUserProfile(this.userId);
+            this.salonUtilService.updateCustomer(this.userId, this.customer, this.selectedFile).subscribe(
+                // refresh page
+                () => this.refreshUserProfile(this.userId)
+            );
+
         } else {
             // console.log('Giong' + JSON.stringify(this.customerDb) + '---' + JSON.stringify(this.customer));
         }

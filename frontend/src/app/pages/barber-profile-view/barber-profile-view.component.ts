@@ -50,9 +50,10 @@ export class BarberProfileViewComponent implements OnInit {
       if ((JSON.stringify(this.barberDb) !== JSON.stringify(this.barber)) || (this.selectedFile !== null)) {
           // console.log('Khac' + JSON.stringify(this.customerDb) + '---' + JSON.stringify(this.customer));
           // update user profile
-          this.salonUtilService.updateBarber(this.userId, this.barber, this.selectedFile).subscribe();
-          // refresh page
-          this.refreshUserProfile(this.userId);
+          this.salonUtilService.updateBarber(this.userId, this.barber, this.selectedFile).subscribe(
+              () => // refresh page
+              this.refreshUserProfile(this.userId)
+          );
       } else {
           // console.log('Giong' + JSON.stringify(this.customerDb) + '---' + JSON.stringify(this.customer));
       }
