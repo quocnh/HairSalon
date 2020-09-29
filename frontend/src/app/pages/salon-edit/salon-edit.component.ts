@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
 import Salon from '../../module/salon';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Params } from '@angular/router';
 import { SalonUtilsService } from '../../salon-utils.service';
+import { Service } from '../../module/salon';
 
 @Component({
   selector: 'app-salon-edit',
@@ -13,6 +14,8 @@ export class SalonEditComponent implements OnInit {
   salon: Salon = new Salon();
   modelDob: NgbDateStruct;
   today = this.calendar.getToday();
+  addedService: Service = new Service();
+  addedSalon: Salon = new Salon();
 
   constructor(
     private route: ActivatedRoute,
@@ -38,14 +41,46 @@ export class SalonEditComponent implements OnInit {
     this.salonUtilService.getOneSalon(salonId).subscribe(
         (salons: Salon) => {
             this.salon = Object.assign({}, salons[0]);
-            console.log(this.salon.name);
+            console.log(this.salon);
         });
   }
 
   showImageSlider() {
     console.log ('Show imageSlider');
   }
-  reserveService() {
-    console.log('Reserve Service')
+
+  addNewService(service: Service) {
+    // TODO
+    console.log(service);
+
+    this.salonUtilService.addSalonService(this.salon._id, service).subscribe(
+      (salon: Salon) => {
+          this.salon = salon;
+          this.addedService.name = null;
+          this.addedService.price = null;
+          // console.log(this.salon);
+      });
+  }
+
+  deleteService(service: Service) {
+    // TODO
+    console.log(service);
+
+    this.salonUtilService.delSalonService(this.salon._id, service).subscribe(
+      (salon: Salon) => {
+        this.salon = salon;
+        // console.log(this.salon);
+      });
+  }
+
+  updateService(service: Service, index: number) {
+    // TODO
+    console.log(service);
+
+    this.salonUtilService.updateSalonService(this.salon._id, service, index).subscribe(
+      (salon: Salon) => {
+        this.salon = salon;
+        // console.log(this.salon);
+      });
   }
 }

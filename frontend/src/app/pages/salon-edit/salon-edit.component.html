@@ -1,10 +1,19 @@
 <div class="row">
-    <div class="card card-plain">
-        <div class="card-header">
-          <h4 class="card-title"> {{salon.name}}</h4>
-          <p class="card-category"> <i class="fa fa-star text-danger"></i> 4.5 (232) Address {{salon.address}}</p>
+    <div class="col-md-12">
+        <div class="card card-chart">
+            <div class="card-header">
+                <h4 class="card-title"> 
+                    Tên salon <input type="text" class="form-control card-title" placeholder="Tên salon" value="{{ salon.name }}" [(ngModel)]="salon.name" [ngModelOptions]="{standalone: true}">  
+                </h4>
+                   <br>         
+                <p class="card-category"> 
+                    <input type="text" class="form-control" placeholder="Địa chỉ" value="{{ salon.address }}" [(ngModel)]="salon.address" [ngModelOptions]="{standalone: true}">
+                </p>
+                
+            </div>
         </div>
-    </div>
+      </div>
+    
 </div>
 
 <div class="row"> 
@@ -37,94 +46,54 @@
       <div class="card card-chart">
         <div class="card-header">
           <h5 class="card-title">Thông tin salon</h5>
-          <p class="card-category">{{salon.info}}</p>
-        </div>
-        <div class="card-body">
-          <canvas id="speedChart" width="400" height="100"></canvas>
-        </div>
-      </div>
-      <div class="card card-chart">
-        <div class="card-header">
-          <h5 class="card-title">Bình luận</h5>
-        </div>
-        <div class="card-body">
-          <p class="card-category">Hiển thị bình luận</p>
+          <textarea style="width: 100%; max-width: 100%;" name="Text1" rows="5" placeholder="Salon info" value="{{ salon.info }}" [(ngModel)]="salon.info" [ngModelOptions]="{standalone: true}"></textarea>
         </div>
       </div>
     </div>
+    
+</div>
 
-    <div class="col-md-4">
-      <div class="card pull-right">
-        <div class="card-header ">
-          <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Chọn ngày</label>
-  
-                <input class="form-control" name="dp" [(ngModel)]="modelDob" [ngModelOptions]="{standalone: true}" ngbDatepicker
-                  [footerTemplate]="footerTemplate" 
-                  #d="ngbDatepicker" 
-                  [minDate]="today"
-                  (click)="d.toggle()">
-  
-                <ng-template #footerTemplate>
-                  <hr class="my-0">
-                  <button class="btn btn-primary btn-sm m-2 float-left" (click)="model = today; d.close()">Today</button>
-                  <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Close</button>
-                </ng-template>
-  
+<div class="row">
+
+    <div class="col-md-8">
+      <div class="card card-chart">
+        <div class="card-header">
+          <h5 class="card-title">Dịch vụ</h5>
+          <div class="row" *ngFor="let s of salon.services; let i = index">
+            <div class="col-md-7" >
+                <input id= "n-{{i}}" type="text" class="form-control card-title" placeholder="dịch vụ" value="{{ s.name }}" [(ngModel)]="s.name" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col-md-3" >
+                <input id= "p-{{i}}" type="text" class="form-control card-title" placeholder="Giá" value= "{{s.price }}" [(ngModel)]="s.price" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col-md-2" >
+                <button class="btn btn-sm btn-danger btn-round btn-icon pull-right" (click)= "deleteService(s)">
+                    <a data-toggle="tooltip" data-placement="top" title="Xóa"> <i class="fa fa-trash"></i></a>
+                </button>
+                <p class="pull-right"> &#160; </p>
+                <div>
+                    <button class="btn btn-sm btn-info btn-round btn-icon pull-right" (click)= "updateService(s, i)">
+                        <a data-toggle="tooltip" data-placement="top" title="Cập nhật"><i class="fa fa-pencil"></i></a>
+                    </button>
+                </div>          
+                
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Chọn giờ</label>
-  
-                <input class="form-control" name="dp" [(ngModel)]="modelDob" [ngModelOptions]="{standalone: true}" ngbDatepicker
-                  [footerTemplate]="footerTemplate" 
-                  #d="ngbDatepicker" 
-                  [minDate]="today"
-                  (click)="d.toggle()">
-  
-                <ng-template #footerTemplate>
-                  <hr class="my-0">
-                  <button class="btn btn-primary btn-sm m-2 float-left" (click)="model = today; d.close()">Today</button>
-                  <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Close</button>
-                </ng-template>
-  
-            </div>
-          </div>
-        </div>
-        </div>
-        <div class="card-body ">
-          <div class="form-group">
-            <select input type="text" class="form-control">
-              <option >
-                <p>Service 1   (30$)</p>
-              </option>
-              <option >
-                <p>Service 2   (50$)</p>
-              </option>
-              <option >
-                <p>Service 3   (130$)</p>
-              </option>
-            </select>
-            
-          </div>
-
-          <div class="btn btn-booking card card-btn" (click)= "reserveService()">
-            Đặt chỗ
-          </div>
-        </div>
-        <div class="card-footer ">
-          Service detail
           <hr>
-          <div class="stats">
-            <p style="text-align:left;">Tổng cộng
-              <span style="float:right;">
-                $$$
-              </span>
-            </p> 
+          <div class="row">
+            <div class="col-md-7" >
+                <input name="addedServiceName" type="text" class="form-control card-title" placeholder="Thêm dịch vụ" [(ngModel)]="addedService.name" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col-md-3" >
+                <input name="addedServicePrice" type="text" class="form-control card-title" placeholder="&#x20AB;0" [(ngModel)]="addedService.price" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col-md-2" >
+                <button class="btn btn-sm btn-success btn-round btn-icon pull-right" (click)= "addNewService(addedService)">
+                    <a data-toggle="tooltip" data-placement="top" title="Thêm mới dịch vụ"> <i class="nc-icon nc-simple-add"></i></a>
+                </button>
+            </div>
           </div>
+          <br>
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 
 /*jshint esversion: 6 */
 const Salon = require('../database/models/salon');
+const Service = require('../database/models/salon');
 const Barber = require('../database/models/barber');
 
 var express = require('express');
@@ -80,6 +81,95 @@ salonRouter.get('/:salonId', (req, res) => {
         .then(salon => res.send(salon))
         .catch((error) => console.log(error));
         
+});
+
+salonRouter.patch('/:salonId', upload.single('photo'), (req, res) => {
+    var strPhotoPath = "";
+    var fs = require('fs');
+    
+    if (req.body.name) {
+        
+        console.log(req.body.name);
+        console.log(req.body.services.name);
+        console.log(req.body.services.price);
+        Salon.findOneAndUpdate({ '_id': req.params.salonId}, 
+            {
+                $set: 
+                { 
+                    name: req.body.name,
+                    _salonOwnerId: req.body._salonOwnerId,
+                    phone: req.body.phone,
+                    email: req.body.email,
+                    district: req.body.district,
+                    city: req.body.city,
+                    address: req.body.address,
+                    local: req.body.local,
+                    info: req.body.info,
+                    //services: [req.body.services[],
+                    priceFrom: req.body.priceFrom,
+                    priceTo: req.body.priceTo,
+                    rate: req.body.rate,
+                    numRate: req.body.numRate,
+                    photo: req.body.photo,
+                },
+            })
+            .then(salon => res.send(salon))
+            .catch((error) => console.log(error));
+    }
+
+});
+
+salonRouter.patch('/:salonId/addService', (req, res) => {
+    const Service = {
+        name: String,
+        price: Number
+    };
+    const addedService = Object.create(Service);
+    if (req.body.name) {
+        //console.log(req.body);
+        addedService.name = req.body.name;
+        addedService.price = req.body.price;
+        //console.log(addedService);
+        Salon.findOneAndUpdate({ '_id': req.params.salonId}, 
+            {
+                $push:
+                {
+                    services: addedService
+                }
+            })
+            .then(salon => {salon.services.push(addedService); res.send(salon);})
+            .catch((error) => console.log(error));
+
+    }
+
+});
+
+salonRouter.patch('/:salonId/delService', (req, res) => {
+    const Service = {
+        name: String,
+        price: Number
+    };
+    const service = Object.create(Service);
+    if (req.body.name) {
+        //console.log(req.body);
+        service.name = req.body.name;
+        service.price = req.body.price;
+        console.log(service);
+        Salon.findOneAndUpdate({ '_id': req.params.salonId}, 
+            {
+                $pull: 
+                {
+                    services: service
+                }
+            })
+            .then(salon => console.log(salon))
+            .catch((error) => console.log(error));
+        
+        Salon.findOneAndUpdate({ '_id': req.params.salonId}, {})
+        .then(salon => res.send(salon))
+        .catch((error) => console.log(error));
+    }
+
 });
 
 // Barber

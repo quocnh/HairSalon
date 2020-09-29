@@ -1,14 +1,6 @@
 /*jshint esversion: 6 */
 const mongoose = require('../mongoose');
 
-const Service = new mongoose.Schema({
-    name: {
-        type: String
-    },
-    price: {
-        type: Number
-    }
-});
 
 const SalonSchema = new mongoose.Schema({
     name: {
@@ -51,10 +43,10 @@ const SalonSchema = new mongoose.Schema({
         type: String , 
         required: [false, 'Salon short Info ']
     },
-    services: { 
-        type: Service, 
-        required: [false, 'Salon full services Info ']
-    },
+    services: [{ 
+        type: Object , 
+        required: [false, 'services Info ']
+    }],
     priceFrom: { 
         type: Number, 
         required: [false, 'Price from Info ']
@@ -78,4 +70,5 @@ const SalonSchema = new mongoose.Schema({
 });
 
 const Salon = mongoose.model('Salon', SalonSchema);
+
 module.exports = Salon;

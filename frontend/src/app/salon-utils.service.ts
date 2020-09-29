@@ -3,6 +3,7 @@ import { WebService } from './web.service';
 import Customer from './module/customer';
 import Salon from './module/salon';
 import Barber from './module/barber';
+import { Service } from './module/salon';
 
 @Injectable({
   providedIn: 'root'
@@ -67,6 +68,39 @@ export class SalonUtilsService {
     return this.webService.delete(`salons/${salonId}`);
   }
 
+  // -- update Salon
+  updateSalon(salon: Salon, file: File) {
+    const salonId: String  = salon._id;
+    const fd = new FormData();
+    let key;
+    if (file) {
+      fd.append('avatar', file, file.name);
+      console.log('update Salon : ' + salonId + file.name);
+    }
+    console.log('update service : ' + salon.services[0].name + ' ' + salon.services[0].price);
+    // tslint:disable-next-line: forin
+    for (key in salon) {
+      fd.append(key, salon[key]);
+    }
+    return this.webService.patch( `salons/${salonId}`, fd);
+  }
+
+  // -- add new service for Salon
+  addSalonService(salonId: String, service: Service) {
+    console.log('update service : ' + service.name + ' ' + service.price);
+    return this.webService.patch( `salons/${salonId}/addService`, service);
+  }
+
+  delSalonService(salonId: String, service: Service) {
+    console.log('delete service : ' + service.name + ' ' + service.price);
+    return this.webService.patch( `salons/${salonId}/delService`, service);
+  }
+
+  updateSalonService(salonId: String, service: Service, index: Number) {
+    console.log('update service at ' + index + ': ' + service.name + ' ' + service.price);
+    return this.webService.patch( `salons/${salonId}/updateService/${index}`, service);
+  }
+
   // Customer
   getCustomers() {
     return this.webService.get(`customers`);
@@ -96,14 +130,13 @@ export class SalonUtilsService {
     let key;
     if (file) {
       fd.append('avatar', file, file.name);
+      console.log('update Customer : ' + customerId + file.name);
     }
 
     // tslint:disable-next-line: forin
     for (key in customer) {
       fd.append(key, customer[key]);
     }
-
-    console.log('update Customer : ' + customerId + file.name);
     return this.webService.patch( `customers/${customerId}`, fd);
   }
 

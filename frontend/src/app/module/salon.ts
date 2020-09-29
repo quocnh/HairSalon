@@ -13,7 +13,7 @@ export default class Salon {
     address: string;
     local: string;
     info: string;
-    services: Service;
+    services: Service[];
     priceFrom: number;
     priceTo: number;
     rate: number;
