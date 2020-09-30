@@ -43,7 +43,6 @@ import { NgImageSliderModule } from 'ng-image-slider';
     IconsComponent,
     MapsComponent,
     NotificationsComponent,
-    SalonViewComponent,
     BarberProfileViewComponent,
     SalonsListViewComponent
   ]

@@ -61,7 +61,7 @@
             <div class="form-group">
               <label>Chọn ngày</label>
   
-                <input class="form-control" name="dp" [(ngModel)]="modelDob" [ngModelOptions]="{standalone: true}" ngbDatepicker
+                <input class="form-control" name="dateP" [(ngModel)]="modelDob" [ngModelOptions]="{standalone: true}" ngbDatepicker
                   [footerTemplate]="footerTemplate" 
                   #d="ngbDatepicker" 
                   [minDate]="today"
@@ -79,7 +79,7 @@
             <div class="form-group">
               <label>Chọn giờ</label>
   
-                <input class="form-control" name="dp" [(ngModel)]="modelDob" [ngModelOptions]="{standalone: true}" ngbDatepicker
+                <input class="form-control" name="timeP" [(ngModel)]="modelDob" [ngModelOptions]="{standalone: true}" ngbDatepicker
                   [footerTemplate]="footerTemplate" 
                   #d="ngbDatepicker" 
                   [minDate]="today"
@@ -96,16 +96,12 @@
         </div>
         </div>
         <div class="card-body ">
-          <div class="form-group">
+          <div class="form-group" >
             <select input type="text" class="form-control">
-              <option >
-                <p>Service 1   (30$)</p>
-              </option>
-              <option >
-                <p>Service 2   (50$)</p>
-              </option>
-              <option >
-                <p>Service 3   (130$)</p>
+              <option *ngFor="let s of salon.services">
+                <p>{{s.name}} &emsp;</p>
+                <p data-type="currency">({{s.price|currency:"&#x20AB;":'symbol':'3.0'}} )</p>
+
               </option>
             </select>
             
@@ -116,7 +112,7 @@
           </div>
         </div>
         <div class="card-footer ">
-          Service detail
+          Dịch vụ chọn:
           <hr>
           <div class="stats">
             <p style="text-align:left;">Tổng cộng

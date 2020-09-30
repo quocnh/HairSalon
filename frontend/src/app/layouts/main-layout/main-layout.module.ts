@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MainLayoutRoutes } from './main-layout.routing';
 import { MainPageComponent } from '../../pages/main-page/main-page.component';
+import { SalonViewComponent } from '../../pages/salon-view/salon-view.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { MainPageComponent } from '../../pages/main-page/main-page.component';
   ],
   declarations: [
     MainPageComponent,
+    SalonViewComponent,
   ]
 })
 
