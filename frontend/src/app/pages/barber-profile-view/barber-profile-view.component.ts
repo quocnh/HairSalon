@@ -15,7 +15,7 @@ export class BarberProfileViewComponent implements OnInit {
   userId: string;
   barberDb: Barber = new Barber();
   barber: Barber = new Barber();
-  strAvatar: string;
+  strAvatar: any;
   salonName: string;
   genders = [
       {value: 'Nam'},
@@ -85,6 +85,11 @@ export class BarberProfileViewComponent implements OnInit {
 
   onFileSelected(event) {
       this.selectedFile = event.target.files[0];
-      console.log(this.selectedFile);
+      const reader = new FileReader();
+        reader.readAsDataURL(this.selectedFile);
+        reader.onload = (_event) => {
+            this.strAvatar = reader.result;
+        }
+        console.log(this.selectedFile);
   }
 }

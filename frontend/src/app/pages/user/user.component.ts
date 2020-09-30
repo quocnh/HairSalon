@@ -15,7 +15,7 @@ export class UserComponent implements OnInit {
     userId: string;
     customerDb: Customer = new Customer();
     customer: Customer = new Customer();
-    strAvatar: string;
+    strAvatar: any;
     genders = [
         {value: 'Nam'},
         {value: 'Nữ'},
@@ -74,6 +74,12 @@ export class UserComponent implements OnInit {
 
     onFileSelected(event) {
         this.selectedFile = event.target.files[0];
+
+        const reader = new FileReader();
+        reader.readAsDataURL(this.selectedFile);
+        reader.onload = (_event) => {
+            this.strAvatar = reader.result;
+        }
         console.log(this.selectedFile);
     }
 }
