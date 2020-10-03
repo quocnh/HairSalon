@@ -98,7 +98,8 @@
         <div class="card-body ">
           <div class="form-group" >
             <select input type="text" class="form-control" (change)="selectServiceOnChange($event.target.options.selectedIndex)">
-              <option *ngFor="let s of salon.services">
+              <option value="">Chọn dịch vụ</option>
+              <option *ngFor="let s of salon.services; let i = index">
                 <p style="text-align:left;">{{s.name}} &emsp;</p>
                 <span class="text-right" data-type="currency">({{s.price|currency:"&#x20AB;":'symbol':'3.0'}} )</span>
 
@@ -112,30 +113,38 @@
           </div>
         </div>
         <div class="card-footer ">
-          Dịch vụ chọn:
+          
           <div class="card card-plain">
             <div class="card-header">
-              <h4 class="card-title"> Table on Plain Background</h4>
-              <p class="card-category"> Here is a subtitle for this table</p>
+              <p class="card-category"> Dịch vụ chọn:</p>
             </div>
             <div class="card-body">
-              <div class="table-responsive">
+              <div class="table-responsive" *ngIf="total !== 0">
                 <table class="table">
                   <thead class=" text-primary">
                     <th>
                       Dịch vụ
                     </th>
-                    <th class="text-right">
+                    <th>
                       Giá
+                    </th>
+                    <th class="text-right">
+                      &#160;
                     </th>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let s of selectServices">
+                    <tr *ngFor="let s of selectServices; let i = index">
                       <td>
                         {{s.name}}
                       </td>
                       <td class="text-right"data-type="currency">
                         {{s.price|currency:"&#x20AB;":'symbol':'3.0'}}
+                      </td>
+                      <td >
+                        <button class="btn btn-sm btn-info btn-round btn-icon pull-right" (click)= "deleteSelectedService(i)">
+                          <a data-toggle="tooltip" data-placement="top" title="Xóa"><i class="fa fa-pencil"></i></a>
+                        </button>
+                        
                       </td>
                     </tr>
                   </tbody>

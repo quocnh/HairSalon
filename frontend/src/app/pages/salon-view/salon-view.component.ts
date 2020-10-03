@@ -58,8 +58,17 @@ export class SalonViewComponent implements OnInit {
   }
 
   selectServiceOnChange(sIndex) {
-    this.selectServices.push(this.salon.services[sIndex]);
-    // console.log(this.selectServices);
-    this.total += +this.salon.services[sIndex].price;
+    sIndex -= 1;
+    if (sIndex >= 0) {
+      this.selectServices.push(this.salon.services[sIndex]);
+      // console.log(this.selectServices);
+      this.total += +this.salon.services[sIndex].price;
+    }
+  }
+
+  deleteSelectedService(sIndex) {
+    // console.log(sIndex);
+    this.total -= +this.selectServices[sIndex].price;
+    this.selectServices.splice(sIndex, 1);
   }
 }
