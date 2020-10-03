@@ -3,6 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import Salon from '../../module/salon';
 import { SalonUtilsService } from '../../salon-utils.service';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import Service from '../../module/service';
 
 @Component({
   selector: 'app-salon-view',
@@ -16,6 +17,9 @@ export class SalonViewComponent implements OnInit {
   salon: Salon = new Salon();
   modelDob: NgbDateStruct;
   today = this.calendar.getToday();
+  selectServices: Array<Service> = [];
+  total: number;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -24,6 +28,7 @@ export class SalonViewComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.total = 0;
     this.route.params.subscribe((params: Params) => {
       console.log(params);
       this.salonId = params.salonId;
@@ -49,6 +54,12 @@ export class SalonViewComponent implements OnInit {
     console.log ('Show imageSlider');
   }
   reserveService() {
-    console.log('Reserve Service')
+    console.log('Reserve Service');
+  }
+
+  selectServiceOnChange(sIndex) {
+    this.selectServices.push(this.salon.services[sIndex]);
+    // console.log(this.selectServices);
+    this.total += +this.salon.services[sIndex].price;
   }
 }

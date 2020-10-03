@@ -97,10 +97,10 @@
         </div>
         <div class="card-body ">
           <div class="form-group" >
-            <select input type="text" class="form-control">
+            <select input type="text" class="form-control" (change)="selectServiceOnChange($event.target.options.selectedIndex)">
               <option *ngFor="let s of salon.services">
-                <p>{{s.name}} &emsp;</p>
-                <p data-type="currency">({{s.price|currency:"&#x20AB;":'symbol':'3.0'}} )</p>
+                <p style="text-align:left;">{{s.name}} &emsp;</p>
+                <span class="text-right" data-type="currency">({{s.price|currency:"&#x20AB;":'symbol':'3.0'}} )</span>
 
               </option>
             </select>
@@ -113,11 +113,41 @@
         </div>
         <div class="card-footer ">
           Dịch vụ chọn:
+          <div class="card card-plain">
+            <div class="card-header">
+              <h4 class="card-title"> Table on Plain Background</h4>
+              <p class="card-category"> Here is a subtitle for this table</p>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead class=" text-primary">
+                    <th>
+                      Dịch vụ
+                    </th>
+                    <th class="text-right">
+                      Giá
+                    </th>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let s of selectServices">
+                      <td>
+                        {{s.name}}
+                      </td>
+                      <td class="text-right"data-type="currency">
+                        {{s.price|currency:"&#x20AB;":'symbol':'3.0'}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
           <hr>
           <div class="stats">
             <p style="text-align:left;">Tổng cộng
               <span style="float:right;">
-                $$$
+                {{total|currency:"&#x20AB;":'symbol':'3.0'}}
               </span>
             </p> 
           </div>

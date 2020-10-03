@@ -3,7 +3,7 @@ import Salon from '../../module/salon';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Params } from '@angular/router';
 import { SalonUtilsService } from '../../salon-utils.service';
-import { Service } from '../../module/salon';
+import Service from '../../module/service';
 
 @Component({
   selector: 'app-salon-edit',

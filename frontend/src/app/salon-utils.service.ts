@@ -3,7 +3,7 @@ import { WebService } from './web.service';
 import Customer from './module/customer';
 import Salon from './module/salon';
 import Barber from './module/barber';
-import { Service } from './module/salon';
+import Service from './module/service';
 
 @Injectable({
   providedIn: 'root'

@@ -1,7 +1,5 @@
-export class Service {
-    name: string;
-    price: number;
-}
+import Service from './service';
+
 export default class Salon {
     _id: string;
     name: string;
