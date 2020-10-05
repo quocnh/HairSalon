@@ -10,7 +10,7 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, './uploads/avatar/');
+        cb(null, './uploads/salonPhotos/');
     },
     filename: function(req, file, cb) {
         cb(null, new Date().toISOString().replace(/:/g, '-') + '_' + file.originalname);
@@ -39,14 +39,19 @@ salonRouter.get('/', (req, res) => {
         .catch((error) => console.log(error));
 });
 
-salonRouter.post('/', upload.single('photo'), (req, res) => {
+// maximum 10 files upload
+salonRouter.post('/', upload.array('newPhotos[]', 10), (req, res) => {
     var strPhotoPath = "";
-    if(req.file){
-        console.log(req.file);
+    var strDefaultPhoto = Array(10);
+
+    if(req.files.length > 0){
+        // console.log(req.files);
         strPhotoPath = req.file.path;
     }
-    console.log(req.body);
-
+    // console.log(req.body);
+    for (i = 0; i < strDefaultPhoto.length; i++) {
+        strDefaultPhoto[i] = "uploads/salonPhotos/default.jpg";
+    }
     const salon = new Salon({ 
         name: req.body.name,
         _salonOwnerId: req.body._salonOwnerId,
@@ -62,7 +67,7 @@ salonRouter.post('/', upload.single('photo'), (req, res) => {
         priceTo: req.body.priceTo,
         rate: req.body.rate,
         numRate: req.body.numRate,
-        photo: req.body.photo,
+        photos: strDefaultPhoto,
     });
     
     salon.save()
@@ -83,38 +88,67 @@ salonRouter.get('/:salonId', (req, res) => {
         
 });
 
-salonRouter.patch('/:salonId', upload.single('photo'), (req, res) => {
-    var strPhotoPath = "";
-    var fs = require('fs');
-    
-    if (req.body.name) {
-        
-        console.log(req.body.name);
-        console.log(req.body.services.name);
-        console.log(req.body.services.price);
+salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
+    if(req.files.length > 0){
+        var strPhotoPath = Array(10);
+        // update photos
+        // console.log(req.files.length);
+        // console.log(req.body);
+        for (i = 0; i < strPhotoPath.length; i++){
+            strPhotoPath[i] = req.body.photos[i];
+        } 
+        // console.log(strPhotoPath);
+
+        for (i = 0; i < req.files.length; i++)
+        {
+            if (req.files[i].path) {
+                strPhotoPath[req.body.index[i]] = req.files[i].path;    
+                // console.log(i + ': ' + strPhotoPath[req.body.index[i]]);
+            }  
+        }
+
         Salon.findOneAndUpdate({ '_id': req.params.salonId}, 
-            {
-                $set: 
-                { 
-                    name: req.body.name,
-                    _salonOwnerId: req.body._salonOwnerId,
-                    phone: req.body.phone,
-                    email: req.body.email,
-                    district: req.body.district,
-                    city: req.body.city,
-                    address: req.body.address,
-                    local: req.body.local,
-                    info: req.body.info,
-                    //services: [req.body.services[],
-                    priceFrom: req.body.priceFrom,
-                    priceTo: req.body.priceTo,
-                    rate: req.body.rate,
-                    numRate: req.body.numRate,
-                    photo: req.body.photo,
-                },
-            })
-            .then(salon => res.send(salon))
-            .catch((error) => console.log(error));
+        {
+            $set: 
+            { 
+                photos: strPhotoPath
+            },
+        })
+        .then(salon => res.send(salon))
+        .catch((error) => console.log(error));
+        
+    }
+    else {
+        console.log(req.body);
+    
+        if (req.body.name) {
+            
+            console.log(req.body.name);
+            console.log(req.body.services.name);
+            console.log(req.body.services.price);
+            Salon.findOneAndUpdate({ '_id': req.params.salonId}, 
+                {
+                    $set: 
+                    { 
+                        name: req.body.name,
+                        _salonOwnerId: req.body._salonOwnerId,
+                        phone: req.body.phone,
+                        email: req.body.email,
+                        district: req.body.district,
+                        city: req.body.city,
+                        address: req.body.address,
+                        local: req.body.local,
+                        info: req.body.info,
+                        //services: [req.body.services[],
+                        priceFrom: req.body.priceFrom,
+                        priceTo: req.body.priceTo,
+                        rate: req.body.rate,
+                        numRate: req.body.numRate,
+                    },
+                })
+                .then(salon => res.send(salon))
+                .catch((error) => console.log(error));
+        }
     }
 
 });

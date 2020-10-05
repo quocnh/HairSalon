@@ -9,24 +9,24 @@
 
 <div class="row"> 
   <div class="col-md-6">
-    <div class="btn btn-image card" (click)= "showImageSlider()">
-      <img src="assets/img/damir-bosnjak.jpg" style="width:100%">
+    <div class="btn btn-image card" (click)="showImageSlider()">
+      <img src={{strPhotos[0]}} style="width:100%">
     </div>
   </div>
   <div class="col-md-3">
-    <div class="btn btn-image card image" (click)= "showImageSlider()" >
-      <img src="assets/img/damir-bosnjak.jpg" style="width:100%">
+    <div class="btn btn-image card" (click)="showImageSlider()">
+      <img src={{strPhotos[1]}} style="width:100%">
     </div>
-    <div class="btn btn-image card image" (click)= "showImageSlider()">
-      <img src="assets/img/damir-bosnjak.jpg" style="width:100%">
+    <div class="btn btn-image card" (click)="showImageSlider()">
+      <img src={{strPhotos[2]}} style="width:100%">
     </div>
   </div>  
   <div class="col-md-3">
-    <div class="btn btn-image card image" (click)= "showImageSlider()">
-      <img src="assets/img/damir-bosnjak.jpg" style="width:100%">
+    <div class="btn btn-image card" (click)="showImageSlider()">
+      <img src={{strPhotos[3]}} style="width:100%">
     </div>
-    <div class="btn btn-image card image" (click)= "showImageSlider()">
-      <img src="assets/img/damir-bosnjak.jpg" style="width:100%">
+    <div class="btn btn-image card" (click)="showImageSlider()">
+      <img src={{strPhotos[4]}} style="width:100%">
     </div>
   </div>
 </div>
@@ -142,7 +142,7 @@
                       </td>
                       <td >
                         <button class="btn btn-sm btn-info btn-round btn-icon pull-right" (click)= "deleteSelectedService(i)">
-                          <a data-toggle="tooltip" data-placement="top" title="Xóa"><i class="fa fa-pencil"></i></a>
+                          <a data-toggle="tooltip" data-placement="top" title="Xóa"><i class="nc-icon nc-simple-remove"></i></a>
                         </button>
                         
                       </td>

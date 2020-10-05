@@ -63,10 +63,10 @@ const SalonSchema = new mongoose.Schema({
         type: Number, 
         required: [false, 'Salon Info ']
     },
-    photo: {
+    photos: [{
         type: String,
-        require: [false, 'profile avatar']
-    }
+        require: [false, 'salon images']
+    }]
 });
 
 const Salon = mongoose.model('Salon', SalonSchema);

@@ -16,6 +16,8 @@ export class SalonEditComponent implements OnInit {
   today = this.calendar.getToday();
   addedService: Service = new Service();
   addedSalon: Salon = new Salon();
+  selectedFiles: any = new Array(10);
+  strPhotos: any = new Array();
 
   constructor(
     private route: ActivatedRoute,
@@ -24,6 +26,13 @@ export class SalonEditComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.strPhotos[0] = 'assets/img/damir-bosnjak.jpg';
+
+    this.strPhotos[1] = 'assets/img/damir-bosnjak.jpg';
+    this.strPhotos[2] = 'assets/img/damir-bosnjak.jpg';
+    this.strPhotos[3] = 'assets/img/damir-bosnjak.jpg';
+    this.strPhotos[4] = 'assets/img/damir-bosnjak.jpg';
+
     this.route.params.subscribe((params: Params) => {
       console.log(params);
       this.salonId = params.salonId;
@@ -41,6 +50,11 @@ export class SalonEditComponent implements OnInit {
     this.salonUtilService.getOneSalon(salonId).subscribe(
         (salons: Salon) => {
             this.salon = Object.assign({}, salons[0]);
+            for (let i = 0; i < this.salon.photos.length; i++) {
+              if (this.salon.photos[i] !== '') {
+                this.strPhotos[i] = 'http://localhost:3000/' + this.salon.photos[i];
+              }
+            }
             console.log(this.salon);
         });
   }
@@ -51,7 +65,7 @@ export class SalonEditComponent implements OnInit {
 
   addNewService(service: Service) {
     // TODO
-    console.log(service);
+    // console.log(service);
 
     this.salonUtilService.addSalonService(this.salon._id, service).subscribe(
       (salon: Salon) => {
@@ -64,7 +78,7 @@ export class SalonEditComponent implements OnInit {
 
   deleteService(service: Service) {
     // TODO
-    console.log(service);
+    // console.log(service);
 
     this.salonUtilService.delSalonService(this.salon._id, service).subscribe(
       (salon: Salon) => {
@@ -83,4 +97,40 @@ export class SalonEditComponent implements OnInit {
         // console.log(this.salon);
       });
   }
+
+  onFileSelected(event) {
+    this.selectedFiles[0] = event.target.files[0];
+
+    const reader = new FileReader();
+    reader.readAsDataURL(this.selectedFiles[0]);
+    reader.onload = (_event) => {
+        this.strPhotos[0] = reader.result;
+    }
+    console.log(this.selectedFiles[0]);
+  }
+
+  onSmallPhotoFileSelected(event, idx) {
+    this.selectedFiles[idx] = event.target.files[0];
+
+    const reader = new FileReader();
+    reader.readAsDataURL(this.selectedFiles[idx]);
+    reader.onload = (_event) => {
+        this.strPhotos[idx] = reader.result;
+    }
+    console.log(this.selectedFiles[idx]);
+  }
+
+  updatePhotos() {
+    for (let i = 0; i < this.selectedFiles.length; i++) {
+      if (this.selectedFiles[i]) {
+        console.log('Update photos: ' + i + ' ' + this.selectedFiles[i].name);
+      }
+    }
+
+    this.salonUtilService.updateSalon(this.salon, this.selectedFiles).subscribe(
+      (salon: Salon) => {
+        this.salon = salon;
+      });
+  }
+
 }

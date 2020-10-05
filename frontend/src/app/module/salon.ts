@@ -16,5 +16,5 @@ export default class Salon {
     priceTo: number;
     rate: number;
     numRate: number;
-    photo: string;
+    photos: string[];
 }

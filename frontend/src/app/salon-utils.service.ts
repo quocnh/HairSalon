@@ -69,19 +69,26 @@ export class SalonUtilsService {
   }
 
   // -- update Salon
-  updateSalon(salon: Salon, file: File) {
+  updateSalon(salon: Salon, files: File[]) {
     const salonId: String  = salon._id;
     const fd = new FormData();
     let key;
-    if (file) {
-      fd.append('avatar', file, file.name);
-      console.log('update Salon : ' + salonId + file.name);
+    for (let i = 0; i < files.length; i++) {
+      if (files[i]) {
+        fd.append('newPhotos[]', files[i]);
+        fd.append('index[]', i.toString());
+        console.log('update Salon : ' + salonId + files[i].name);
+      }
     }
-    console.log('update service : ' + salon.services[0].name + ' ' + salon.services[0].price);
+
     // tslint:disable-next-line: forin
-    for (key in salon) {
-      fd.append(key, salon[key]);
+    // for (key in salon) {
+    //  fd.append(key, salon[key]);
+    // }
+    for (let i = 0; i < salon.photos.length; i++) {
+      fd.append('photos[]', salon.photos[i]);
     }
+
     return this.webService.patch( `salons/${salonId}`, fd);
   }
 

@@ -19,7 +19,7 @@ export class SalonViewComponent implements OnInit {
   today = this.calendar.getToday();
   selectServices: Array<Service> = [];
   total: number;
-
+  strPhotos: any = new Array();
 
   constructor(
     private route: ActivatedRoute,
@@ -28,6 +28,13 @@ export class SalonViewComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.strPhotos[0] = 'assets/img/damir-bosnjak.jpg';
+
+    this.strPhotos[1] = 'assets/img/damir-bosnjak.jpg';
+    this.strPhotos[2] = 'assets/img/damir-bosnjak.jpg';
+    this.strPhotos[3] = 'assets/img/damir-bosnjak.jpg';
+    this.strPhotos[4] = 'assets/img/damir-bosnjak.jpg';
+
     this.total = 0;
     this.route.params.subscribe((params: Params) => {
       console.log(params);
@@ -46,7 +53,12 @@ export class SalonViewComponent implements OnInit {
     this.salonUtilService.getOneSalon(salonId).subscribe(
         (salons: Salon) => {
             this.salon = Object.assign({}, salons[0]);
-            console.log(this.salon.name);
+            for (let i = 0; i < this.salon.photos.length; i++) {
+              if (this.salon.photos[i] !== '') {
+                this.strPhotos[i] = 'http://localhost:3000/' + this.salon.photos[i];
+              }
+            }
+            console.log(this.salon);
         });
   }
 
