@@ -4,6 +4,7 @@ import Salon from '../../module/salon';
 import { SalonUtilsService } from '../../salon-utils.service';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import Service from '../../module/service';
+import { Lightbox } from 'ngx-lightbox';
 
 @Component({
   selector: 'app-salon-view',
@@ -25,6 +26,7 @@ export class SalonViewComponent implements OnInit {
     private route: ActivatedRoute,
     private calendar: NgbCalendar,
     private salonUtilService: SalonUtilsService,
+    private _lightbox: Lightbox,
     ) { }
 
   ngOnInit(): void {
@@ -34,6 +36,8 @@ export class SalonViewComponent implements OnInit {
     this.strPhotos[2] = 'assets/img/damir-bosnjak.jpg';
     this.strPhotos[3] = 'assets/img/damir-bosnjak.jpg';
     this.strPhotos[4] = 'assets/img/damir-bosnjak.jpg';
+
+
 
     this.total = 0;
     this.route.params.subscribe((params: Params) => {
@@ -62,9 +66,6 @@ export class SalonViewComponent implements OnInit {
         });
   }
 
-  showImageSlider() {
-    console.log ('Show imageSlider');
-  }
   reserveService() {
     console.log('Reserve Service');
   }
@@ -82,5 +83,31 @@ export class SalonViewComponent implements OnInit {
     // console.log(sIndex);
     this.total -= +this.selectServices[sIndex].price;
     this.selectServices.splice(sIndex, 1);
+  }
+
+  open(index: number): void {
+    // open lightbox
+    const albums = [];
+
+    for (let i = 0; i < 5; i++) {
+      const src = this.strPhotos[i];
+      const caption = '';
+      const thumb = this.strPhotos[i];
+      console.log(src);
+      const album = {
+         src: src,
+         caption: caption,
+         thumb: thumb
+      };
+
+      albums.push(album);
+    }
+
+    this._lightbox.open(albums, index);
+  }
+
+  close(): void {
+    // close lightbox programmatically
+    this._lightbox.close();
   }
 }

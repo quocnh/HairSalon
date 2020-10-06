@@ -72,7 +72,6 @@ export class SalonUtilsService {
   updateSalon(salon: Salon, files: File[]) {
     const salonId: String  = salon._id;
     const fd = new FormData();
-    let key;
     for (let i = 0; i < files.length; i++) {
       if (files[i]) {
         fd.append('newPhotos[]', files[i]);
