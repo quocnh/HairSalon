@@ -14,7 +14,7 @@ import { LightboxModule } from 'ngx-lightbox';
     RouterModule.forChild(MainLayoutRoutes),
     FormsModule,
     NgbModule,
-    LightboxModule
+    LightboxModule,
   ],
   declarations: [
     MainPageComponent,

@@ -21,6 +21,8 @@ export class SalonViewComponent implements OnInit {
   selectServices: Array<Service> = [];
   total: number;
   strPhotos: any = new Array();
+  time = {hour: 13, minute: 30};
+  meridian = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,7 +38,6 @@ export class SalonViewComponent implements OnInit {
     this.strPhotos[2] = 'assets/img/damir-bosnjak.jpg';
     this.strPhotos[3] = 'assets/img/damir-bosnjak.jpg';
     this.strPhotos[4] = 'assets/img/damir-bosnjak.jpg';
-
 
 
     this.total = 0;
@@ -93,7 +94,7 @@ export class SalonViewComponent implements OnInit {
       const src = this.strPhotos[i];
       const caption = '';
       const thumb = this.strPhotos[i];
-      console.log(src);
+
       const album = {
          src: src,
          caption: caption,

@@ -55,10 +55,10 @@
     </div>
 
     <div class="col-md-4">
-      <div class="card pull-right">
+      <div class="card">
         <div class="card-header ">
           <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-12">
             <div class="form-group">
               <label>Chọn ngày</label>
   
@@ -66,9 +66,11 @@
                   [footerTemplate]="footerTemplate" 
                   #d="ngbDatepicker" 
                   [minDate]="today"
-                  (click)="d.toggle()">
+                  (click)="d.toggle()"
+                  >
   
                 <ng-template #footerTemplate>
+                  <ngb-timepicker [(ngModel)]="time" [meridian]="meridian"></ngb-timepicker>
                   <hr class="my-0">
                   <button class="btn btn-primary btn-sm m-2 float-left" (click)="model = today; d.close()">Today</button>
                   <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Close</button>
@@ -76,27 +78,11 @@
   
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Chọn giờ</label>
-  
-                <input class="form-control" name="timeP" [(ngModel)]="modelDob" [ngModelOptions]="{standalone: true}" ngbDatepicker
-                  [footerTemplate]="footerTemplate" 
-                  #d="ngbDatepicker" 
-                  [minDate]="today"
-                  (click)="d.toggle()">
-  
-                <ng-template #footerTemplate>
-                  <hr class="my-0">
-                  <button class="btn btn-primary btn-sm m-2 float-left" (click)="model = today; d.close()">Today</button>
-                  <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Close</button>
-                </ng-template>
-  
-            </div>
-          </div>
+          
         </div>
         </div>
         <div class="card-body ">
+          <label>Chọn dịch vụ</label>
           <div class="form-group" >
             <select input type="text" class="form-control" (change)="selectServiceOnChange($event.target.options.selectedIndex)">
               <option value="">Chọn dịch vụ</option>
@@ -109,16 +95,12 @@
             
           </div>
 
-          <div class="btn btn-booking card card-btn" (click)= "reserveService()">
-            Đặt chỗ
-          </div>
+          
         </div>
         <div class="card-footer ">
           
-          <div class="card card-plain">
-            <div class="card-header">
-              <p class="card-category"> Dịch vụ chọn:</p>
-            </div>
+          <div class="card card-plain" *ngIf="selectServices.length > 0">
+            <label>Dịch vụ đã chọn</label>
             <div class="card-body">
               <div class="table-responsive" *ngIf="total !== 0">
                 <table class="table">
@@ -126,7 +108,7 @@
                     <th>
                       Dịch vụ
                     </th>
-                    <th>
+                    <th class="text-right">
                       Giá
                     </th>
                     <th class="text-right">
@@ -160,6 +142,9 @@
                 {{total|currency:"&#x20AB;":'symbol':'3.0'}}
               </span>
             </p> 
+          </div>
+          <div class="btn btn-booking card card-btn" (click)= "reserveService()">
+            Đặt chỗ
           </div>
         </div>
       </div>
