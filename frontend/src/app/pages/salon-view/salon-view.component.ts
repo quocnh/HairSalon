@@ -32,12 +32,12 @@ export class SalonViewComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.strPhotos[0] = 'assets/img/damir-bosnjak.jpg';
+    this.strPhotos[0] = 'assets/img/no_image.jpg';
 
-    this.strPhotos[1] = 'assets/img/damir-bosnjak.jpg';
-    this.strPhotos[2] = 'assets/img/damir-bosnjak.jpg';
-    this.strPhotos[3] = 'assets/img/damir-bosnjak.jpg';
-    this.strPhotos[4] = 'assets/img/damir-bosnjak.jpg';
+    this.strPhotos[1] = 'assets/img/no_image.jpg';
+    this.strPhotos[2] = 'assets/img/no_image.jpg';
+    this.strPhotos[3] = 'assets/img/no_image.jpg';
+    this.strPhotos[4] = 'assets/img/no_image.jpg';
 
 
     this.total = 0;

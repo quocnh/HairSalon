@@ -16,30 +16,31 @@
     
 </div>
 
+
 <div class="row"> 
-  <div class="col-md-6">
-    <div class="btn btn-image card" (click)="fileInput.click()">
+  <div class="col-md-6" style="padding: 1px; margin:0">
+    <div class=" btn-image" (click)="fileInput.click()" style="padding: 2px; margin:0">
       <img src={{strPhotos[0]}} style="width:100%">
       <input #fileInput type="file" (change)="onFileSelected($event)" style="display:none;" />
     </div>
   </div>
-  <div class="col-md-3">
-    <div class="btn btn-image card" (click)="fileInput1.click()">
-      <img src={{strPhotos[1]}} style="width:100%">
+  <div class="col-md-3" style="padding: 1px; margin:0">
+    <div class=" btn-image " (click)="fileInput1.click()" style="padding: 2px; margin:0">
+      <img src={{strPhotos[1]}} style="object-fit: fill; width:100%">
       <input #fileInput1 type="file" (change)="onSmallPhotoFileSelected($event, 1)" style="display:none;" />
     </div>
-    <div class="btn btn-image card" (click)="fileInput2.click()">
-      <img src={{strPhotos[2]}} style="width:100%">
+    <div class=" btn-image " (click)="fileInput2.click()" style="padding: 2px; margin:0">
+      <img src={{strPhotos[2]}} style="object-fit: fill; width:100%">
       <input #fileInput2 type="file" (change)="onSmallPhotoFileSelected($event, 2)" style="display:none;" />
     </div>
   </div>  
-  <div class="col-md-3">
-    <div class="btn btn-image card" (click)="fileInput3.click()">
-      <img src={{strPhotos[3]}} style="width:100%">
+  <div class="col-md-3" style="padding: 1px; margin:0">
+    <div class=" btn-image " (click)="fileInput3.click()" style="padding: 2px; margin:0">
+      <img src={{strPhotos[3]}} style="object-fit: fill; width:100%">
       <input #fileInput3 type="file" (change)="onSmallPhotoFileSelected($event, 3)" style="display:none;" />
     </div>
-    <div class="btn btn-image card" (click)="fileInput4.click()">
-      <img src={{strPhotos[4]}} style="width:100%">
+    <div class=" btn-image " (click)="fileInput4.click()" style="padding: 2px; margin:0">
+      <img src={{strPhotos[4]}} style="object-fit: fill; width:100%">
       <input #fileInput4 type="file" (change)="onSmallPhotoFileSelected($event, 4)" style="display:none;" />
     </div>
   </div>
