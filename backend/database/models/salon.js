@@ -12,6 +12,10 @@ const SalonSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         require: true
     },
+    _barberId: [{
+        type: mongoose.Types.ObjectId,
+        require: false
+    }],
     phone: {
         type: Number,
         required: [false, 'Phone number']

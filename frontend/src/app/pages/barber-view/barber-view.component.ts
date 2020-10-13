@@ -29,7 +29,6 @@ export class BarberViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.getSalonName('5f7b287cd553494034f5991b').then(data => data));
     this.refreshBarberList();
   }
 

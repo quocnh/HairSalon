@@ -78,8 +78,19 @@
   
             </div>
           </div>
-          
-        </div>
+          </div>
+
+            <label>Chọn thợ</label>
+            <div class="form-group" >
+              <select input type="text" class="form-control" (change)="selectBarberOnChange($event.target.options.selectedIndex)">
+                <option value="">Bất kỳ </option>
+                <option *ngFor="let b of barbers; let i = index">
+                  <p style="text-align:left;">[ {{b.username}} ] {{b.lastname}} {{b.firstname}}</p>
+                </option>
+              </select>
+              
+            </div>
+
         </div>
         <div class="card-body ">
           <label>Chọn dịch vụ</label>

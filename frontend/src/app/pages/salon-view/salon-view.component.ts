@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import Salon from '../../module/salon';
+import Barber from '../../module/barber';
 import { SalonUtilsService } from '../../salon-utils.service';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import Service from '../../module/service';
@@ -23,6 +24,7 @@ export class SalonViewComponent implements OnInit {
   strPhotos: any = new Array();
   time = {hour: 13, minute: 30};
   meridian = true;
+  barbers: Array<Barber> = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -63,6 +65,13 @@ export class SalonViewComponent implements OnInit {
                 this.strPhotos[i] = 'http://localhost:3000/' + this.salon.photos[i];
               }
             }
+            for (let i = 0; i < this.salon._barberId.length; i++) {
+              this.salonUtilService.getOneBarber(this.salon._barberId[i]).subscribe(
+                (barber: Barber) => {
+                  this.barbers[i] = barber[0];
+                  // console.log(this.barbers);
+                });
+            }
             console.log(this.salon);
         });
   }
@@ -78,6 +87,13 @@ export class SalonViewComponent implements OnInit {
       // console.log(this.selectServices);
       this.total += +this.salon.services[sIndex].price;
     }
+  }
+
+  selectBarberOnChange(sIndex) {
+    if (sIndex > 0) {
+      console.log(this.barbers[sIndex - 1]);
+    }
+
   }
 
   deleteSelectedService(sIndex) {

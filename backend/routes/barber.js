@@ -1,6 +1,7 @@
 
 /*jshint esversion: 6 */
 const Barber = require('../database/models/barber');
+const Salon = require('../database/models/salon');
 
 var express = require('express');
 var barberRouter = express.Router();
@@ -69,7 +70,18 @@ barberRouter.post('/', upload.single('avatar'), (req, res) => {
     });
     
     barber.save()
-    .then(savedBarber => res.send(savedBarber))
+    .then(savedBarber => {
+        // Update barber info into Salon DB
+        Salon.findOneAndUpdate({ '_id': req.body._salonId}, 
+        {
+            $push: 
+            { 
+                _barberId: savedBarber._id
+            },
+        }).then()
+        .catch((error) => console.log(error));
+        res.send(savedBarber);
+    })
     .catch((error) => console.log(error));
 });
 
@@ -118,8 +130,20 @@ barberRouter.patch('/:barberId', upload.single('avatar'), (req, res) => {
 });
 
 barberRouter.delete('/:barberId', (req, res) => {
-    Barber.findByIdAndDelete({_id:req.params.barberId})
-        .then(barber => res.send(barber))
+
+    Barber.findByIdAndDelete( {'_id': req.params.barberId} )
+        .then(barber => {
+            console.log(barber._salonId);
+            Salon.findOneAndUpdate({ '_id': barber._salonId}, 
+            {
+                $pull: 
+                { 
+                    _barberId: req.params.barberId
+                },
+            }).then()
+            .catch((error) => console.log(error));
+            res.send(barber);
+        })
         .catch((error) => console.log(error));
 });
 
