@@ -1,6 +1,7 @@
-export default class Customer {
+export default class Barber {
     _id: string;
     _salonId: string;
+    salonName: string;
     username: string;
     firstname: string;
     lastname: string;

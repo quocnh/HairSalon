@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { SalonUtilsService } from '../../salon-utils.service';
 import Barber from '../../module/barber';
+import Salon from '../../module/salon';
 import { AddNewCustomerComponent } from '../../popup/add-new-customer/add-new-customer.component';
 import { DeleteCustomerComponent } from '../../popup/delete-customer/delete-customer.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-barber-view',
@@ -19,6 +21,7 @@ export class BarberViewComponent implements OnInit {
   public deletedBarber: Barber;
   addedBarber: Barber = new Barber();
   public objectName: string;
+  salon: Salon = new Salon();
 
   constructor(
     private salonUtilService: SalonUtilsService,
@@ -26,6 +29,7 @@ export class BarberViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(this.getSalonName('5f7b287cd553494034f5991b').then(data => data));
     this.refreshBarberList();
   }
 
@@ -70,8 +74,9 @@ export class BarberViewComponent implements OnInit {
 
         // delete barber
         ref.result.then((yes) => {
-          this.salonUtilService.deleteBarber(barberId).subscribe();
-          this.refreshBarberList();
+          this.salonUtilService.deleteBarber(barberId).subscribe(
+            () => this.refreshBarberList()
+          );
         },
         (cancel) => {
           console.log('cancel click');
@@ -81,7 +86,26 @@ export class BarberViewComponent implements OnInit {
 
   refreshBarberList() {
     this.salonUtilService.getBarbers()
-      .subscribe((barbers: Barber[]) => this.barbers = barbers);
+      .subscribe((barbers: Barber[]) => {
+        this.barbers = barbers;
+        for (let i = 0; i < barbers.length; i++) {
+          this.getSalonName(barbers[i]._salonId).then(data => (barbers[i].salonName = data));
+        }
+      });
   }
+
+  async getSalonName(salonId: string): Promise<string> {
+    let salonName = 'undefined';
+    await this.salonUtilService.getOneSalon(salonId)
+    .toPromise()
+    .then(
+      (salons: Salon) => {
+        return salons[0].name;
+      }).then(data => salonName = data);
+    return salonName;
+  }
+
+
+
 
 }

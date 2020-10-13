@@ -11,7 +11,7 @@
                 <thead class=" text-primary">
                     <th>username</th>
                   <th>Full Name</th>
-                  <th>Date of Birth</th>
+                  <th>Salon</th>
                   <th>Phone</th>
                   <th>Email</th>
                   <th>Profile</th>
@@ -28,7 +28,7 @@
                     <tr *ngFor="let barber of barbers">
                         <td><a href="#/admin/profile/barber/{{barber._id}}">{{ barber.username }}</a></td>
                         <td>{{ barber.firstname }} {{ barber.lastname }}</td>
-                        <td>{{ barber.dob | date}}</td>
+                        <td>{{ barber.salonName }}</td>
                         <td>{{ barber.phone}}</td>
                         <td>{{ barber.email }}</td>
                         <td>{{ barber.profile }}</td>
