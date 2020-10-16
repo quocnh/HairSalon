@@ -47,8 +47,9 @@ export class LoginComponent implements OnInit {
   }
 
   fbLogin() {
-
-    FB.getLoginStatus(function(response) {
+    console.log('fb login');
+    FB.login(function(response) {
+      console.log(response.status);
       if (response.status === 'connected') {
         // The user is logged in and has authenticated your
         // app, and response.authResponse supplies
