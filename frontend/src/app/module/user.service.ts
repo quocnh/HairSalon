@@ -1,25 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup } from '@angular/forms';
-import { UserService } from '../../module/user.service';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
 declare const FB: any;
-
-@Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+@Injectable({
+  providedIn: 'root'
 })
-export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
-  accessToken: string;
-  constructor(
-    public modal: NgbActiveModal,
-    private userService: UserService,
-  ) {
-  }
+export class UserService {
 
-  ngOnInit(): void {
-    /*
+  constructor(private http: HttpClient) {
     (window as any).fbAsyncInit = function() {
       FB.init({
         appId      : '674667756819374',
@@ -39,19 +27,30 @@ export class LoginComponent implements OnInit {
        js.src = 'https://connect.facebook.net/en_US/sdk.js';
        fjs.parentNode.insertBefore(js, fjs);
      }(document, 'script', 'facebook-jssdk'));
-     */
-  }
+   }
 
-  moveToRegister() {
-    console.log('moveToRegister');
-  }
-
-  login() {
-    console.log('login');
-  }
-/*
   fbLogin() {
-    console.log('fb login');
+    return new Promise((resolve, reject) => {
+      /*
+      FB.login(result => {
+        if (result.authResponse) {
+          return this.http
+            .post(`http://localhost:8000/users/auth/facebook`, {access_token: result.authResponse.accessToken})
+            .toPromise()
+            .then(response => {
+            const token = response;
+            if (token) {
+              localStorage.setItem('id_token', JSON.stringify(token));
+            }
+            resolve(response);
+            })
+            .catch(() => reject());
+        } else {
+          reject();
+        }
+      }, { scope: 'public_profile,email' });
+      */
+     console.log('fb login');
     FB.login(function(response) {
       console.log(response.status);
       if (response.status === 'connected') {
@@ -73,25 +72,25 @@ export class LoginComponent implements OnInit {
         // to log in to Facebook before authorizing your application.
       }
      });
-  }
-*/
-  fbLogin() {
-    this.userService.fbLogin().then(() => {
-      console.log('Called service from login component');
-      // this.router.navigate(['dashboard']);
     });
   }
 
-  fbLogout() {
-    FB.getLoginStatus(function(response) {
-        if (response.status === 'connected') {
-            FB.logout(function(res) {
-                // this part just clears the $_SESSION var
-                // replace with your own code
-                console.log(res);
-            });
-        }
+  isLoggedIn() {
+    return new Promise((resolve, reject) => {
+      this.getCurrentUser().then(user => resolve(true)).catch(() => reject(false));
     });
-}
+  }
 
+  getCurrentUser() {
+    return new Promise((resolve, reject) => {
+      return this.http.get(`http://localhost:8000/api/auth/me`).toPromise().then(response => {
+        resolve(response);
+      }).catch(() => reject());
+    });
+  }
+
+  logout() {
+    localStorage.removeItem('id_token');
+    localStorage.clear();
+  }
 }
