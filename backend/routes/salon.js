@@ -60,7 +60,8 @@ salonRouter.post('/', upload.array('newPhotos[]', 10), (req, res) => {
         district: req.body.district,
         city: req.body.city,
         address: req.body.address,
-        local: req.body.local,
+        longitude: req.body.longitude,
+        latitude: req.body.latitude,
         info: req.body.info,
         services: req.body.services,
         priceFrom: req.body.priceFrom,
@@ -113,7 +114,8 @@ salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
             { 
                 photos: strPhotoPath
             },
-        })
+        },
+        {new: true})
         .then(salon => res.send(salon))
         .catch((error) => console.log(error));
         
@@ -137,7 +139,8 @@ salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
                         district: req.body.district,
                         city: req.body.city,
                         address: req.body.address,
-                        local: req.body.local,
+                        longitude: req.body.longitude,
+                        latitude: req.body.latitude,
                         info: req.body.info,
                         //services: [req.body.services[],
                         priceFrom: req.body.priceFrom,
@@ -145,7 +148,8 @@ salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
                         rate: req.body.rate,
                         numRate: req.body.numRate,
                     },
-                })
+                },
+                {new: true})
                 .then(salon => res.send(salon))
                 .catch((error) => console.log(error));
         }
@@ -170,8 +174,9 @@ salonRouter.patch('/:salonId/addService', (req, res) => {
                 {
                     services: addedService
                 }
-            })
-            .then(salon => {salon.services.push(addedService); res.send(salon);})
+            },
+            {new: true})
+            .then(salon => {res.send(salon);})
             .catch((error) => console.log(error));
 
     }
@@ -195,13 +200,10 @@ salonRouter.patch('/:salonId/delService', (req, res) => {
                 {
                     services: service
                 }
-            })
-            .then(salon => console.log(salon))
+            },
+            {new: true})
+            .then(salon => res.send(salon))
             .catch((error) => console.log(error));
-        
-        Salon.findOneAndUpdate({ '_id': req.params.salonId}, {})
-        .then(salon => res.send(salon))
-        .catch((error) => console.log(error));
     }
 
 });
@@ -222,11 +224,8 @@ salonRouter.patch('/:salonId/updateService/:sIndex', (req, res) => {
         Salon.findOneAndUpdate({ '_id': req.params.salonId}, 
             {
                 $set: tid
-            })
-            .then(salon => console.log(salon))
-            .catch((error) => console.log(error));
-
-        Salon.findOneAndUpdate({ '_id': req.params.salonId}, {})
+            },
+            {new: true})
             .then(salon => res.send(salon))
             .catch((error) => console.log(error));
     }

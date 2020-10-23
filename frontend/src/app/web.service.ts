@@ -7,8 +7,12 @@ import { HttpClient } from '@angular/common/http';
 export class WebService {
 
   readonly ROOT_URL;
+  readonly HERE_URL;
+  readonly HERE_KEY;
   constructor(private http: HttpClient) {
     this.ROOT_URL = 'http://localhost:3000';
+    this.HERE_URL = 'https://geocode.search.hereapi.com/v1/geocode?q=';
+    this.HERE_KEY = 'MdY-VgF6O64ulC_vNxa4bmEvIhrkkH85NIjw4ESTFs8';
   }
 
   get(uri: string) {
@@ -25,5 +29,9 @@ export class WebService {
 
   delete(uri: string) {
     return this.http.delete(`${this.ROOT_URL}/${uri}`);
+  }
+
+  getAddress(address: string) {
+    return this.http.get(`${this.HERE_URL}${address}&apiKey=${this.HERE_KEY}`);
   }
 }

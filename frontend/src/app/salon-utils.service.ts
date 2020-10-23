@@ -70,6 +70,7 @@ export class SalonUtilsService {
 
   // -- update Salon
   updateSalon(salon: Salon, files: File[]) {
+    let key;
     const salonId: String  = salon._id;
     const fd = new FormData();
     for (let i = 0; i < files.length; i++) {
@@ -80,10 +81,14 @@ export class SalonUtilsService {
       }
     }
 
+    // temp code
+    salon.priceTo = 0;
+    salon.priceFrom = 0;
+
     // tslint:disable-next-line: forin
-    // for (key in salon) {
-    //  fd.append(key, salon[key]);
-    // }
+    for (key in salon) {
+      fd.append(key, salon[key]);
+    }
     for (let i = 0; i < salon.photos.length; i++) {
       fd.append('photos[]', salon.photos[i]);
     }
@@ -209,5 +214,10 @@ export class SalonUtilsService {
 
   deleteDistributors(distributorId: string) {
     return this.webService.delete(`distributors/${distributorId}`);
+  }
+
+  // get location
+  getAddressfromHERE(address: string) {
+    return this.webService.getAddress(address);
   }
 }

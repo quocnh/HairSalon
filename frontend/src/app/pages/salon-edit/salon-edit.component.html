@@ -7,7 +7,7 @@
                 </h4>
                    <br>         
                 <p class="card-category"> 
-                    <input type="text" class="form-control" placeholder="Địa chỉ" value="{{ salon.address }}" [(ngModel)]="salon.address" [ngModelOptions]="{standalone: true}">
+                    <input type="text" class="form-control" placeholder="Địa chỉ" value="{{ salon.address }}" [(ngModel)]="modifiedAddress" [ngModelOptions]="{standalone: true}">
                 </p>
                 
             </div>
@@ -47,7 +47,7 @@
 </div>
 <div class="row">
   <div class="update ml-auto mr-auto">
-    <button type="submit" class="btn btn-primary btn-round" (click)="updatePhotos()">Cập nhật</button>
+    <button type="submit" class="btn btn-primary btn-round" (click)="updateSalonInfo()">Cập nhật</button>
   </div>
 </div>
 

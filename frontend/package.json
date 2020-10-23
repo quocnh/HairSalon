@@ -34,7 +34,7 @@
     "chartist": "0.11.2",
     "core-js": "3.6.4",
     "express": "4.17.1",
-    "jquery": "3.4.1",
+    "jquery": "^3.4.1",
     "moment": "2.24.0",
     "ng-image-slider": "^2.6.4",
     "ngx-lightbox": "^2.2.2",

@@ -9,7 +9,8 @@ export default class Salon {
     district: string;
     city: string;
     address: string;
-    local: string;
+    longitude: string;
+    latitude: string;
     info: string;
     services: Service[];
     priceFrom: number;

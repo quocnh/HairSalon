@@ -39,9 +39,13 @@ const SalonSchema = new mongoose.Schema({
         type: String,
         required: [false, 'address']
     },
-    local: { 
-        type: String , 
-        required: [false, 'x,y Info ']
+    longitude: {
+        type: String,
+        required: [false, 'longitude']
+    },
+    latitude: {
+        type: String, 
+        required: [false, 'latitude']
     },
     info: { 
         type: String , 
