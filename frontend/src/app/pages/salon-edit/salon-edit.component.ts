@@ -63,7 +63,7 @@ export class SalonEditComponent implements OnInit {
       );
     })
   }
-  
+
   getSalonInfo(salonId) {
     this.salonUtilService.getOneSalon(salonId).subscribe(
         (salons: Salon) => {
@@ -151,7 +151,7 @@ export class SalonEditComponent implements OnInit {
       this.salon.address = this.modifiedAddress;
       // convert to coordinator : long/lat
       this.salonUtilService.getAddressfromHERE(this.modifiedAddress).subscribe(
-        (result) => {
+        (result: any) => {
           console.log(result.items[0].position);
           this.salon.longitude = result.items[0].position.lng;
           this.salon.latitude = result.items[0].position.lat;

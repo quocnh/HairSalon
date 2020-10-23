@@ -56,9 +56,24 @@ export class SalonsListViewComponent implements OnInit {
           // Case list all salons from admin account
           if ((this.addedSalon.name !== null) && (this.addedSalon._salonOwnerId !== null)) {
             console.log('Create Salon from admin');
-            this.salonUtilService.createSalons(this.addedSalon, null).subscribe(
-              () => this.refreshAllSalonList()
-            );
+            if (this.addedSalon.address !== null) {
+              this.salonUtilService.getAddressfromHERE(this.addedSalon.address).subscribe(
+                (resposne: any) => {
+                  console.log(resposne.items[0].position);
+                  this.addedSalon.longitude = resposne.items[0].position.lng;
+                  this.addedSalon.latitude = resposne.items[0].position.lat;
+
+                  // create salon
+                  this.salonUtilService.createSalons(this.addedSalon, null).subscribe(
+                    () => this.refreshAllSalonList()
+                  );
+                }
+              )
+            } else {
+              this.salonUtilService.createSalons(this.addedSalon, null).subscribe(
+                () => this.refreshAllSalonList()
+              );
+            }
           }
         } else if ((this.addedSalon.name !== null) && (this.ownerId !== null)) {
           // Case add salon from owner account
