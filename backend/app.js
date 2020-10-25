@@ -2,13 +2,17 @@
 const express = require('express');
 const app = express();
 const mongoose = require('./database/mongoose');
+
 const salonOwnerRoutes = require('./routes/salonOwner');
 const salonRoutes = require('./routes/salon');
 const customerRoutes = require('./routes/customer');
 const distributorRoutes = require('./routes/distributor');
 const barberRoutes = require('./routes/barber');
 const bookingRoutes = require('./routes/booking');
+const userRoutes = require('./routes/user');
+
 const cors = require("cors");
+const {success, error} = require("consola");
 var bodyParser = require('body-parser');
 
 /*
@@ -32,10 +36,14 @@ app.use((req, res, next) => {
     next();
 });
 
+
+
 /*
 Create, Update, ReadOne, ReadAll, Delete
 */
-
+// User router middleware
+app.use("/user", userRoutes);
+//
 app.use('/salonOwners',     salonOwnerRoutes);
 app.use('/salons',          salonRoutes);
 app.use('/customers',       customerRoutes);
