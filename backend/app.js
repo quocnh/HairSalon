@@ -8,7 +8,9 @@ const customerRoutes = require('./routes/customer');
 const distributorRoutes = require('./routes/distributor');
 const barberRoutes = require('./routes/barber');
 const bookingRoutes = require('./routes/booking');
+const cors = require("cors");
 var bodyParser = require('body-parser');
+
 /*
 localhost:3000 - backend api
 localhost:4200 - frontent 
@@ -16,10 +18,12 @@ localhost:4200 - frontent
 
 
 mongoose.set('useFindAndModify', false);
+
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors());
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
