@@ -55,7 +55,7 @@ cd frondent > npm install --save ngx-lightbox
 ```
 10. 
 ```python
-npm i express consola jsonwebtoken passport passport-jwt cors dotenv
+npm i express consola jsonwebtoken passport passport-jwt cors dotenv bcryptjs
 ```
 # how to run
 1. How to run frontend > cd frontend > npm start
