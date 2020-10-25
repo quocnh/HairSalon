@@ -50,8 +50,13 @@ npm install @syncfusion/ej2-angular-calendars
 npm install ng-image-slider --save
 ```
 9. Install light-box
+```python
 cd frondent > npm install --save ngx-lightbox
-
+```
+10. 
+```python
+npm i express consola jsonwebtoken passport passport-jwt cors dotenv
+```
 # how to run
 1. How to run frontend > cd frontend > npm start
 2. How to run backend > cd backend > nodemon app.js
