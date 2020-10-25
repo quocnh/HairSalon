@@ -42,7 +42,7 @@ app.use((req, res, next) => {
 Create, Update, ReadOne, ReadAll, Delete
 */
 // User router middleware
-app.use("/user", userRoutes);
+app.use("/api/users", userRoutes);
 //
 app.use('/salonOwners',     salonOwnerRoutes);
 app.use('/salons',          salonRoutes);
