@@ -11,6 +11,7 @@ const barberRoutes = require('./routes/barber');
 const bookingRoutes = require('./routes/booking');
 const userRoutes = require('./routes/user');
 
+const passport = require("passport");
 const cors = require("cors");
 const {success, error} = require("consola");
 var bodyParser = require('body-parser');
@@ -28,6 +29,9 @@ app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
+app.use(passport.initialize());
+
+require("");
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");

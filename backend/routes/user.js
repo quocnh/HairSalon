@@ -1,7 +1,7 @@
 
 /*jshint esversion: 6 */
 const UserOwner = require('../database/models/user.js');
-const { userRegister} = require("../utils/Auth");
+const { userRegister, userLogin } = require("../utils/Auth");
 
 var express = require('express');
 var UserRouter = express.Router();
@@ -20,15 +20,15 @@ UserRouter.post("/register-admin",async (req, res) => {
 });
 // user login route
 UserRouter.post("/login-customer",async (req, res) => {
-   
+   await userLogin(req.body, "customer", res);
 });
 // salon owner login route
 UserRouter.post("/login-salonOwner",async (req, res) => {
-   
+    await userLogin(req.body, "salon_owner", res);
 });
 // admin login route
 UserRouter.post("/login-admin",async (req, res) => {
-   
+    await userLogin(req.body, "admin", res);
 });
 // profile route
 UserRouter.get('profile', async (req, res) => {});
