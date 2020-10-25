@@ -1,4 +1,8 @@
 # hairsalon
+# documentation of login mechanism 
+```python 
+https://www.youtube.com/watch?v=2PPSXonhIck
+```
 # prerequisite (this guide for macOs environment)
 0. Clone the source 
 1. Install NodeJS
