@@ -118,6 +118,12 @@ const validateEmail = async email => {
     return user ? false : true;
 };
 
+/**
+ * Passport
+ */
+const userAuth = passport.authenticate("jwt", { session: false});
+
+
 module.exports = {
     userLogin,
     userRegister
