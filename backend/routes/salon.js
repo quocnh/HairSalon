@@ -43,15 +43,18 @@ salonRouter.get('/', (req, res) => {
 salonRouter.post('/', upload.array('newPhotos[]', 10), (req, res) => {
     var strPhotoPath = "";
     var strDefaultPhoto = Array(10);
-
-    if(req.files.length > 0){
-        // console.log(req.files);
-        strPhotoPath = req.file.path;
+    if (req.file) {
+        if(req.files.length > 0){
+            // console.log(req.files);
+            strPhotoPath = req.file.path;
+        }
     }
+    
     // console.log(req.body);
     for (i = 0; i < strDefaultPhoto.length; i++) {
         strDefaultPhoto[i] = "uploads/salonPhotos/default.jpg";
     }
+    
     const salon = new Salon({ 
         name: req.body.name,
         _salonOwnerId: req.body._salonOwnerId,
@@ -73,7 +76,13 @@ salonRouter.post('/', upload.array('newPhotos[]', 10), (req, res) => {
     
     salon.save()
     .then(newSalon => res.send(newSalon))
-    .catch((error) => console.log(error));
+    .catch((error) => {
+        console.log(error);
+        if (error.code === 11000) {
+            return res.status(400).json({ error: 'This salon already existes'});
+        }
+        res.status(500).json({ error: 'Server error'});
+    });
 });
 
 salonRouter.delete('/:salonId', (req, res) => {

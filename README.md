@@ -61,6 +61,9 @@ cd frondent > npm install --save ngx-lightbox
 ```python
 npm i express consola jsonwebtoken passport passport-jwt cors dotenv bcryptjs
 ```
+11.
+cd backend > npm install node-geocoder
+
 # how to run
 1. How to run frontend > cd frontend > npm start
 2. How to run backend > cd backend > nodemon app.js
