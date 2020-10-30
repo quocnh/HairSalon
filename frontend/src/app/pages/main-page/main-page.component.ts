@@ -18,6 +18,9 @@ export class MainPageComponent implements OnInit {
   public deletedSalon: Salon;
   FromValue = 500000;
   ToValue = 2000000;
+  // tslint:disable-next-line: no-inferrable-types
+  isShown: boolean = false;
+  buttonMap: String = 'Mở bản đồ';
 
   constructor(
     private salonUtilService: SalonUtilsService,
@@ -29,6 +32,30 @@ export class MainPageComponent implements OnInit {
       console.log('location is not supported');
     }
 
+    if (this.isShown) {
+      this.buttonMap = 'Đóng bản đồ';
+      this.loadMap();
+    } else {
+      this.buttonMap = 'Mở bản đồ';
+    }
+
+  }
+
+  refreshAllSalonList() {
+    this.salonUtilService.getAllSalons().subscribe((salons: Salon[]) => this.salons = salons);
+  }
+
+  toggleMap() {
+    this.isShown = !this.isShown;
+    if (this.isShown) {
+      this.buttonMap = 'Đóng bản đồ';
+      this.loadMap();
+    } else {
+      this.buttonMap = 'Mở bản đồ';
+    }
+  }
+
+  loadMap() {
     navigator.geolocation.getCurrentPosition((position) => {
       const coords = position.coords;
       const latLong = [coords.latitude, coords.longitude];
@@ -50,11 +77,6 @@ export class MainPageComponent implements OnInit {
       L.marker([coords.latitude, coords.longitude]).addTo(mymap);
 
     })
-
-  }
-
-  refreshAllSalonList() {
-    this.salonUtilService.getAllSalons().subscribe((salons: Salon[]) => this.salons = salons);
   }
 
 }

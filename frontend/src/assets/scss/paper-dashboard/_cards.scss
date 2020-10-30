@@ -35,6 +35,7 @@
     }
 
     .map{
+        position: sticky;
         border-radius: $border-radius-small;
 
         &.map-big{
