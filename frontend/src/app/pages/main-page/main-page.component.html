@@ -25,9 +25,15 @@
                 <div class="col-md-5 text-left">
                     <i class="fa fa-star text-danger"></i> {{salon.rate}} ({{salon.numRate}})
                 </div>
-                <div class="col-md-7 text-right">
-                    <p>{{salon.priceFrom | currency:'VND'}} ~</p>
+                <div class="col-md-7 text-right" *ngIf="salon.services[0]; else noPrice">
+                  <p>{{salon.services[0].price | currency:'VND'}} ~</p>
                 </div>
+
+                <ng-template #noPrice>
+                  <div class="col-md-7 text-right">
+                  <p>{{0 | currency:'VND'}} ~</p>
+                  </div>
+                </ng-template>
               </div>
           </div>
           </div>
@@ -63,9 +69,16 @@
                 <div class="col-md-5 text-left">
                     <i class="fa fa-star text-danger"></i> {{salon.rate}} ({{salon.numRate}})
                 </div>
-                <div class="col-md-7 text-right">
-                    <p>{{salon.priceFrom | currency:'VND'}} ~</p>
+                <div class="col-md-7 text-right" *ngIf="salon.services[0]; else noPrice">
+                  <p>{{salon.services[0].price | currency:'VND'}} ~</p>
                 </div>
+
+                <ng-template #noPrice>
+                  <div class="col-md-7 text-right">
+                  <p>{{0 | currency:'VND'}} ~</p>
+                  </div>
+                </ng-template>
+                
               </div>
           </div>
         </div>
