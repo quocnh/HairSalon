@@ -67,10 +67,10 @@ salonRouter.post('/', upload.array('newPhotos[]', 10), (req, res) => {
         latitude: req.body.latitude,
         info: req.body.info,
         services: req.body.services,
-        priceFrom: req.body.priceFrom,
-        priceTo: req.body.priceTo,
-        rate: req.body.rate,
-        numRate: req.body.numRate,
+        priceFrom: '0',
+        priceTo: '0',
+        rate: '0',
+        numRate: '0',
         photos: strDefaultPhoto,
     });
     
@@ -171,21 +171,26 @@ salonRouter.patch('/:salonId/addService', (req, res) => {
         name: String,
         price: Number
     };
+
     const addedService = Object.create(Service);
     if (req.body.name) {
         //console.log(req.body);
         addedService.name = req.body.name;
         addedService.price = req.body.price;
         //console.log(addedService);
+        
         Salon.findOneAndUpdate({ '_id': req.params.salonId}, 
             {
                 $push:
                 {
                     services: addedService
-                }
+                },
+
             },
             {new: true})
-            .then(salon => {res.send(salon);})
+            .then(salon => {
+                res.send(salon);
+            })
             .catch((error) => console.log(error));
 
     }

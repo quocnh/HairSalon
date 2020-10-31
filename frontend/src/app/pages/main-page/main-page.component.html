@@ -19,15 +19,14 @@
           <div class="card-footer">          
 
               <h6 class="text-left">{{ salon.name }}</h6>
-              <p class="text-left">Address</p>
-              <p class="text-left">Salon info</p>
+              <p class="text-left">{{salon.address | slice:0:28}}{{salon.address.length > 28 ? '...' : ''}}</p>
 
               <div class="row">
                 <div class="col-md-5 text-left">
-                    <i class="fa fa-star text-danger"></i> 4.5 (232)
+                    <i class="fa fa-star text-danger"></i> {{salon.rate}} ({{salon.numRate}})
                 </div>
                 <div class="col-md-7 text-right">
-                    <p>{{FromValue | currency:'VND'}} ~</p>
+                    <p>{{salon.priceFrom | currency:'VND'}} ~</p>
                 </div>
               </div>
           </div>
@@ -56,24 +55,21 @@
               <img src='http://localhost:3000/{{salon.photos[0]}}' alt="..." >
           </div>
   
-          <div class="card-footer">          
-
+          <div class="card-footer">
               <h6 class="text-left">{{ salon.name }}</h6>
-              <p class="text-left">Address</p>
-              <p class="text-left">Salon info</p>
+              <p class="text-left">{{salon.address | slice:0:28}}{{salon.address.length > 28 ? '...' : ''}}</p>
 
               <div class="row">
                 <div class="col-md-5 text-left">
-                    <i class="fa fa-star text-danger"></i> 4.5 (232)
+                    <i class="fa fa-star text-danger"></i> {{salon.rate}} ({{salon.numRate}})
                 </div>
                 <div class="col-md-7 text-right">
-                    <p>{{FromValue | currency:'VND'}} ~</p>
+                    <p>{{salon.priceFrom | currency:'VND'}} ~</p>
                 </div>
               </div>
           </div>
-          </div>
+        </div>
       </a>
     </div>
-    
   </div>
 </ng-template>
