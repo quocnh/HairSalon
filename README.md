@@ -5,16 +5,12 @@ https://www.youtube.com/watch?v=2PPSXonhIck
 ```
 # prerequisite (this guide for macOs environment)
 0. Clone the source 
+### Backend ### 
 1. Install NodeJS
 ```python
 brew install node
 ```
-2. Install Angular
-```python
-npm install -g @angular/cli
-ng serve --open. => build
-```
-3. Install MongoDB (https://medium.com/better-programming/installing-mongodb-on-macos-catalina-aab1cbe0c836)
+2. Install MongoDB for MAC (https://medium.com/better-programming/installing-mongodb-on-macos-catalina-aab1cbe0c836)
 ```python
 brew tap mongodb/brew
 brew install mongodb-community
@@ -31,48 +27,70 @@ Note: you can create data/db folder (sudo mkdir -p data/db) anywhere and don't f
 brew install mongodb/brew/mongodb-database-tools
 ```
 
-4. Install express
+3. Install express
 ```python
  npm install express
  ```
-5. Install Angular dependency 
-```python
-npm install --save-dev @angular-devkit/build-angular
-npm install --save body-parser
-npm install --save @syncfusion/ej2-angular-calendars
-```
-6. Install multer
+4. Install multer
 ```python
 npm i multer
 ```
-7. Install calendar
+5. 
+```python
+npm i consola jsonwebtoken passport passport-jwt cors dotenv bcryptjs
+```
+6.
+cd backend > npm install node-geocoder
+
+### Frontend Angular ###
+1. Install Angular
+```python
+npm install -g @angular/cli
+ng serve --open. => build
+```
+2. Install Angular dependency 
+```python
+npm install --save-dev @angular-devkit/build-angular body-parser @syncfusion/ej2-angular-calendars
+# npm install --save body-parser
+# npm install --save @syncfusion/ej2-angular-calendars
+```
+3. Install calendar
 ```python
 npm install @syncfusion/ej2-angular-calendars
 ```
-8. Install calendar
+4. Install calendar
 ```python
 npm install ng-image-slider --save
 ```
-9. Install light-box
+5. Install light-box
 ```python
 cd frondent > npm install --save ngx-lightbox
 ```
-10. 
-```python
-npm i express consola jsonwebtoken passport passport-jwt cors dotenv bcryptjs
-```
-11.
-cd backend > npm install node-geocoder
 
-# how to run
+##################
+### how to run ###
+##################
 1. How to run frontend > cd frontend > npm start
 2. How to run backend > cd backend > nodemon app.js
 # create a page
 ```python
 ng generate component pages/<"page_name">
 ```
+
+
+#############################
+### How to backup mongodb ###
+#############################
+
 # import/export mongodb
 ```python
 mongoimport --host="localhost" --port=27017 --collection=salonowners --db=salondbmanager --file=salonowners.json
 mongoexport --host="localhost" --port=27017 --collection=salonowners --db=salondbmanager --out=salonowners.json
 ```
+or
+
+# dump/restore for all db from mongdbs
+1. download mongodump, mongorestore at https://www.mongodb.com/try/download/database-tools
+2. 
+ + backup:  mongodump -d salondbmanager -o dumpname
+ + restore: mongorestore -d salondbmanager dumpname/salondbmanager
