@@ -12,6 +12,7 @@ declare const FB: any;
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   accessToken: string;
+  isLogin: boolean = true;
   constructor(
     public modal: NgbActiveModal,
     private userService: UserService,
@@ -44,6 +45,7 @@ export class LoginComponent implements OnInit {
 
   moveToRegister() {
     console.log('moveToRegister');
+    this.isLogin = false;
   }
 
   login() {
@@ -92,6 +94,10 @@ export class LoginComponent implements OnInit {
             });
         }
     });
-}
+  }
+
+  register_ok() {
+    this.isLogin = true;
+  }
 
 }

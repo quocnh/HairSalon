@@ -1,31 +1,31 @@
 
 <div class="modal-body">
-    <div class="card card-user">
+    <div class="card card-user" *ngIf="isLogin; else registerPage">
         <h5 class="card-header">
-            Log in
+            Đăng nhập
         </h5>
         <div class="card-body">
 
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                    <label for="exampleInputEmail1">Email</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                     <small id="emailHelp" class="form-text text-muted"></small>
                 </div>
                 <div class="form-group">
-                    <label for="passwordInput">Password</label>
-                    <input type="password" class="form-control" id="passwordInput" aria-describedby="passHelp" placeholder="password">
+                    <label for="passwordInput">Mật khẩu</label>
+                    <input type="password" class="form-control" id="passwordInput" aria-describedby="passHelp">
                     <small id="passHelp" class="form-text text-muted"></small>
                 </div>
 
                 <div class="form-group" style="text-align:center;">
-                    <button type="button" class="btn btn-dark" (click)="login()">Log in</button>
-                    <button type="button" class="btn btn-secondary" (click)="moveToRegister()">Register</button>
+                    <button type="button" class="btn btn-dark" (click)="login()">Đăng nhập</button>
+                    <button type="button" class="btn btn-secondary" (click)="moveToRegister()">Đăng ký</button>
                 </div>
 
                 <div>
                     <button class="btn btn-primary fb-btn" (click)="fbLogin()">
                         <i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i> 
-                        Login With Facebook
+                        Đăng nhập bằng Facebook
                     </button>
                 </div>
                 <div>
@@ -35,5 +35,37 @@
 
         </div>
     </div>
+
+    <ng-template #registerPage>
+
+        <h5 class="card-header">
+            Đăng ký thành viên
+        </h5>
+        <div class="card-body">
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <small id="emailHelp" class="form-text text-muted"></small>
+            </div>
+            <div class="form-group">
+                <label for="passwordInput">Mật khẩu</label>
+                <input type="password" class="form-control" id="passwordInput" aria-describedby="passHelp">
+                <small id="passHelp" class="form-text text-muted"></small>
+            </div>
+
+            <div class="form-group">
+                <label for="passwordInput">Xác nhận mật khẩu</label>
+                <input type="password" class="form-control" id="passwordInput" aria-describedby="passHelp">
+                <small id="passHelp" class="form-text text-muted"></small>
+            </div>
+
+            <div class="form-group" style="text-align:center;">
+                <button type="button" class="btn btn-dark" (click)="register_ok()">Đăng ký</button>
+                <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Hủy</button>
+            </div>
+        </div>
+
+    </ng-template>
 
 </div>
