@@ -149,6 +149,7 @@ export class SalonEditComponent implements OnInit {
       // update address
       console.log(this.modifiedAddress);
       this.salon.address = this.modifiedAddress;
+      /*
       // convert to coordinator : long/lat
       this.salonUtilService.getAddressfromHERE(this.modifiedAddress).subscribe(
         (result: any) => {
@@ -163,12 +164,13 @@ export class SalonEditComponent implements OnInit {
             });
         }
       )
-    } else {
-      this.salonUtilService.updateSalon(this.salon, this.selectedFiles).subscribe(
-        (salon: Salon) => {
-          this.salon = salon;
-        });
+      */
     }
+      
+    this.salonUtilService.updateSalon(this.salon, this.selectedFiles).subscribe(
+      (salon: Salon) => {
+        this.salon = salon;
+      });
 
   }
 

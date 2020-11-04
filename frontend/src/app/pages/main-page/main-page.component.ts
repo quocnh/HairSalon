@@ -16,10 +16,11 @@ export class MainPageComponent implements OnInit {
   ownerId: string;
   isListAllSalons: boolean;
   public deletedSalon: Salon;
-  FromValue = 500000;
-  ToValue = 2000000;
+  mymap:any;
+  //markers:any[];
+
   // tslint:disable-next-line: no-inferrable-types
-  isShown: boolean = false;
+  isMapShown: boolean = false;
   buttonMap: String = 'Mở bản đồ';
 
   constructor(
@@ -32,12 +33,7 @@ export class MainPageComponent implements OnInit {
       console.log('location is not supported');
     }
 
-    if (this.isShown) {
-      this.buttonMap = 'Đóng bản đồ';
-      this.loadMap();
-    } else {
-      this.buttonMap = 'Mở bản đồ';
-    }
+    this.mapControl();
 
   }
 
@@ -46,8 +42,12 @@ export class MainPageComponent implements OnInit {
   }
 
   toggleMap() {
-    this.isShown = !this.isShown;
-    if (this.isShown) {
+    this.isMapShown = !this.isMapShown;
+    this.mapControl();
+  }
+
+  mapControl() {
+    if (this.isMapShown) {
       this.buttonMap = 'Đóng bản đồ';
       this.loadMap();
     } else {
@@ -55,15 +55,8 @@ export class MainPageComponent implements OnInit {
     }
   }
 
-  loadMap() {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const coords = position.coords;
-      const latLong = [coords.latitude, coords.longitude];
-      console.log(
-        `lat: ${position.coords.latitude}, lon: ${position.coords.longitude}`
-      );
-
-      const mymap = L.map('map').setView([coords.latitude, coords.longitude], 15);
+  initMap(lat, long) {
+    this.mymap = L.map('hairSalonMap').setView([lat, long], 15);
 
       L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
           attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -72,11 +65,47 @@ export class MainPageComponent implements OnInit {
           tileSize: 512,
           zoomOffset: -1,
           accessToken: 'pk.eyJ1IjoiYmVja3MyM3RkIiwiYSI6ImNrZ3V0amRsMTByOHgycXRtZmgyaDBmN2UifQ.lc0QtC0wwuujjxGvyotlqg'
-      }).addTo(mymap);
+      }).addTo(this.mymap);
+  }
 
-      L.marker([coords.latitude, coords.longitude]).addTo(mymap);
+  loadMap() {
 
+    navigator.geolocation.getCurrentPosition((position) => {
+      const coords = position.coords;
+      const latLong = [coords.latitude, coords.longitude];
+      console.log(
+        `lat: ${position.coords.latitude}, lon: ${position.coords.longitude}`
+      );
+      this.initMap(10.81078, 106.66806);
+      this.addMarker(coords.latitude, coords.longitude);
+      for(var i = 0; i < this.salons.length; i++){
+        // console.log(i + ': ' + this.salons[i].latitude + ';' + this.salons[i].longitude);
+        //this.markers[i] = L.marker([this.salons[i].latitude, this.salons[i].longitude]).addTo(this.mymap);
+        L.marker([this.salons[i].latitude, this.salons[i].longitude]).addTo(this.mymap);
+        //marker.bindPopup(this.salons[i].name).openPopup();
+      }
     })
+
+    
+  }
+
+  addMarker(lat, long) {
+    L.marker([lat, long]).addTo(this.mymap);
+  }
+
+  mouseOverAction(salon, idx)
+  {
+    //console.log('Mouse over action ' + idx);
+    navigator.geolocation.getCurrentPosition((position)=>{
+      //console.log(`lat: ${position.coords.latitude}, lon: ${position.coords.longitude}`);
+      let marker = L.marker([salon.latitude, salon.longitude]).addTo(this.mymap);
+      marker.bindPopup(salon.name).openPopup();
+    });    
+  }
+
+  mouseOutAction(salon, idx)
+  {
+    //console.log('Mouse out action '+ idx);
   }
 
 }
