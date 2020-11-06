@@ -4,6 +4,7 @@ import Customer from './module/customer';
 import Salon from './module/salon';
 import Barber from './module/barber';
 import Service from './module/service';
+import Booking from './module/booking';
 
 @Injectable({
   providedIn: 'root'
@@ -219,5 +220,18 @@ export class SalonUtilsService {
   // get location
   getAddressfromHERE(address: string) {
     return this.webService.getAddress(address);
+  }
+
+  // Booking
+  createBooking(booking: Booking){
+    let key;
+    const fd = new FormData();
+
+    // tslint:disable-next-line: forin
+    for (key in booking) {
+      fd.append(key, booking[key]);
+    }
+    console.log('create Booking : ' + booking.bookingDate);
+    return this.webService.post(`bookings`, fd);  
   }
 }

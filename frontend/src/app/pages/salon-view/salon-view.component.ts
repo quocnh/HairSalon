@@ -6,6 +6,7 @@ import { SalonUtilsService } from '../../salon-utils.service';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import Service from '../../module/service';
 import { Lightbox } from 'ngx-lightbox';
+import Booking from 'app/module/booking';
 
 @Component({
   selector: 'app-salon-view',
@@ -25,6 +26,7 @@ export class SalonViewComponent implements OnInit {
   time = {hour: 13, minute: 30};
   meridian = true;
   barbers: Array<Barber> = [];
+  booking: Booking = new Booking();
 
   constructor(
     private route: ActivatedRoute,
@@ -78,6 +80,11 @@ export class SalonViewComponent implements OnInit {
 
   reserveService() {
     console.log('Reserve Service');
+    this.booking._salonId = this.salonId;
+    this.salonUtilService.createBooking(this.booking).subscribe(
+      (booking: Booking) => {
+        console.log(booking);
+      });
   }
 
   selectServiceOnChange(sIndex) {

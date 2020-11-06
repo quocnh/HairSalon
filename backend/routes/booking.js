@@ -7,32 +7,6 @@ const Booking = require('../database/models/booking');
 
 var express = require('express');
 var bookingRouter = express.Router();
-const multer = require('multer');
-
-const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, './uploads/avatar/');
-    },
-    filename: function(req, file, cb) {
-        cb(null, new Date().toISOString().replace(/:/g, '-') + '_' + file.originalname);
-    }
-});
-
-const fileFilter = (req, file, cb) => {
-    // reject a file
-    if ((file.mimetype === 'image/jpeg') || (file.mimetype === 'image/png') || (file.mimetype === 'image/jpg')) {
-        cb(null, true);
-    } else {
-        cb(new Error('File extention is not supported ' + file.mimetype), false);
-    }
-};
-const upload = multer({
-    storage: storage, 
-    limits: {
-        fileSize: 1024*1024*5
-    },
-    fileFilter: fileFilter
-});
 
 // Booking
 bookingRouter.get('/', (req, res) => {
@@ -62,7 +36,7 @@ bookingRouter.get('/salon/:salonId', (req, res) => {
         .catch((error) => console.log(error));
 });
 
-bookingRouter.post('/', upload.single('avatar'), (req, res) => {
+bookingRouter.post('/', (req, res) => {
     
     console.log(req.body);
     //var strBody = JSON.parse(JSON.stringify(req.body));
@@ -71,8 +45,8 @@ bookingRouter.post('/', upload.single('avatar'), (req, res) => {
         _salonId: req.body._salonId,
         _barberId: req.body._barberId,
         _customerId: req.body._customerId,
-        date: req.body.date,
-        time: req.body.time,
+        bookingDate: req.body.date,
+        bookingTime: req.body.time,
         info: req.body.info,
         status: req.body.status,
     });
@@ -82,7 +56,7 @@ bookingRouter.post('/', upload.single('avatar'), (req, res) => {
     .catch((error) => console.log(error));
 });
 
-bookingRouter.patch('/:bookingId', upload.single('avatar'), (req, res) => {
+bookingRouter.patch('/:bookingId', (req, res) => {
 
     if (req.body.bookingId) {
         
@@ -93,12 +67,13 @@ bookingRouter.patch('/:bookingId', upload.single('avatar'), (req, res) => {
                     _salonId: req.body._salonId,
                     _barberId: req.body._barberId,
                     _customerId: req.body._customerId,
-                    date: req.body.date,
-                    time: req.body.time,
+                    bookingDate: req.body.date,
+                    bookingTime: req.body.time,
                     info: req.body.info,
                     status: req.body.status,
                 },
-            })
+            },
+            {new: true})
             .then(booking => res.send(booking))
             .catch((error) => console.log(error));
 

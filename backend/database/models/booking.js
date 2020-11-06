@@ -17,12 +17,17 @@ const BookingSchema = new mongoose.Schema({
         require: [false, 'Barber id']
     },
 
-    date: { 
+    createdDate: { 
         type: Date,
         required: [false, 'Date']
     },
 
-    time: { 
+    bookingDate: { 
+        type: Date,
+        required: [false, 'Date']
+    },
+
+    bookingTime: { 
         type: String , 
         required: [false, 'Time']
     },
@@ -36,6 +41,14 @@ const BookingSchema = new mongoose.Schema({
         type: String , 
         required: [false, 'status of booking (completed/processing/canceled)']
     },
+});
+
+// get the current timestamp for the booking
+BookingSchema.pre('save', async function(next) {
+
+    this.createdDate = new Date().getTime();
+    console.log('timestamp: ' + this.createdDate);
+    next();
 });
 
 const Booking = mongoose.model('Booking', BookingSchema);
