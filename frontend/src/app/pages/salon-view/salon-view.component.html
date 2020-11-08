@@ -8,28 +8,40 @@
 </div>
 
 <div class="row"> 
-  <div class="col-md-6" style="padding: 1px; margin: 0">
-    <div class=" btn-image " (click)="open(0)" style="padding: 2px; margin: 0">
-      <img src={{strPhotos[0]}} style="object-fit: fill; width:100%">
+  <div class="col-md-6">
+    <div class=" btn-image " (click)="open(0)" >
+      <img src={{strPhotos[0]}} style="object-fit: fill; height:404px; width:100%">
       
     </div>
   </div>
-  <div class="col-md-3" style="padding: 1px; margin: 0">
-    <div class=" btn-image " (click)="open(1)" style="padding: 2px; margin:0">
-      <img src={{strPhotos[1]}} style="object-fit: fill; width:100%">
+
+  <div class="col-md-6" style="padding: 0px; margin: 0">
+    <div class="row"> 
+      <div class="col-md-6" style="padding: 1px; margin: 0">
+        <div class=" btn-image " (click)="open(1)" >
+          <img src={{strPhotos[1]}} style="object-fit: fill; height:200px; width:100%">
+        </div>
+      </div>
+      <div class="col-md-6" style="padding: 1px; margin: 0">
+        <div class=" btn-image " (click)="open(2)">
+          <img src={{strPhotos[2]}} style="object-fit: fill; height:200px; width:100%">
+        </div>
+      </div>
     </div>
-    <div class=" btn-image " (click)="open(2)" style="padding: 2px; margin:0">
-      <img src={{strPhotos[2]}} style="object-fit: fill; width:100%">
+    
+    <div class="row"> 
+      <div class="col-md-6" style="padding: 1px; margin: 0">
+        <div class=" btn-image " (click)="open(3)" >
+          <img src={{strPhotos[3]}} style="object-fit: fill; height:200px; width:100%">
+        </div>
+      </div>
+      <div class="col-md-6" style="padding: 1px; margin: 0">
+        <div class=" btn-image " (click)="open(4)">
+          <img src={{strPhotos[4]}} style="object-fit: fill; height:200px; width:100%">
+        </div>
+      </div>
     </div>
-  </div>  
-  <div class="col-md-3" style="padding: 1px; margin: 0">
-    <div class=" btn-image " (click)="open(3)" style="padding: 2px; margin:0">
-      <img src={{strPhotos[3]}} style="object-fit: fill; width:100%">
-    </div>
-    <div class=" btn-image " (click)="open(4)" style="padding: 2px; margin:0">
-      <img src={{strPhotos[4]}} style="object-fit: fill; width:100%">
-    </div>
-  </div>
+  </div> 
 </div>
 
 <div class="row">
