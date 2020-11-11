@@ -12,13 +12,13 @@ const userRegister = async (userDets, role, res) => {
     try {
         console.log("xxxx", userDets);
         // validate the user
-        let usernameNotTaken = await validateUsername(userDets.username);
-        if (!usernameNotTaken) {
-            return res.status(400).json({
-                message: `The username is already taken.`,
-                success: false
-            });
-        }
+        // let usernameNotTaken = await validateUsername(userDets.username);
+        // if (!usernameNotTaken) {
+        //     return res.status(400).json({
+        //         message: `The username is already taken.`,
+        //         success: false
+        //     });
+        // }
         // validate the email
         let emailRegistered = await validateEmail(userDets.email);
         if (!emailRegistered) {

@@ -7,8 +7,9 @@ var express = require('express');
 var UserRouter = express.Router();
 
 // user registration route
-UserRouter.post("/register-customer", async (req, res) => {
-    await userRegister(req.body, "customer", res);
+UserRouter.post("/register-customer",  (req, res) => {
+    console.log("request command: ", req.body);
+    userRegister(req.body, "customer", res);
 });
 // salon owner registration route
 UserRouter.post("/register-salonOwner", async (req, res) => {

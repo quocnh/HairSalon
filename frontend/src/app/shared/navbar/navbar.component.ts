@@ -6,6 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {RegisterComponent} from '../../popup/register/register.component';
 import {LoginComponent} from '../../popup/login/login.component';
 import User from '../../module/user';
+import { SalonUtilsService } from '../../salon-utils.service';
 @Component({
     moduleId: module.id,
     // tslint:disable-next-line: component-selector
@@ -28,7 +29,14 @@ export class NavbarComponent implements OnInit {
     @ViewChild('navbar-cmp', {static: false}) button;
 
     // tslint:disable-next-line: member-ordering
-    constructor(location: Location, private renderer: Renderer2, private element: ElementRef, private router: Router, private modalService: NgbModal) {
+    constructor(
+      location: Location, 
+      private renderer: Renderer2, 
+      private element: ElementRef, 
+      private router: Router, 
+      private modalService: NgbModal,
+      private salonUtilService: SalonUtilsService,) {
+        
         this.location = location;
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;
@@ -70,6 +78,7 @@ export class NavbarComponent implements OnInit {
           this.userObject.username = result.username;
           this.userObject.password = result.password;
           // Mark -TODO
+          this.salonUtilService.callRegisterAPI(this.userObject).subscribe();
         }
       },
       (cancel) => {

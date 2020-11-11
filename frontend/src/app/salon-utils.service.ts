@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { WebService } from './web.service';
 import Customer from './module/customer';
+import User from './module/user';
 import Salon from './module/salon';
 import Barber from './module/barber';
 import Service from './module/service';
@@ -233,5 +234,21 @@ export class SalonUtilsService {
     }
     console.log('create Booking : ' + booking.bookingDate);
     return this.webService.post(`bookings`, fd);  
+  }
+
+  // User Register
+  callRegisterAPI(user : User){
+    
+    const fd = new FormData();
+    let key;
+
+    // tslint:disable-next-line: forin
+    for (key in user) {
+      fd.append(key, user[key]);
+      console.log('parameters : ' + user[key]);
+    }
+    console.log('create Customer : ' + user.username);
+    
+    return this.webService.post( `api/users/register-customer`, fd);
   }
 }
