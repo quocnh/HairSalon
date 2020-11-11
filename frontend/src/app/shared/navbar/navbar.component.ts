@@ -5,6 +5,7 @@ import { Location} from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {RegisterComponent} from '../../popup/register/register.component';
 import {LoginComponent} from '../../popup/login/login.component';
+import User from '../../module/user';
 @Component({
     moduleId: module.id,
     // tslint:disable-next-line: component-selector
@@ -20,6 +21,7 @@ export class NavbarComponent implements OnInit {
     private toggleButton;
     private sidebarVisible: boolean;
 
+    userObject: User = new User();
     // tslint:disable-next-line: member-ordering
     public isCollapsed = true;
     // tslint:disable-next-line: member-ordering
@@ -60,10 +62,14 @@ export class NavbarComponent implements OnInit {
     register(){
       console.log('call register modal');
       const ref = this.modalService.open(RegisterComponent);
+      ref.componentInstance.role = 'customer';
       ref.result.then((result) => {
         if (result) {
-          console.log(result);
-          
+          console.log("Result from login modal: ", result);
+          this.userObject.email = result.email;
+          this.userObject.username = result.username;
+          this.userObject.password = result.password;
+          // Mark -TODO
         }
       },
       (cancel) => {

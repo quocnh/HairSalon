@@ -12,7 +12,8 @@ import { SalonUtilsService } from '../../salon-utils.service';
   styleUrls: ['./add-new-customer.component.css']
 })
 export class AddNewCustomerComponent implements OnInit {
-  @Input() public objectName;
+  @Input() 
+  public objectName;
   public customer: Customer = new Customer();
   public barber: Barber = new Barber();
 

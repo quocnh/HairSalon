@@ -11,20 +11,20 @@
             <h7 class="card-title">Register</h7>
         </div>
         <div class="card-body">
-            <form [formGroup]="registerForm">
+            <form #customerForm="ngForm">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="Enter email">
                     <small id="emailHelp" class="form-text text-muted"></small>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputUsername">Username</label>
-                    <input type="text" class="form-control" id="exampleInputUsername" aria-describedby="userHelp" placeholder="username">
+                    <input type="text" class="form-control" id="exampleInputUsername" aria-describedby="userHelp" [(ngModel)]="username" [ngModelOptions]="{standalone: true}" placeholder="username">
                     <small id="userHelp" class="form-text text-muted"></small>
                 </div>
                 <div class="form-group">
                     <label for="passwordInput">Password</label>
-                    <input  type="password" class="form-control" id="passwordInput" aria-describedby="passHelp" placeholder="password">
+                    <input  type="password" class="form-control" id="passwordInput" aria-describedby="passHelp" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" placeholder="password">
                     <small id="passHelp" class="form-text text-muted"></small>
                 </div>
                 <div class="form-group">
