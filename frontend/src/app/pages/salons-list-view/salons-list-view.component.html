@@ -1,121 +1,69 @@
-<div class="row" *ngIf="!isListAllSalons; else elseBlock">
-    <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let salon of salons">
-        <div class="btn btn-salonCard card card-stats" >
-            <div class="card-body ">
-                <div class="row">
-                    <div class="col-5 col-md-4">
-                        <div class="icon-big text-center icon-warning">
-                        <i class="nc-icon nc-image"></i>
-                        </div>
-                    </div>
-                    <div class="col-7 col-md-8">
-                        <div class="numbers">
-                        <p class="card-category">
-                            {{ salon.name }}
-                        </p>
-                        <p class="card-title"> 
-                            <i class="nc-icon nc-badge"></i>    10 
-                        </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                    <div class="legend">
-                        <i class="fa fa-circle text-primary"></i> Opened
-                        <i class="fa fa-circle text-gray"></i> Closed
-                        <i class="btn btn-neutral nc-icon nc-simple-remove pull-right" 
-                            style="font-weight: bold; font-size: 20px;" 
-                            (click)= "deleteSalon(salon._id)">
-                        </i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-6">
-        <div class="btn btn-primary card card-stats" (click)= "createNewSalon()" >
-            <div class="card-body">]
-                <div class="icon-big text-center icon-warning">
-                    <i class="nc-icon nc-simple-add"></i>
-                </div>
-            </div>
-            <div class="card-footer ">
-                <p class="card-category">
-                    Thêm salon mới
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-<ng-template #elseBlock>
-    <div class="row">
 
-        <div class="col-md-12">
-            <div class="card">
-              <div class="card-header">
-                <h4 class="card-title"> Danh sách salon</h4>
-              </div>
-              <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table">
-                    <thead class=" text-primary">
-                      <th>
-                        Tên salon
-                      </th>
-                      <th>
-                        Số điện thoại
-                      </th>
-                      <th>
-                        Email
-                      </th> 
-                      <th>
-                        Thông tin
-                      </th>
-                      <th class="text-right">
-                        <button class="btn btn-sm btn-success btn-round btn-icon " (click)= "createNewSalon()">
-                          <a data-toggle="tooltip" data-placement="top" title="Thêm mới"> <i class="nc-icon nc-simple-add"></i></a>
-                        </button>
-                      </th>
-                    </thead>
-                    <tbody>
-                        
-                        <tr *ngFor="let salon of salons">
-                            
-                            <td>
-                                <a href="#/admin/salons/{{salon._id}}">{{ salon.name }}</a>
-                            </td>
-                            <td>
-                                {{ salon.phone }}
-                            </td>
-                            <td>
-                                {{ salon.email }}
-                            </td>
-                            <td>
-                                {{ salon.info }}
-                            </td>
-                            <td >
-                                <button class="btn btn-sm btn-danger btn-round btn-icon pull-right" (click)= "deleteSalon(salon._id)">
-                                <a data-toggle="tooltip" data-placement="top" title="Xóa"> <i class="fa fa-trash"></i></a>
-                                </button>
-                                <p class="pull-right"> &#160; </p>
-                                <a href="#/admin/salons/{{salon._id}}">
-                                    <button class="btn btn-sm btn-info btn-round btn-icon pull-right" >
-                                        <a data-toggle="tooltip" data-placement="top" title="Sửa"><i class="fa fa-pencil"></i></a>
-                                    </button>
-                                </a>
-                            </td>
-                        </tr>
-                      
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+            <h4 class="card-title"> Danh sách salon</h4>
             </div>
-          </div>
-    </div>   
-      
-</ng-template>
-  
+            <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                <thead class=" text-primary">
+                    <th>
+                    Tên salon
+                    </th>
+                    <th>
+                    Số điện thoại
+                    </th>
+                    <th>
+                    Email
+                    </th> 
+                    <th>
+                    Thông tin
+                    </th>
+                    <th class="text-right">
+                    <button class="btn btn-sm btn-success btn-round btn-icon " (click)= "createNewSalon()">
+                        <a data-toggle="tooltip" data-placement="top" title="Thêm mới"> <i class="nc-icon nc-simple-add"></i></a>
+                    </button>
+                    </th>
+                </thead>
+                <tbody>
+                    
+                    <tr *ngFor="let salon of salons">
+                        
+                        <td>
+                            <a href="#/admin/salons/{{salon._id}}">{{ salon.name }}</a>
+                        </td>
+                        <td>
+                            {{ salon.phone }}
+                        </td>
+                        <td>
+                            {{ salon.email }}
+                        </td>
+                        <td>
+                            {{ salon.info }}
+                        </td>
+                        <td >
+                            <button class="btn btn-sm btn-danger btn-round btn-icon pull-right" (click)= "deleteSalon(salon._id)">
+                            <a data-toggle="tooltip" data-placement="top" title="Xóa"> <i class="fa fa-trash"></i></a>
+                            </button>
+                            <p class="pull-right"> &#160; </p>
+                            <a href="#/admin/salons/{{salon._id}}">
+                                <button class="btn btn-sm btn-info btn-round btn-icon pull-right" >
+                                    <a data-toggle="tooltip" data-placement="top" title="Sửa"><i class="fa fa-pencil"></i></a>
+                                </button>
+                            </a>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+        </div>
+</div>   
+    
+
