@@ -23,7 +23,6 @@ export const ADMIN_ROUTES: RouteInfo[] = [
     { path: 'salons',              title: 'Danh sách salon',               icon: 'nc-scissors',   class: '' },
     { path: 'distributors',        title: 'Danh sách nhà phân phối',       icon: 'nc-scissors',   class: '' },
     { path: 'barbers',             title: 'Danh sách thợ cắt tóc',         icon: 'nc-scissors',   class: '' },
-    { path: 'main',                title: 'Main Page',                     icon: 'nc-scissors',   class: '' },
 ];
 
 export const MANAGER_ROUTES: RouteInfo[] = [    
@@ -32,7 +31,6 @@ export const MANAGER_ROUTES: RouteInfo[] = [
     { path: 'salons',              title: 'Danh sách salon',               icon: 'nc-scissors',   class: '' },
     { path: 'distributors',        title: 'Danh sách nhà phân phối',       icon: 'nc-scissors',   class: '' },
     { path: 'barbers',             title: 'Danh sách thợ cắt tóc',         icon: 'nc-scissors',   class: '' },
-    { path: 'main',                title: 'Main Page',                     icon: 'nc-scissors',   class: '' },
 ];
 
 @Component({

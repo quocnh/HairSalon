@@ -18,6 +18,7 @@ export class SalonsListViewComponent implements OnInit {
   isListAllSalons: boolean;
   public deletedSalon: Salon;
   addedSalon: Salon = new Salon();
+  prefixPath: string;
 
   constructor(
     private salonUtilService: SalonUtilsService,
@@ -28,8 +29,11 @@ export class SalonsListViewComponent implements OnInit {
 
   ngOnInit(): void {
     //Get ownerId from login page
+    // TODO ---------------------------------------------
     // Temporarily use larry: 5f2df3fb4d702c4030b3f856
     this.ownerId = '5f2df3fb4d702c4030b3f856';
+    //----------------------------------------------------
+
     if (!this.ownerId) {
       this.isListAllSalons = true;
       this.refreshAllSalonList();
@@ -37,6 +41,8 @@ export class SalonsListViewComponent implements OnInit {
       this.refreshSalonList();
       this.isListAllSalons = false;
     }
+    this.prefixPath = this.router.url;
+    console.log(this.prefixPath);
     /*
     this.route.params.subscribe((param: Params) => {
       this.ownerId = param.ownerId;
