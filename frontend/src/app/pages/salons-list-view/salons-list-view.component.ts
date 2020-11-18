@@ -27,6 +27,17 @@ export class SalonsListViewComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    //Get ownerId from login page
+    // Temporarily use larry: 5f2df3fb4d702c4030b3f856
+    this.ownerId = '5f2df3fb4d702c4030b3f856';
+    if (!this.ownerId) {
+      this.isListAllSalons = true;
+      this.refreshAllSalonList();
+    } else {
+      this.refreshSalonList();
+      this.isListAllSalons = false;
+    }
+    /*
     this.route.params.subscribe((param: Params) => {
       this.ownerId = param.ownerId;
       if (!this.ownerId) {
@@ -37,6 +48,7 @@ export class SalonsListViewComponent implements OnInit {
         this.isListAllSalons = false;
       }
     });
+    */
 
   }
 

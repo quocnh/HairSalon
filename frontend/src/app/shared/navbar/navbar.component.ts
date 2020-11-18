@@ -1,5 +1,6 @@
 import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
-import { ROUTES } from '../../sidebar/sidebar.component';
+import { ADMIN_ROUTES } from '../../sidebar/sidebar.component';
+import { MANAGER_ROUTES } from '../../sidebar/sidebar.component';
 import { Router } from '@angular/router';
 import { Location} from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -45,7 +46,11 @@ export class NavbarComponent implements OnInit {
 
     // tslint:disable-next-line: member-ordering
     ngOnInit() {
-        this.listTitles = ROUTES.filter(listTitle => listTitle);
+        if(this.router.url.startsWith('/manager')){
+            this.listTitles = MANAGER_ROUTES.filter(menuItem => menuItem);
+        } else {
+            this.listTitles = ADMIN_ROUTES.filter(menuItem => menuItem);
+        }        
         const navbar: HTMLElement = this.element.nativeElement;
         this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];
         this.router.events.subscribe(() => {

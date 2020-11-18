@@ -35,6 +35,7 @@ import { SalonsListViewComponent } from './pages/salons-list-view/salons-list-vi
 
 import { RegisterComponent } from './popup/register/register.component';
 import { SalonEditComponent } from './pages/salon-edit/salon-edit.component';
+import { ManagerLayoutComponent } from './layouts/manager-layout/manager-layout.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { SalonEditComponent } from './pages/salon-edit/salon-edit.component';
     LoginComponent,
     RegisterComponent,
     SalonEditComponent,
+    ManagerLayoutComponent,
   ],
   imports: [
     BrowserAnimationsModule,
