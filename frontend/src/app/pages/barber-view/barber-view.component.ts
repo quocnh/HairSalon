@@ -6,6 +6,7 @@ import { AddNewCustomerComponent } from '../../popup/add-new-customer/add-new-cu
 import { DeleteCustomerComponent } from '../../popup/delete-customer/delete-customer.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { stringify } from 'querystring';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-barber-view',
@@ -22,13 +23,16 @@ export class BarberViewComponent implements OnInit {
   addedBarber: Barber = new Barber();
   public objectName: string;
   salon: Salon = new Salon();
+  prefixPath: string;
 
   constructor(
     private salonUtilService: SalonUtilsService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private router:Router,
   ) { }
 
   ngOnInit() {
+    this.prefixPath = this.router.url;
     this.refreshBarberList();
   }
 

@@ -9,16 +9,19 @@ import { BarberViewComponent } from '../../pages/barber-view/barber-view.compone
 import { BarberProfileViewComponent } from '../../pages/barber-profile-view/barber-profile-view.component';
 import { SalonsListViewComponent } from '../../pages/salons-list-view/salons-list-view.component';
 import { SalonEditComponent } from '../../pages/salon-edit/salon-edit.component';
+import { BookingsSalonListComponent } from 'app/pages/bookings-salon-list/bookings-salon-list.component';
+import { BookingsListViewComponent } from 'app/pages/bookings-list-view/bookings-list-view.component';
 
 export const ManagerLayoutRoutes: Routes = [
 
     { path: '',      component: SalonsListViewComponent },
     { path: 'profile',           component: UserComponent },    
-    { path: 'customersList',        component: CustomersListComponent },
     { path: 'salons',               component: SalonsListViewComponent },
     { path: 'distributors',         component: DistributorViewComponent },
     { path: 'barbers',               component: BarberViewComponent },
+    { path: 'bookings',               component: BookingsSalonListComponent },
     { path: 'profile/customer/:userId',           component: UserComponent },
-    { path: 'profile/barber/:userId',           component: BarberProfileViewComponent },
+    { path: 'barbers/:userId',           component: BarberProfileViewComponent },
     { path: 'salons/:salonId',               component: SalonEditComponent },
+    { path: 'bookings/:salonId',               component: BookingsListViewComponent },
 ];
