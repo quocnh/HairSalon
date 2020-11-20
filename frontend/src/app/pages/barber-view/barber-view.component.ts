@@ -102,8 +102,11 @@ export class BarberViewComponent implements OnInit {
     await this.salonUtilService.getOneSalon(salonId)
     .toPromise()
     .then(
-      (salons: Salon) => {
-        return salons[0].name;
+      (salons: Salon[]) => {        
+        if (salons.length > 0) {
+          return salons[0].name;  
+        }
+        return '';
       }).then(data => salonName = data);
     return salonName;
   }

@@ -1,1 +1,46 @@
-<p>bookings-list-view works!</p>
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title"> Danh sách khách hàng</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+                  <th>Salon</th>
+                  <th>Create Date</th>
+                  <th>Booking Date</th>
+                  <th>Time</th>
+
+                </thead>
+                <tbody>
+                    
+                    <tr *ngFor="let book of bookingList">
+                        
+                        <td>{{ book._salonId }}</td>
+                        <td>{{ book.createdDate | date}} </td>
+                        <td>{{ book.bookingDate | date}}</td>
+                        <td>{{ book.bookingTime}}</td>
+
+                        
+                        <td >
+                            <button class="btn btn-sm btn-danger btn-round btn-icon pull-right" (click)= "deleteBooking(book._id)">
+                              <a data-toggle="tooltip" data-placement="top" title="Xóa"> <i class="fa fa-trash"></i></a>
+                            </button>
+                            <p class="pull-right"> &#160; </p>
+                            <button class="btn btn-sm btn-info btn-round btn-icon pull-right" (click)= "modifyBooking(book._id)">
+                              <a data-toggle="tooltip" data-placement="top" title="Sửa"><i class="fa fa-pencil"></i></a>
+                            </button>
+                        </td>
+                    </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>   
+  

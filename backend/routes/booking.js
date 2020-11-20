@@ -7,6 +7,32 @@ const Booking = require('../database/models/booking');
 
 var express = require('express');
 var bookingRouter = express.Router();
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, './uploads/avatar/');
+    },
+    filename: function(req, file, cb) {
+        cb(null, new Date().toISOString().replace(/:/g, '-') + '_' + file.originalname);
+    }
+});
+
+const fileFilter = (req, file, cb) => {
+    // reject a file
+    if ((file.mimetype === 'image/jpeg') || (file.mimetype === 'image/png') || (file.mimetype === 'image/jpg')) {
+        cb(null, true);
+    } else {
+        cb(new Error('File extention is not supported ' + file.mimetype), false);
+    }
+};
+const upload = multer({
+    storage: storage, 
+    limits: {
+        fileSize: 1024*1024*5
+    },
+    fileFilter: fileFilter
+});
 
 // Booking
 bookingRouter.get('/', (req, res) => {
@@ -17,29 +43,27 @@ bookingRouter.get('/', (req, res) => {
 
 // Get all booking from barber
 bookingRouter.get('/barber/:barberId', (req, res) => {
-    Barber.find({_barberId:req.params.barberId})
+    Booking.find({_barberId:req.params.barberId})
         .then(bookings => res.send(bookings))
         .catch((error) => console.log(error));
 });
 
 // Get all booking from customer
 bookingRouter.get('/customer/:customerId', (req, res) => {
-    Barber.find({_customerId:req.params.customerId})
+    Booking.find({_customerId:req.params.customerId})
         .then(bookings => res.send(bookings))
         .catch((error) => console.log(error));
 });
 
 // Get all booking from salon
 bookingRouter.get('/salon/:salonId', (req, res) => {
-    Barber.find({_salonId:req.params.salonId})
+    console.log(req.params.salonId);
+    Booking.find({_salonId:req.params.salonId})
         .then(bookings => res.send(bookings))
         .catch((error) => console.log(error));
 });
 
-bookingRouter.post('/', (req, res) => {
-    
-    console.log(req.body);
-    //var strBody = JSON.parse(JSON.stringify(req.body));
+bookingRouter.post('/',upload.single('booking'), (req, res) => {
     
     const booking = new Booking({
         _salonId: req.body._salonId,

@@ -38,7 +38,7 @@ export class BookingsSalonListComponent implements OnInit {
     this.isListAllSalons = false;
 
     this.prefixPath = this.router.url;
-    console.log(this.prefixPath);
+    //console.log(this.prefixPath);
     /*
     this.route.params.subscribe((param: Params) => {
       this.ownerId = param.ownerId;

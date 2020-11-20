@@ -231,9 +231,14 @@ export class SalonUtilsService {
     // tslint:disable-next-line: forin
     for (key in booking) {
       fd.append(key, booking[key]);
+      //console.log('parameters : ' + booking[key]);
     }
-    console.log('create Booking : ' + booking.bookingDate);
+    //console.log('create Booking : ' + booking.bookingDate + ' salonId:' + booking._salonId);
     return this.webService.post(`bookings`, fd);  
+  }
+
+  getBookingsFromSalonId(salonId: string) {
+    return this.webService.get(`bookings/salon/${salonId}`);
   }
 
   // User Register
