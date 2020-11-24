@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { DistributorLayoutComponent } from './layouts/distributor-layout/distributor-layout.component';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { ManagerLayoutComponent } from './layouts/manager-layout/manager-layout.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
@@ -39,6 +40,16 @@ export const AppRoutes: Routes = [
       {
         path: '',
         loadChildren: './layouts/manager-layout/manager-layout.module#ManagerLayoutModule'
+      }]
+  },
+
+  {
+    path: 'distributor',
+    component: DistributorLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: './layouts/distributor-layout/distributor-layout.module#DistributorLayoutModule'
       }]
   },
   

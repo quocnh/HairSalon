@@ -33,6 +33,12 @@ export const MANAGER_ROUTES: RouteInfo[] = [
     { path: 'bookings',             title: 'Lịch hẹn',         icon: 'nc-calendar-60',   class: '' },
 ];
 
+export const DISTRIBUTOR_ROUTES: RouteInfo[] = [    
+    { path: 'profile',          title: 'Thông tin công ty',      icon: 'nc-circle-10',  class: '' },
+    { path: 'products',              title: 'Danh sách sản phẩm',               icon: 'nc-tag-content',   class: '' },    
+    { path: 'orders',             title: 'Đơn hàng',         icon: 'nc-paper',   class: '' },
+];
+
 @Component({
     moduleId: module.id,
     // tslint:disable-next-line: component-selector
@@ -46,6 +52,8 @@ export class SidebarComponent implements OnInit {
     ngOnInit() {
         if(this.router.url.startsWith('/manager')){
             this.menuItems = MANAGER_ROUTES.filter(menuItem => menuItem);
+        }else if(this.router.url.startsWith('/distributor')){
+            this.menuItems = DISTRIBUTOR_ROUTES.filter(menuItem => menuItem);
         } else {
             this.menuItems = ADMIN_ROUTES.filter(menuItem => menuItem);
         }        

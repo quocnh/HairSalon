@@ -38,6 +38,9 @@ import { SalonEditComponent } from './pages/salon-edit/salon-edit.component';
 import { ManagerLayoutComponent } from './layouts/manager-layout/manager-layout.component';
 import { BookingsSalonListComponent } from './pages/bookings-salon-list/bookings-salon-list.component';
 import { BookingsListViewComponent } from './pages/bookings-list-view/bookings-list-view.component';
+import { DistributorLayoutComponent } from './layouts/distributor-layout/distributor-layout.component';
+import { ProductsListViewComponent } from './pages/products-list-view/products-list-view.component';
+import { ProductOrdersListViewComponent } from './pages/product-orders-list-view/product-orders-list-view.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +62,9 @@ import { BookingsListViewComponent } from './pages/bookings-list-view/bookings-l
     ManagerLayoutComponent,
     BookingsSalonListComponent,
     BookingsListViewComponent,
+    DistributorLayoutComponent,
+    ProductsListViewComponent,
+    ProductOrdersListViewComponent,
   ],
   imports: [
     BrowserAnimationsModule,
