@@ -218,6 +218,11 @@ export class SalonUtilsService {
     return this.webService.delete(`distributors/${distributorId}`);
   }
 
+  // get Product list from distributor id
+  getProductsFromDistributorId(distributorId:string) {
+    return this.webService.get(`products/${distributorId}`);
+  }
+
   // get location
   getAddressfromHERE(address: string) {
     return this.webService.getAddress(address);
@@ -239,7 +244,7 @@ export class SalonUtilsService {
 
   getBookingsFromSalonId(salonId: string) {
     return this.webService.get(`bookings/salon/${salonId}`);
-  }
+  }  
 
   // User Register
   callRegisterAPI(user : User){

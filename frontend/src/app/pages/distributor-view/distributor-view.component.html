@@ -30,7 +30,7 @@
                     <tr *ngFor="let distributor of distributors">
                         
                         <td>
-                            <a href="#/owner/{{distributor._id}}">{{ distributor.name }}</a>
+                            <a href="#/{{prefixPath}}/{{distributor._id}}">{{ distributor.name }}</a>
                         </td>
                         <td>
                             id-{{ distributor.name }}

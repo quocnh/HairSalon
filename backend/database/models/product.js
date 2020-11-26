@@ -7,16 +7,12 @@ const ProductSchema = new mongoose.Schema({
         trim: true,
         require: true,
         minlength: [2, 'product name must be more than 2 chars'],
-        maxlength: [10, 'product name must be less than 10 chars']
+        maxlength: [100, 'product name must be less than 100 chars']
     },
     _distributorId: {
         type: mongoose.Types.ObjectId,
         require: true
-    },
-    _barberId: [{
-        type: mongoose.Types.ObjectId,
-        require: false
-    }],    
+    },  
     productInfo: { 
         type: String , 
         required: [false, 'Product Info ']

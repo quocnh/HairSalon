@@ -1,1 +1,42 @@
-<p>products-list-view works!</p>
+
+<div class="row" >
+    <div class="col-lg-3 col-md-6 col-sm-6">
+        
+        <div class="btn btn-sm btn-primary card card-stats" (click)= "createNewProduct()">
+            <div class="card-body ">
+                <div class="icon-big text-center icon-warning">
+                    <i class="nc-icon nc-simple-add text-primary"></i>
+                </div>
+                <p class="card-category text-center">Thêm sản phẩm</p>
+            </div> 
+            
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let item of products">
+        <div class="card card-stats">
+          <div class="card-body ">
+            <div class="row">
+              <div class="col-5 col-md-6">
+                <div class="icon-big text-center icon-warning">
+                    <img class="productPhoto border-gray" src="../../../assets/img/damir-bosnjak.jpg" >
+                </div>
+              </div>
+              <div class="col-7 col-md-6">
+                <div class="numbers">
+                  <p class="card-category">Số lượng</p>
+                  <p class="card-title">{{item.quantity}}
+                    <p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer ">
+            <hr>
+            <div class="stats">
+                <p class="card-category text-center">{{item.name}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+</div>

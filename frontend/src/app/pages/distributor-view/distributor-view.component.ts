@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Distributor from '../../module/distributor';
 import { AddNewDistributorComponent } from '../../popup/add-new-distributor/add-new-distributor.component';
 import { DeleteDistributorComponent } from '../../popup/delete-distributor/delete-distributor.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-distributor-view',
@@ -14,13 +15,16 @@ export class DistributorViewComponent implements OnInit {
   distributors: Distributor[];
   name: string;
   public deletedDistributor: Distributor;
+  prefixPath: string;
 
   constructor(
     private salonUtilService: SalonUtilsService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.prefixPath = this.router.url;
     this.refreshDistributorList();
   }
 

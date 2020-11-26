@@ -10,6 +10,7 @@ const distributorRoutes = require('./routes/distributor');
 const barberRoutes = require('./routes/barber');
 const bookingRoutes = require('./routes/booking');
 const userRoutes = require('./routes/user');
+const productRoutes = require('./routes/product');
 
 const passport = require("passport");
 const cors = require("cors");
@@ -54,6 +55,6 @@ app.use('/customers',       customerRoutes);
 app.use('/distributors',    distributorRoutes);
 app.use('/barbers',         barberRoutes);
 app.use('/bookings',        bookingRoutes);
-
+app.use('/products',        productRoutes);
 
 app.listen(3000, () => console.log("Server Connected on port 3000"));
