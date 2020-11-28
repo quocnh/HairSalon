@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Product from 'app/module/product';
+import { AddNewProductComponent } from 'app/popup/add-new-product/add-new-product.component';
 import { SalonUtilsService } from 'app/salon-utils.service';
 
 @Component({
@@ -13,6 +14,8 @@ export class ProductsListViewComponent implements OnInit {
   distributorId: string;
   prefixPath: string;
   products: Product[] = [];
+  addedProduct: Product;
+  productPhoto: File;
 
   constructor(
     private salonUtilService: SalonUtilsService,
@@ -35,55 +38,6 @@ export class ProductsListViewComponent implements OnInit {
     this.prefixPath = this.router.url;
   }
 /*
-  createNewSalon() {
-    console.log('Create new salon');
-    // TODO: Implement create new salon owner form popup
-    const ref = this.modalService.open(AddNewSalonComponent);
-
-    ref.result.then((result) => {
-      if (result) {
-        console.log('RESULT: added salon name' + result.name);
-        this.addedSalon = result;
-        console.log('RESULT: owner salon id' + this.addedSalon._salonOwnerId);
-        this.addedSalon.rate = 0;
-        this.addedSalon.numRate = 0;
-        if (this.isListAllSalons) {
-          // Case list all salons from admin account
-          if ((this.addedSalon.name !== null) && (this.addedSalon._salonOwnerId !== null)) {
-            console.log('Create Salon from admin');
-            if (this.addedSalon.address !== null) {
-              this.salonUtilService.getAddressfromHERE(this.addedSalon.address).subscribe(
-                (resposne: any) => {
-                  console.log(resposne.items[0].position);
-                  this.addedSalon.longitude = resposne.items[0].position.lng;
-                  this.addedSalon.latitude = resposne.items[0].position.lat;
-
-                  // create salon
-                  this.salonUtilService.createSalons(this.addedSalon, null).subscribe(
-                    () => this.refreshAllSalonList()
-                  );
-                }
-              )
-            } else {
-              this.salonUtilService.createSalons(this.addedSalon, null).subscribe(
-                () => this.refreshAllSalonList()
-              );
-            }
-          }
-        } else if ((this.addedSalon.name !== null) && (this.ownerId !== null)) {
-          // Case add salon from owner account
-          console.log('Create Salon from owner');
-          this.salonUtilService.createSalons(this.addedSalon, null).subscribe(
-            () => this.refreshSalonList()
-          );
-
-        }
-      }
-    },
-    (cancel) => {
-      console.log('cancel click');
-    })
-  }
 
   deleteSalon(salonId: string) {
     // TODO: Implement create new salon owner form popup
@@ -119,7 +73,33 @@ export class ProductsListViewComponent implements OnInit {
   }
 
   createNewProduct() {
-    console.log("Create product");
+    console.log('Create new product');
+    // TODO: Implement create new product form popup
+    const ref = this.modalService.open(AddNewProductComponent);
+
+    ref.result.then((result) => {
+      console.log('Result: ' + result);
+      console.log('Result 0: ' + result[0]);
+      console.log('Result 1: ' + result[1]);
+      this.productPhoto = result[1];
+      console.log('this.productPhoto: ' + this.productPhoto);
+      if (result[0]) {
+        console.log('RESULT: added product name' + result[0].name);
+        this.addedProduct = result[0];
+        
+        if (this.addedProduct.name !== null)  {
+          // Case add salon from owner account
+          console.log('Create Product from distributorId');
+          this.salonUtilService.createProduct(this.addedProduct, this.productPhoto).subscribe(
+            () => this.refreshProductsList()
+          );
+
+        }
+      }
+    },
+    (cancel) => {
+      console.log('cancel click');
+    })
   }
 
 }

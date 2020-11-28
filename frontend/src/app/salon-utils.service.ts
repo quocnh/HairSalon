@@ -6,6 +6,8 @@ import Salon from './module/salon';
 import Barber from './module/barber';
 import Service from './module/service';
 import Booking from './module/booking';
+import { ProductOrdersListViewComponent } from './pages/product-orders-list-view/product-orders-list-view.component';
+import Product from './module/product';
 
 @Injectable({
   providedIn: 'root'
@@ -221,6 +223,22 @@ export class SalonUtilsService {
   // get Product list from distributor id
   getProductsFromDistributorId(distributorId:string) {
     return this.webService.get(`products/${distributorId}`);
+  }
+
+  // create products
+  createProduct(product: Product, file: File) {
+    const fd = new FormData();
+    let key;
+    if (file) {
+      fd.append('avatar', file, file.name);
+    }
+
+    // tslint:disable-next-line: forin
+    for (key in product) {
+      fd.append(key, product[key]);
+    }
+    console.log('create Product : ' + product.name);
+    return this.webService.post( `products`, fd);
   }
 
   // get location

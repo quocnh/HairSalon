@@ -41,6 +41,7 @@ import { BookingsListViewComponent } from './pages/bookings-list-view/bookings-l
 import { DistributorLayoutComponent } from './layouts/distributor-layout/distributor-layout.component';
 import { ProductsListViewComponent } from './pages/products-list-view/products-list-view.component';
 import { ProductOrdersListViewComponent } from './pages/product-orders-list-view/product-orders-list-view.component';
+import { AddNewProductComponent } from './popup/add-new-product/add-new-product.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { ProductOrdersListViewComponent } from './pages/product-orders-list-view
     DistributorLayoutComponent,
     ProductsListViewComponent,
     ProductOrdersListViewComponent,
+    AddNewProductComponent,
   ],
   imports: [
     BrowserAnimationsModule,

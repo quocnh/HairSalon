@@ -24,6 +24,14 @@
         position: relative;
     }
 
+    .avatar-btn{
+      width: 124px;
+      height: 124px;
+      border: 1px solid $white-color;
+      position: relative;
+      cursor: pointer;
+  }
+
     .card-body{
         min-height: 240px;
     }
