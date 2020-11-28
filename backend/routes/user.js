@@ -5,10 +5,36 @@ const { userRegister, userLogin, userAuth, serializeUser, checkRole } = require(
 
 var express = require('express');
 var UserRouter = express.Router();
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, './uploads/salonPhotos/');
+    },
+    filename: function(req, file, cb) {
+        cb(null, new Date().toISOString().replace(/:/g, '-') + '_' + file.originalname);
+    }
+});
+
+const fileFilter = (req, file, cb) => {
+    // reject a file
+    if ((file.mimetype === 'image/jpeg') || (file.mimetype === 'image/png') || (file.mimetype === 'image/jpg')) {
+        cb(null, true);
+    } else {
+        cb(new Error('File extention is not supported ' + file.mimetype), false);
+    }
+};
+const upload = multer({
+    storage: storage, 
+    limits: {
+        fileSize: 1024*1024*5
+    },
+    fileFilter: fileFilter
+});
 
 // user registration route
-UserRouter.post("/register-customer",  (req, res) => {
-    console.log("request command: ", req.body);
+UserRouter.post("/register-customer", upload.array('newPhotos[]', 1), (req, res) => {
+    console.log("AAAA request command: ", req.body);
     userRegister(req.body, "customer", res);
 });
 // salon owner registration route
