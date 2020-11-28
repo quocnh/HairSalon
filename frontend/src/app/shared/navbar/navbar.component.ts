@@ -63,7 +63,7 @@ export class NavbarComponent implements OnInit {
       const ref = this.modalService.open(LoginComponent);
       ref.result.then((result) => {
         if (result) {
-          console.log(result);
+          console.log("navbar gets model info: " + result);
           
         }
       },
@@ -78,11 +78,10 @@ export class NavbarComponent implements OnInit {
       ref.componentInstance.role = 'customer';
       ref.result.then((result) => {
         if (result) {
-          console.log("Result from login modal: ", result);
+          console.log("Result from login modal: ", result.email + result.password);
           this.userObject.email = result.email;
-          this.userObject.username = result.username;
           this.userObject.password = result.password;
-          // Mark -TODO
+          console.log("xx: " + this.userObject);
           this.salonUtilService.callRegisterAPI(this.userObject).subscribe();
         }
       },

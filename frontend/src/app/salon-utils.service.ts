@@ -255,10 +255,10 @@ export class SalonUtilsService {
     // tslint:disable-next-line: forin
     for (key in user) {
       fd.append(key, user[key]);
-      console.log('parameters : ' + user[key]);
+      console.log(key + ": " + user[key]);
     }
-    console.log('create Customer : ' + user.username);
+    console.log(fd.get('email'));
     
-    return this.webService.post( `api/users/register-customer`, fd);
+    return this.webService.post(`api/users/register-customer`, fd);
   }
 }

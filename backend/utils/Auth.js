@@ -1,9 +1,9 @@
-const User = require("../database/models/user");
+
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const { SECRET } = require("../config/app");
-
+const User = require("../database/models/user");
 /**
  * @description to register a new user()
  */
@@ -31,19 +31,19 @@ const userRegister = async (userDets, role, res) => {
         // get the hashed password
         const password = await bcrypt.hash(userDets.password, 12);
         // create a new user
-        const newUser = new User({
+        const newUser =  new User({
             ...userDets,
             password,
             role
         });
         await newUser.save();
-        return res.status(201).json({
+        return res.status(200).json({
             message: "Successfully registered!",
             success: true
         });
-    } catch (error) {
+    } catch (err) {
         return res.status(500).json({
-            message: "Unable to create your account.",
+            message: "Unable to create your account. " + err,
             success: false
         });
     }
@@ -54,9 +54,9 @@ const userRegister = async (userDets, role, res) => {
  * @description login function
  */
 const userLogin = async (userCreds, role, res) => {
-    let { username, password } = userCreds;
-    // first check if the username exits in the database
-    const user = await User.findOne({ username });
+    let { email, password } = userCreds;
+    // first check if the email exits in the database
+    const user = await User.findOne({ email });
     if (!user) {
         return res.status(404).json({
             message: "The username is not found. Invalid login credentials.",
@@ -79,7 +79,6 @@ const userLogin = async (userCreds, role, res) => {
             {
                 user_id: user._id,
                 role: user.role,
-                username: user.username,
                 email: user.email
             },
             SECRET,
@@ -87,7 +86,6 @@ const userLogin = async (userCreds, role, res) => {
         );
 
         let result = {
-            username: user.username,
             role: user.role,
             email: user.email,
             token: `Bearer ${token}`,
@@ -132,9 +130,9 @@ const userAuth = passport.authenticate("jwt", { session: false});
 
 const serializeUser = user => {
     return {
-      username: user.username,
+    //   username: user.username,
       email: user.email,
-      name: user.name,
+    //   name: user.name,
       _id: user._id,
       updatedAt: user.updatedAt,
       createdAt: user.createdAt
