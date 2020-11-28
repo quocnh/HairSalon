@@ -13,25 +13,25 @@
         <div class="card-body">
             <form #customerForm="ngForm">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="Enter email">
-                    <small id="emailHelp" class="form-text text-muted"></small>
+                    <label>Email address (*)</label>
+                    <input type="email" class="form-control" [(ngModel)]="userObject.email" [ngModelOptions]="{standalone: true}" placeholder="Enter email">
+                  
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="exampleInputUsername">Username</label>
                     <input type="text" class="form-control" id="exampleInputUsername" aria-describedby="userHelp" [(ngModel)]="username" [ngModelOptions]="{standalone: true}" placeholder="username">
                     <small id="userHelp" class="form-text text-muted"></small>
-                </div>
+                </div> -->
                 <div class="form-group">
-                    <label for="passwordInput">Password</label>
-                    <input  type="password" class="form-control" id="passwordInput" aria-describedby="passHelp" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" placeholder="password">
-                    <small id="passHelp" class="form-text text-muted"></small>
+                    <label>Password</label>
+                    <input  type="password" class="form-control" [(ngModel)]="userObject.password" [ngModelOptions]="{standalone: true}" placeholder="password">
+                    
                 </div>
-                <div class="form-group">
-                    <label for="CpasswordInput">Confirm Password</label>
-                    <input type="password" class="form-control" id="CpasswordInput" aria-describedby="CpassHelp" placeholder="password">
-                    <small id="CpassHelp" class="form-text text-muted"></small>
-                </div>
+                <!-- <div class="form-group">
+                    <label >Confirm Password</label>
+                    <input type="password" class="form-control"  placeholder="password">
+                   
+                </div> -->
                 <div class="form-group" style="text-align:center;">
                     <button type="button" class="btn btn-dark" (click)="register()">Register</button>
                     <button type="button" class="btn btn-secondary" (click)="moveToLogin()">Log in</button>

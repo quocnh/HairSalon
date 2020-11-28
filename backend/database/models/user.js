@@ -14,10 +14,10 @@ const UserSchema = new mongoose.Schema({
         default: "customer",
         enum: ["customer", "salon_owner", "admin"]
     },
-    username: {
-        type: String,
-        required: true,
-    },
+    // username: {
+    //     type: String,
+    //     required: true,
+    // },
     password: {
         type: String,
         required: true

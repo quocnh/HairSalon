@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
 import { SalonUtilsService } from '../../salon-utils.service';
+import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Customer from '../../module/customer';
 import { AddNewCustomerComponent } from '../../popup/add-new-customer/add-new-customer.component';
