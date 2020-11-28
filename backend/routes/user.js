@@ -33,9 +33,9 @@ const upload = multer({
 });
 
 // user registration route
-UserRouter.post("/register-customer", upload.array('newPhotos[]', 1), (req, res) => {
+UserRouter.post('/register-customer', upload.single('avatar'), async (req, res) => {
     console.log("AAAA request command: ", req.body);
-    userRegister(req.body, "customer", res);
+    await userRegister(req.body, "customer", res);
 });
 // salon owner registration route
 UserRouter.post("/register-salonOwner", async (req, res) => {

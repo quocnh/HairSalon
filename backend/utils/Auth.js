@@ -31,10 +31,10 @@ const userRegister = async (userDets, role, res) => {
         // get the hashed password
         const password = await bcrypt.hash(userDets.password, 12);
         // create a new user
-        const newUser =  new User({
-            ...userDets,
-            password,
-            role
+        const newUser =  new User({ 
+            email: userDets.email,
+            password: password,
+            role: role
         });
         await newUser.save();
         return res.status(200).json({

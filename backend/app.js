@@ -25,12 +25,7 @@ localhost:4200 - frontent
 
 mongoose.set('useFindAndModify', false);
 
-app.use(express.json());
-app.use('/uploads', express.static('uploads'));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(cors());
-app.use(passport.initialize());
+
 
 require("./utils/passport")(passport);
 
@@ -47,7 +42,7 @@ app.use((req, res, next) => {
 Create, Update, ReadOne, ReadAll, Delete
 */
 // User router middleware
-app.use("/api/users", userRoutes);
+app.use('/api/users', userRoutes);
 //
 app.use('/salonOwners',     salonOwnerRoutes);
 app.use('/salons',          salonRoutes);
@@ -56,5 +51,13 @@ app.use('/distributors',    distributorRoutes);
 app.use('/barbers',         barberRoutes);
 app.use('/bookings',        bookingRoutes);
 app.use('/products',        productRoutes);
+
+
+app.use(express.json());
+app.use('/uploads', express.static('uploads'));
+app.use(bodyParser.urlencoded());
+app.use(bodyParser.json());
+app.use(cors());
+app.use(passport.initialize());
 
 app.listen(3000, () => console.log("Server Connected on port 3000"));
