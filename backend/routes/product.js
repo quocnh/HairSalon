@@ -8,7 +8,7 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, './uploads/product/');
+        cb(null, './uploads/products/');
     },
     filename: function(req, file, cb) {
         cb(null, new Date().toISOString().replace(/:/g, '-') + '_' + file.originalname);
@@ -39,15 +39,24 @@ productRouter.get('/', (req, res) => {
 });
 
 // Get all products from distributorId
-productRouter.get('/:distributorId', (req, res) => {
+productRouter.get('/distributor/:distributorId', (req, res) => {
     Product.find({ _distributorId: req.params.distributorId})
         .then(products => res.send(products))
         .catch((error) => console.log(error));
         
 });
 
+// Get product
+productRouter.get('/:productId', (req, res) => {
+    console.log(req.params.productId);
+    Product.find({ _id: req.params.productId})
+        .then(products => res.send(products))
+        .catch((error) => console.log(error));
+        
+});
+
 productRouter.post('/', upload.single('product'), (req, res) => {
-    var strPhotoPath = "";
+    var strPhotoPath = "uploads/products/no_photo_available.png";
     if(req.file){
         console.log(req.file);
         strPhotoPath = req.file.path;
@@ -64,7 +73,7 @@ productRouter.post('/', upload.single('product'), (req, res) => {
         price: req.body.price,
         quantity: req.body.quantity,
         info: req.body.info,
-        photo: strPhotoPath,
+        photos: strPhotoPath,
 
     });
     
@@ -104,7 +113,7 @@ productRouter.patch('/:productId', upload.single('product'), (req, res) => {
                     price: req.body.price,
                     quantity: req.body.quantity,      
                     info: req.body.info,
-                    photo: strPhotoPath,
+                    photos: strPhotoPath,
                 },
             })
             .then(product => res.send(product))

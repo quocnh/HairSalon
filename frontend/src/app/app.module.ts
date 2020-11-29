@@ -42,6 +42,7 @@ import { DistributorLayoutComponent } from './layouts/distributor-layout/distrib
 import { ProductsListViewComponent } from './pages/products-list-view/products-list-view.component';
 import { ProductOrdersListViewComponent } from './pages/product-orders-list-view/product-orders-list-view.component';
 import { AddNewProductComponent } from './popup/add-new-product/add-new-product.component';
+import { ProductDetailViewComponent } from './pages/product-detail-view/product-detail-view.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { AddNewProductComponent } from './popup/add-new-product/add-new-product.
     ProductsListViewComponent,
     ProductOrdersListViewComponent,
     AddNewProductComponent,
+    ProductDetailViewComponent,
   ],
   imports: [
     BrowserAnimationsModule,

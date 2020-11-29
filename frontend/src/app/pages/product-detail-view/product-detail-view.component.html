@@ -1,0 +1,124 @@
+<div class="row">
+    <div class="col-md-4">
+      <div class="card card-user">
+        
+        <div class="image">
+          <img src="assets/img/damir-bosnjak.jpg" alt="..." >
+        </div>
+        <div class="card-body">
+          <div class="author">
+            <a>
+              <img class="avatar border-gray" src={{strAvatar}} >
+              <button class="btn btn-sm btn-info btn-round btn-icon fa fa-pencil" (click)="fileInput.click()">
+                <input #fileInput type="file" (change)="onFileSelected($event)" style="display:none;" />
+              </button>
+  
+              <h5 class="title">{{ productDb.name }}</h5>
+            </a>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+    <div class="col-md-8">
+      <div class="card card-user">
+        <div class="card-header">
+          <h5 class="card-title">Thông tin sản phẩm</h5>
+        </div>
+        <div class="card-body">
+          <form>
+            <div class="row">
+              <div class="col-md-12 pr-1">
+                <div class="form-group">
+                  <label>Tên sản phẩm</label>
+                  <input type="text" class="form-control"  value="{{ product.name }}">
+                </div>
+              </div>
+              
+            </div>
+ 
+            <div class="row">
+                <div class="col-md-12 pr-1">
+                  <div class="form-group">
+                    <label>Thông tin</label>
+                    <input type="text" class="form-control" value="{{ product.info }}" [(ngModel)]="product.info" [ngModelOptions]="{standalone: true}">
+                  </div>
+                </div>
+            </div>
+    
+            <div class="row">
+              <div class="update ml-auto mr-auto">
+                <button type="submit" class="btn btn-primary btn-round" (click)="updateUserProfile()">Thay đổi</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title">Dịch vụ đã sử dụng</h4>
+    </div>
+    <div class="card-body">
+      <ul class="list-unstyled team-members">
+        <li>
+          <div class="row">
+            <div class="col-md-2 col-2">
+              <div class="avatar">
+                <img src="assets/img/faces/ayo-ogunseinde-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+              </div>
+            </div>
+            <div class="col-md-7 col-7">
+              DJ Khaled
+              <br />
+              <span class="text-muted">
+                <small>Offline</small>
+              </span>
+            </div>
+            <div class="col-md-3 col-3 text-right">
+              <button class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="col-md-2 col-2">
+              <div class="avatar">
+                <img src="assets/img/faces/joe-gardner-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+              </div>
+            </div>
+            <div class="col-md-7 col-7">
+              Creative Tim
+              <br />
+              <span class="text-success">
+                <small>Available</small>
+              </span>
+            </div>
+            <div class="col-md-3 col-3 text-right">
+              <button class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></button>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="col-md-2 col-2">
+              <div class="avatar">
+                <img src="assets/img/faces/clem-onojeghuo-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+              </div>
+            </div>
+            <div class="col-ms-7 col-7">
+              Flume
+              <br />
+              <span class="text-danger">
+                <small>Busy</small>
+              </span>
+            </div>
+            <div class="col-md-3 col-3 text-right">
+              <button class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>

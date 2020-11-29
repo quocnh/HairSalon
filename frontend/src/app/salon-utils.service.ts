@@ -222,7 +222,7 @@ export class SalonUtilsService {
 
   // get Product list from distributor id
   getProductsFromDistributorId(distributorId:string) {
-    return this.webService.get(`products/${distributorId}`);
+    return this.webService.get(`products/distributor/${distributorId}`);
   }
 
   // create products
@@ -230,7 +230,7 @@ export class SalonUtilsService {
     const fd = new FormData();
     let key;
     if (file) {
-      fd.append('avatar', file, file.name);
+      fd.append('product', file, file.name);
     }
 
     // tslint:disable-next-line: forin
@@ -239,6 +239,27 @@ export class SalonUtilsService {
     }
     console.log('create Product : ' + product.name);
     return this.webService.post( `products`, fd);
+  }
+
+  // Update product
+  updateProduct(product: Product, file: File) {
+    const fd = new FormData();
+    let key;
+    if (file) {
+      fd.append('product', file, file.name);
+    }
+
+    // tslint:disable-next-line: forin
+    for (key in product) {
+      fd.append(key, product[key]);
+    }
+    console.log('Modify Product : ' + product.name);
+    return this.webService.patch( `products`, fd);
+  }
+  //Get one product 
+  getOneProduct(productId: string) {
+    console.log('Get Product : ' + productId);
+    return this.webService.get(`products/${productId}`);
   }
 
   // get location

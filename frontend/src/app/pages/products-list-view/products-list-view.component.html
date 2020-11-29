@@ -12,21 +12,20 @@
             
         </div>
     </div>
+    
     <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let item of products">
-        <div class="card card-stats">
+      <a href="#/{{prefixPath}}/{{item._id}}">
+        <div class=" btn-primary card card-pricing">
           <div class="card-body ">
             <div class="row">
               <div class="col-5 col-md-6">
                 <div class="icon-big text-center icon-warning">
-                    <img class="productPhoto border-gray" src="../../../assets/img/no_photo_available.png" >
+                    <img class="productPhoto border-gray" src="http://localhost:3000/{{item.photos[0]}}" >
                 </div>
               </div>
               <div class="col-7 col-md-6">
-                <div class="numbers">
-                  <p class="card-category">Số lượng</p>
-                  <p class="card-category">{{item.quantity}}
-                    <p>
-                </div>
+                <p class="card-category text-right">Số lượng</p>               
+                <h5 class="card-title text-right">{{item.quantity}}</h5>
               </div>
             </div>
           </div>
@@ -35,6 +34,8 @@
                 <h6 class="card-title text-center">{{item.name}}</h6>
           </div>
         </div>
-      </div>
+      </a>
+    </div>
+    
     
 </div>

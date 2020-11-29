@@ -11,7 +11,7 @@ import { SalonUtilsService } from 'app/salon-utils.service';
   styleUrls: ['./products-list-view.component.css']
 })
 export class ProductsListViewComponent implements OnInit {
-  distributorId: string;
+  public distributorId: string;
   prefixPath: string;
   products: Product[] = [];
   addedProduct: Product;
@@ -31,41 +31,11 @@ export class ProductsListViewComponent implements OnInit {
     // Temporarily use: 5f32b794fb8a0e3838f226c7
     this.distributorId = '5f32b794fb8a0e3838f226c7';
     //----------------------------------------------------
-
     
-    this.refreshProductsList();
-      
+    this.refreshProductsList();      
     this.prefixPath = this.router.url;
   }
-/*
 
-  deleteSalon(salonId: string) {
-    // TODO: Implement create new salon owner form popup
-
-    this.salonUtilService.getOneSalon(salonId)
-      .subscribe((salons: Salon[]) =>  {
-        this.deletedSalon = salons[0];
-        console.log('Delete salon name ' + this.deletedSalon.name);
-        const ref = this.modalService.open(DeleteSalonComponent);
-        ref.componentInstance.deletedSalon = this.deletedSalon;
-        ref.result.then((yes) => {
-          this.salonUtilService.deleteSalons(salonId).subscribe(
-            () => {
-                if (this.isListAllSalons) {
-                  this.refreshAllSalonList();
-                } else {
-                  this.refreshSalonList();
-                }
-              }
-          );
-
-        },
-        (cancel) => {
-          console.log('cancel click');
-        })
-      });
-  }
-*/
   refreshProductsList() {
     this.salonUtilService.getProductsFromDistributorId(this.distributorId).subscribe(
       (products: Product[]) => this.products = products
@@ -76,26 +46,10 @@ export class ProductsListViewComponent implements OnInit {
     console.log('Create new product');
     // TODO: Implement create new product form popup
     const ref = this.modalService.open(AddNewProductComponent);
-
+    ref.componentInstance.distributorId = this.distributorId;
+    
     ref.result.then((result) => {
-      console.log('Result: ' + result);
-      console.log('Result 0: ' + result[0]);
-      console.log('Result 1: ' + result[1]);
-      this.productPhoto = result[1];
-      console.log('this.productPhoto: ' + this.productPhoto);
-      if (result[0]) {
-        console.log('RESULT: added product name' + result[0].name);
-        this.addedProduct = result[0];
-        
-        if (this.addedProduct.name !== null)  {
-          // Case add salon from owner account
-          console.log('Create Product from distributorId');
-          this.salonUtilService.createProduct(this.addedProduct, this.productPhoto).subscribe(
-            () => this.refreshProductsList()
-          );
-
-        }
-      }
+      this.refreshProductsList()
     },
     (cancel) => {
       console.log('cancel click');
