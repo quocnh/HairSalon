@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const dbConfig = require("./app/config/db.config");
+const { success, error } = require("consola");
 
 const app = express();
 
@@ -36,12 +37,8 @@ db.mongoose
 
 // simple route
 app.get("/", (req, res) => {
-    res.json({ message: "Welcome to bezkoder application." });
+    res.json({ message: "Welcome to HaizSalon application." });
 });
-
-// routes
-// require("./app/routes/auth.routes")(app);
-// require("./app/routes/user.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8888;
@@ -95,3 +92,7 @@ function initial() {
         }
     });
 }
+
+// routes
+require("./app/routes/auth.routes")(app);
+require("./app/routes/user.routes")(app);
