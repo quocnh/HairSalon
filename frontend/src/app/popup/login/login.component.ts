@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup } from '@angular/forms';
 import { UserService } from '../../module/user.service';
+import User from '../../module/user';
 declare const FB: any;
 
 @Component({
@@ -13,6 +14,8 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   accessToken: string;
   isLogin: boolean = true;
+  public loginObject: User = new User();
+  
   constructor(
     public modal: NgbActiveModal,
     private userService: UserService,

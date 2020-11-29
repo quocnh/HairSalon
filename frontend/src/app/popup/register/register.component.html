@@ -8,13 +8,13 @@
 <div class="modal-body">
     <div class="card card-user">
         <div class="card-header">
-            <h7 class="card-title">Register</h7>
+            <h6 class="card-title text-center">Đăng Ký</h6>
         </div>
         <div class="card-body">
             <form #customerForm="ngForm">
                 <div class="form-group">
-                    <label>Email address (*)</label>
-                    <input type="email" class="form-control" [(ngModel)]="userObject.email" [ngModelOptions]="{standalone: true}" placeholder="Enter email">
+                    <label>Địa chỉ Email(*)</label>
+                    <input type="email" class="form-control" [(ngModel)]="userObject.email" [ngModelOptions]="{standalone: true}" placeholder="Nhập Email">
                   
                 </div>
                 <!-- <div class="form-group">
@@ -23,8 +23,8 @@
                     <small id="userHelp" class="form-text text-muted"></small>
                 </div> -->
                 <div class="form-group">
-                    <label>Password</label>
-                    <input  type="password" class="form-control" [(ngModel)]="userObject.password" [ngModelOptions]="{standalone: true}" placeholder="password">
+                    <label>Mật Khẩu(*)</label>
+                    <input  type="password" class="form-control" [(ngModel)]="userObject.password" [ngModelOptions]="{standalone: true}" placeholder="Nhập mật khẩu">
                     
                 </div>
                 <!-- <div class="form-group">
@@ -33,11 +33,25 @@
                    
                 </div> -->
                 <div class="form-group" style="text-align:center;">
-                    <button type="button" class="btn btn-dark" (click)="register()">Register</button>
-                    <button type="button" class="btn btn-secondary" (click)="moveToLogin()">Log in</button>
+                    <button type="button" class="btn btn-block" (click)="register()">Đăng ký</button>
+                    <!-- <button type="button" class="btn btn-secondary" (click)="moveToLogin()">Log in</button> -->
                 </div>
+                <div class="row">
+
+                    <!--Grid column-->
+                    <div class="col-md-12">
+                      <p class="font-small white-text d-flex justify-content-end">Bạn đã có tài khoản? <a href="#" class="green-text ml-1">
+                          Đăng nhập</a></p>
+                    </div>
+                    <!--Grid column-->
+        
+                  </div>
+                  
             </form>
         </div>
     </div>
 
 </div>
+
+
+
