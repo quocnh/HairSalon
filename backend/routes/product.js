@@ -48,7 +48,7 @@ productRouter.get('/distributor/:distributorId', (req, res) => {
 
 // Get product
 productRouter.get('/:productId', (req, res) => {
-    console.log(req.params.productId);
+    // console.log(req.params.productId);
     Product.find({ _id: req.params.productId})
         .then(products => res.send(products))
         .catch((error) => console.log(error));
@@ -124,6 +124,7 @@ productRouter.patch('/:productId', upload.single('product'), (req, res) => {
 });
 
 productRouter.delete('/:productId', (req, res) => {
+    console.log('Delete ' + req.params.productId);
     Product.findByIdAndDelete(req.params.productId)
         .then(product => res.send(product))
         .catch((error) => console.log(error));

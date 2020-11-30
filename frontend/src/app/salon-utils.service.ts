@@ -261,6 +261,10 @@ export class SalonUtilsService {
     console.log('Get Product : ' + productId);
     return this.webService.get(`products/${productId}`);
   }
+  // Delete one product
+  deleteProduct(productId: string) {
+    return this.webService.delete(`products/${productId}`);
+  }
 
   // get location
   getAddressfromHERE(address: string) {

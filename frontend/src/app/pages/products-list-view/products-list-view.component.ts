@@ -33,12 +33,15 @@ export class ProductsListViewComponent implements OnInit {
     //----------------------------------------------------
     
     this.refreshProductsList();      
-    this.prefixPath = this.router.url;
+    this.prefixPath = this.router.url;    
   }
 
   refreshProductsList() {
+    
     this.salonUtilService.getProductsFromDistributorId(this.distributorId).subscribe(
-      (products: Product[]) => this.products = products
+      (retProducts: Product[]) => {
+        this.products = retProducts;        
+      }
     );
   }
 

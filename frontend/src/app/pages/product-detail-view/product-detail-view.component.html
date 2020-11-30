@@ -34,7 +34,6 @@
                   <input type="text" class="form-control"  value="{{ product.name }}">
                 </div>
               </div>
-              
             </div>
  
             <div class="row">
@@ -45,11 +44,30 @@
                   </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-6 pr-1">
+                  <div class="form-group">
+                    <label>Giá</label>
+                    <input type="text" class="form-control" value="{{ product.price }}" [(ngModel)]="product.price" [ngModelOptions]="{standalone: true}">
+                  </div>
+                </div>
+
+                <div class="col-md-6 pr-1">
+                    <div class="form-group">
+                      <label>Số lượng</label>
+                      <input type="text" class="form-control" value="{{ product.quantity }}" [(ngModel)]="product.quantity" [ngModelOptions]="{standalone: true}">
+                    </div>
+                  </div>
+            </div>
     
             <div class="row">
-              <div class="update ml-auto mr-auto">
-                <button type="submit" class="btn btn-primary btn-round" (click)="updateUserProfile()">Thay đổi</button>
-              </div>
+                <div class="update ml-auto mr-auto">
+                    <button type="submit" class="btn btn-danger btn-round" (click)="deleteProduct()">Xóa sản phẩm</button>
+                  </div>
+                <div class="update ml-auto mr-auto">
+                    <button type="submit" class="btn btn-primary btn-round" (click)="updateProduct()">Thay đổi</button>
+                </div>
             </div>
           </form>
         </div>
@@ -58,7 +76,7 @@
   </div>
   <div class="card">
     <div class="card-header">
-      <h4 class="card-title">Dịch vụ đã sử dụng</h4>
+      <h4 class="card-title">Lịch sử bán hàng</h4>
     </div>
     <div class="card-body">
       <ul class="list-unstyled team-members">

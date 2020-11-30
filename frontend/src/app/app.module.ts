@@ -43,6 +43,7 @@ import { ProductsListViewComponent } from './pages/products-list-view/products-l
 import { ProductOrdersListViewComponent } from './pages/product-orders-list-view/product-orders-list-view.component';
 import { AddNewProductComponent } from './popup/add-new-product/add-new-product.component';
 import { ProductDetailViewComponent } from './pages/product-detail-view/product-detail-view.component';
+import { DeleteAnyComponent } from './popup/delete-any/delete-any.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { ProductDetailViewComponent } from './pages/product-detail-view/product-
     ProductOrdersListViewComponent,
     AddNewProductComponent,
     ProductDetailViewComponent,
+    DeleteAnyComponent,
   ],
   imports: [
     BrowserAnimationsModule,

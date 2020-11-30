@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { NgbCalendar, NgbDateParserFormatter, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Distributor from 'app/module/distributor';
 import Product from 'app/module/product';
+import { DeleteAnyComponent } from 'app/popup/delete-any/delete-any.component';
 import { SalonUtilsService } from 'app/salon-utils.service';
 
 @Component({
@@ -16,6 +17,7 @@ export class ProductDetailViewComponent implements OnInit {
   productId: string;
   productDb: Product = new Product();
   product: Product = new Product();
+  public deletedText: string;
   strAvatar: any;
   distributorName: string;
 
@@ -28,10 +30,13 @@ export class ProductDetailViewComponent implements OnInit {
       private http: HttpClient,
       private calendar: NgbCalendar,
       private ngbDateParserFormatter: NgbDateParserFormatter,
+      private modalService: NgbModal,
+      private router: Router,
       ) { }
 
   ngOnInit() {
-      this.strAvatar = 'assets/img/default-avatar.png';
+      this.strAvatar = 'assets/img/default-avatar.png';     
+
       this.route.params.subscribe((params: Params) => {
           console.log(params);
           this.productId = params.productId;
@@ -53,6 +58,26 @@ export class ProductDetailViewComponent implements OnInit {
     } else {
         // console.log('Giong' + JSON.stringify(this.customerDb) + '---' + JSON.stringify(this.customer));
     }
+  }
+
+  deleteProduct(productId: string) {
+    // TODO: Implement create new salon owner form popup
+    this.deletedText = 'sản phẩm '+ this.product.name;
+    console.log('Delete Product name ' + this.deletedText);
+    const ref = this.modalService.open(DeleteAnyComponent);
+    ref.componentInstance.deletedText = this.deletedText;
+    ref.result.then(
+      (yes) => {
+        this.salonUtilService.deleteProduct(this.productId).subscribe(
+          () => {
+            this.router.navigate(['../'], { relativeTo: this.route });            
+            }
+        );
+      },
+      (cancel) => {
+        console.log('cancel click');
+      }
+    )
   }
 
   refreshProductProfile(productId) {
