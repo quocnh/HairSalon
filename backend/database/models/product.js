@@ -13,7 +13,7 @@ const ProductSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         require: true
     },  
-    productInfo: { 
+    info: { 
         type: String , 
         required: [false, 'Product Info ']
     },

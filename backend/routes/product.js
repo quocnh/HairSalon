@@ -72,7 +72,7 @@ productRouter.post('/', upload.single('product'), (req, res) => {
         _distributorId: req.body._distributorId,
         price: req.body.price,
         quantity: req.body.quantity,
-        info: req.body.info,
+        event: req.body.event,
         photos: strPhotoPath,
 
     });
@@ -89,22 +89,22 @@ productRouter.patch('/:productId', upload.single('product'), (req, res) => {
     if(req.file){
         strPhotoPath = req.file.path;
         //delete old file avatar
-        fs.exists(req.body.avatar, function(exists) {
+        fs.exists(req.body.photos, function(exists) {
             if(exists) {
-                fs.unlink(req.body.avatar, (err) => {
+                fs.unlink(req.body.photos, (err) => {
                     if (err) throw err;
-                    console.log(req.body.avatar + ' was deleted.');
+                    console.log(req.body.photos + ' was deleted.');
                   });
             }
             });
     } else {
-        strPhotoPath = req.body.avatar;
+        strPhotoPath = req.body.photos;
     }
     
-    if (req.body.username) {
+    if (req.body.name) {
         
-        console.log(req.body.username);
-        Product.findOneAndUpdate({ '_id': req.params.customerId}, 
+        console.log(req.body);
+        Product.findOneAndUpdate({ '_id': req.params.productId}, 
             {$set: 
                 { 
                     name : req.body.name,
@@ -112,13 +112,16 @@ productRouter.patch('/:productId', upload.single('product'), (req, res) => {
                     _distributorId: req.body._distributorId,
                     price: req.body.price,
                     quantity: req.body.quantity,      
-                    info: req.body.info,
+                    event: req.body.event,
                     photos: strPhotoPath,
                 },
+            },
+            {new: true})
+            .then(product => {
+                console.log('After modified: '+ product);
+                res.send(product);
             })
-            .then(product => res.send(product))
-            .catch((error) => console.log(error));
-        console.log(req.body);
+            .catch((error) => console.log(error));        
     }
 
 });

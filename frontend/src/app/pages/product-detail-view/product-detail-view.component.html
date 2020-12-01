@@ -31,7 +31,7 @@
               <div class="col-md-12 pr-1">
                 <div class="form-group">
                   <label>Tên sản phẩm</label>
-                  <input type="text" class="form-control"  value="{{ product.name }}">
+                  <input type="text" class="form-control"  value="{{ product.name }}" [(ngModel)]="product.name" [ngModelOptions]="{standalone: true}">
                 </div>
               </div>
             </div>

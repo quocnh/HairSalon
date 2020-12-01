@@ -254,7 +254,7 @@ export class SalonUtilsService {
       fd.append(key, product[key]);
     }
     console.log('Modify Product : ' + product.name);
-    return this.webService.patch( `products`, fd);
+    return this.webService.patch( `products/${product._id}`, fd);
   }
   //Get one product 
   getOneProduct(productId: string) {

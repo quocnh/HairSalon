@@ -47,7 +47,7 @@ export class ProductDetailViewComponent implements OnInit {
       });
   }
 
-  updateProductProfile() {
+  updateProduct() {
     if ((JSON.stringify(this.productDb) !== JSON.stringify(this.product)) || (this.selectedFile !== null)) {
         // console.log('Khac' + JSON.stringify(this.customerDb) + '---' + JSON.stringify(this.customer));
         // update user profile
@@ -70,7 +70,7 @@ export class ProductDetailViewComponent implements OnInit {
       (yes) => {
         this.salonUtilService.deleteProduct(this.productId).subscribe(
           () => {
-            this.router.navigate(['../'], { relativeTo: this.route });            
+            this.router.navigate(['../'], { relativeTo: this.route });
             }
         );
       },

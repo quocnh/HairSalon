@@ -1,10 +1,11 @@
 {
   "name": "backend_new",
   "version": "1.0.0",
-  "description": "",
+  "description": "![alt text](https://bezkoder.com/wp-content/uploads/2020/02/node-js-mongodb-jwt-authentication-architecture.png)\r ![alt text](https://bezkoder.com/wp-content/uploads/2020/02/node-js-mongodb-jwt-authentication-flow.png)",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "keywords": [
     "node.js",
