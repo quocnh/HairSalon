@@ -8,4 +8,5 @@ export default class Product {
     quantity: number;
     photos: string[];
     event: string;
+    category: string;
 }

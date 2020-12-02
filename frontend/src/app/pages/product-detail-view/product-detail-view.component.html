@@ -3,7 +3,7 @@
       <div class="card card-user">
         
         <div class="image">
-          <img src="assets/img/damir-bosnjak.jpg" alt="..." >
+          <img src="assets/img/top_border.jpg" alt="..." >
         </div>
         <div class="card-body">
           <div class="author">
@@ -28,10 +28,20 @@
         <div class="card-body">
           <form>
             <div class="row">
-              <div class="col-md-12 pr-1">
+              <div class="col-md-8 pr-1">
                 <div class="form-group">
                   <label>Tên sản phẩm</label>
                   <input type="text" class="form-control"  value="{{ product.name }}" [(ngModel)]="product.name" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+              <div class="col-md-4 pr-1">
+                <div class="form-group">
+                  <label>Loại sản phẩm</label>
+                    <select input type="text" class="form-control"  [(ngModel)]="product.category" [ngModelOptions]="{standalone: true}">
+                      <option [selected]="productDb.category == 'product.category' " *ngFor="let type of Category">
+                        {{type.value}}
+                      </option>
+                    </select>
                 </div>
               </div>
             </div>

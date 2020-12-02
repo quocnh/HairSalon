@@ -37,6 +37,11 @@ const ProductSchema = new mongoose.Schema({
         type: String , 
         required: [false, 'Thong tin event']
     },
+    category: { 
+        type: String , 
+        required: [false, 'Loại sản phẩm'],
+        enum: ["duỗi", "uốn", "nhuộm", "gội", "tạo kiểu", "tinh dầu"]
+    },
 });
 
 const Product = mongoose.model('Product', ProductSchema);

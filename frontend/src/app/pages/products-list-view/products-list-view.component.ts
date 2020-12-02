@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Product from 'app/module/product';
 import { AddNewProductComponent } from 'app/popup/add-new-product/add-new-product.component';
@@ -25,14 +25,21 @@ export class ProductsListViewComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
-    //Get ownerId from login page
-    // TODO ---------------------------------------------
-    // Temporarily use: 5f32b794fb8a0e3838f226c7
-    this.distributorId = '5f32b794fb8a0e3838f226c7';
-    //----------------------------------------------------
-    
-    this.refreshProductsList();      
+    this.route.params.subscribe((params: Params) => {
+      console.log(params);
+      if (params.distributorId) {
+        this.distributorId = params.distributorId;
+      } else {
+        //Get ownerId from login page
+        // TODO ---------------------------------------------
+        // Temporarily use: 5f32b794fb8a0e3838f226c7
+        this.distributorId = '5f32b794fb8a0e3838f226c7';
+        //----------------------------------------------------
+      }
+      
+      this.refreshProductsList();
+    });
+       
     this.prefixPath = this.router.url;    
   }
 

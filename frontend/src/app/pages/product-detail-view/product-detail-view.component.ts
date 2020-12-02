@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NgbCalendar, NgbDateParserFormatter, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Distributor from 'app/module/distributor';
+import { GlobalConstants } from 'app/module/global-constants';
 import Product from 'app/module/product';
 import { DeleteAnyComponent } from 'app/popup/delete-any/delete-any.component';
 import { SalonUtilsService } from 'app/salon-utils.service';
@@ -23,7 +24,8 @@ export class ProductDetailViewComponent implements OnInit {
 
   selectedFile: File = null;
   today = this.calendar.getToday();
-
+  Category = GlobalConstants.ProductCategory;
+  
   constructor(
       private salonUtilService: SalonUtilsService,
       private route: ActivatedRoute,
@@ -49,7 +51,7 @@ export class ProductDetailViewComponent implements OnInit {
 
   updateProduct() {
     if ((JSON.stringify(this.productDb) !== JSON.stringify(this.product)) || (this.selectedFile !== null)) {
-        // console.log('Khac' + JSON.stringify(this.customerDb) + '---' + JSON.stringify(this.customer));
+        console.log('AÂ: ' + this.product);
         // update user profile
         this.salonUtilService.updateProduct(this.product, this.selectedFile).subscribe(
             () => // refresh page

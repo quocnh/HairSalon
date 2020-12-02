@@ -44,7 +44,7 @@ import { DistributorLayoutRoutes } from './distributor-layout.routing';
     NotificationsComponent,
     BarberProfileViewComponent,
     SalonsListViewComponent
-  ]
+  ],
 })
 
 export class DistributorLayoutModule {}

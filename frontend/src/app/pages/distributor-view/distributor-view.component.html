@@ -10,13 +10,16 @@
               <table class="table">
                 <thead class=" text-primary">
                   <th>
-                    Name
+                    Tên
                   </th>
                   <th>
-                    Id
+                    Số điện thoại
                   </th>
                   <th>
                     Email
+                  </th>
+                  <th>
+                    Sản phẩm
                   </th>
                   <th class="text-right">
                     <button class="btn btn-sm btn-success btn-round btn-icon " (click)= "createNewDistributor()">
@@ -30,13 +33,16 @@
                     <tr *ngFor="let distributor of distributors">
                         
                         <td>
-                            <a href="#/{{prefixPath}}/{{distributor._id}}">{{ distributor.name }}</a>
+                            <a href="#/{{prefixPath}}/{{distributor._id}}/profile">{{ distributor.name }}</a>
                         </td>
                         <td>
                             id-{{ distributor.name }}
                         </td>
                         <td>
                             {{ distributor.name }}@email.com
+                        </td>
+                        <td>
+                          <a href="#/{{prefixPath}}/{{distributor._id}}/products">Tất cả sản phẩm</a>
                         </td>
                         <td >
                           <button class="btn btn-sm btn-danger btn-round btn-icon pull-right" (click)= "deleteDistributor(distributor._id)">
