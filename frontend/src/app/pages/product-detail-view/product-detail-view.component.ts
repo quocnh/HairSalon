@@ -25,7 +25,7 @@ export class ProductDetailViewComponent implements OnInit {
   selectedFile: File = null;
   today = this.calendar.getToday();
   Category = GlobalConstants.ProductCategory;
-  
+  Unit = GlobalConstants.ProductUnit;
   constructor(
       private salonUtilService: SalonUtilsService,
       private route: ActivatedRoute,

@@ -7,4 +7,11 @@ export class GlobalConstants {
                                         {value: 'tạo kiểu'},
                                         {value: 'tinh dầu'}
                                     ];
+    public static ProductUnit = [
+                                        {value: 'bộ'},
+                                        {value: 'chai'},
+                                        {value: 'hũ'},
+                                        {value: 'tuýp'},
+                                        {value: 'túi'}                                        
+                                    ];
 }

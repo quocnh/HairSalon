@@ -9,4 +9,5 @@ export default class Product {
     photos: string[];
     event: string;
     category: string;
+    unit: string;
 }

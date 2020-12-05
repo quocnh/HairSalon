@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { GlobalConstants } from 'app/module/global-constants';
 import Product from 'app/module/product';
 import { SalonUtilsService } from 'app/salon-utils.service';
 
@@ -13,7 +14,8 @@ export class AddNewProductComponent implements OnInit {
   public product: Product = new Product();
   strProductPhoto: any;
   selectedFile: File = null;
-
+  Category = GlobalConstants.ProductCategory;
+  Unit = GlobalConstants.ProductUnit;
   constructor(
     public modal: NgbActiveModal,
     private salonUtilService: SalonUtilsService,

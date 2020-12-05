@@ -34,7 +34,7 @@
                   <input type="text" class="form-control"  value="{{ product.name }}" [(ngModel)]="product.name" [ngModelOptions]="{standalone: true}">
                 </div>
               </div>
-              <div class="col-md-4 pr-1">
+              <div class="col-md-3 pr-1">
                 <div class="form-group">
                   <label>Loại sản phẩm</label>
                     <select input type="text" class="form-control"  [(ngModel)]="product.category" [ngModelOptions]="{standalone: true}">
@@ -47,7 +47,7 @@
             </div>
  
             <div class="row">
-                <div class="col-md-12 pr-1">
+                <div class="col-md-11 pr-1">
                   <div class="form-group">
                     <label>Thông tin</label>
                     <input type="text" class="form-control" value="{{ product.info }}" [(ngModel)]="product.info" [ngModelOptions]="{standalone: true}">
@@ -56,19 +56,29 @@
             </div>
 
             <div class="row">
-                <div class="col-md-6 pr-1">
+                <div class="col-md-4 pr-1">
                   <div class="form-group">
                     <label>Giá</label>
                     <input type="text" class="form-control" value="{{ product.price }}" [(ngModel)]="product.price" [ngModelOptions]="{standalone: true}">
                   </div>
                 </div>
 
-                <div class="col-md-6 pr-1">
-                    <div class="form-group">
-                      <label>Số lượng</label>
-                      <input type="text" class="form-control" value="{{ product.quantity }}" [(ngModel)]="product.quantity" [ngModelOptions]="{standalone: true}">
-                    </div>
+                <div class="col-md-4 pr-1">
+                  <div class="form-group">
+                    <label>Số lượng</label>
+                    <input type="text" class="form-control" value="{{ product.quantity }}" [(ngModel)]="product.quantity" [ngModelOptions]="{standalone: true}">
                   </div>
+                </div>
+                <div class="col-md-3 pr-1">
+                  <div class="form-group">
+                    <label>Đơn vị</label>
+                      <select input type="text" class="form-control"  [(ngModel)]="product.unit" [ngModelOptions]="{standalone: true}">
+                        <option [selected]="productDb.unit == 'product.unit' " *ngFor="let unit of Unit">
+                          {{unit.value}}
+                        </option>
+                      </select>
+                  </div>
+                </div>
             </div>
     
             <div class="row">

@@ -42,6 +42,11 @@ const ProductSchema = new mongoose.Schema({
         required: [false, 'Loại sản phẩm'],
         enum: ["duỗi", "uốn", "nhuộm", "gội", "tạo kiểu", "tinh dầu"]
     },
+    unit: { 
+        type: String , 
+        required: [false, 'Đơn vị'],
+        enum: ["bộ", "chai", "hũ", "tuýp", "túi"]
+    },
 });
 
 const Product = mongoose.model('Product', ProductSchema);
