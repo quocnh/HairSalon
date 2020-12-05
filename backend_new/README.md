@@ -5,7 +5,7 @@
 ![alt text](https://bezkoder.com/wp-content/uploads/2020/02/node-js-mongodb-jwt-authentication-flow.png)
 
 ### Project setup ###
-
+npm init
 npm install
 
 ### how to run ###
