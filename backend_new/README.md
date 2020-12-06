@@ -3,8 +3,10 @@
 
 ![alt text](https://bezkoder.com/wp-content/uploads/2020/02/node-js-mongodb-jwt-authentication-architecture.png)
 ![alt text](https://bezkoder.com/wp-content/uploads/2020/02/node-js-mongodb-jwt-authentication-flow.png)
+![alt text](https://bezkoder.com/wp-content/uploads/2020/07/angular-10-jwt-authentication-overview.png)
 
-### Project setup ###
+### Project setup ###)
+
 npm init
 npm install
 
