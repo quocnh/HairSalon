@@ -28,6 +28,7 @@ export class AddNewProductComponent implements OnInit {
 
   addNewProduct() {
     this.product._distributorId = this.distributorId;
+    this.product.event = 'None';
     console.log(this.product);
 
     if (this.product.name) {

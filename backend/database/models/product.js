@@ -37,6 +37,10 @@ const ProductSchema = new mongoose.Schema({
         type: String , 
         required: [false, 'Thong tin event']
     },
+    discount: { 
+        type: Number , 
+        required: [false, 'Giảm giá % (50%)']
+    },
     category: { 
         type: String , 
         required: [false, 'Loại sản phẩm'],

@@ -115,6 +115,7 @@ productRouter.patch('/:productId', upload.single('product'), (req, res) => {
                     price: req.body.price,
                     quantity: req.body.quantity,      
                     event: req.body.event,
+                    discount: req.body.discount,
                     category: req.body.category,
                     unit: req.body.unit,
                     photos: strPhotoPath,
