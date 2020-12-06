@@ -1,3 +1,11 @@
+<!-- We use Form Validation in the template:
+
+username: required, minLength=3, maxLength=20
+email: required, email format
+password: required, minLength=6 -->
+
+
+
 <link href="https://cdn.syncfusion.com/ej2/ej2-base/styles/material.css" rel="stylesheet" />
 <link href="https://cdn.syncfusion.com/ej2/ej2-buttons/styles/material.css" rel="stylesheet" />
 <link href="https://cdn.syncfusion.com/ej2/ej2-inputs/styles/material.css" rel="stylesheet" />
@@ -6,52 +14,63 @@
 <link href="https://cdn.syncfusion.com/ej2/ej2-calendars/styles/material.css" rel="stylesheet" />
 
 <div class="modal-body">
-    <div class="card card-user">
-        <div class="card-header">
-            <h6 class="card-title text-center">Đăng Ký</h6>
-        </div>
-        <div class="card-body">
-            <form #customerForm="ngForm">
-                <div class="form-group">
-                    <label>Địa chỉ Email(*)</label>
-                    <input type="email" class="form-control" [(ngModel)]="userObject.email" [ngModelOptions]="{standalone: true}" placeholder="Nhập Email">
-                  
-                </div>
-                <!-- <div class="form-group">
-                    <label for="exampleInputUsername">Username</label>
-                    <input type="text" class="form-control" id="exampleInputUsername" aria-describedby="userHelp" [(ngModel)]="username" [ngModelOptions]="{standalone: true}" placeholder="username">
-                    <small id="userHelp" class="form-text text-muted"></small>
-                </div> -->
-                <div class="form-group">
-                    <label>Mật Khẩu(*)</label>
-                    <input  type="password" class="form-control" [(ngModel)]="userObject.password" [ngModelOptions]="{standalone: true}" placeholder="Nhập mật khẩu">
-                    
-                </div>
-                <!-- <div class="form-group">
-                    <label >Confirm Password</label>
-                    <input type="password" class="form-control"  placeholder="password">
-                   
-                </div> -->
-                <div class="form-group" style="text-align:center;">
-                    <button type="button" class="btn btn-block" (click)="register()">Đăng ký</button>
-                    <!-- <button type="button" class="btn btn-secondary" (click)="moveToLogin()">Log in</button> -->
-                </div>
-                <div class="row">
 
-                    <!--Grid column-->
-                    <div class="col-md-12">
-                      <p class="font-small white-text d-flex justify-content-end">Bạn đã có tài khoản? <a href="#" class="green-text ml-1">
-                          Đăng nhập</a></p>
-                    </div>
-                    <!--Grid column-->
-        
-                  </div>
-                  
-            </form>
+    <!-- <div class="card-header">
+        <h6 class="card-title text-center">Đăng Ký</h6>
+    </div> -->
+    <!-- <div class="card-body"> -->
+    <!-- <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" /> -->
+    <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" name="username" [(ngModel)]="form.username" required minlength="3"
+                maxlength="20" #username="ngModel" />
+            <div class="alert-danger" *ngIf="f.submitted && username.invalid">
+                <div *ngIf="username.errors.required">Username is required</div>
+                <div *ngIf="username.errors.minlength">
+                    Username must be at least 3 characters
+                </div>
+                <div *ngIf="username.errors.maxlength">
+                    Username must be at most 20 characters
+                </div>
+            </div>
         </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" name="email" [(ngModel)]="form.email" required email
+                #email="ngModel" />
+            <div class="alert-danger" *ngIf="f.submitted && email.invalid">
+                <div *ngIf="email.errors.required">Email is required</div>
+                <div *ngIf="email.errors.email">
+                    Email must be a valid email address
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required
+                minlength="6" #password="ngModel" />
+            <div class="alert-danger" *ngIf="f.submitted && password.invalid">
+                <div *ngIf="password.errors.required">Password is required</div>
+                <div *ngIf="password.errors.minlength">
+                    Password must be at least 6 characters
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary btn-block">Sign Up</button>
+        </div>
+
+        <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
+            Signup failed!<br />{{ errorMessage }}
+        </div>
+    </form>
+
+    <div class="alert alert-success" *ngIf="isSuccessful">
+        Your registration is successful!
     </div>
 
+    <!-- </div> -->
+
+
 </div>
-
-
-

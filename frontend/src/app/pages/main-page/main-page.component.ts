@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import Salon from '../../module/salon';
 import { SalonUtilsService } from '../../salon-utils.service';
 
+import { UserService } from '../../_services/user.service';
+
 declare const L: any;
 @Component({
   selector: 'app-main-page',
@@ -11,12 +13,14 @@ declare const L: any;
 
 export class MainPageComponent implements OnInit {
 
+  content: string;
+
   salons: Salon[] = [];
   name: string;
   ownerId: string;
   isListAllSalons: boolean;
   public deletedSalon: Salon;
-  mymap:any;
+  mymap: any;
   //markers:any[];
 
   // tslint:disable-next-line: no-inferrable-types
@@ -25,16 +29,25 @@ export class MainPageComponent implements OnInit {
 
   constructor(
     private salonUtilService: SalonUtilsService,
-    ) { }
+    private userService: UserService
+  ) { }
 
   ngOnInit(): void {
-    this.refreshAllSalonList();
-    if (!navigator.geolocation) {
-      console.log('location is not supported');
-    }
+    // this.refreshAllSalonList();
+    // if (!navigator.geolocation) {
+    //   console.log('location is not supported');
+    // }
 
-    this.mapControl();
-
+    // this.mapControl();
+    this.userService.getPublicContent().subscribe(
+      data => {
+        this.content = data;
+      },
+      err => {
+        this.content = JSON.parse(err.error).message;
+      }
+    );
+  
   }
 
   refreshAllSalonList() {
@@ -58,14 +71,14 @@ export class MainPageComponent implements OnInit {
   initMap(lat, long) {
     this.mymap = L.map('hairSalonMap').setView([lat, long], 15);
 
-      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-          attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-          maxZoom: 18,
-          id: 'mapbox/streets-v11',
-          tileSize: 512,
-          zoomOffset: -1,
-          accessToken: 'pk.eyJ1IjoiYmVja3MyM3RkIiwiYSI6ImNrZ3V0amRsMTByOHgycXRtZmgyaDBmN2UifQ.lc0QtC0wwuujjxGvyotlqg'
-      }).addTo(this.mymap);
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      maxZoom: 18,
+      id: 'mapbox/streets-v11',
+      tileSize: 512,
+      zoomOffset: -1,
+      accessToken: 'pk.eyJ1IjoiYmVja3MyM3RkIiwiYSI6ImNrZ3V0amRsMTByOHgycXRtZmgyaDBmN2UifQ.lc0QtC0wwuujjxGvyotlqg'
+    }).addTo(this.mymap);
   }
 
   loadMap() {
@@ -78,7 +91,7 @@ export class MainPageComponent implements OnInit {
       );
       this.initMap(10.81078, 106.66806);
       this.addMarker(coords.latitude, coords.longitude);
-      for(var i = 0; i < this.salons.length; i++){
+      for (var i = 0; i < this.salons.length; i++) {
         // console.log(i + ': ' + this.salons[i].latitude + ';' + this.salons[i].longitude);
         //this.markers[i] = L.marker([this.salons[i].latitude, this.salons[i].longitude]).addTo(this.mymap);
         L.marker([this.salons[i].latitude, this.salons[i].longitude]).addTo(this.mymap);
@@ -86,25 +99,23 @@ export class MainPageComponent implements OnInit {
       }
     })
 
-    
+
   }
 
   addMarker(lat, long) {
     L.marker([lat, long]).addTo(this.mymap);
   }
 
-  mouseOverAction(salon, idx)
-  {
+  mouseOverAction(salon, idx) {
     //console.log('Mouse over action ' + idx);
-    navigator.geolocation.getCurrentPosition((position)=>{
+    navigator.geolocation.getCurrentPosition((position) => {
       //console.log(`lat: ${position.coords.latitude}, lon: ${position.coords.longitude}`);
       let marker = L.marker([salon.latitude, salon.longitude]).addTo(this.mymap);
       marker.bindPopup(salon.name).openPopup();
-    });    
+    });
   }
 
-  mouseOutAction(salon, idx)
-  {
+  mouseOutAction(salon, idx) {
     //console.log('Mouse out action '+ idx);
   }
 

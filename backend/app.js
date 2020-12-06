@@ -1,5 +1,9 @@
 /*jshint esversion: 6 */
 const express = require('express');
+const {success, error} = require("consola");
+const bodyParser = require('body-parser');
+const cors = require("cors");
+
 const app = express();
 const mongoose = require('./database/mongoose');
 
@@ -13,9 +17,8 @@ const userRoutes = require('./routes/user');
 const productRoutes = require('./routes/product');
 
 const passport = require("passport");
-const cors = require("cors");
-const {success, error} = require("consola");
-var bodyParser = require('body-parser');
+
+
 
 /*
 localhost:3000 - backend api
