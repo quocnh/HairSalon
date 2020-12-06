@@ -15,6 +15,12 @@
   
               <h5 class="title">{{ productDb.name }}</h5>
             </a>
+            <p class="description">
+              Sản phẩm {{ productDb.category }}
+            </p>
+            <p class="description">
+              @{{ productDb._distributorName }}
+            </p>
           </div>
         </div>
       </div>
@@ -54,6 +60,21 @@
                   </div>
                 </div>
             </div>
+
+            <div class="row">
+              <div class="col-md-3 pr-1">
+                <div class="form-group">
+                  <label>Giảm giá (%)</label>
+                  <input type="text" class="form-control" value="{{ product.discount }}" [(ngModel)]="product.discount" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+              <div class="col-md-8 pr-1">
+                <div class="form-group">
+                  <label>Khuyến mại</label>
+                  <input type="text" class="form-control" value="{{ product.event }}" [(ngModel)]="product.event" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+          </div>
 
             <div class="row">
                 <div class="col-md-4 pr-1">

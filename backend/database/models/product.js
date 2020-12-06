@@ -13,6 +13,10 @@ const ProductSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         require: true
     },  
+    _distributorName: { 
+        type: String , 
+        required: [false, 'Distributor name ']
+    },
     info: { 
         type: String , 
         required: [false, 'Product Info ']
@@ -36,6 +40,10 @@ const ProductSchema = new mongoose.Schema({
     event: { 
         type: String , 
         required: [false, 'Thong tin event']
+    },
+    discount: { 
+        type: Number , 
+        required: [false, 'Giảm giá % (50%)']
     },
     category: { 
         type: String , 

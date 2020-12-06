@@ -2,7 +2,8 @@
 export default class Product {
     _id: string;
     name: string;
-    _distributorId: string;    
+    _distributorId: string;
+    _distributorName: string;
     info: string;
     price: number;
     quantity: number;

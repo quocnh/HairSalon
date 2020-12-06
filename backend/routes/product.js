@@ -74,6 +74,7 @@ productRouter.post('/', upload.single('product'), (req, res) => {
         quantity: req.body.quantity,
         event: req.body.event,
         category: req.body.category,
+        _distributorName: req.body._distributorName,
         unit: req.body.unit,
         photos: strPhotoPath,
 
@@ -115,7 +116,9 @@ productRouter.patch('/:productId', upload.single('product'), (req, res) => {
                     price: req.body.price,
                     quantity: req.body.quantity,      
                     event: req.body.event,
+                    discount: req.body.discount,
                     category: req.body.category,
+                    _distributorName: req.body._distributorName,
                     unit: req.body.unit,
                     photos: strPhotoPath,
                 },
