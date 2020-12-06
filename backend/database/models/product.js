@@ -13,6 +13,10 @@ const ProductSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         require: true
     },  
+    _distributorName: { 
+        type: String , 
+        required: [false, 'Distributor name ']
+    },
     info: { 
         type: String , 
         required: [false, 'Product Info ']

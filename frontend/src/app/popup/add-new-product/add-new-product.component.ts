@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import Distributor from 'app/module/distributor';
 import { GlobalConstants } from 'app/module/global-constants';
 import Product from 'app/module/product';
 import { SalonUtilsService } from 'app/salon-utils.service';
@@ -28,17 +29,23 @@ export class AddNewProductComponent implements OnInit {
 
   addNewProduct() {
     this.product._distributorId = this.distributorId;
-    this.product.event = 'None';
+    this.product.event = '';
     console.log(this.product);
 
-    if (this.product.name) {
-      console.log('RESULT: added product name: ' + this.product.name);
-           
-      this.salonUtilService.createProduct(this.product, this.selectedFile).subscribe(
-        () => this.modal.close(this.product)
-      );
-
-    }
+    this.salonUtilService.getOneDistributor(this.distributorId).subscribe(
+      (distributor:Distributor) => {
+        this.product._distributorName = distributor[0].name;
+        if (this.product.name) {
+          console.log('RESULT: added product name: ' + this.product.name);
+               
+          this.salonUtilService.createProduct(this.product, this.selectedFile).subscribe(
+            () => this.modal.close(this.product)
+          );
+    
+        }
+      }
+    );
+    
     
   }
 
