@@ -44,6 +44,7 @@ import { ProductOrdersListViewComponent } from './pages/product-orders-list-view
 import { AddNewProductComponent } from './popup/add-new-product/add-new-product.component';
 import { ProductDetailViewComponent } from './pages/product-detail-view/product-detail-view.component';
 import { DeleteAnyComponent } from './popup/delete-any/delete-any.component';
+import { ProductDetailEditComponent } from './pages/product-detail-edit/product-detail-edit.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { DeleteAnyComponent } from './popup/delete-any/delete-any.component';
     AddNewProductComponent,
     ProductDetailViewComponent,
     DeleteAnyComponent,
+    ProductDetailEditComponent,
   ],
   imports: [
     BrowserAnimationsModule,

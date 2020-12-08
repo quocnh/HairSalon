@@ -1,0 +1,187 @@
+<div class="row">
+    <div class="col-md-4">
+        <div class="card card-user">
+            
+            <div class="image">
+            <img src="assets/img/top_border.jpg" alt="..." >
+            </div>
+            <div class="card-body">
+            <div class="author">
+                <a>
+                <img class="avatar border-gray" src={{strPhotos[0]}} >
+                <button class="btn btn-sm btn-info btn-round btn-icon fa fa-pencil" (click)="fileInput.click()">
+                    <input #fileInput type="file" (change)="onFileSelected($event, 0)" style="display:none;" />
+                </button>
+    
+                <h5 class="title">{{ productDb.name }}</h5>
+                </a>
+                <p class="description">
+                Sản phẩm {{ productDb.category }}
+                </p>
+                <p class="description">
+                @{{ productDb._distributorName }}
+                </p>
+            </div>
+            </div>
+        </div>
+
+        
+
+  
+    </div>
+    <div class="col-md-8">
+      <div class="card card-user">
+        <div class="card-header">
+          <h5 class="card-title">Thông tin sản phẩm</h5>
+        </div>
+        <div class="card-body">
+          <form>
+            <div class="row">
+              <div class="col-md-8 pr-1">
+                <div class="form-group">
+                  <label>Tên sản phẩm</label>
+                  <input type="text" class="form-control"  value="{{ product.name }}" [(ngModel)]="product.name" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+              <div class="col-md-3 pr-1">
+                <div class="form-group">
+                  <label>Loại sản phẩm</label>
+                    <select input type="text" class="form-control"  [(ngModel)]="product.category" [ngModelOptions]="{standalone: true}">
+                      <option [selected]="productDb.category == 'product.category' " *ngFor="let type of Category">
+                        {{type.value}}
+                      </option>
+                    </select>
+                </div>
+              </div>
+            </div>
+ 
+            <div class="row">
+                <div class="col-md-11 pr-1">
+                  <div class="form-group">
+                    <label>Thông tin</label>
+                    <input type="text" class="form-control" value="{{ product.info }}" [(ngModel)]="product.info" [ngModelOptions]="{standalone: true}">
+                  </div>
+                </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3 pr-1">
+                <div class="form-group">
+                  <label>Giảm giá (%)</label>
+                  <input type="text" class="form-control" value="{{ product.discount }}" [(ngModel)]="product.discount" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+              <div class="col-md-8 pr-1">
+                <div class="form-group">
+                  <label>Khuyến mại</label>
+                  <input type="text" class="form-control" value="{{ product.event }}" [(ngModel)]="product.event" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+          </div>
+
+            <div class="row">
+                <div class="col-md-4 pr-1">
+                  <div class="form-group">
+                    <label>Giá</label>
+                    <input type="text" class="form-control" value="{{ product.price }}" [(ngModel)]="product.price" [ngModelOptions]="{standalone: true}">
+                  </div>
+                </div>
+
+                <div class="col-md-4 pr-1">
+                  <div class="form-group">
+                    <label>Số lượng</label>
+                    <input type="text" class="form-control" value="{{ product.quantity }}" [(ngModel)]="product.quantity" [ngModelOptions]="{standalone: true}">
+                  </div>
+                </div>
+                <div class="col-md-3 pr-1">
+                  <div class="form-group">
+                    <label>Đơn vị</label>
+                      <select input type="text" class="form-control"  [(ngModel)]="product.unit" [ngModelOptions]="{standalone: true}">
+                        <option [selected]="productDb.unit == 'product.unit' " *ngFor="let unit of Unit">
+                          {{unit.value}}
+                        </option>
+                      </select>
+                  </div>
+                </div>
+            </div>
+    
+            <div class="row">
+                
+                <div class="col-md-12 pr-1">
+                    <p>Chi tiết sản phẩm (Upload tối đa 5 hình)</p>
+                    <div class="row"> 
+                        <div class="col-md-3" style="padding: 1px; margin:0">
+                          <div class=" btn-image" (click)="fileInput1.click()" style="padding: 2px; margin:0">
+                            <img src={{strPhotos[1]}} style="width:100%">
+                            <input #fileInput1 type="file" (change)="onFileSelected($event,1)" style="display:none;" />
+                          </div>
+                        </div>
+                        <div class="col-md-3" style="padding: 1px; margin:0">
+                            <button class="btn btn-sm btn-info btn-round" (click)="deletePhoto(1)"> Xóa </button>
+                        </div>
+                    </div>
+                    <div class="row"> 
+                        <div class="col-md-3" style="padding: 1px; margin:0">
+                          <div class=" btn-image" (click)="fileInput2.click()" style="padding: 2px; margin:0">
+                            <img src={{strPhotos[2]}} style="width:100%">
+                            <input #fileInput2 type="file" (change)="onFileSelected($event,2)" style="display:none;" />
+                          </div>
+                        </div>
+                        <div class="col-md-3" style="padding: 1px; margin:0">
+                            <button class="btn btn-sm btn-info btn-round" (click)="deletePhoto(2)"> Xóa </button>
+                        </div>
+                    </div>
+                    <div class="row"> 
+                        <div class="col-md-3" style="padding: 1px; margin:0">
+                          <div class=" btn-image" (click)="fileInput3.click()" style="padding: 2px; margin:0">
+                            <img src={{strPhotos[3]}} style="width:100%">
+                            <input #fileInput3 type="file" (change)="onFileSelected($event,3)" style="display:none;" />
+                          </div>
+                        </div>
+                        <div class="col-md-3" style="padding: 1px; margin:0">
+                            <button class="btn btn-sm btn-info btn-round" (click)="deletePhoto(3)"> Xóa </button>
+                        </div>
+                    </div>
+                    <div class="row"> 
+                        <div class="col-md-3" style="padding: 1px; margin:0">
+                          <div class=" btn-image" (click)="fileInput4.click()" style="padding: 2px; margin:0">
+                            <img src={{strPhotos[4]}} style="width:100%">
+                            <input #fileInput4 type="file" (change)="onFileSelected($event,4)" style="display:none;" />
+                          </div>
+                        </div>
+                        <div class="col-md-3" style="padding: 1px; margin:0">
+                            <button class="btn btn-sm btn-info btn-round" (click)="deletePhoto(4)"> Xóa </button>
+                        </div>
+                    </div>
+                    <div class="row"> 
+                        <div class="col-md-3" style="padding: 1px; margin:0">
+                          <div class=" btn-image" (click)="fileInput5.click()" style="padding: 2px; margin:0">
+                            <img src={{strPhotos[5]}} style="width:100%">
+                            <input #fileInput5 type="file" (change)="onFileSelected($event,5)" style="display:none;" />
+                          </div>
+                        </div>
+                        <div class="col-md-3" style="padding: 1px; margin:0">
+                            <button class="btn btn-sm btn-info btn-round" (click)="deletePhoto(5)"> Xóa </button>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+          </form>
+        </div>
+      </div>
+        
+    </div>
+    
+  </div>
+  <div class="row">
+    <div class="update ml-auto mr-auto">
+        <button type="submit" class="btn btn-danger btn-round" (click)="deleteProduct()">Xóa sản phẩm</button>
+        </div>
+    <div class="update ml-auto mr-auto">
+        <button type="submit" class="btn btn-info btn-round" (click)="updateProduct()">Xem trước</button>
+    </div>
+    <div class="update ml-auto mr-auto">
+        <button type="submit" class="btn btn-primary btn-round" (click)="updateProduct()">Cập nhật</button>
+    </div>
+</div>

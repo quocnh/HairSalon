@@ -80,8 +80,7 @@ export class SalonUtilsService {
     for (let i = 0; i < files.length; i++) {
       if (files[i]) {
         fd.append('newPhotos[]', files[i]);
-        fd.append('index[]', i.toString());
-        console.log('update Salon : ' + salonId + files[i].name);
+        fd.append('index[]', i.toString());        
       }
     }
 
@@ -242,23 +241,36 @@ export class SalonUtilsService {
   }
 
   // Update product
-  updateProduct(product: Product, file: File) {
+  updateProduct(product: Product, files: File[]) {
     const fd = new FormData();
     let key;
-    if (file) {
-      fd.append('product', file, file.name);
+
+    for (let i = 0; i < files.length; i++) {
+      if (files[i]) {
+        fd.append('newPhotos[]', files[i]);
+        fd.append('index[]', i.toString());
+        console.log('update Product : ' + files[i].name);
+      }
     }
 
     // tslint:disable-next-line: forin
     for (key in product) {
-      fd.append(key, product[key]);
+      if (key !== 'photos')
+      {
+        //console.log(key);
+        fd.append(key, product[key]);
+      }      
     }
-    console.log('Modify Product : ' + product.name);
+    for (let i = 0; i < product.photos.length; i++) {
+      fd.append('photos[]', product.photos[i]);
+      console.log('photos '+ i +': ' + product.photos[i]);
+    }
+
     return this.webService.patch( `products/${product._id}`, fd);
   }
   //Get one product 
   getOneProduct(productId: string) {
-    console.log('Get Product : ' + productId);
+    //console.log('Get Product : ' + productId);
     return this.webService.get(`products/${productId}`);
   }
   // Delete one product
