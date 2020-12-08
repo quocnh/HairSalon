@@ -1,4 +1,5 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ToastrModule } from 'ngx-toastr';
@@ -10,7 +11,7 @@ import { NavbarModule} from './shared/navbar/navbar.module';
 import { FixedPluginModule} from './shared/fixedplugin/fixedplugin.module';
 
 import { AppComponent } from './app.component';
-import { AppRoutes } from './app.routing';
+import { AppRoutingModule } from './app.routing';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { SalonViewComponent } from './pages/salon-view/salon-view.component';
@@ -46,6 +47,9 @@ import { ProductDetailViewComponent } from './pages/product-detail-view/product-
 import { DeleteAnyComponent } from './popup/delete-any/delete-any.component';
 import { ProductDetailEditComponent } from './pages/product-detail-edit/product-detail-edit.component';
 
+import { authInterceptorProviders } from './_helpers/auth.interceptor';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,9 +80,11 @@ import { ProductDetailEditComponent } from './pages/product-detail-edit/product-
   ],
   imports: [
     BrowserAnimationsModule,
-    RouterModule.forRoot(AppRoutes, {
-      useHash: true
-    }),
+    BrowserModule,
+    AppRoutingModule,
+    // RouterModule.forRoot(AppRoutingModule, {
+    //   useHash: true
+    // }),
     SidebarModule,
     NavbarModule,
     ToastrModule.forRoot(),
@@ -91,7 +97,7 @@ import { ProductDetailEditComponent } from './pages/product-detail-edit/product-
     DateTimePickerModule,
 
   ],
-  providers: [],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA, ]
 })

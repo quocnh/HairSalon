@@ -2,7 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import User from '../../module/user';
 
-import {Router} from '@angular/router';
+import { AuthService } from '../../_services/auth.service';
+
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,31 +14,31 @@ import {Router} from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
-  public role;
-  public userObject: User = new User();
-  
+  form: any = {};
+  isSuccessful = false;
+  isSignUpFailed = false;
+  errorMessage = '';
+
   constructor(
     public modal: NgbActiveModal,
-    private _router:Router,
-   
-    ) { }
+    private authService: AuthService
+
+  ) { }
 
   ngOnInit(): void {
-    console.log("Role: ", this.role);
+
   }
-  register(){
-    console.log("customer registration xxx");
-    if (this.role == 'customer') {
-      console.log(this.userObject.email);
-      console.log(this.userObject.password);
-      this.userObject.email = this.userObject.email;
-      this.userObject.password = this.userObject.password;
-      
-      console.log(this.userObject);
-      this.modal.close(this.userObject);
-    }
-  }
-  moveToLogin(){
-    this._router.navigate(['./login']);
+  onSubmit(): void {
+    this.authService.register(this.form).subscribe(
+      data => {
+        console.log(data);
+        this.isSuccessful = true;
+        this.isSignUpFailed = false;
+      },
+      err => {
+        this.errorMessage = err.error.message;
+        this.isSignUpFailed = true;
+      }
+    );
   }
 }
