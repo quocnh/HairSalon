@@ -23,7 +23,7 @@ password: required, minLength=6 -->
         <div class="form-group">
             <label for="password">Password</label>
             <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required
-                minlength="6" #password="ngModel" />
+                minlength="4" #password="ngModel" />
             <div class="alert alert-danger" role="alert" *ngIf="f.submitted && password.invalid">
                 <div *ngIf="password.errors.required">Password is required</div>
                 <div *ngIf="password.errors.minlength">

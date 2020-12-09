@@ -14,35 +14,35 @@ import { ProfileComponent } from './pages/profile/profile.component';
 
 const routes: Routes = [
 
-  // {
-  //   path: 'admin',
-  //   component: AdminLayoutComponent,
-  //   // children: [
-  //   //   {
-  //   //     path: '',
-  //   //     loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
-  //   //   }]
-  // },
+  {
+    path: 'admin',
+    component: AdminLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
+      }]
+  },
 
-  // {
-  //   path: 'manager',
-  //   component: ManagerLayoutComponent,
-  //   // children: [
-  //   //   {
-  //   //     path: '',
-  //   //     loadChildren: './layouts/manager-layout/manager-layout.module#ManagerLayoutModule'
-  //   //   }]
-  // },
+  {
+    path: 'manager',
+    component: ManagerLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: './layouts/manager-layout/manager-layout.module#ManagerLayoutModule'
+      }]
+  },
 
-  // {
-  //   path: 'distributor',
-  //   component: DistributorLayoutComponent,
-  //   // children: [
-  //   //   {
-  //   //     path: '',
-  //   //     loadChildren: './layouts/distributor-layout/distributor-layout.module#DistributorLayoutModule'
-  //   //   }]
-  // },
+  {
+    path: 'distributor',
+    component: DistributorLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: './layouts/distributor-layout/distributor-layout.module#DistributorLayoutModule'
+      }]
+  },
 
   // {
   //   path: 'home',

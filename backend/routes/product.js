@@ -4,6 +4,10 @@ const Product = require('../database/models/product');
 
 var express = require('express');
 var productRouter = express.Router();
+//var Promise = require('bluebird');
+var fs = require('fs');
+//Promise.promisifyAll(fs);
+
 const multer = require('multer');
 
 const storage = multer.diskStorage({
@@ -55,11 +59,12 @@ productRouter.get('/:productId', (req, res) => {
         
 });
 
-productRouter.post('/', upload.single('product'), (req, res) => {
-    var strPhotoPath = "uploads/products/no_photo_available.png";
-    if(req.file){
+productRouter.post('/', upload.array('newPhotos[]', 6), (req, res) => {
+    var strPhotoPath =Array(6);
+    strPhotoPath[0] = "uploads/products/no_photo_available.png";
+    if(req.files.length > 0){
         console.log(req.file);
-        strPhotoPath = req.file.path;
+        strPhotoPath[0] = req.file.path[0];
     }
     
     console.log(req.body);
@@ -84,24 +89,106 @@ productRouter.post('/', upload.single('product'), (req, res) => {
     .then(savedProduct => res.send(savedProduct))
     .catch((error) => console.log(error));
 });
+function checkFileExist(path) {
+    fs.exists(path, function(exists) {
+        if(exists) {
+            fs.unlink(req.body.photos[index], (err) => {
+                if (err) throw err;
+                console.log(req.body.photos[index] + ' was deleted.');
+              });
+        }
+        });
+}
+productRouter.patch('/:productId', upload.array('newPhotos[]', 6), (req, res) => {
+    var strPhotoPath = Array(6);
+    for (i = 0; i < strPhotoPath.length; i++){
+        if(req.body.photos[i]) {
+            strPhotoPath[i] = req.body.photos[i];
+            //console.log(i + ': ' + req.body.photos[i]);
+        } else {
+            strPhotoPath[i] = 'null';
+        }
+    }
+    //strPhotoPath = req.body.photos;
+    console.log('===>');
+    console.log(strPhotoPath);
 
-productRouter.patch('/:productId', upload.single('product'), (req, res) => {
-    var strPhotoPath = "";
-    var fs = require('fs');
+    if(req.files.length > 0){
+        
+        // update photos
+        // console.log(req.files.length);   
 
-    if(req.file){
-        strPhotoPath = req.file.path;
-        //delete old file avatar
-        fs.exists(req.body.photos, function(exists) {
-            if(exists) {
-                fs.unlink(req.body.photos, (err) => {
-                    if (err) throw err;
-                    console.log(req.body.photos + ' was deleted.');
-                  });
-            }
-            });
-    } else {
-        strPhotoPath = req.body.photos;
+        for (i = 0; i < req.files.length; i++)
+        {
+            if (req.files[i].path) {
+                strPhotoPath[req.body.index[i]] = req.files[i].path;    
+                console.log(i + ': ' + strPhotoPath[req.body.index[i]]);
+            }  
+        }
+        console.log(strPhotoPath);
+        console.log('<===');
+    }
+
+    Product.findOneAndUpdate({ '_id': req.params.productId}, 
+    {
+        $set: 
+        { 
+            name : req.body.name,
+            info: req.body.info,
+            _distributorId: req.body._distributorId,
+            price: req.body.price,
+            quantity: req.body.quantity,      
+            event: req.body.event,
+            discount: req.body.discount,
+            category: req.body.category,
+            _distributorName: req.body._distributorName,
+            unit: req.body.unit,
+            photos: strPhotoPath
+        },
+    },
+    {new: true})
+    .then(product => {
+        console.log('After modified: '+ product.photos);
+        res.send(product);
+    })
+    .catch((error) => console.log(error));
+        
+    
+    /*
+    var strPhotoPath = Array(6);
+    //var fs = require('fs');
+    
+    console.log("===>");
+    console.log(req.body.photos);
+    console.log("<===");
+    for (i = 0; i < strPhotoPath.length; i++){
+        strPhotoPath[i] = req.body.photos[i];
+    } 
+    console.log(strPhotoPath);
+    //strPhotoPath[0]="uploads/products/no_photo_available.png";
+    if(req.files.length > 0){        
+        // update photos
+        console.log(req.files.length);        
+        
+        
+        for (i = 0; i < req.files.length; i++)
+        {
+            if (req.files[i].path) {
+                var index = req.body.index[i];
+                strPhotoPath[index] = req.files[i].path;    
+                console.log(index + ': ' + strPhotoPath[index]);
+
+               // fs.exists(req.body.photos[index], function(exists) {
+                    //if(exists) {
+                        fs.unlink(req.body.photos[index], (err) => {
+                            //if (err) throw err;
+                            console.log(req.body.photos[index] + ' was deleted.');
+                        });
+                    //}
+               // });                
+                  
+            }  
+        }        
     }
     
     if (req.body.name) {
@@ -120,7 +207,7 @@ productRouter.patch('/:productId', upload.single('product'), (req, res) => {
                     category: req.body.category,
                     _distributorName: req.body._distributorName,
                     unit: req.body.unit,
-                    photos: strPhotoPath,
+                    photos: strPhotoPath
                 },
             },
             {new: true})
@@ -130,7 +217,7 @@ productRouter.patch('/:productId', upload.single('product'), (req, res) => {
             })
             .catch((error) => console.log(error));        
     }
-
+*/
 });
 
 productRouter.delete('/:productId', (req, res) => {

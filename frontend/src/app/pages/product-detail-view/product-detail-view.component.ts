@@ -19,7 +19,8 @@ export class ProductDetailViewComponent implements OnInit {
   productDb: Product = new Product();
   product: Product = new Product();
   public deletedText: string;
-  strAvatar: any;
+  //strAvatar: any;
+  strPhotos: any = Array(6);
   distributorName: string;
 
   selectedFile: File = null;
@@ -37,7 +38,14 @@ export class ProductDetailViewComponent implements OnInit {
       ) { }
 
   ngOnInit() {
-      this.strAvatar = 'assets/img/default-avatar.png';     
+      //this.strAvatar = 'assets/img/default-avatar.png';     
+      
+      this.strPhotos[0] = 'assets/img/default-avatar.png';      
+      this.strPhotos[1] = 'null';
+      this.strPhotos[2] = 'null';
+      this.strPhotos[3] = 'null';
+      this.strPhotos[4] = 'null';
+      this.strPhotos[5] = 'null';
 
       this.route.params.subscribe((params: Params) => {
           console.log(params);
@@ -49,39 +57,6 @@ export class ProductDetailViewComponent implements OnInit {
       });
   }
 
-  updateProduct() {
-    if ((JSON.stringify(this.productDb) !== JSON.stringify(this.product)) || (this.selectedFile !== null)) {
-        console.log('AÂ: ' + this.product);
-        // update user profile
-        this.salonUtilService.updateProduct(this.product, this.selectedFile).subscribe(
-            () => // refresh page
-            this.refreshProductProfile(this.productId)
-        );
-    } else {
-        // console.log('Giong' + JSON.stringify(this.customerDb) + '---' + JSON.stringify(this.customer));
-    }
-  }
-
-  deleteProduct(productId: string) {
-    // TODO: Implement create new salon owner form popup
-    this.deletedText = 'sản phẩm '+ this.product.name;
-    console.log('Delete Product name ' + this.deletedText);
-    const ref = this.modalService.open(DeleteAnyComponent);
-    ref.componentInstance.deletedText = this.deletedText;
-    ref.result.then(
-      (yes) => {
-        this.salonUtilService.deleteProduct(this.productId).subscribe(
-          () => {
-            this.router.navigate(['../'], { relativeTo: this.route });
-            }
-        );
-      },
-      (cancel) => {
-        console.log('cancel click');
-      }
-    )
-  }
-
   refreshProductProfile(productId) {
     console.log(productId);
     this.salonUtilService.getOneProduct(productId).subscribe(
@@ -89,10 +64,13 @@ export class ProductDetailViewComponent implements OnInit {
           console.log(product);   
             this.product = Object.assign({}, product[0]);
             this.productDb = Object.assign({}, product[0]);
-            if (this.product.photos[0]) {
-                this.strAvatar = 'http://localhost:3000/' + this.product.photos[0];
+            for (let i = 0; i < this.product.photos.length; i++) {
+              if (this.product.photos[i]) {
+                this.strPhotos[i] = 'http://localhost:3000/' + this.product.photos[i];
+              }
             }
-            console.log(this.strAvatar);              
+            
+            //console.log(this.strAvatar);
 
             // get distributor name from distributor Id
             console.log(this.product._distributorId);
@@ -105,15 +83,5 @@ export class ProductDetailViewComponent implements OnInit {
             }
         });
 
-  }
-
-  onFileSelected(event) {
-      this.selectedFile = event.target.files[0];
-      const reader = new FileReader();
-        reader.readAsDataURL(this.selectedFile);
-        reader.onload = (_event) => {
-            this.strAvatar = reader.result;
-        }
-        console.log(this.selectedFile);
   }
 }
