@@ -13,53 +13,46 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 const routes: Routes = [
 
-  // {
-  //   path: 'admin',
-  //   component: AdminLayoutComponent,
-  //   // children: [
-  //   //   {
-  //   //     path: '',
-  //   //     loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
-  //   //   }]
-  // },
+  {
+    path: 'admin',
+    component: AdminLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
+      }]
+  },
 
-  // {
-  //   path: 'manager',
-  //   component: ManagerLayoutComponent,
-  //   // children: [
-  //   //   {
-  //   //     path: '',
-  //   //     loadChildren: './layouts/manager-layout/manager-layout.module#ManagerLayoutModule'
-  //   //   }]
-  // },
+  {
+    path: 'manager',
+    component: ManagerLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: './layouts/manager-layout/manager-layout.module#ManagerLayoutModule'
+      }]
+  },
 
-  // {
-  //   path: 'distributor',
-  //   component: DistributorLayoutComponent,
-  //   // children: [
-  //   //   {
-  //   //     path: '',
-  //   //     loadChildren: './layouts/distributor-layout/distributor-layout.module#DistributorLayoutModule'
-  //   //   }]
-  // },
+  {
+    path: 'distributor',
+    component: DistributorLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: './layouts/distributor-layout/distributor-layout.module#DistributorLayoutModule'
+      }]
+  },
 
-  // {
-  //   path: 'home',
-  //   component: MainLayoutComponent,
-  //   // children: [
-  //   //   {
-  //   //     path: '',
-  //   //     loadChildren: './layouts/main-layout/main-layout.module#MainLayoutModule'
-  //   //   }
-  //   // ]
-  // },
-
-
-  { path: 'home', component: MainPageComponent },
-  // { path: 'profile', component: ProfileComponent },
-  { path: 'manager', component: SalonsListViewComponent },
-  { path: 'distributor', component: ProductsListViewComponent },
-  { path: 'admin', component: DashboardComponent},
+  {
+    path: 'home',
+    component: MainLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: './layouts/main-layout/main-layout.module#MainLayoutModule'
+      }
+    ]
+  },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 
 ];
