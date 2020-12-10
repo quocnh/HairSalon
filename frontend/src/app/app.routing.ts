@@ -10,6 +10,7 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 import { SalonsListViewComponent } from './pages/salons-list-view/salons-list-view.component';
 import { ProductsListViewComponent } from './pages/products-list-view/products-list-view.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 const routes: Routes = [
 
@@ -43,16 +44,23 @@ const routes: Routes = [
       }]
   },
 
-  {
-    path: 'home',
-    component: MainLayoutComponent,
-    children: [
-      {
-        path: '',
-        loadChildren: './layouts/main-layout/main-layout.module#MainLayoutModule'
-      }
-    ]
-  },
+  // {
+  //   path: 'home',
+  //   component: MainLayoutComponent,
+  //   // children: [
+  //   //   {
+  //   //     path: '',
+  //   //     loadChildren: './layouts/main-layout/main-layout.module#MainLayoutModule'
+  //   //   }
+  //   // ]
+  // },
+
+
+  { path: 'home', component: MainPageComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'manager', component: SalonsListViewComponent },
+  { path: 'distributor', component: ProductsListViewComponent },
+  { path: 'admin', component: DashboardComponent},
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 
 ];
