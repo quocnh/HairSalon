@@ -4,6 +4,7 @@ import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Params } from '@angular/router';
 import { SalonUtilsService } from '../../salon-utils.service';
 import Service from '../../module/service';
+import { environment } from 'environments/environment';
 // import { HereService } from '../../module/here.service';
 
 @Component({
@@ -70,7 +71,7 @@ export class SalonEditComponent implements OnInit {
             this.salon = Object.assign({}, salons[0]);
             for (let i = 0; i < this.salon.photos.length; i++) {
               if (this.salon.photos[i] !== '') {
-                this.strPhotos[i] = 'http://localhost:3000/' + this.salon.photos[i];
+                this.strPhotos[i] = environment.dbAddress + '/' + this.salon.photos[i];
               }
             }
             console.log(this.salon);

@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Product from 'app/module/product';
 import { AddNewProductComponent } from 'app/popup/add-new-product/add-new-product.component';
 import { SalonUtilsService } from 'app/salon-utils.service';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-products-list-view',
@@ -16,6 +17,7 @@ export class ProductsListViewComponent implements OnInit {
   products: Product[] = [];
   addedProduct: Product;
   productPhoto: File;
+  dbAddress: string;
 
   constructor(
     private salonUtilService: SalonUtilsService,
@@ -25,6 +27,7 @@ export class ProductsListViewComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.dbAddress = environment.dbAddress;
     this.route.params.subscribe((params: Params) => {
       console.log(params);
       if (params.distributorId) {

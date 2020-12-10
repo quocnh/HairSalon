@@ -13,7 +13,7 @@
         <div class="btn-primary card card-pricing" (mouseover)="mouseOverAction(salon, i)" (mouseout)="mouseOutAction(salon, i)"> 
           <div class="image">
               <!--img src="assets/img/damir-bosnjak.jpg" alt="..." -->
-              <img src='http://localhost:3000/{{salon.photos[0]}}' alt="..." >
+              <img src='{{dbAddress}}/{{salon.photos[0]}}' alt="..." >
           </div>
   
           <div class="card-footer">          
@@ -58,7 +58,7 @@
         <div class="btn-primary card card-pricing" > 
           <div class="image">
               <!--img src="assets/img/damir-bosnjak.jpg" alt="..." -->
-              <img src='http://localhost:3000/{{salon.photos[0]}}' alt="..." >
+              <img src='{{dbAddress}}/{{salon.photos[0]}}' alt="..." >
           </div>
   
           <div class="card-footer">

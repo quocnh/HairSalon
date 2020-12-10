@@ -5,6 +5,7 @@ import Barber from '../../module/barber';
 import Salon from '../../module/salon';
 import { HttpClient } from '@angular/common/http';
 import { NgbDateStruct, NgbDateParserFormatter, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-barber-profile-view',
@@ -65,7 +66,7 @@ export class BarberProfileViewComponent implements OnInit {
               this.barber = Object.assign({}, user[0]);
               this.barberDb = Object.assign({}, user[0]);
               if (this.barber.avatar) {
-                  this.strAvatar = 'http://localhost:3000/' + this.barber.avatar;
+                  this.strAvatar = environment.dbAddress + '/' + this.barber.avatar;
               }
               console.log(this.strAvatar);
               this.modelDob = this.ngbDateParserFormatter.parse(this.barber.dob);

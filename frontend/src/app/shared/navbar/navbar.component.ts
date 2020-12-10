@@ -9,6 +9,7 @@ import { LoginComponent } from '../../popup/login/login.component';
 import User from '../../module/user';
 import { SalonUtilsService } from '../../salon-utils.service';
 import { TokenStorageService } from '../../_services/token-storage.service';
+import { environment } from 'environments/environment';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class NavbarComponent implements OnInit {
   showDistributorBoard = false;
 
   username: string;
+  baseUrl: string;
 
   private listTitles: any[];
   // tslint:disable-next-line: member-ordering
@@ -59,7 +61,8 @@ export class NavbarComponent implements OnInit {
 
   // tslint:disable-next-line: member-ordering
   ngOnInit() {
-
+    this.baseUrl = environment.baseUrl;
+    console.log(this.baseUrl);
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 
     if (this.isLoggedIn) {
@@ -67,9 +70,9 @@ export class NavbarComponent implements OnInit {
       this.roles = user.roles;
 
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      this.showSalonOwnerBoard = this.roles.includes('ROLE_SALONOWNER');
-      this.showDistributorBoard = this.roles.includes('ROLE_DISTRIBUTOR');
-
+      this.showSalonOwnerBoard = this.roles.includes('ROLE_SALONOWNER') || this.roles.includes('ROLE_ADMIN');
+      this.showDistributorBoard = this.roles.includes('ROLE_DISTRIBUTOR') || this.roles.includes('ROLE_ADMIN');
+            
       this.username = user.username;
     }
 //------------

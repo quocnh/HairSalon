@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'environments/environment';
 import Salon from '../../module/salon';
 import { SalonUtilsService } from '../../salon-utils.service';
 
@@ -21,6 +22,7 @@ export class MainPageComponent implements OnInit {
   isListAllSalons: boolean;
   public deletedSalon: Salon;
   mymap: any;
+  dbAddress: string;
   //markers:any[];
 
   // tslint:disable-next-line: no-inferrable-types
@@ -37,7 +39,7 @@ export class MainPageComponent implements OnInit {
     // if (!navigator.geolocation) {
     //   console.log('location is not supported');
     // }
-
+    this.dbAddress = environment.dbAddress;
     // this.mapControl();
     this.userService.getPublicContent().subscribe(
       data => {

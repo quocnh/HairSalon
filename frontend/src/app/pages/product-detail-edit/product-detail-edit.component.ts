@@ -7,6 +7,7 @@ import { GlobalConstants } from 'app/module/global-constants';
 import Product from 'app/module/product';
 import { DeleteAnyComponent } from 'app/popup/delete-any/delete-any.component';
 import { SalonUtilsService } from 'app/salon-utils.service';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-product-detail-edit',
@@ -96,7 +97,7 @@ export class ProductDetailEditComponent implements OnInit {
             this.productDb = Object.assign({}, product[0]);
             for (let i = 0; i < this.product.photos.length; i ++) {
               if ((this.product.photos[i] !== 'null') && (this.product.photos[i])) {
-                this.strPhotos[i] = 'http://localhost:3000/' + this.product.photos[i];
+                this.strPhotos[i] = environment.dbAddress + '/' + this.product.photos[i];
               }
               
             }

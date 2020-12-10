@@ -44,23 +44,23 @@ const routes: Routes = [
       }]
   },
 
-  // {
-  //   path: 'home',
-  //   component: MainLayoutComponent,
-  //   // children: [
-  //   //   {
-  //   //     path: '',
-  //   //     loadChildren: './layouts/main-layout/main-layout.module#MainLayoutModule'
-  //   //   }
-  //   // ]
-  // },
+  {
+    path: 'home',
+    component: MainLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: './layouts/main-layout/main-layout.module#MainLayoutModule'
+      }
+    ]
+  },
 
 
-  { path: 'home', component: MainPageComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'manager', component: SalonsListViewComponent },
-  { path: 'distributor', component: ProductsListViewComponent },
-  { path: 'admin', component: DashboardComponent},
+  // { path: 'home', component: MainPageComponent },
+  // { path: 'profile', component: ProfileComponent },
+  // { path: 'manager', component: SalonsListViewComponent },
+  // { path: 'distributor', component: ProductsListViewComponent },
+  // { path: 'admin', component: DashboardComponent},
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 
 ];

@@ -7,6 +7,7 @@ import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import Service from '../../module/service';
 import { Lightbox } from 'ngx-lightbox';
 import Booking from 'app/module/booking';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-salon-view',
@@ -64,7 +65,7 @@ export class SalonViewComponent implements OnInit {
             this.salon = Object.assign({}, salons[0]);
             for (let i = 0; i < this.salon.photos.length; i++) {
               if (this.salon.photos[i] !== '') {
-                this.strPhotos[i] = 'http://localhost:3000/' + this.salon.photos[i];
+                this.strPhotos[i] = environment.dbAddress+ '/' + this.salon.photos[i];
               }
             }
             for (let i = 0; i < this.salon._barberId.length; i++) {

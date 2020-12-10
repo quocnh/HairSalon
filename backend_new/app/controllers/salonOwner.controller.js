@@ -38,7 +38,6 @@ salonOwnerRouter.delete('/:salonOwnerId', (req, res) => {
         .catch((error) => console.log(error));
 });
 
-/* http:/localhost:3000/salonOwners/:salonOwnerId/salons/:salonId */
 salonOwnerRouter.get('/:salonOwnerId/salons', (req, res) => {
     Salon.find({_salonOwnerId: req.params.salonOwnerId})
         .then(salons => res.send(salons))

@@ -4,6 +4,7 @@ import { SalonUtilsService } from '../../salon-utils.service';
 import Customer from '../../module/customer';
 import { HttpClient } from '@angular/common/http';
 import { NgbDateStruct, NgbDateParserFormatter, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { environment } from 'environments/environment';
 
 @Component({
     selector: 'app-user-profile',
@@ -64,7 +65,7 @@ export class UserComponent implements OnInit {
                 this.customer = Object.assign({}, customer[0]);
                 this.customerDb = Object.assign({}, customer[0]);
                 if (this.customer.avatar) {
-                    this.strAvatar = 'http://localhost:3000/' + this.customer.avatar;
+                    this.strAvatar = environment.dbAddress+ '/' + this.customer.avatar;
                 }
                 console.log(this.strAvatar);
                 this.modelDob = this.ngbDateParserFormatter.parse(this.customer.dob);
