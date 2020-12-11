@@ -65,7 +65,7 @@ module.exports = function (app) {
 
     app.use(express.json());
     app.use('/app/uploads', express.static('uploads'));
-    app.use(bodyParser.urlencoded());
+    app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
     app.use(cors());
     //app.use(passport.initialize());
