@@ -64,7 +64,7 @@ module.exports = function (app) {
 
 
     app.use(express.json());
-    app.use('/uploads', express.static('uploads'));
+    app.use('/app/uploads', express.static('uploads'));
     app.use(bodyParser.urlencoded());
     app.use(bodyParser.json());
     app.use(cors());
