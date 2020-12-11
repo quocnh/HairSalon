@@ -41,3 +41,8 @@ testem.log
 .DS_Store
 Thumbs.db
 backend/uploads
+
+#photos upload
+backend_new/uploads/avatar/*
+backend_new/uploads/salonPhotos/*
+backend_new/uploads/products/*
