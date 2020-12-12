@@ -4,6 +4,10 @@ const mongoose = require('mongoose');
 const Customer = mongoose.model(
     "Customer",
     new mongoose.Schema({
+        _userId: {
+            type: mongoose.Types.ObjectId,
+            require: [true, 'User id']
+        },
         username: { 
             type: String,
             minlength: 3,

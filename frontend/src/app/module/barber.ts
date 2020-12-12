@@ -1,5 +1,6 @@
 export default class Barber {
     _id: string;
+    _userId: string;
     _salonId: string;
     salonName: string;
     username: string;

@@ -1,5 +1,6 @@
 export default class Customer {
     _id: string;
+    _userId:string;
     username: string;
     firstname: string;
     lastname: string;

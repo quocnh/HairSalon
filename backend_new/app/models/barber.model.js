@@ -2,6 +2,10 @@
 const mongoose = require('mongoose');
 
 const BarberSchema = new mongoose.Schema({
+    _userId: {
+        type: mongoose.Types.ObjectId,
+        require: [true, 'User id']
+    },
     _salonId: {
         type: mongoose.Types.ObjectId,
         require: [true, 'Salon id']
