@@ -33,7 +33,7 @@
                     <tr *ngFor="let distributor of distributors">
                         
                         <td>
-                            <a href="#/{{prefixPath}}/{{distributor._id}}/profile">{{ distributor.name }}</a>
+                            <a href="{{prefixPath}}/{{distributor._id}}/profile">{{ distributor.name }}</a>
                         </td>
                         <td>
                             id-{{ distributor.name }}
@@ -42,7 +42,7 @@
                             {{ distributor.name }}@email.com
                         </td>
                         <td>
-                          <a href="#/{{prefixPath}}/{{distributor._id}}/products">Tất cả sản phẩm</a>
+                          <a href="{{prefixPath}}/{{distributor._id}}/products">Tất cả sản phẩm</a>
                         </td>
                         <td >
                           <button class="btn btn-sm btn-danger btn-round btn-icon pull-right" (click)= "deleteDistributor(distributor._id)">

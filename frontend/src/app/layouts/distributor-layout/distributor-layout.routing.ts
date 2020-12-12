@@ -6,8 +6,7 @@ import { ProductDetailViewComponent } from 'app/pages/product-detail-view/produc
 import { ProductDetailEditComponent } from 'app/pages/product-detail-edit/product-detail-edit.component';
 
 export const DistributorLayoutRoutes: Routes = [
-
-    { path: '',      component: ProductsListViewComponent },
+    
     { path: 'profile',           component: UserComponent },    
     { path: 'products',               component: ProductsListViewComponent },
     { path: 'products/:productId',               component: ProductDetailEditComponent },

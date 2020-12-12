@@ -43,7 +43,9 @@ export class ProductsListViewComponent implements OnInit {
       this.refreshProductsList();
     });
        
-    this.prefixPath = this.router.url;    
+    this.prefixPath = environment.baseUrl + this.router.url;    
+
+    console.log(this.prefixPath);
   }
 
   refreshProductsList() {
