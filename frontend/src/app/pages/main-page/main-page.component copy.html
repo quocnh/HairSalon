@@ -9,7 +9,7 @@
   
   <div class="col-md-3" >
     <div class="row" *ngFor="let salon of salons; let i = index">
-      <a href="#/salons/{{salon._id}}">
+      <a href="/salons/{{salon._id}}">
         <div class="btn-primary card card-pricing" (mouseover)="mouseOverAction(salon, i)" (mouseout)="mouseOutAction(salon, i)"> 
           <div class="image">
               <!--img src="assets/img/damir-bosnjak.jpg" alt="..." -->
@@ -54,7 +54,7 @@
 <ng-template #noShowMap>
   <div class="row">
     <div class="col-md-3" *ngFor="let salon of salons">
-      <a href="#/salons/{{salon._id}}">
+      <a href="/salons/{{salon._id}}">
         <div class="btn-primary card card-pricing" > 
           <div class="image">
               <!--img src="assets/img/damir-bosnjak.jpg" alt="..." -->
