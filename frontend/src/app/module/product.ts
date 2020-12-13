@@ -10,5 +10,6 @@ export default class Product {
     photos: string[];
     event: string;
     category: string;
+    discount: number;
     unit: string;
 }

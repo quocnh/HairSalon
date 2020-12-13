@@ -7,6 +7,7 @@ import { GlobalConstants } from 'app/module/global-constants';
 import Product from 'app/module/product';
 import { DeleteAnyComponent } from 'app/popup/delete-any/delete-any.component';
 import { SalonUtilsService } from 'app/salon-utils.service';
+import { TokenStorageService } from 'app/_services/token-storage.service';
 import { environment } from 'environments/environment';
 
 @Component({
@@ -26,6 +27,10 @@ export class ProductDetailEditComponent implements OnInit {
   today = this.calendar.getToday();
   Category = GlobalConstants.ProductCategory;
   Unit = GlobalConstants.ProductUnit;
+  isModifiedEnable = false;
+  isLoggedIn = false;
+  user: any;
+  
   constructor(
       private salonUtilService: SalonUtilsService,
       private route: ActivatedRoute,
@@ -34,6 +39,7 @@ export class ProductDetailEditComponent implements OnInit {
       private ngbDateParserFormatter: NgbDateParserFormatter,
       private modalService: NgbModal,
       private router: Router,
+      private tokenStorageService: TokenStorageService
       ) { }
 
   ngOnInit() {
@@ -45,7 +51,21 @@ export class ProductDetailEditComponent implements OnInit {
       this.strPhotos[4] = 'assets/img/no_photo_available.png';
       this.strPhotos[5] = 'assets/img/no_photo_available.png';
 
-
+      // 1. Get userId
+      this.isLoggedIn = !!this.tokenStorageService.getToken();
+      if (this.isLoggedIn) {      
+        this.user = this.tokenStorageService.getUser();
+        console.log('LOGGED IN:' +  this.user.roles);
+        this.isModifiedEnable = this.user.roles.includes('ROLE_DISTRIBUTOR') || this.user.roles.includes('ROLE_ADMIN');
+      } else {
+        // Not login yet
+        console.log("Please log in as distributor or admin");
+        return;
+      }
+      if (!this.isModifiedEnable) {
+        console.log("Please log in as distributor or admin");
+        return;
+      }
       this.route.params.subscribe((params: Params) => {
           //console.log(params);
           this.productId = params.productId;

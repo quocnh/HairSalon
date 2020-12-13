@@ -1,4 +1,6 @@
 <div class="row">
+  <div class="col-md-9">
+    <div class="row">
     <div class="col-md-4">
       <div class="card card-user">
         
@@ -24,96 +26,148 @@
   
     </div>
     <div class="col-md-8">
-      <div class="card card-user">
-        <div class="card-header">
-          <h5 class="card-title">Thông tin sản phẩm</h5>
+      <div class=" card card-user">
+        <div class="card-header " *ngIf="productDb.event; else noKM">
+          <h6 class="card-title">{{productDb.name}}</h6>
+          <!--p class="card-category">Tên nhà phân phối</p-->
+          <p class="card-category text-left" style="color:red">Khuyến mãi: {{productDb.event}}</p>                            
         </div>
-        <div class="card-body">
-          <form>
-            <div class="row">
-              <div class="col-md-8 pr-1">
-                <div class="form-group">
-                  <label>Tên sản phẩm</label>
-                  <input type="text" class="form-control"  value="{{ product.name }}" [(ngModel)]="product.name" [ngModelOptions]="{standalone: true}">
-                </div>
+        <ng-template #noKM>
+          <div class="card-header ">
+            <h6 class="card-title">{{productDb.name}}</h6>
+            <p class="card-category text-left">&nbsp;</p>
+          </div>
+        </ng-template>
+
+        <div class="card-body ">
+            <p class="card-category"><b>Thông tin sản phẩm:</b></p>
+            <p class="card-category">{{productDb.info}}</p>
+        </div>
+        <div class="card-footer " *ngIf="productDb.discount > 0; else noDiscount">
+          <hr>
+
+          <div class="row" >
+            <div class="col-lg-6 ml-auto">
+              <div class="row" >
+                <p class="card-category text-left">Giá ({{productDb.unit}}):&nbsp;&nbsp;&nbsp;<b><s>{{productDb.price| currency:'VND'}}</s></b></p>
               </div>
-              <div class="col-md-3 pr-1">
-                <div class="form-group">
-                  <label>Loại sản phẩm</label>
-                    <select input type="text" class="form-control"  [(ngModel)]="product.category" [ngModelOptions]="{standalone: true}">
-                      <option [selected]="productDb.category == 'product.category' " *ngFor="let type of Category">
-                        {{type.value}}
-                      </option>
-                    </select>
-                </div>
+              <div class="row" style="color:red" >
+                  <img  src="../../../assets/img/sale.png" width="40" height="40" >{{productDb.discount}}%&nbsp;&nbsp;&nbsp;
+                  <b>{{productDb.price*((100-productDb.discount)/100)| currency:'VND'}}</b>
               </div>
-            </div>
- 
-            <div class="row">
-                <div class="col-md-11 pr-1">
-                  <div class="form-group">
-                    <label>Thông tin</label>
-                    <input type="text" class="form-control" value="{{ product.info }}" [(ngModel)]="product.info" [ngModelOptions]="{standalone: true}">
-                  </div>
-                </div>
             </div>
 
-            <div class="row">
-              <div class="col-md-3 pr-1">
-                <div class="form-group">
-                  <label>Giảm giá (%)</label>
-                  <input type="text" class="form-control" value="{{ product.discount }}" [(ngModel)]="product.discount" [ngModelOptions]="{standalone: true}">
+            <div class="col-lg-6 text-right" >
+              
+              <div class="row"  >
+                <p class="card-category text-right">Số lượng hàng</p>
+              </div>
+              <div class="row">                
+                <h6><b>{{productDb.quantity}}</b></h6>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+        <ng-template #noDiscount>
+          <div class="card-footer ">
+            <hr>
+
+            <div class="row" >
+              <div class="col-lg-6 ml-auto">
+                <div class="row" >
+                  <p class="card-category text-left">Giá ({{productDb.unit}}):&nbsp;&nbsp;&nbsp;<b>{{productDb.price| currency:'VND'}}</b></p>
+                </div>
+                <div class="row">
+                    <b>&nbsp;</b>
                 </div>
               </div>
-              <div class="col-md-8 pr-1">
-                <div class="form-group">
-                  <label>Khuyến mại</label>
-                  <input type="text" class="form-control" value="{{ product.event }}" [(ngModel)]="product.event" [ngModelOptions]="{standalone: true}">
+  
+              <div class="col-lg-6 text-right" >
+                
+                <div class="row"  >
+                  <p class="card-category text-right">Số lượng hàng</p>
                 </div>
+                <div class="row">                
+                  <h6><b>{{productDb.quantity}}</b></h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </div>      
+    </div>
+    </div>
+    
+    <div class="row">
+      <div class="card">    
+        
+        <div class="card-header">
+          <h4 class="card-title">Chi tiết sản phẩm</h4>
+  
+        </div>
+        <div class="card-body" *ngFor="let photo of strPhotos; let i = index">
+          <div *ngIf="(photo != 'null') && (i != 0)">
+            <img src="{{photo}}" >
+          </div>
+          
+        </div>
+      
+      </div>
+    </div>
+  </div>
+
+    <div class="col-md-3">
+      <div class="card" style='position: sticky;top: 140px'>
+        <div class="card-header " *ngIf="productDb.event; else noKM">
+          <h6 class="card-title">{{productDb.name}}</h6>
+          <!--p class="card-category">Tên nhà phân phối</p-->
+          <p class="card-category text-left" style="color:red">Khuyến mãi: {{productDb.event}}</p>                            
+        </div>
+        <ng-template #noKM>
+          <div class="card-header ">
+            <h6 class="card-title">{{productDb.name}}</h6>
+            <p class="card-category text-left">&nbsp;</p>
+          </div>
+        </ng-template>
+        <div class="card-body ">
+          <p class="card-category"><b>Số lượng:</b></p>
+          <input type="text" class="form-control"  value="{{ pOrder.quantity }}" [(ngModel)]="pOrder.quantity" [ngModelOptions]="{standalone: true}">
+        </div>
+
+        <div class="card-footer " >          
+          <hr>
+          <div class="stats" *ngIf="productDb.discount > 0; else noDiscount">
+              <div class="row" >
+                <p class="card-category text-left">Tổng cộng :&nbsp;<b><s>{{pOrder.quantity*productDb.price| currency:'VND'}}</s></b></p>
+              </div>
+              <div class="row" style="color:red" >
+                  <img  src="../../../assets/img/sale.png" width="40" height="40" >{{productDb.discount}}%&nbsp;
+                  <b>{{pOrder.quantity*productDb.price*((100-productDb.discount)/100)| currency:'VND'}}</b>
               </div>
           </div>
 
-            <div class="row">
-                <div class="col-md-4 pr-1">
-                  <div class="form-group">
-                    <label>Giá</label>
-                    <input type="text" class="form-control" value="{{ product.price }}" [(ngModel)]="product.price" [ngModelOptions]="{standalone: true}">
-                  </div>
+          <ng-template #noDiscount>
+            <div class="stats" >
+                <div class="row" >
+                  <p class="card-category text-left">Tổng cộng :&nbsp; <b>{{pOrder.quantity*productDb.price| currency:'VND'}}</b></p>
                 </div>
-
-                <div class="col-md-4 pr-1">
-                  <div class="form-group">
-                    <label>Số lượng</label>
-                    <input type="text" class="form-control" value="{{ product.quantity }}" [(ngModel)]="product.quantity" [ngModelOptions]="{standalone: true}">
-                  </div>
-                </div>
-                <div class="col-md-3 pr-1">
-                  <div class="form-group">
-                    <label>Đơn vị</label>
-                      <select input type="text" class="form-control"  [(ngModel)]="product.unit" [ngModelOptions]="{standalone: true}">
-                        <option [selected]="productDb.unit == 'product.unit' " *ngFor="let unit of Unit">
-                          {{unit.value}}
-                        </option>
-                      </select>
-                  </div>
-                </div>
+                <div class="row">
+                    <b>&nbsp;</b>
+                </div>               
             </div>
-    
-            
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-header">
-      <h4 class="card-title">Chi tiết sản phẩm</h4>
+          </ng-template>
 
-    </div>
-    <div class="card-body" *ngFor="let photo of strPhotos; let i = index">
-      <div *ngIf="(photo != 'null') && (i != 0)">
-        <img src="{{photo}}" >
+          <div class="btn btn-booking card card-btn" (click)= "orderProduct()">
+            Đặt hàng
+          </div>
+       </div>
+        
+
       </div>
-      
     </div>
+
+
   </div>
+  

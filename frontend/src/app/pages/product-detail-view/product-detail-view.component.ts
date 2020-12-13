@@ -5,8 +5,10 @@ import { NgbCalendar, NgbDateParserFormatter, NgbModal } from '@ng-bootstrap/ng-
 import Distributor from 'app/module/distributor';
 import { GlobalConstants } from 'app/module/global-constants';
 import Product from 'app/module/product';
+import productOrder from 'app/module/productOrder';
 import { DeleteAnyComponent } from 'app/popup/delete-any/delete-any.component';
 import { SalonUtilsService } from 'app/salon-utils.service';
+import { TokenStorageService } from 'app/_services/token-storage.service';
 import { environment } from 'environments/environment';
 
 @Component({
@@ -28,6 +30,12 @@ export class ProductDetailViewComponent implements OnInit {
   today = this.calendar.getToday();
   Category = GlobalConstants.ProductCategory;
   Unit = GlobalConstants.ProductUnit;
+  isShownEnable = false;
+  isLoggedIn = false;
+  user: any;
+  orderedQuantity = 0;
+  pOrder: productOrder = new productOrder();
+
   constructor(
       private salonUtilService: SalonUtilsService,
       private route: ActivatedRoute,
@@ -36,6 +44,7 @@ export class ProductDetailViewComponent implements OnInit {
       private ngbDateParserFormatter: NgbDateParserFormatter,
       private modalService: NgbModal,
       private router: Router,
+      private tokenStorageService: TokenStorageService
       ) { }
 
   ngOnInit() {
@@ -47,6 +56,25 @@ export class ProductDetailViewComponent implements OnInit {
       this.strPhotos[3] = 'null';
       this.strPhotos[4] = 'null';
       this.strPhotos[5] = 'null';
+      this.pOrder.quantity = 0;
+
+      // 1. Get userId
+      this.isLoggedIn = !!this.tokenStorageService.getToken();
+      if (this.isLoggedIn) {      
+        this.user = this.tokenStorageService.getUser();
+        console.log('LOGGED IN:' +  this.user.roles);
+        this.isShownEnable = this.user.roles.includes('ROLE_DISTRIBUTOR') 
+                                || this.user.roles.includes('ROLE_ADMIN') 
+                                || this.user.roles.includes('ROLE_SALON_OWNER');
+      } else {
+        // Not login yet
+        console.log("Please log in as salonOwner or admin");
+        return;
+      }
+      if (!this.isShownEnable) {
+        console.log("Please log in as salonOwner or admin");
+        return;
+      }
 
       this.route.params.subscribe((params: Params) => {
           console.log(params);
@@ -83,6 +111,26 @@ export class ProductDetailViewComponent implements OnInit {
                 });
             }
         });
+  }
+
+  orderProduct() {
+    this.pOrder.status = "processing";
+    this.pOrder._productId = this.productDb._id;
+    this.pOrder._distributorId = this.productDb._distributorId;
+    this.pOrder.totalPrice = this.pOrder.quantity*this.productDb.price*((100-this.productDb.discount)/100);
+    this.pOrder.paidAmount = 0;
+    this.pOrder.discount = this.productDb.discount;
+    this.pOrder.event = this.productDb.event;
+
+    this.salonUtilService.getSalonOwnerIdFromUserId(this.user.id).subscribe(
+      (retOwnerId: string) => {
+        this.pOrder._salonOwnerId = retOwnerId;
+        //console.log(this.pOrder);
+        this.salonUtilService.createNewProductOrder(this.pOrder).subscribe(
+          (pOrder: productOrder) => {            
+          });
+      }
+    );
 
   }
 }

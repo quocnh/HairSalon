@@ -24,10 +24,6 @@ export class ProductsListViewComponent implements OnInit {
 
   private roles: string[];
   isLoggedIn = false;
-  showAdminBoard = false;
-  showSalonOwnerBoard = false;
-  showDistributorBoard = false;
-  username: string;
   user: any;
   isModifiedEnable = false;
   isAdmin = false;

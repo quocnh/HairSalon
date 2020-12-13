@@ -8,6 +8,7 @@ import Service from './module/service';
 import Booking from './module/booking';
 import { ProductOrdersListViewComponent } from './pages/product-orders-list-view/product-orders-list-view.component';
 import Product from './module/product';
+import productOrder from './module/productOrder';
 
 @Injectable({
   providedIn: 'root'
@@ -326,4 +327,18 @@ export class SalonUtilsService {
     
     return this.webService.post(`api/users/register-customer`, fd);
   }
+
+  // -- Product Order >>>>>  
+  createNewProductOrder(pOrder: productOrder) {
+    const fd = new FormData();
+    let key;
+
+    // tslint:disable-next-line: forin
+    for (key in pOrder) {
+      fd.append(key, pOrder[key]);
+    }
+    console.log('totalPrice : ' + pOrder.totalPrice);
+    return this.webService.post( `productOrder`, fd);
+  }
+  // -- Product Order <<<<<
 }

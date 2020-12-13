@@ -18,6 +18,7 @@ const distributorRoutes = require('../controllers/distributor.controller');
 const barberRoutes = require('../controllers/barber.controller');
 const bookingRoutes = require('../controllers/booking.controller');
 const productRoutes = require('../controllers/product.controller');
+const productOrderRoutes = require('../controllers/productOrder.controller');
 //const passport = require("passport");
 
 //require("./utils/passport")(passport);
@@ -61,6 +62,7 @@ module.exports = function (app) {
     app.use('/barbers',         barberRoutes);
     app.use('/bookings',        bookingRoutes);
     app.use('/products',        productRoutes);
+    app.use('/productOrder',    productOrderRoutes);
 
 
     app.use(express.json());

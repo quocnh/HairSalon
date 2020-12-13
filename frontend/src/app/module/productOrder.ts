@@ -1,7 +1,6 @@
 
-export default class Order {
+export default class productOrder {
     _id: string;
-    _salonId: string;
     _salonOwnerId: string;
     _distributorId: string;
     _productId: string;
@@ -10,5 +9,7 @@ export default class Order {
     info: string;
     totalPrice: number;
     paidAmount: number;
+    event: string;    
+    discount: number;
     status: string; //'status of order (completed/delivery/waiting for payment)'
 }
