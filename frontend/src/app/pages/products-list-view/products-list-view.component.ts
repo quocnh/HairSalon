@@ -29,6 +29,9 @@ export class ProductsListViewComponent implements OnInit {
   showDistributorBoard = false;
   username: string;
   user: any;
+  isModifiedEnable = false;
+  isAdmin = false;
+  isSalonOwner = false;
 
   constructor(
     private salonUtilService: SalonUtilsService,
@@ -40,45 +43,48 @@ export class ProductsListViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.dbAddress = environment.dbAddress;
-    this.route.params.subscribe((params: Params) => {
-      console.log(params);
-      if (params.distributorId) {
-        // For admin controller
-        this.distributorId = params.distributorId;
-        this.refreshProductsList();
-        return;
-      } else {
-        //Get distributorId from userId
-        // TODO ---------------------------------------------
-        // Temporarily use: 5f32b794fb8a0e3838f226c7
-        //this.distributorId = '5f32b794fb8a0e3838f226c7';
-        //----------------------------------------------------
-        // 1. Get userId
-        this.isLoggedIn = !!this.tokenStorageService.getToken();
-        if (this.isLoggedIn) {
-          console.log('LOGGED IN:');
-          this.user = this.tokenStorageService.getUser();
-          
-        } else {
-          // Not login yet
+
+    // 1. Get userId
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+    if (this.isLoggedIn) {      
+      this.user = this.tokenStorageService.getUser();
+      console.log('LOGGED IN:' +  this.user.roles);
+      this.isModifiedEnable = this.user.roles.includes('ROLE_DISTRIBUTOR') || this.user.roles.includes('ROLE_ADMIN');
+      this.isAdmin = this.user.roles.includes('ROLE_ADMIN');
+      this.isSalonOwner = this.user.roles.includes('ROLE_SALON_OWNER');
+    } else {
+      // Not login yet
+      return;
+    }
+    console.log(this.isSalonOwner);
+
+    if ((this.isAdmin) || (this.isSalonOwner)) {
+      this.route.params.subscribe((params: Params) => {
+        console.log(params);
+        if (params.distributorId) {
+          // For admin controller
+          this.distributorId = params.distributorId;        
+          this.refreshProductsList();
           return;
         }
-        console.log('USER ID:');
-        console.log(this.user.id);
-        // 2. Get distributorId
-        this.salonUtilService.getDistributorIdFromUserId(this.user.id).subscribe(
-          (retDistributorId: string) => {
-            this.distributorId = retDistributorId;
-            console.log(this.distributorId);
-            if (this.distributorId) {
-              this.refreshProductsList();
-            } else {
-              console.log("Can't find distributor Id");
-            }            
-          }
-        );
+      });
+    }
+
+    console.log('distributorId:');
+    console.log(this.distributorId);
+    // 2. Get distributorId
+    this.salonUtilService.getDistributorIdFromUserId(this.user.id).subscribe(
+      (retDistributorId: string) => {
+        this.distributorId = retDistributorId;
+        console.log(this.distributorId);
+        if (this.distributorId) {
+          this.refreshProductsList();
+        } else {
+          console.log("Can't find distributor Id");
+        }            
       }
-    });
+    );
+    
        
     this.prefixPath = environment.baseUrl + this.router.url;    
 

@@ -26,7 +26,9 @@ export class SalonsListViewComponent implements OnInit {
   showDistributorBoard = false;
   username: string;
   user: any;
-
+  isAdmin = false;
+  isSalonOwner = false;
+  
   constructor(
     private salonUtilService: SalonUtilsService,
     private route: ActivatedRoute,
@@ -37,44 +39,48 @@ export class SalonsListViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.prefixPath = this.router.url;
-    this.route.params.subscribe((params: Params) => {
-      console.log(params);
-      if (params.ownerId) {
-        // For admin controller
-        this.ownerId = params.ownerId;
-        this.isListAllSalons = true;
-        this.refreshAllSalonList();
-        return;
-      } else {
 
-        // 1. Get userId
-        this.isLoggedIn = !!this.tokenStorageService.getToken();
-        if (this.isLoggedIn) {
-          console.log('LOGGED IN:');
-          this.user = this.tokenStorageService.getUser();
-          
-        } else {
-          // Not login yet
+    // 1. Get userId
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+    if (this.isLoggedIn) {      
+      this.user = this.tokenStorageService.getUser();
+      console.log('LOGGED IN:' +  this.user.roles);
+      //this.isModifiedEnable = this.user.roles.includes('ROLE_DISTRIBUTOR') || this.user.roles.includes('ROLE_ADMIN');
+      this.isAdmin = this.user.roles.includes('ROLE_ADMIN');
+      this.isSalonOwner = this.user.roles.includes('ROLE_SALON_OWNER');
+    } else {
+      // Not login yet
+      return;
+    }
+
+    if (this.isAdmin) {
+      this.route.params.subscribe((params: Params) => {
+        console.log(params);
+        if (params.distributorId) {
+          // For admin controller
+          this.ownerId = params.ownerId;
+          this.isListAllSalons = true;
+          this.refreshAllSalonList();
           return;
         }
-        console.log('USER ID:');
-        console.log(this.user.id);
-        // 2. Get distributorId
-        this.salonUtilService.getSalonOwnerIdFromUserId(this.user.id).subscribe(
-          (retOwnerId: string) => {
-            this.ownerId = retOwnerId;
-            console.log(this.ownerId);
-            if (this.ownerId) {
-              this.refreshSalonList();
-              this.isListAllSalons = false;
-            } else {
-              console.log("Can't find distributor Id");
-            }            
-          }
-        );
-      }
-    });
+      });
+    }
 
+    console.log('USER ID:');
+    console.log(this.user.id);
+    // 2. Get distributorId
+    this.salonUtilService.getSalonOwnerIdFromUserId(this.user.id).subscribe(
+      (retOwnerId: string) => {
+        this.ownerId = retOwnerId;
+        console.log(this.ownerId);
+        if (this.ownerId) {
+          this.refreshSalonList();
+          this.isListAllSalons = false;
+        } else {
+          console.log("Can't find salon Owner Id");
+        }            
+      }
+    );
   }
 
   createNewSalon() {

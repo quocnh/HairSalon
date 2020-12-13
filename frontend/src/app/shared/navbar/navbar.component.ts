@@ -70,7 +70,7 @@ export class NavbarComponent implements OnInit {
       this.roles = user.roles;
 
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      this.showSalonOwnerBoard = this.roles.includes('ROLE_SALONOWNER') || this.roles.includes('ROLE_ADMIN');
+      this.showSalonOwnerBoard = this.roles.includes('ROLE_SALON_OWNER') || this.roles.includes('ROLE_ADMIN');
       this.showDistributorBoard = this.roles.includes('ROLE_DISTRIBUTOR') || this.roles.includes('ROLE_ADMIN');
             
       this.username = user.username;
