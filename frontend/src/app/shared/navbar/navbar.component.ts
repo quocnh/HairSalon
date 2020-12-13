@@ -62,7 +62,7 @@ export class NavbarComponent implements OnInit {
   // tslint:disable-next-line: member-ordering
   ngOnInit() {
     this.baseUrl = environment.baseUrl;
-    console.log(this.baseUrl);
+    
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 
     if (this.isLoggedIn) {

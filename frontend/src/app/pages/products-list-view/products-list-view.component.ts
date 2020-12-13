@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import Distributor from 'app/module/distributor';
 import Product from 'app/module/product';
+import User from 'app/module/user';
 import { AddNewProductComponent } from 'app/popup/add-new-product/add-new-product.component';
 import { SalonUtilsService } from 'app/salon-utils.service';
+import { TokenStorageService } from 'app/_services/token-storage.service';
 import { environment } from 'environments/environment';
 
 @Component({
@@ -19,11 +22,20 @@ export class ProductsListViewComponent implements OnInit {
   productPhoto: File;
   dbAddress: string;
 
+  private roles: string[];
+  isLoggedIn = false;
+  showAdminBoard = false;
+  showSalonOwnerBoard = false;
+  showDistributorBoard = false;
+  username: string;
+  user: any;
+
   constructor(
     private salonUtilService: SalonUtilsService,
     private route: ActivatedRoute,
     private router: Router,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private tokenStorageService: TokenStorageService
   ) { }
 
   ngOnInit(): void {
@@ -31,16 +43,41 @@ export class ProductsListViewComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       console.log(params);
       if (params.distributorId) {
+        // For admin controller
         this.distributorId = params.distributorId;
+        this.refreshProductsList();
+        return;
       } else {
-        //Get ownerId from login page
+        //Get distributorId from userId
         // TODO ---------------------------------------------
         // Temporarily use: 5f32b794fb8a0e3838f226c7
-        this.distributorId = '5f32b794fb8a0e3838f226c7';
+        //this.distributorId = '5f32b794fb8a0e3838f226c7';
         //----------------------------------------------------
+        // 1. Get userId
+        this.isLoggedIn = !!this.tokenStorageService.getToken();
+        if (this.isLoggedIn) {
+          console.log('LOGGED IN:');
+          this.user = this.tokenStorageService.getUser();
+          
+        } else {
+          // Not login yet
+          return;
+        }
+        console.log('USER ID:');
+        console.log(this.user.id);
+        // 2. Get distributorId
+        this.salonUtilService.getDistributorIdFromUserId(this.user.id).subscribe(
+          (retDistributorId: string) => {
+            this.distributorId = retDistributorId;
+            console.log(this.distributorId);
+            if (this.distributorId) {
+              this.refreshProductsList();
+            } else {
+              console.log("Can't find distributor Id");
+            }            
+          }
+        );
       }
-      
-      this.refreshProductsList();
     });
        
     this.prefixPath = environment.baseUrl + this.router.url;    

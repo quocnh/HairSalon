@@ -49,6 +49,11 @@ export class SalonUtilsService {
     return this.webService.get(`salonOwners/${ownerId}/salons/${salonId}`);
   }
 
+  // get salonOwners Id from userId
+  getSalonOwnerIdFromUserId(userId: string) {
+    return this.webService.get(`salonOwners/userId/${userId}`);
+  }
+
   getOneSalon(salonId: string) {
     return this.webService.get(`salons/${salonId}`);
   }
@@ -97,7 +102,7 @@ export class SalonUtilsService {
     }
 
     return this.webService.patch( `salons/${salonId}`, fd);
-  }
+  }  
 
   // -- add new service for Salon
   addSalonService(salonId: String, service: Service) {
@@ -217,6 +222,11 @@ export class SalonUtilsService {
 
   deleteDistributors(distributorId: string) {
     return this.webService.delete(`distributors/${distributorId}`);
+  }
+
+  // get distributor Id from userId
+  getDistributorIdFromUserId(userId: string) {
+    return this.webService.get(`distributors/userId/${userId}`);
   }
 
   // get Product list from distributor id

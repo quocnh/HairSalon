@@ -6,6 +6,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddNewSalonComponent } from '../../popup/add-new-salon/add-new-salon.component';
 import { DeleteSalonComponent } from '../../popup/delete-salon/delete-salon.component';
+import { TokenStorageService } from 'app/_services/token-storage.service';
 
 @Component({
   selector: 'app-salons-list-view',
@@ -19,42 +20,60 @@ export class SalonsListViewComponent implements OnInit {
   public deletedSalon: Salon;
   addedSalon: Salon = new Salon();
   prefixPath: string;
+  isLoggedIn = false;
+  showAdminBoard = false;
+  showSalonOwnerBoard = false;
+  showDistributorBoard = false;
+  username: string;
+  user: any;
 
   constructor(
     private salonUtilService: SalonUtilsService,
     private route: ActivatedRoute,
     private router: Router,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private tokenStorageService: TokenStorageService
     ) { }
 
   ngOnInit(): void {
-    //Get ownerId from login page
-    // TODO ---------------------------------------------
-    // Temporarily use larry: 5f2df3fb4d702c4030b3f856
-    this.ownerId = '5f2df3fb4d702c4030b3f856';
-    //----------------------------------------------------
-
-    if (!this.ownerId) {
-      this.isListAllSalons = true;
-      this.refreshAllSalonList();
-    } else {
-      this.refreshSalonList();
-      this.isListAllSalons = false;
-    }
     this.prefixPath = this.router.url;
-    
-    /*
-    this.route.params.subscribe((param: Params) => {
-      this.ownerId = param.ownerId;
-      if (!this.ownerId) {
+    this.route.params.subscribe((params: Params) => {
+      console.log(params);
+      if (params.ownerId) {
+        // For admin controller
+        this.ownerId = params.ownerId;
         this.isListAllSalons = true;
         this.refreshAllSalonList();
+        return;
       } else {
-        this.refreshSalonList();
-        this.isListAllSalons = false;
+
+        // 1. Get userId
+        this.isLoggedIn = !!this.tokenStorageService.getToken();
+        if (this.isLoggedIn) {
+          console.log('LOGGED IN:');
+          this.user = this.tokenStorageService.getUser();
+          
+        } else {
+          // Not login yet
+          return;
+        }
+        console.log('USER ID:');
+        console.log(this.user.id);
+        // 2. Get distributorId
+        this.salonUtilService.getSalonOwnerIdFromUserId(this.user.id).subscribe(
+          (retOwnerId: string) => {
+            this.ownerId = retOwnerId;
+            console.log(this.ownerId);
+            if (this.ownerId) {
+              this.refreshSalonList();
+              this.isListAllSalons = false;
+            } else {
+              console.log("Can't find distributor Id");
+            }            
+          }
+        );
       }
     });
-    */
 
   }
 

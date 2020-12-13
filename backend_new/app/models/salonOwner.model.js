@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 const SalonOwnerSchema = new mongoose.Schema({
     _userId: {
         type: mongoose.Types.ObjectId,
-        require: [true, 'User id']
+        require: [true, 'User id'],
+        unique: true
     },
     name: { 
         type: String,

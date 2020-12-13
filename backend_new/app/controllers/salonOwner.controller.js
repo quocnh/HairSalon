@@ -62,4 +62,29 @@ salonOwnerRouter.delete('/:salonOwnerId/salons/:salonId', (req, res) => {
         .catch((error) => console.log(error));
 });
 
+salonOwnerRouter.get('/userId/:userId', (req, res) => {
+    
+    SalonOwner.find({})
+    .then(salonOwners => {
+        for(i = 0; i < salonOwners.length; i++){
+            if (salonOwners[i]._userId == req.params.userId) {
+                console.log(salonOwners[i]);
+                res.send(salonOwners[i]._id);
+            }            
+        }
+    })
+    .catch((error) => console.log(error));
+
+    //TODO: find the reason why the below code is not working
+   /* 
+    console.log(req.params.userId);
+    SalonOwner.find({ _userId: req.params.userId})
+        .then(salonOwner => {
+            console.log("LARRY: " + salonOwner);
+            res.send(salonOwner._id);            
+        })
+        .catch((error) => console.log(error));
+    */
+});
+
 module.exports = salonOwnerRouter;
