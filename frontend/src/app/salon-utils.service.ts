@@ -340,5 +340,8 @@ export class SalonUtilsService {
     console.log('totalPrice : ' + pOrder.totalPrice);
     return this.webService.post( `productOrder`, fd);
   }
+  getProductOrderFromDistributorId(distributorId:string) {
+    return this.webService.get(`productOrder/distributor/${distributorId}`);
+  }
   // -- Product Order <<<<<
 }
