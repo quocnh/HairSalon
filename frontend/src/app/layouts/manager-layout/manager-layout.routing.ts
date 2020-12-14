@@ -4,7 +4,7 @@ import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { UserComponent } from '../../pages/user/user.component';
 import { SalonViewComponent } from '../../pages/salon-view/salon-view.component';
 import { CustomersListComponent } from '../../pages/customers-list/customers-list.component';
-import { DistributorViewComponent } from '../../pages/distributor-view/distributor-view.component';
+import { DistributorListViewComponent } from '../../pages/distributor-list-view/distributor-list-view.component';
 import { BarberViewComponent } from '../../pages/barber-view/barber-view.component';
 import { BarberProfileViewComponent } from '../../pages/barber-profile-view/barber-profile-view.component';
 import { SalonsListViewComponent } from '../../pages/salons-list-view/salons-list-view.component';
@@ -13,13 +13,14 @@ import { BookingsSalonListComponent } from 'app/pages/bookings-salon-list/bookin
 import { BookingsListViewComponent } from 'app/pages/bookings-list-view/bookings-list-view.component';
 import { ProductsListViewComponent } from 'app/pages/products-list-view/products-list-view.component';
 import { ProductDetailViewComponent } from 'app/pages/product-detail-view/product-detail-view.component';
+import { SalonOwnerProfileComponent } from 'app/pages/salon-owner-profile/salon-owner-profile.component';
 
 export const ManagerLayoutRoutes: Routes = [
 
     { path: '',      component: SalonsListViewComponent },
-    { path: 'profile',           component: UserComponent },    
+    { path: 'profile',           component: SalonOwnerProfileComponent },    
     { path: 'salons',               component: SalonsListViewComponent },
-    { path: 'distributors',         component: DistributorViewComponent },
+    { path: 'distributors',         component: DistributorListViewComponent },
     { path: 'distributors/:distributorId/products/:productId',         component: ProductDetailViewComponent },
     { path: 'distributors/:distributorId/products',         component: ProductsListViewComponent },    
     { path: 'barbers',               component: BarberViewComponent },

@@ -26,7 +26,7 @@
                 <tbody>
                     
                     <tr *ngFor="let order of pOrders; let i = index">                        
-                        <td><a href="{{prefixPath}}/salonOwner/{{order._salonOwnerId}}">{{ salonOwnerName[i] }}</a></td>
+                        <td><a href="{{prefixPath}}/salonOwners/{{order._salonOwnerId}}">{{ salonOwnerName[i] }}</a></td>
                         <td><a href="{{prefixPath}}/products/{{order._productId}}">{{ productName[i] }} </a></td>
                         <td> {{ order.quantity }} </td>
                         <td> {{ order.discount }} </td>

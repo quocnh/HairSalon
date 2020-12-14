@@ -7,11 +7,11 @@ import { DeleteDistributorComponent } from '../../popup/delete-distributor/delet
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-distributor-view',
+  selector: 'app-distributor-list-view',
   moduleId: module.id,
-  templateUrl: './distributor-view.component.html'
+  templateUrl: './distributor-list-view.component.html'
 })
-export class DistributorViewComponent implements OnInit {
+export class DistributorListViewComponent implements OnInit {
   distributors: Distributor[];
   name: string;
   public deletedDistributor: Distributor;

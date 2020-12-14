@@ -10,7 +10,7 @@ import { NotificationsComponent } from '../../pages/notifications/notifications.
 import { SalonOwnersListComponent } from '../../pages/salon-owners-list/salon-owners-list.component';
 import { SalonViewComponent } from '../../pages/salon-view/salon-view.component';
 import { CustomersListComponent } from '../../pages/customers-list/customers-list.component';
-import { DistributorViewComponent } from '../../pages/distributor-view/distributor-view.component';
+import { DistributorListViewComponent } from '../../pages/distributor-list-view/distributor-list-view.component';
 import { BarberViewComponent } from '../../pages/barber-view/barber-view.component';
 import { BarberProfileViewComponent } from '../../pages/barber-profile-view/barber-profile-view.component';
 import { SalonsListViewComponent } from '../../pages/salons-list-view/salons-list-view.component';
@@ -30,7 +30,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'owner/:ownerId',       component: SalonsListViewComponent },
     { path: 'customersList',        component: CustomersListComponent },
     { path: 'salons',               component: SalonsListViewComponent },
-    { path: 'distributors',         component: DistributorViewComponent },
+    { path: 'distributors',         component: DistributorListViewComponent },
     { path: 'barbers',               component: BarberViewComponent },
     { path: 'distributors/:userId',         component: UserComponent },
     { path: 'profile/customer/:userId',           component: UserComponent },

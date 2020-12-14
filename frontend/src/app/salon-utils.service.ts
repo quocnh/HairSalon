@@ -9,6 +9,7 @@ import Booking from './module/booking';
 import { ProductOrdersListViewComponent } from './pages/product-orders-list-view/product-orders-list-view.component';
 import Product from './module/product';
 import productOrder from './module/productOrder';
+import SalonOwner from './module/salonOwner';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,21 @@ export class SalonUtilsService {
 
   deleteSalonOwner(ownerId: string) {
     return this.webService.delete(`salonOwners/${ownerId}`);
+  }
+
+  updateSalonOwner(salonOwnerId: string, saloNOwner: SalonOwner, file: File) {
+    const fd = new FormData();
+    let key;
+    if (file) {
+      fd.append('avatar', file, file.name);
+      console.log('update Customer : ' + salonOwnerId + file.name);
+    }
+
+    // tslint:disable-next-line: forin
+    for (key in SalonOwner) {
+      fd.append(key, SalonOwner[key]);
+    }
+    return this.webService.patch( `salonOwners/${salonOwnerId}`, fd);
   }
 
   // Salon

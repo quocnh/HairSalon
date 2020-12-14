@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DistributorViewComponent } from './distributor-view.component';
+import { SalonOwnerProfileComponent } from './salon-owner-profile.component';
 
-describe('DistributorViewComponent', () => {
-  let component: DistributorViewComponent;
-  let fixture: ComponentFixture<DistributorViewComponent>;
+describe('SalonOwnerProfileComponent', () => {
+  let component: SalonOwnerProfileComponent;
+  let fixture: ComponentFixture<SalonOwnerProfileComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DistributorViewComponent ]
+      declarations: [ SalonOwnerProfileComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DistributorViewComponent);
+    fixture = TestBed.createComponent(SalonOwnerProfileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

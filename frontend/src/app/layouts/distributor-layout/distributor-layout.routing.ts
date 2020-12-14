@@ -6,6 +6,7 @@ import { ProductDetailViewComponent } from 'app/pages/product-detail-view/produc
 import { ProductDetailEditComponent } from 'app/pages/product-detail-edit/product-detail-edit.component';
 import SalonOwner from 'app/module/salonOwner';
 import { ProfileComponent } from 'app/pages/profile/profile.component';
+import { SalonOwnerProfileComponent } from 'app/pages/salon-owner-profile/salon-owner-profile.component';
 
 export const DistributorLayoutRoutes: Routes = [
     
@@ -14,5 +15,5 @@ export const DistributorLayoutRoutes: Routes = [
     { path: 'products/:productId',               component: ProductDetailEditComponent },
     { path: 'orders',         component: ProductOrdersListViewComponent },
     { path: 'orders/products/:productId',         component: ProductDetailEditComponent },
-    { path: 'orders/salonOwners/:salonOwnerId',         component: ProfileComponent },
+    { path: 'orders/salonOwners/:salonOwnerId',         component: SalonOwnerProfileComponent },
 ];
