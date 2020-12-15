@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { NgbCalendar, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import Salon from 'app/module/salon';
 import SalonOwner from 'app/module/salonOwner';
 import User from 'app/module/user';
 import { SalonUtilsService } from 'app/salon-utils.service';
@@ -90,11 +91,11 @@ export class SalonOwnerProfileComponent implements OnInit {
 
   updateProfile() {
     if ((JSON.stringify(this.salonOwnerDb) !== JSON.stringify(this.salonOwner)) || (this.selectedFile !== null)) {
-        // console.log('Khac' + JSON.stringify(this.customerDb) + '---' + JSON.stringify(this.customer));
+        //console.log(this.salonOwner);
         // update user profile
-        this.salonUtilService.updateSalonOwner(this.userId, this.salonOwner, this.selectedFile).subscribe(
+        this.salonUtilService.updateSalonOwner(this.salonOwner, this.selectedFile).subscribe(
             // refresh page
-            () => this.refreshProfile(this.salonOwnerId)
+            (owner:SalonOwner) => this.refreshProfile(owner._id)
         );
 
     } else {

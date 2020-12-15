@@ -36,19 +36,21 @@ export class SalonUtilsService {
     return this.webService.delete(`salonOwners/${ownerId}`);
   }
 
-  updateSalonOwner(salonOwnerId: string, saloNOwner: SalonOwner, file: File) {
+  updateSalonOwner(salonOwner: SalonOwner, file: File) {
     const fd = new FormData();
     let key;
     if (file) {
       fd.append('avatar', file, file.name);
-      console.log('update Customer : ' + salonOwnerId + file.name);
+      console.log('update salonOwners : ' + salonOwner._id + file.name);
     }
 
     // tslint:disable-next-line: forin
-    for (key in SalonOwner) {
-      fd.append(key, SalonOwner[key]);
+    for (key in salonOwner) {
+      fd.append(key, salonOwner[key]);
     }
-    return this.webService.patch( `salonOwners/${salonOwnerId}`, fd);
+    console.log('update salonOwners : ' + salonOwner._id);
+    console.log('update phone : ' + salonOwner.phone);
+    return this.webService.patch( `salonOwners/${salonOwner._id}`, fd);
   }
 
   // Salon
