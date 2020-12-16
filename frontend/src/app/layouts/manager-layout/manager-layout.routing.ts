@@ -14,6 +14,7 @@ import { BookingsListViewComponent } from 'app/pages/bookings-list-view/bookings
 import { ProductsListViewComponent } from 'app/pages/products-list-view/products-list-view.component';
 import { ProductDetailViewComponent } from 'app/pages/product-detail-view/product-detail-view.component';
 import { SalonOwnerProfileComponent } from 'app/pages/salon-owner-profile/salon-owner-profile.component';
+import { DistributorProfileComponent } from 'app/pages/distributor-profile/distributor-profile.component';
 
 export const ManagerLayoutRoutes: Routes = [
 
@@ -22,12 +23,13 @@ export const ManagerLayoutRoutes: Routes = [
     { path: 'salons',               component: SalonsListViewComponent },
     { path: 'distributors',         component: DistributorListViewComponent },
     { path: 'distributors/:distributorId/products/:productId',         component: ProductDetailViewComponent },
-    { path: 'distributors/:distributorId/products',         component: ProductsListViewComponent },    
+    { path: 'distributors/:distributorId/products',         component: ProductsListViewComponent },
+    { path: 'distributors/:distributorId/profile',           component: DistributorProfileComponent },
     { path: 'barbers',               component: BarberViewComponent },
     { path: 'bookings',               component: BookingsSalonListComponent },
     { path: 'profile/customer/:userId',           component: UserComponent },
     { path: 'barbers/:userId',           component: BarberProfileViewComponent },
     { path: 'salons/:salonId',               component: SalonEditComponent },
     { path: 'bookings/:salonId',               component: BookingsListViewComponent },
-    { path: 'distributors/:distributorId/profile',           component: UserComponent },
+    
 ];

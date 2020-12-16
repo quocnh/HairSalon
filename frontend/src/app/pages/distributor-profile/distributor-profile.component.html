@@ -1,0 +1,133 @@
+<div class="row">
+    <div class="col-md-4">
+      <div class="card card-user">
+        
+        <div class="image">
+          <img src="assets/img/damir-bosnjak.jpg" alt="..." >
+        </div>
+        <div class="card-body">
+          <div class="author">
+            <a>
+              <img class="avatar border-gray" src={{strAvatar}} >
+              <button class="btn btn-sm btn-info btn-round btn-icon fa fa-pencil" (click)="fileInput.click()" *ngIf="isModifiedEnable">
+                <input #fileInput type="file" (change)="onFileSelected($event)" style="display:none;" />
+              </button>
+  
+              <h5 class="title">{{ distributorDb.name }}</h5>
+            </a>
+            <p class="description" *ngIf="isDistributor">
+              @{{ user.username }}
+            </p>
+          </div>
+        </div>        
+      </div>
+  
+    </div>
+    <div class="col-md-8">
+      <div class="card card-user" *ngIf="isModifiedEnable; else ViewOnly">
+        <div class="card-header">
+          <h5 class="card-title">Thông tin</h5>
+        </div>
+        <div class="card-body">
+          <form>
+            <div class="row">
+                <div class="col-md-6 pr-1">
+                  <div class="form-group">
+                    <label>Họ</label>
+                    <input type="text" class="form-control" placeholder="Last Name" value="{{ distributor.lastname }}" [(ngModel)]="distributor.lastname" [ngModelOptions]="{standalone: true}">
+                  </div>
+                </div>
+                <div class="col-md-6 px-1">
+                  <div class="form-group">
+                    <label>Tên</label>
+                    <input type="text" class="form-control" placeholder="First Name" value= "{{ distributor.firstname }}" [(ngModel)]="distributor.firstname" [ngModelOptions]="{standalone: true}">
+                  </div>
+                </div>
+                
+              </div>
+            <div class="row">
+                <div class="col-md-4 pr-1">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Số điện thoại</label>
+                      <input type="email" class="form-control" placeholder="Phone number" value="{{distributor.phone}}" [(ngModel)]="distributor.phone" name="phone">
+                    </div>
+                </div>
+              
+                <div class="col-md-8 px-1">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email</label>
+                        <input type="email" class="form-control" placeholder="Email" value="{{ distributor.email }}" [(ngModel)]="distributor.email" [ngModelOptions]="{standalone: true}">
+                    </div>
+                </div>
+            </div>       
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Địa chỉ</label>
+                  <input type="text" class="form-control" placeholder="Home Address" value="{{ distributor.address }}" [(ngModel)]="distributor.address" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 pr-1">
+                <div class="form-group">
+                  <label>Quận</label>
+                  <input type="text" class="form-control" placeholder="District" value="{{ distributor.district }}" [(ngModel)]="distributor.district" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+              <div class="col-md-6 pl-1">
+                <div class="form-group">
+                  <label>Thành phố</label>
+                  <input type="text" class="form-control" placeholder="City" value="{{ distributor.city }}" [(ngModel)]="distributor.city" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+              
+            </div>
+            
+            <div class="row">
+              <div class="update ml-auto mr-auto">
+                <button type="submit" class="btn btn-primary btn-round" (click)="updateProfile()">Cập nhật</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #ViewOnly>
+        <div class="card card-user">
+            <div class="card-header">
+              <h5 class="card-title">Thông tin nhà phân phối</h5>
+            </div>
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5 class="card-description text-left"><b>Họ Tên: {{ distributor.lastname }} {{ distributor.firstname }}</b></h5> 
+                    </div>                    
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5 class="card-description text-left"><b>Số điện thoại: {{ distributor.phone }}</b></h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5 class="card-description text-left"><b>Email: {{ distributor.email }}</b></h5>
+                    </div>
+                </div>    
+                <div class="row">
+                  <div class="col-md-12"> 
+                    <h5 class="card-description text-left"><b>Địa chỉ: {{ distributor.address }}</b></h5>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">  
+                    <h5 class="card-description text-left"><b>Quận {{ distributor.district }}, Thành phố {{ distributor.city }}</b></h5>
+                  </div>                  
+                </div>              
+            </div>
+        </div>
+    </ng-template>
+  </div>

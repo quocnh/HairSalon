@@ -1,7 +1,9 @@
 export default class Distributor {
     _id: string;
     _userId:string;
-    name: string;
+    name:string;
+    firstname: string;
+    lastname: string;
     phone: number;
     email: string;
     district: string;

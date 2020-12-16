@@ -10,6 +10,7 @@ import { ProductOrdersListViewComponent } from './pages/product-orders-list-view
 import Product from './module/product';
 import productOrder from './module/productOrder';
 import SalonOwner from './module/salonOwner';
+import Distributor from './module/distributor';
 
 @Injectable({
   providedIn: 'root'
@@ -241,6 +242,23 @@ export class SalonUtilsService {
 
   deleteDistributors(distributorId: string) {
     return this.webService.delete(`distributors/${distributorId}`);
+  }
+
+  updateDistrbibutor(distributor: Distributor, file: File) {
+    const fd = new FormData();
+    let key;
+    if (file) {
+      fd.append('avatar', file, file.name);
+      console.log('update distributor : ' + distributor._id + file.name);
+    }
+
+    // tslint:disable-next-line: forin
+    for (key in distributor) {
+      fd.append(key, distributor[key]);
+    }
+    console.log('update distributor : ' + distributor._id);
+    console.log('update phone : ' + distributor.phone);
+    return this.webService.patch( `distributors/${distributor._id}`, fd);
   }
 
   // get distributor Id from userId

@@ -7,10 +7,11 @@ import { ProductDetailEditComponent } from 'app/pages/product-detail-edit/produc
 import SalonOwner from 'app/module/salonOwner';
 import { ProfileComponent } from 'app/pages/profile/profile.component';
 import { SalonOwnerProfileComponent } from 'app/pages/salon-owner-profile/salon-owner-profile.component';
+import { DistributorProfileComponent } from 'app/pages/distributor-profile/distributor-profile.component';
 
 export const DistributorLayoutRoutes: Routes = [
     
-    { path: 'profile',           component: UserComponent },    
+    { path: 'profile',           component: DistributorProfileComponent },    
     { path: 'products',               component: ProductsListViewComponent },
     { path: 'products/:productId',               component: ProductDetailEditComponent },
     { path: 'orders',         component: ProductOrdersListViewComponent },

@@ -49,6 +49,7 @@ import { ProductDetailEditComponent } from './pages/product-detail-edit/product-
 
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { SalonOwnerProfileComponent } from './pages/salon-owner-profile/salon-owner-profile.component';
+import { DistributorProfileComponent } from './pages/distributor-profile/distributor-profile.component';
 
 
 @NgModule({
@@ -79,6 +80,7 @@ import { SalonOwnerProfileComponent } from './pages/salon-owner-profile/salon-ow
     DeleteAnyComponent,
     ProductDetailEditComponent,
     SalonOwnerProfileComponent,
+    DistributorProfileComponent,
   ],
   imports: [
     BrowserAnimationsModule,
