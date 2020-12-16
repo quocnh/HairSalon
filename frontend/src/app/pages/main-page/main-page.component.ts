@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
 import Salon from '../../module/salon';
 import { SalonUtilsService } from '../../salon-utils.service';
@@ -23,6 +24,7 @@ export class MainPageComponent implements OnInit {
   public deletedSalon: Salon;
   mymap: any;
   dbAddress: string;
+  prefixPath:string;
   //markers:any[];
 
   // tslint:disable-next-line: no-inferrable-types
@@ -31,10 +33,12 @@ export class MainPageComponent implements OnInit {
 
   constructor(
     private salonUtilService: SalonUtilsService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
+    this.prefixPath = environment.baseUrl + this.router.url;
     this.refreshAllSalonList();
     if (!navigator.geolocation) {
       console.log('location is not supported');

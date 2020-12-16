@@ -4,6 +4,6 @@ import { SalonViewComponent } from '../../pages/salon-view/salon-view.component'
 
 export const MainLayoutRoutes: Routes = [
     { path: '',                             component: MainPageComponent },
-    { path: 'main',                         component: MainPageComponent },
+    { path: 'home',                         component: MainPageComponent },
     { path: 'salons/:salonId',              component: SalonViewComponent},
 ];

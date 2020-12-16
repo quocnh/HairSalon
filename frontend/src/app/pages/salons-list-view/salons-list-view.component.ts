@@ -7,6 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddNewSalonComponent } from '../../popup/add-new-salon/add-new-salon.component';
 import { DeleteSalonComponent } from '../../popup/delete-salon/delete-salon.component';
 import { TokenStorageService } from 'app/_services/token-storage.service';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-salons-list-view',
@@ -38,7 +39,7 @@ export class SalonsListViewComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.prefixPath = this.router.url;
+    this.prefixPath = environment.baseUrl + this.router.url;
 
     // 1. Get userId
     this.isLoggedIn = !!this.tokenStorageService.getToken();
