@@ -35,21 +35,13 @@ export class MainPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.refreshAllSalonList();
-    // if (!navigator.geolocation) {
-    //   console.log('location is not supported');
-    // }
+    this.refreshAllSalonList();
+    if (!navigator.geolocation) {
+      console.log('location is not supported');
+    }
     this.dbAddress = environment.dbAddress;
-    // this.mapControl();
-    this.userService.getPublicContent().subscribe(
-      data => {
-        this.content = data;
-      },
-      err => {
-        this.content = JSON.parse(err.error).message;
-      }
-    );
-  
+
+    this.mapControl(); 
   }
 
   refreshAllSalonList() {
