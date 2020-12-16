@@ -26,7 +26,7 @@
                     
                     <tr *ngFor="let customer of customers">
                         
-                        <td><a href="#/admin/profile/customer/{{customer._id}}">{{ customer.username }}</a></td>
+                        <td><a href="{{prefixPath}}/{{customer._id}}/profile">{{ customer.username }}</a></td>
                         <td>{{ customer.firstname }} {{ customer.lastname }}</td>
                         <td>{{ customer.dob | date}}</td>
                         <td>{{ customer.phone}}</td>

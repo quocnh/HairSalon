@@ -56,9 +56,13 @@ export class SalonsListViewComponent implements OnInit {
     if (this.isAdmin) {
       this.route.params.subscribe((params: Params) => {
         console.log(params);
-        if (params.distributorId) {
+        if (params.salonOwnerId) {
           // For admin controller
-          this.ownerId = params.ownerId;
+          this.ownerId = params.salonOwnerId;
+          this.refreshSalonList();
+          this.isListAllSalons = false;
+          return;
+        } else {
           this.isListAllSalons = true;
           this.refreshAllSalonList();
           return;

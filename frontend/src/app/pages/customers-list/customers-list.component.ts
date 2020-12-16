@@ -4,6 +4,8 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Customer from '../../module/customer';
 import { AddNewCustomerComponent } from '../../popup/add-new-customer/add-new-customer.component';
 import { DeleteCustomerComponent } from '../../popup/delete-customer/delete-customer.component';
+import { environment } from 'environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-customers-list',
@@ -20,13 +22,16 @@ export class CustomersListComponent implements OnInit {
   public objectName: string;
   deletedCustomer: Customer;
   addedCustomer: Customer = new Customer();
+  prefixPath: string;
 
   constructor(
     private salonUtilService: SalonUtilsService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private router: Router
   ) { }
 
   ngOnInit() {
+    this.prefixPath = environment.baseUrl + this.router.url;
     this.refreshCustomerList();
   }
 

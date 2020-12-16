@@ -227,6 +227,10 @@ export class SalonUtilsService {
     return this.webService.delete(`barbers/${barberId}`);
   }
 
+  getBarberIdFromUserId(userId: string) {
+    return this.webService.get(`barbers/userId/${userId}`);
+  }
+
   // Distributor
   getDistributors() {
     return this.webService.get(`distributors`);

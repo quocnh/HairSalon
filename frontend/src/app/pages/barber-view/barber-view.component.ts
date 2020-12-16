@@ -7,6 +7,7 @@ import { DeleteCustomerComponent } from '../../popup/delete-customer/delete-cust
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { stringify } from 'querystring';
 import { Router } from '@angular/router';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-barber-view',
@@ -32,7 +33,7 @@ export class BarberViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.prefixPath = this.router.url;
+    this.prefixPath = environment.baseUrl + this.router.url;
     this.refreshBarberList();
   }
 

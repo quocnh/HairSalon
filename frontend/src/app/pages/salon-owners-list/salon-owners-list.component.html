@@ -10,13 +10,16 @@
               <table class="table">
                 <thead class=" text-primary">
                   <th>
-                    Name
+                    Tên
                   </th>
                   <th>
                     Id
                   </th>
                   <th>
                     Email
+                  </th>
+                  <th>
+                    Danh sách salon
                   </th>
                   <th class="text-right">
                     <button class="btn btn-sm btn-success btn-round btn-icon " (click)= "createNewSalonOwner()">
@@ -30,7 +33,7 @@
                     <tr *ngFor="let salonOwner of salonOwners">
                         
                         <td>
-                            <a href="#/admin/owner/{{salonOwner._id}}">{{ salonOwner.name }}</a>
+                            <a href="{{prefixPath}}/{{salonOwner._id}}">{{ salonOwner.name }}</a>
                         </td>
                         <td>
                             id-{{ salonOwner.name }}
@@ -38,6 +41,9 @@
                         <td>
                             {{ salonOwner.name }}@email.com
                         </td>
+                        <td>
+                          <a href="{{prefixPath}}/salons/{{salonOwner._id}}">Xem tất cả salon</a>
+                      </td>
                         <td >
                             <button class="btn btn-sm btn-danger btn-round btn-icon pull-right" (click)= "deleteSalonOwner(salonOwner._id)">
                               <a data-toggle="tooltip" data-placement="top" title="Xóa"> <i class="fa fa-trash"></i></a>

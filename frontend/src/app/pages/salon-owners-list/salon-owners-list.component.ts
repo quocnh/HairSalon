@@ -5,6 +5,8 @@ import { SalonUtilsService } from '../../salon-utils.service';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddNewSalonOwnerComponent } from '../../popup/add-new-salon-owner/add-new-salon-owner.component';
 import { DeleteSalonOwnerComponent } from '../../popup/delete-salon-owner/delete-salon-owner.component';
+import { environment } from 'environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-salon-owners-list',
@@ -19,13 +21,16 @@ export class SalonOwnersListComponent implements OnInit {
   salonOwner: SalonOwner;
   name: string;
   public deletedSalonOwner: SalonOwner;
+  prefixPath: string;
 
   constructor(
     private salonUtilService: SalonUtilsService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private router: Router
   ) { }
 
   ngOnInit() {
+    this.prefixPath = environment.baseUrl + this.router.url;
     this.refreshSalonOwnersList();
   }
 

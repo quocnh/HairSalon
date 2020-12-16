@@ -6,6 +6,7 @@ import Salon from '../../module/salon';
 import { HttpClient } from '@angular/common/http';
 import { NgbDateStruct, NgbDateParserFormatter, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'environments/environment';
+import { TokenStorageService } from 'app/_services/token-storage.service';
 
 @Component({
   selector: 'app-barber-profile-view',
@@ -13,7 +14,7 @@ import { environment } from 'environments/environment';
   styleUrls: ['./barber-profile-view.component.css']
 })
 export class BarberProfileViewComponent implements OnInit {
-  userId: string;
+  barberId: string;
   barberDb: Barber = new Barber();
   barber: Barber = new Barber();
   strAvatar: any;
@@ -27,33 +28,70 @@ export class BarberProfileViewComponent implements OnInit {
   modelDob: NgbDateStruct;
   today = this.calendar.getToday();
 
+  isLoggedIn = false;
+  user: any;
+  isAdmin = false;
+  isModifiedEnable = false;
+
   constructor(
       private salonUtilService: SalonUtilsService,
       private route: ActivatedRoute,
       private http: HttpClient,
       private calendar: NgbCalendar,
       private ngbDateParserFormatter: NgbDateParserFormatter,
+      private tokenStorageService: TokenStorageService
       ) { }
 
   ngOnInit() {
       this.strAvatar = 'assets/img/default-avatar.png';
-      this.route.params.subscribe((params: Params) => {
-          console.log(params);
-          this.userId = params.userId;
-          if (this.userId) {
-              this.refreshUserProfile(this.userId);
-          }
 
-      });
+
+      // 1. Get userId
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+    if (this.isLoggedIn) {      
+      this.user = this.tokenStorageService.getUser();
+      console.log('LOGGED IN:' +  this.user.roles);
+      this.isModifiedEnable = this.user.roles.includes('ROLE_ADMIN');
+      this.isAdmin = this.user.roles.includes('ROLE_ADMIN');
+    } else {
+      // Not login yet
+      return;
+    }
+    //console.log(this.isSalonOwner);
+    
+    this.route.params.subscribe((params: Params) => {
+      console.log(params);
+      if (params.barberId) {
+        this.barberId = params.barberId;
+        this.refreshUserProfile(this.barberId);
+        return;
+      }
+    });
+
+
+    // 2. Get barberId
+    this.salonUtilService.getBarberIdFromUserId(this.user.id).subscribe(
+      (retId: string) => {
+        this.barberId = retId;
+        console.log(this.barberId);
+        if (this.barberId) {
+            this.isModifiedEnable = true;
+            this.refreshUserProfile(this.barberId);
+        } else {
+          console.log("Can't find barber Id");
+        }            
+      }
+    );
+
   }
 
   updateUserProfile() {
       if ((JSON.stringify(this.barberDb) !== JSON.stringify(this.barber)) || (this.selectedFile !== null)) {
           // console.log('Khac' + JSON.stringify(this.customerDb) + '---' + JSON.stringify(this.customer));
           // update user profile
-          this.salonUtilService.updateBarber(this.userId, this.barber, this.selectedFile).subscribe(
+          this.salonUtilService.updateBarber(this.barberId, this.barber, this.selectedFile).subscribe(
               () => // refresh page
-              this.refreshUserProfile(this.userId)
+              this.refreshUserProfile(this.barberId)
           );
       } else {
           // console.log('Giong' + JSON.stringify(this.customerDb) + '---' + JSON.stringify(this.customer));

@@ -147,4 +147,16 @@ barberRouter.delete('/:barberId', (req, res) => {
         .catch((error) => console.log(error));
 });
 
+barberRouter.get('/userId/:userId', (req, res) => {
+    Barber.find({})
+    .then(barbers => {
+        for(i = 0; i < barbers.length; i++){
+            if (barbers[i]._userId == req.params.userId) {
+                console.log(barbers[i]);
+                res.send(barbers[i]._id);
+            }            
+        }
+    })
+    .catch((error) => console.log(error));
+});
 module.exports = barberRouter;
