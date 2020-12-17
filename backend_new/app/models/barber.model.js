@@ -14,7 +14,7 @@ const BarberSchema = new mongoose.Schema({
     username: { 
         type: String,
         minlength: 3,
-        required: [true, 'username must be provided']
+        required: [false, 'username must be provided']
     },
 
     firstname: { 

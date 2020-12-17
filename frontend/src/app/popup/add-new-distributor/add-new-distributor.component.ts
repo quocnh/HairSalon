@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbCalendar, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { SalonUtilsService } from 'app/salon-utils.service';
 import Distributor from '../../module/distributor';
 
 @Component({
@@ -9,21 +10,51 @@ import Distributor from '../../module/distributor';
 })
 export class AddNewDistributorComponent implements OnInit {
 
-  distributor: Distributor;
-  addedDistributorName: string;
+  public distributor: Distributor = new Distributor();
+
+  username: string;
+  firstname: string;
+  lastname: string;
+  phone: number;
+  email: string;
+  dob: string;
+  gender: string;
+  district: string;
+  city: string;
+  address: string;
+  avatar: string;
+
+  genders = [
+    {value: 'Nam'},
+    {value: 'Nữ'},
+    {value: 'Khác'}
+  ];
+
+  modelDob: NgbDateStruct;
+  today = this.calendar.getToday();
 
   constructor(
     public modal: NgbActiveModal,
+    private calendar: NgbCalendar,
+    private ngbDateParserFormatter: NgbDateParserFormatter,
     ) { }
 
   ngOnInit(): void {
-    console.log('Load modal');
+
   }
 
-  addNewCustomer() {
-    // this.salonOwner.name = this.ownerName;
-    console.log(this.addedDistributorName);
-    this.modal.close(this.addedDistributorName);
+  addNewDistributor() {
+
+    //this.distributor.dob = this.ngbDateParserFormatter.format(this.modelDob);
+    this.distributor.firstname = this.firstname;
+    this.distributor.lastname = this.lastname;
+    this.distributor.phone = this.phone;
+    // this.distributor.email = this.email;
+    //this.distributor.gender = this.gender;
+
+    console.log(this.distributor);
+    this.modal.close(this.distributor);    
+
   }
 
 }

@@ -27,7 +27,7 @@ const DistributorSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        lowercase: true,
+        lowercase: false,
         required: [false, "can't be blank"], 
         match: [/\S+@\S+\.\S+/, 'is invalid']
     },

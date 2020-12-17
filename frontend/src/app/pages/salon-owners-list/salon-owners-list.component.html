@@ -49,9 +49,12 @@
                               <a data-toggle="tooltip" data-placement="top" title="Xóa"> <i class="fa fa-trash"></i></a>
                             </button>
                             <p class="pull-right"> &#160; </p>
-                            <button class="btn btn-sm btn-info btn-round btn-icon pull-right" (click)= "deleteSalonOwner(salonOwner._id)">
-                              <a data-toggle="tooltip" data-placement="top" title="Sửa"><i class="fa fa-pencil"></i></a>
-                            </button>
+                            <a href="{{prefixPath}}/{{salonOwner._id}}">
+                              <button class="btn btn-sm btn-info btn-round btn-icon pull-right">
+                                <a data-toggle="tooltip" data-placement="top" title="Sửa"><i class="fa fa-pencil"></i></a>
+                              </button>
+                            </a>
+                            
                             
                         </td>
                     </tr>
