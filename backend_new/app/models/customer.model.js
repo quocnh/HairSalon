@@ -5,9 +5,10 @@ const Customer = mongoose.model(
     "Customer",
     new mongoose.Schema({
         _userId: {
-            type: mongoose.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             require: [true, 'User id'],
-            unique: true
+            unique: true,
+            ref: "User"
         },
         username: { 
             type: String,
@@ -27,7 +28,7 @@ const Customer = mongoose.model(
         
         phone: {
             type: Number,
-            required: [true, 'Phone number must be provided']
+            required: [false, 'Phone number must be provided']
         },
         email: {
             type: String,

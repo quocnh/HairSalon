@@ -11,6 +11,7 @@ const config = require("../config/auth.config");
 const db = require("../models");
 const User = db.user;
 const Role = db.role;
+const Customer = db.customer;
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
@@ -20,6 +21,12 @@ exports.signup = (req, res) => {
         username: req.body.username,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 8)
+    });
+
+    const customer = new Customer({
+        username: req.body.username,
+        email: req.body.email,
+        // password: bcrypt.hashSync(req.body.password, 8)
     });
 
     user.save((err, user) => {
@@ -38,13 +45,42 @@ exports.signup = (req, res) => {
                         res.status(500).send({ message: err });
                         return;
                     }
-
+                    
                     user.roles = roles.map(role => role._id);
+                    
                     user.save(err => {
                         if (err) {
                             res.status(500).send({ message: err });
                             return;
                         }
+                        // TODO: check other role and change customer collections
+                        if (req.body.roles.includes("salon_owner")) {
+                            // create a customer with recently created userId
+                            console.log("XXX created a salon owner: ", req.body.roles.includes("salon_owner"));
+                            customer.save((err, customer) => {
+                                if (err) {
+                                    res.status(500).send({ message: err });
+                                    return;
+                                }
+                                User.findOne({ username: { $in: req.body.username } }, (err, userObject) => {
+                                    if (err) {
+                                        res.status(500).send({ message: err });
+                                        return;
+                                    }
+                                    console.log("XXX Created UserId: ", [userObject._id]);
+                                    customer._userId = [userObject._id];
+                                    customer.save(err => {
+                                        if (err) {
+                                            res.status(500).send({ message: err });
+                                            return;
+                                        }
+
+                                        // res.send({ message: "Customer was registered successfully!" });
+                                    });
+                                });
+                            });
+                        }
+
 
                         res.send({ message: "User was registered successfully!" });
                     });
@@ -56,7 +92,7 @@ exports.signup = (req, res) => {
                     res.status(500).send({ message: err });
                     return;
                 }
-
+                console.log("XXX ROLE ID: ", [role._id]);
                 user.roles = [role._id];
                 user.save(err => {
                     if (err) {
@@ -64,9 +100,35 @@ exports.signup = (req, res) => {
                         return;
                     }
 
+                    // create a customer with recently created userId
+                    customer.save((err, customer) => {
+                        if (err) {
+                            res.status(500).send({ message: err });
+                            return;
+                        }
+                        User.findOne({ username: { $in: req.body.username } }, (err, userObject) => {
+                            if (err) {
+                                res.status(500).send({ message: err });
+                                return;
+                            }
+                            console.log("XXX Created UserId: ", [userObject._id]);
+                            customer._userId = [userObject._id];
+                            customer.save(err => {
+                                if (err) {
+                                    res.status(500).send({ message: err });
+                                    return;
+                                }
+
+                                // res.send({ message: "Customer was registered successfully!" });
+                            });
+                        });
+                    });
+
                     res.send({ message: "User was registered successfully!" });
                 });
             });
+
+
         }
     });
 };
