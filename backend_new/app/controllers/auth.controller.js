@@ -12,6 +12,8 @@ const db = require("../models");
 const User = db.user;
 const Role = db.role;
 const Customer = db.customer;
+const SalonOwner = db.salonOwner;
+const Distributor = db.distributor;
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
@@ -29,6 +31,19 @@ exports.signup = (req, res) => {
         // password: bcrypt.hashSync(req.body.password, 8)
     });
 
+    const salonOwner = new SalonOwner({
+        name: req.body.username,
+        email: req.body.email,
+        // password: bcrypt.hashSync(req.body.password, 8)
+    });
+
+    const distributor = new Distributor({
+        name: req.body.username,
+        email: req.body.email,
+        // password: bcrypt.hashSync(req.body.password, 8)
+    });
+
+
     user.save((err, user) => {
         if (err) {
             res.status(500).send({ message: err });
@@ -45,44 +60,62 @@ exports.signup = (req, res) => {
                         res.status(500).send({ message: err });
                         return;
                     }
-                    
+
                     user.roles = roles.map(role => role._id);
-                    
+
                     user.save(err => {
-                        if (err) {
-                            res.status(500).send({ message: err });
-                            return;
-                        }
-                        // TODO: check other role and change customer collections
+                
                         if (req.body.roles.includes("salon_owner")) {
                             // create a customer with recently created userId
                             console.log("XXX created a salon owner: ", req.body.roles.includes("salon_owner"));
-                            customer.save((err, customer) => {
+
+                            User.findOne({ username: { $in: req.body.username } }, (err, userObject) => {
                                 if (err) {
                                     res.status(500).send({ message: err });
                                     return;
                                 }
-                                User.findOne({ username: { $in: req.body.username } }, (err, userObject) => {
+                                console.log("XXX Created UserId: ", [userObject._id]);
+                                salonOwner._userId = [userObject._id];
+                                salonOwner.save(err => {
                                     if (err) {
                                         res.status(500).send({ message: err });
                                         return;
                                     }
-                                    console.log("XXX Created UserId: ", [userObject._id]);
-                                    customer._userId = [userObject._id];
-                                    customer.save(err => {
-                                        if (err) {
-                                            res.status(500).send({ message: err });
-                                            return;
-                                        }
 
-                                        // res.send({ message: "Customer was registered successfully!" });
-                                    });
+                                    res.send({ message: "Customer was registered successfully!" });
                                 });
                             });
+
                         }
 
+                        if (req.body.roles.includes("distributor")) {
+                            // create a customer with recently created userId
+                            console.log("XXX created a distributor: ", req.body.roles.includes("distributor"));
 
-                        res.send({ message: "User was registered successfully!" });
+                            User.findOne({ username: { $in: req.body.username } }, (err, userObject) => {
+                                if (err) {
+                                    res.status(500).send({ message: err });
+                                    return;
+                                }
+                                console.log("XXX Created UserId: ", [userObject._id]);
+                                distributor._userId = [userObject._id];
+                                distributor.save(err => {
+                                    if (err) {
+                                        res.status(500).send({ message: err });
+                                        return;
+                                    }
+
+                                    res.send({ message: "Distributor was registered successfully!" });
+                                });
+                            });
+
+                        }
+
+                        if (err) {
+                            res.status(500).send({ message: err });
+                            return;
+                        }
+                        //res.send({ message: "User was registered successfully!" });
                     });
                 }
             );

@@ -3,9 +3,10 @@ const mongoose = require('mongoose');
 
 const DistributorSchema = new mongoose.Schema({
     _userId: {
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         require: [true, 'User id'],
-        unique: true
+        unique: true,
+        ref: "User"
     },
     name: { 
         type: String,
@@ -23,7 +24,7 @@ const DistributorSchema = new mongoose.Schema({
     
     phone: {
         type: Number,
-        required: [true, 'Phone number must be provided']
+        required: [false, 'Phone number must be provided']
     },
     email: {
         type: String,
