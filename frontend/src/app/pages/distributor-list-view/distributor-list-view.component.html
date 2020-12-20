@@ -24,7 +24,7 @@
                   <th>
                     Đơn hàng
                   </th>
-                  <th class="text-right">
+                  <th class="text-right" *ngIf="isModifiedEnable">
                     <button class="btn btn-sm btn-success btn-round btn-icon " (click)= "createNewDistributor()">
                       <a data-toggle="tooltip" data-placement="top" title="Thêm mới"> <i class="nc-icon nc-simple-add"></i></a>
                     </button>
@@ -50,7 +50,8 @@
                         <td>
                           <a href="{{prefixPath}}/{{distributor._id}}/productOrders">Đơn hàng</a>
                         </td>
-                        <td >
+                    
+                        <td *ngIf="isModifiedEnable">
                           <button class="btn btn-sm btn-danger btn-round btn-icon pull-right" (click)= "deleteDistributor(distributor._id)">
                             <a data-toggle="tooltip" data-placement="top" title="Xóa"> <i class="fa fa-trash"></i></a>
                           </button>
@@ -59,7 +60,7 @@
                             <button class="btn btn-sm btn-info btn-round btn-icon pull-right">
                               <a data-toggle="tooltip" data-placement="top" title="Sửa"><i class="fa fa-pencil"></i></a>
                             </button>
-                          </a>
+                          </a>            
                           
                         </td>
                     </tr>

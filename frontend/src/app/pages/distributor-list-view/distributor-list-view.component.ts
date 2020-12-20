@@ -5,6 +5,7 @@ import Distributor from '../../module/distributor';
 import { AddNewDistributorComponent } from '../../popup/add-new-distributor/add-new-distributor.component';
 import { DeleteDistributorComponent } from '../../popup/delete-distributor/delete-distributor.component';
 import { Router } from '@angular/router';
+import { TokenStorageService } from 'app/_services/token-storage.service';
 
 @Component({
   selector: 'app-distributor-list-view',
@@ -16,15 +17,28 @@ export class DistributorListViewComponent implements OnInit {
   name: string;
   public deletedDistributor: Distributor;
   prefixPath: string;
+  isLoggedIn = false;
+  user: any;
+  isModifiedEnable = false;
 
   constructor(
     private salonUtilService: SalonUtilsService,
     private modalService: NgbModal,
-    private router: Router
+    private router: Router,
+    private tokenStorageService: TokenStorageService
   ) { }
 
   ngOnInit(): void {
     this.prefixPath = this.router.url;
+
+    // 1. Get userId
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+    if (this.isLoggedIn) {      
+      this.user = this.tokenStorageService.getUser();
+      console.log('LOGGED IN:' +  this.user.roles);
+      this.isModifiedEnable = this.user.roles.includes('ROLE_DISTRIBUTOR') || this.user.roles.includes('ROLE_ADMIN');
+    }
+
     this.refreshDistributorList();
   }
 
