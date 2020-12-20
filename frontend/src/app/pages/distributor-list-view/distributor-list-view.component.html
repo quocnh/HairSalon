@@ -21,6 +21,9 @@
                   <th>
                     Sản phẩm
                   </th>
+                  <th>
+                    Đơn hàng
+                  </th>
                   <th class="text-right">
                     <button class="btn btn-sm btn-success btn-round btn-icon " (click)= "createNewDistributor()">
                       <a data-toggle="tooltip" data-placement="top" title="Thêm mới"> <i class="nc-icon nc-simple-add"></i></a>
@@ -36,13 +39,16 @@
                             <a href="{{prefixPath}}/{{distributor._id}}/profile">{{ distributor.name }}</a>
                         </td>
                         <td>
-                            id-{{ distributor.name }}
+                            {{ distributor.phone }}
                         </td>
                         <td>
-                            {{ distributor.name }}@email.com
+                            {{ distributor.email }}
                         </td>
                         <td>
                           <a href="{{prefixPath}}/{{distributor._id}}/products">Tất cả sản phẩm</a>
+                        </td>
+                        <td>
+                          <a href="{{prefixPath}}/{{distributor._id}}/productOrders">Đơn hàng</a>
                         </td>
                         <td >
                           <button class="btn btn-sm btn-danger btn-round btn-icon pull-right" (click)= "deleteDistributor(distributor._id)">

@@ -18,6 +18,8 @@ import { SalonEditComponent } from '../../pages/salon-edit/salon-edit.component'
 import { SalonOwnerProfileComponent } from 'app/pages/salon-owner-profile/salon-owner-profile.component';
 import { DistributorProfileComponent } from 'app/pages/distributor-profile/distributor-profile.component';
 import { ProductsListViewComponent } from 'app/pages/products-list-view/products-list-view.component';
+import { ProductDetailEditComponent } from 'app/pages/product-detail-edit/product-detail-edit.component';
+import { ProductOrdersListViewComponent } from 'app/pages/product-orders-list-view/product-orders-list-view.component';
 
 export const AdminLayoutRoutes: Routes = [
 
@@ -39,6 +41,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'barbers',               component: BarberViewComponent },
     { path: 'distributors/:distributorId/profile',         component: DistributorProfileComponent },
     { path: 'distributors/:distributorId/products',         component: ProductsListViewComponent },
+    { path: 'distributors/:distributorId/products/:productId',         component: ProductDetailEditComponent },
+    { path: 'distributors/:distributorId/productOrders',         component: ProductOrdersListViewComponent },
     { path: 'customers/:userId/profile',           component: UserComponent },
     { path: 'barbers/:barberId/profile',           component: BarberProfileViewComponent },
     { path: 'salons/:salonId',               component: SalonEditComponent },
