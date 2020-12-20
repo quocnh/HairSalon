@@ -29,6 +29,7 @@ export class NavbarComponent implements OnInit {
 
   username: string;
   baseUrl: string;
+  homePath: string;
 
   private listTitles: any[];
   // tslint:disable-next-line: member-ordering
@@ -90,7 +91,9 @@ export class NavbarComponent implements OnInit {
 
   logout(): void {
     this.tokenStorageService.signOut();
-    window.location.reload();
+    this.homePath = this.baseUrl;
+    this.router.navigate(['home']);
+    //window.location.reload();
   }
 
   // call signin modal function
@@ -101,11 +104,13 @@ export class NavbarComponent implements OnInit {
       // if (result) {
       //   console.log("navbar gets model info: " + result);
 
-      // }
+      // }      
     },
       (cancel) => {
         console.log('cancel click');
       })
+
+    this.router.navigate(['home']);
   }
   // call signup modal function
   register() {
