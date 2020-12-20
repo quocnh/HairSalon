@@ -42,7 +42,7 @@
                             {{ salonOwner.name }}@email.com
                         </td>
                         <td>
-                          <a href="{{prefixPath}}/salons/{{salonOwner._id}}">Xem tất cả salon</a>
+                          <a href="{{prefixPath}}/{{salonOwner._id}}/salons">Xem tất cả salon</a>
                       </td>
                         <td >
                             <button class="btn btn-sm btn-danger btn-round btn-icon pull-right" (click)= "deleteSalonOwner(salonOwner._id)">
