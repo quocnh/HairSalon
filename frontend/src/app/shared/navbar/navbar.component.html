@@ -30,13 +30,13 @@
       <ul class="navbar-nav mr-auto" routerLinkActive="active" style="opacity: 1;">
 
         <li class="nav-item" *ngIf="showAdminBoard">
-          <a href="{{baseUrl}}/admin" class="nav-link">Admin</a>
+          <a href="{{baseUrl}}/admin" class="nav-link">Trang quản lý</a>
         </li>
         <li class="nav-item" *ngIf="showDistributorBoard">
-          <a href="{{baseUrl}}/distributor/profile" class="nav-link">Nhà phân phối</a>
+          <a href="{{baseUrl}}/distributor/profile" class="nav-link">Trang quản lý</a>
         </li>
         <li class="nav-item" *ngIf="showSalonOwnerBoard">
-          <a href="{{baseUrl}}/manager/profile" class="nav-link">Chủ Salon</a>
+          <a href="{{baseUrl}}/manager/profile" class="nav-link">Trang quản lý</a>
         </li>
         <!-- <li class="nav-item">
           <a href="/user" class="nav-link" *ngIf="isLoggedIn" routerLink="user">User</a>
@@ -45,7 +45,7 @@
 
       <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
         <li class="nav-item">
-          <a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>
+          <a href="{{baseUrl}}/profile" class="nav-link" routerLink="profile">{{ username }}</a>
         </li>
         <li class="nav-item btn-rotate" ngbDropdown placement="bottom-left">
           <a class="nav-link" ngbDropdownToggle id="navbarDropdownMenuLink">
@@ -55,7 +55,7 @@
             </p>
           </a>
           <div ngbDropdownMenu aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
-            <a ngbDropdownItem href="javascript:void(0)" (click)="logout()">LogOut</a>
+            <a ngbDropdownItem href="javascript:void(0)" (click)="logout()">Thoát</a>
           
           </div>
         </li>
@@ -80,8 +80,8 @@
             </p>
           </a>
           <div ngbDropdownMenu aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
-            <a ngbDropdownItem href="javascript:void(0)" (click)="login()">Log in</a>
-            <a ngbDropdownItem href="javascript:void(0)" (click)="register()">Register</a>
+            <a ngbDropdownItem href="javascript:void(0)" (click)="login()">Đăng nhập</a>
+            <a ngbDropdownItem href="javascript:void(0)" (click)="register()">Đăng ký</a>
           </div>
         </li>
         <!-- <li class="nav-item">

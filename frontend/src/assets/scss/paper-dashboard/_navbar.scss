@@ -8,9 +8,7 @@
         vertical-align: middle;
 
         &:not(.btn):not(.dropdown-item){
-            color: $primary-color;
-            text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
-                        0px -5px 35px rgba(255,255,255,0.3);
+            color: $black-color;
             font-weight: bold;
         }
 
@@ -285,7 +283,7 @@
 }
 
 .bg-default{
-    background-color: $default-color !important;
+    background-color: $default-color !important ;
 }
 
 .bg-primary{
@@ -315,6 +313,5 @@
     background-color: $new-black !important;
 }
 .bg-transparent{
-    background-color: $white-bg !important;
-    opacity: .5;
+    background-color: rgba(241, 237, 237, 0.4) !important;
 }
