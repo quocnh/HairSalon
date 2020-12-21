@@ -46,6 +46,7 @@ export class ProductOrdersListViewComponent implements OnInit {
       this.user = this.tokenStorageService.getUser();
       console.log('LOGGED IN:' +  this.user.roles);
       this.isModifiedEnable = this.user.roles.includes('ROLE_DISTRIBUTOR') || this.user.roles.includes('ROLE_ADMIN');
+      this.distributorId = this.user.id;
       this.isAdmin = this.user.roles.includes('ROLE_ADMIN');
       this.isSalonOwner = this.user.roles.includes('ROLE_SALON_OWNER');
     } else {
@@ -69,7 +70,7 @@ export class ProductOrdersListViewComponent implements OnInit {
     console.log('distributorId:');
     console.log(this.distributorId);
     // 2. Get distributorId
-    this.salonUtilService.getDistributorIdFromUserId(this.user.id).subscribe(
+    this.salonUtilService.getDistributorIdFromUserId(this.distributorId).subscribe(
       (retDistributorId: string) => {
         this.distributorId = retDistributorId;
         console.log(this.distributorId);
