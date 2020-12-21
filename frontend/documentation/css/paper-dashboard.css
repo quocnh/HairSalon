@@ -8480,7 +8480,8 @@ img {
   height: 100vh; }
   .wrapper.wrapper-full-page {
     min-height: 100vh;
-    height: auto; }
+    height: auto; 
+  }
 
 .sidebar,
 .off-canvas-sidebar {

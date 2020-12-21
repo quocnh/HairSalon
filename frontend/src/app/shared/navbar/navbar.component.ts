@@ -93,7 +93,7 @@ export class NavbarComponent implements OnInit {
     this.tokenStorageService.signOut();
     this.homePath = this.baseUrl;
     this.router.navigate(['home']);
-    //window.location.reload();
+    window.location.reload();
   }
 
   // call signin modal function

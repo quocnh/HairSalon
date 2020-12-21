@@ -6,11 +6,13 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { DistributorLayoutComponent } from './layouts/distributor-layout/distributor-layout.component';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { ManagerLayoutComponent } from './layouts/manager-layout/manager-layout.component';
+import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { SalonsListViewComponent } from './pages/salons-list-view/salons-list-view.component';
 import { ProductsListViewComponent } from './pages/products-list-view/products-list-view.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { HomeComponent } from './pages/home/home.component';
 
 const routes: Routes = [
 
@@ -45,12 +47,22 @@ const routes: Routes = [
   },
 
   {
-    path: 'home',
+    path: 'main',
     component: MainLayoutComponent,
     children: [
       {
         path: '',
         loadChildren: './layouts/main-layout/main-layout.module#MainLayoutModule'
+      }
+    ]
+  },
+  {
+    path: 'home',
+    component: HomeLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: './layouts/home-layout/home-layout.module#HomeLayoutModule'
       }
     ]
   },

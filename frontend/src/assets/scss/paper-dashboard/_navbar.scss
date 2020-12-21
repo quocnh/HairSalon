@@ -8,11 +8,14 @@
         vertical-align: middle;
 
         &:not(.btn):not(.dropdown-item){
-            color: $white-color;
+            color: $primary-color;
+            text-shadow: 2px 8px 6px rgba(0,0,0,0.2),
+                        0px -5px 35px rgba(255,255,255,0.3);
+            font-weight: bold;
         }
 
         &.dropdown-item{
-            color: $default-color;
+            color: $info-color;
         }
     }
 
@@ -174,7 +177,7 @@
         .nav-item .nav-link:not(.btn):hover,
         .nav-item .nav-link:not(.btn):active{
             border-radius: $border-radius-small;
-            color: $default-color;
+            color: $info-color;
         }
     }
 
@@ -310,4 +313,8 @@
 }
 .bg-black{
     background-color: $new-black !important;
+}
+.bg-transparent{
+    background-color: $white-bg !important;
+    opacity: .5;
 }

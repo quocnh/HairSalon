@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-absolute fixed-top bg-black">
+<nav class="navbar navbar-expand-lg navbar-absolute fixed-top bg-transparent">
   <div class="container-fluid">
     <div class="navbar-wrapper">
       <div class="navbar-toggle">
@@ -27,7 +27,7 @@
           </div>
         </div>
       </form> -->
-      <ul class="navbar-nav mr-auto" routerLinkActive="active">
+      <ul class="navbar-nav mr-auto" routerLinkActive="active" style="opacity: 1;">
 
         <li class="nav-item" *ngIf="showAdminBoard">
           <a href="{{baseUrl}}/admin" class="nav-link">Admin</a>
@@ -82,7 +82,6 @@
           <div ngbDropdownMenu aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
             <a ngbDropdownItem href="javascript:void(0)" (click)="login()">Log in</a>
             <a ngbDropdownItem href="javascript:void(0)" (click)="register()">Register</a>
-            <a ngbDropdownItem href="javascript:void(0)">Something else here</a>
           </div>
         </li>
         <!-- <li class="nav-item">

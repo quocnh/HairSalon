@@ -50,6 +50,8 @@ import { ProductDetailEditComponent } from './pages/product-detail-edit/product-
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { SalonOwnerProfileComponent } from './pages/salon-owner-profile/salon-owner-profile.component';
 import { DistributorProfileComponent } from './pages/distributor-profile/distributor-profile.component';
+import { HomeComponent } from './pages/home/home.component';
+import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
 
 
 @NgModule({
@@ -65,6 +67,7 @@ import { DistributorProfileComponent } from './pages/distributor-profile/distrib
     AddNewDistributorComponent,
     DeleteDistributorComponent,
     MainLayoutComponent,
+    HomeLayoutComponent,
     BookingViewComponent,
     LoginComponent,
     RegisterComponent,
