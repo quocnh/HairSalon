@@ -19,7 +19,7 @@
           <div class="card-footer">          
 
               <h6 class="text-left">{{ salon.name }}</h6>
-              <p class="text-left">{{salon.address | slice:0:28}}{{salon.address.length > 28 ? '...' : ''}}</p>
+              <p class="text-left">{{salon.address | slice:0:20}}{{salon.address.length > 20 ? '...' : ''}}</p>
 
               <div class="row">
                 <div class="col-md-5 text-left">
@@ -63,7 +63,7 @@
   
           <div class="card-footer">
               <h6 class="text-left">{{ salon.name }}</h6>
-              <p class="text-left">{{salon.address | slice:0:28}}{{salon.address.length > 28 ? '...' : ''}}</p>
+              <p class="text-left">{{salon.address | slice:0:20}}{{salon.address.length > 20 ? '...' : ''}}</p>
 
               <div class="row">
                 <div class="col-md-5 text-left">

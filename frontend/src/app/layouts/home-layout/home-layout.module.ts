@@ -19,7 +19,6 @@ import { HomeComponent } from 'app/pages/home/home.component';
   ],
   declarations: [
     HomeComponent,
-    SalonViewComponent,
   ]
 })
 

@@ -17,8 +17,11 @@
                 </div>
                 <button class="btn-submit" type="submit"><i class="fa fa-search"></i></button>
             </form>
-
-            <button class="btn-submit" type="submit" style="position: fixed; top: 50%;">Tìm salon gần bạn</button>
+            <!-- <a href="{{prefixPath}}/main"> -->
+                <a [routerLink]="['../main/coords', myLatitude, myLongitude]">
+                    <button class="btn-submit" type="submit" style="position: fixed; top: 65%; left:43%">Tìm salon gần bạn</button>
+                </a>                
+            <!-- </a> -->
         <!-- </div>
     </div> -->
 <!-- </div> -->

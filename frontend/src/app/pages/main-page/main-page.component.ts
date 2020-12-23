@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { environment } from 'environments/environment';
 import Salon from '../../module/salon';
 import { SalonUtilsService } from '../../salon-utils.service';
@@ -16,7 +16,8 @@ declare const L: any;
 export class MainPageComponent implements OnInit {
 
   content: string;
-
+  latitude:number;
+  longitude:number;
   salons: Salon[] = [];
   name: string;
   ownerId: string;
@@ -35,9 +36,19 @@ export class MainPageComponent implements OnInit {
     private salonUtilService: SalonUtilsService,
     private userService: UserService,
     private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe((params: Params) => {
+      this.latitude = params.latitude;
+      this.longitude = params.longitude;
+      console.log(this.longitude);
+      console.log(this.latitude);      
+
+  });
+
+
     this.prefixPath = environment.baseUrl + this.router.url;
     this.refreshAllSalonList();
     if (!navigator.geolocation) {
@@ -81,14 +92,10 @@ export class MainPageComponent implements OnInit {
 
   loadMap() {
 
-    navigator.geolocation.getCurrentPosition((position) => {
-      const coords = position.coords;
-      const latLong = [coords.latitude, coords.longitude];
-      console.log(
-        `lat: ${position.coords.latitude}, lon: ${position.coords.longitude}`
-      );
+    navigator.geolocation.watchPosition(() => {
       this.initMap(10.81078, 106.66806);
-      this.addMarker(coords.latitude, coords.longitude);
+      //this.initMap(this.latitude, this.longitude);
+      this.addMarker(this.latitude, this.longitude);
       for (var i = 0; i < this.salons.length; i++) {
         // console.log(i + ': ' + this.salons[i].latitude + ';' + this.salons[i].longitude);
         //this.markers[i] = L.marker([this.salons[i].latitude, this.salons[i].longitude]).addTo(this.mymap);

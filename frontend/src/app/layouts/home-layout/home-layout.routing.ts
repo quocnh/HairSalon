@@ -5,6 +5,4 @@ import { SalonViewComponent } from '../../pages/salon-view/salon-view.component'
 
 export const HomeLayoutRoutes: Routes = [
     { path: '',                             component: HomeComponent },
-    { path: 'home',                         component: HomeComponent },
-    { path: 'salons/:salonId',              component: SalonViewComponent},
 ];
