@@ -9,4 +9,5 @@ export const HomeLayoutRoutes: Routes = [
     { path: 'home',                         component: HomeComponent },
     { path: 'salons/:salonId',              component: SalonViewComponent},
     { path: 'become-salon-owner',               component: BecomeSalonownerComponent },
+
 ];

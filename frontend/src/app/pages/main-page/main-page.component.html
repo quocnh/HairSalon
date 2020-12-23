@@ -1,8 +1,30 @@
-<div class="row" style='position: sticky;top: 90px'>
-  <button type="button" class="btn btn-primary btn-round d-block mr-0 ml-auto" (click)="toggleMap()"> 
-  <!--button type="button" class="btn btn-primary btn-round" style="position: sticky;top: 80px;position: absolute; right: 0px;" (click)="toggleMap()"--> 
-    {{buttonMap}}
-  </button>
+<div class="row" style='position: sticky;top: 90px; z-index:999;'>
+  <div class="col-md-10 pl-1" >
+    <form class="form" method="POST" action="#">
+      <div class="input-group input--large">
+          <label class="search-label">Tên Salon</label>
+          <input class="input--style-1" type="text" placeholder="" name="going">
+      </div>
+      <div class="input-group input--large">
+          <label class="search-label">Thành phố</label>
+          <input class="input--style-1" type="text" name="city" placeholder="" id="input-city">
+      </div>
+      <div class="input-group input--large">
+          <label class="search-label">Quận</label>
+          <input class="input--style-1" type="text" name="district" placeholder="" id="input-district">
+      </div>
+      <button class="btn-search-submit" type="submit"><i class="fa fa-search"></i></button>
+      
+    </form>
+  </div>
+  <div class="col-md-2 pr-1" >
+    <button class="btn-search-submit" type="submit" (click)="toggleMap()">
+      <!-- <button type="button" class="btn btn-primary btn-round d-block mr-0 ml-auto" (click)="toggleMap()">        -->
+          {{buttonMap}}
+      </button>
+  </div>
+  
+  
 </div>
 
 <div class="row" *ngIf="isMapShown; else noShowMap">
@@ -19,7 +41,7 @@
           <div class="card-footer">          
 
               <h6 class="text-left">{{ salon.name }}</h6>
-              <p class="text-left">{{salon.address | slice:0:28}}{{salon.address.length > 28 ? '...' : ''}}</p>
+              <p class="text-left">{{salon.address | slice:0:20}}{{salon.address.length > 20 ? '...' : ''}}</p>
 
               <div class="row">
                 <div class="col-md-5 text-left">
@@ -44,7 +66,7 @@
   <div class="col-md-9" >
     <div class="card " style='position: sticky;top: 140px'>
       <div class="map">
-        <div id='hairSalonMap' class="map" style='height: 100vh'></div>
+        <div id='hairSalonMap' class="map" style='height: 100%'></div>
       </div>
     </div>
   </div>
@@ -63,7 +85,7 @@
   
           <div class="card-footer">
               <h6 class="text-left">{{ salon.name }}</h6>
-              <p class="text-left">{{salon.address | slice:0:28}}{{salon.address.length > 28 ? '...' : ''}}</p>
+              <p class="text-left">{{salon.address | slice:0:20}}{{salon.address.length > 20 ? '...' : ''}}</p>
 
               <div class="row">
                 <div class="col-md-5 text-left">
