@@ -10,6 +10,7 @@ declare const L: any;
 @Component({
   selector: 'app-main-page',
   moduleId: module.id,
+  styleUrls: ['./main-page.component.css'],
   templateUrl: './main-page.component.html'
 })
 
