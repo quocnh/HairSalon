@@ -52,6 +52,8 @@ import { SalonOwnerProfileComponent } from './pages/salon-owner-profile/salon-ow
 import { DistributorProfileComponent } from './pages/distributor-profile/distributor-profile.component';
 import { HomeComponent } from './pages/home/home.component';
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
+import { BecomeSalonownerComponent } from './pages/become-salonowner/become-salonowner.component';
+import { BecomeDistributorComponent } from './pages/become-distributor/become-distributor.component';
 
 
 @NgModule({
@@ -84,6 +86,8 @@ import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component
     ProductDetailEditComponent,
     SalonOwnerProfileComponent,
     DistributorProfileComponent,
+    BecomeSalonownerComponent,
+    BecomeDistributorComponent,
   ],
   imports: [
     BrowserAnimationsModule,
