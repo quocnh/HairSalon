@@ -17,6 +17,7 @@ import { SalonOwnerProfileComponent } from 'app/pages/salon-owner-profile/salon-
 import { DistributorProfileComponent } from 'app/pages/distributor-profile/distributor-profile.component';
 import { BookingViewComponent } from 'app/pages/booking-view/booking-view.component';
 
+
 export const ManagerLayoutRoutes: Routes = [
 
     { path: '',      component: SalonsListViewComponent },
@@ -32,5 +33,5 @@ export const ManagerLayoutRoutes: Routes = [
     { path: 'salons/:salonId',               component: SalonEditComponent },
     { path: 'bookings/:salonId',               component: BookingsListViewComponent },
     { path: 'bookings/:salonId/:bookingId',               component: BookingViewComponent },
-    
+   
 ];

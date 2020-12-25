@@ -46,6 +46,8 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { SalonOwnerProfileComponent } from './pages/salon-owner-profile/salon-owner-profile.component';
 import { DistributorProfileComponent } from './pages/distributor-profile/distributor-profile.component';
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
+import { BecomeSalonownerComponent } from './pages/become-salonowner/become-salonowner.component';
+import { BecomeDistributorComponent } from './pages/become-distributor/become-distributor.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +79,8 @@ import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component
     ProductDetailEditComponent,
     SalonOwnerProfileComponent,
     DistributorProfileComponent,
+    BecomeSalonownerComponent,
+    BecomeDistributorComponent,
   ],
   imports: [
     BrowserAnimationsModule,
