@@ -7,6 +7,7 @@ import { MainLayoutRoutes } from './main-layout.routing';
 import { MainPageComponent } from '../../pages/main-page/main-page.component';
 import { SalonViewComponent } from '../../pages/salon-view/salon-view.component';
 import { LightboxModule } from 'ngx-lightbox';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { LightboxModule } from 'ngx-lightbox';
     FormsModule,
     NgbModule,
     LightboxModule,
+    AutocompleteLibModule
   ],
   declarations: [
     MainPageComponent,

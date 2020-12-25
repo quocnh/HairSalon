@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { environment } from 'environments/environment';
@@ -27,6 +28,12 @@ export class MainPageComponent implements OnInit {
   mymap: any;
   dbAddress: string;
   prefixPath:string;
+
+  keyword = 'name';
+  cities:any[];
+  districts:any[];
+  selectedCity:any;
+  selectedDistrict:any;
   //markers:any[];
 
   // tslint:disable-next-line: no-inferrable-types
@@ -37,7 +44,8 @@ export class MainPageComponent implements OnInit {
     private salonUtilService: SalonUtilsService,
     private userService: UserService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private http: HttpClient
   ) { }
 
   ngOnInit(): void {
@@ -49,6 +57,11 @@ export class MainPageComponent implements OnInit {
 
   });
 
+    this.getCities().then(cities => {
+      this.cities = cities;
+    });
+    
+    console.log(this.cities);
 
     this.prefixPath = environment.baseUrl + this.router.url;
     this.refreshAllSalonList();
@@ -123,6 +136,29 @@ export class MainPageComponent implements OnInit {
 
   mouseOutAction(salon, idx) {
     //console.log('Mouse out action '+ idx);
+  }
+
+  getCities() {
+    return this.http.get<any>('assets/json/cities.json')
+      .toPromise()
+      .then(res => <any[]>res.data)
+      .then(data => { return data; });
+  }
+
+  selectCityEvent(event){
+    console.log(event);
+    this.selectedCity = event;
+    this.districts = event.district;
+  }
+  selectDistrictEvent(event){
+    console.log(event);
+    this.selectedDistrict = event;
+  }
+  onChangeSearch(event){
+    //console.log(event);
+  }
+  onFocused(event){
+    //console.log(event);
   }
 
 }

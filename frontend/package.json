@@ -14,7 +14,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "9.0.6",
-    "@angular/cdk": "^10.2.2",
+    "@angular/cdk": "^10.2.7",
     "@angular/common": "9.0.6",
     "@angular/core": "^9.0.6",
     "@angular/forms": "9.0.6",
@@ -25,6 +25,7 @@
     "@ng-bootstrap/ng-bootstrap": "^6.0.0",
     "@ngui/map": "0.30.3",
     "@types/googlemaps": "3.36.5",
+    "angular-ng-autocomplete": "^2.0.1",
     "arrive": "2.4.1",
     "bootstrap": "4.3.1",
     "bootstrap-notify": "3.1.3",

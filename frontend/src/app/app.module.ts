@@ -1,7 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -28,12 +27,8 @@ import { DeleteDistributorComponent } from './popup/delete-distributor/delete-di
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { BookingViewComponent } from './pages/booking-view/booking-view.component';
-import { BarberProfileViewComponent } from './pages/barber-profile-view/barber-profile-view.component';
 
 import { LoginComponent } from './popup/login/login.component';
-
-import { SalonsListViewComponent } from './pages/salons-list-view/salons-list-view.component';
-
 import { RegisterComponent } from './popup/register/register.component';
 import { SalonEditComponent } from './pages/salon-edit/salon-edit.component';
 import { ManagerLayoutComponent } from './layouts/manager-layout/manager-layout.component';
@@ -50,9 +45,7 @@ import { ProductDetailEditComponent } from './pages/product-detail-edit/product-
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { SalonOwnerProfileComponent } from './pages/salon-owner-profile/salon-owner-profile.component';
 import { DistributorProfileComponent } from './pages/distributor-profile/distributor-profile.component';
-import { HomeComponent } from './pages/home/home.component';
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
-
 
 @NgModule({
   declarations: [
@@ -102,7 +95,6 @@ import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component
     FormsModule,
     ReactiveFormsModule,
     DateTimePickerModule,
-
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent],

@@ -4,7 +4,7 @@
    * 1. Reset Chrome and Firefox behaviour which sets a `min-width: min-content;`
    *    on fieldsets.
    */
-  fieldset {
+   fieldset {
     min-width: 0;
     /* [1] */
     border: 0;
@@ -232,9 +232,36 @@
      ========================================================================== */
   .btn-search-submit {
     text-transform: uppercase;
+    font-weight: 510;
+    display: inline-block;
+    line-height: 60px;
+    font-family: inherit;
+    background: #ffe151;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    /* text-transform: capitalize; */
+    color: #333;
+    font-size: 14px;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+    padding: 0 20px;    
+    -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+  }
+  
+  .btn-search-submit:hover {
+    background: #ebcd3d;
+  }
+
+  .btn-circle-search-submit {
+    text-transform: uppercase;
     font-weight: 500;
     display: inline-block;
-    line-height: 50px;
+    line-height: 40px;
     font-family: inherit;
     background: #ffe151;
     -webkit-border-radius: 10px;
@@ -253,7 +280,7 @@
     box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
   }
   
-  .btn-search-submit:hover {
+  .btn-circle-search-submit:hover {
     background: #ebcd3d;
   }
   
@@ -606,14 +633,14 @@
   
   .search-label {
     font-size: 10px;
-    color: #999;
+    color: rgb(61, 59, 59);
     text-transform: uppercase;
     display: block;
     font-weight: 700;
     line-height: 1px;
     top: 0;
     padding: 0px 0px;
-    padding-bottom: 0px;
+    padding-bottom: 5px;
     padding-top: 0px;
   }
   

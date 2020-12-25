@@ -1,0 +1,81 @@
+{
+    "data": [ 
+        {
+            "name": "Hồ Chí Minh", 
+            "district": [ 
+                {"name" : "Huyện Bình Chánh"},
+                {"name" : "Huyện Cần Giờ"},
+                {"name" : "Huyện Củ Chi"},
+                {"name" : "Huyện Hóc Môn"},
+                {"name" : "Huyện Nhà Bè"},
+                {"name" : "Quận 1"},
+                {"name" : "Quận 10"},
+                {"name" : "Quận 11"},
+                {"name" : "Quận 12"},
+                {"name" : "Quận 2"},
+                {"name" : "Quận 3"},
+                {"name" : "Quận 4"},
+                {"name" : "Quận 5"},
+                {"name" : "Quận 6"},
+                {"name" : "Quận 7"},
+                {"name" : "Quận 8"},
+                {"name" : "Quận 9"},
+                {"name" : "Quận Bình Tân"},
+                {"name" : "Quận Bình Thạnh"},
+                {"name" : "Quận Gò Vấp"},
+                {"name" : "Quận Phú Nhuận"},
+                {"name" : "Quận Tân Bình"},
+                {"name" : "Quận Tân Phú"},
+                {"name" : "Quận Thủ Đức"}
+            ]
+        },
+        {
+            "name": "Hà Nội", 
+            "district": [ 
+                {"name" : "Huyện Ba Vì"},
+                {"name" : "Huyện Chương Mỹ"},
+                {"name" : "Huyện Đan Phượng"},
+                {"name" : "Huyện Đông Anh"},
+                {"name" : "Huyện Gia Lâm"},
+                {"name" : "Huyện Hoài Đức"},
+                {"name" : "Huyện Mê Linh"},
+                {"name" : "Huyện Mỹ Đức"},
+                {"name" : "Huyện Phú Xuyên"},
+                {"name" : "Huyện Phúc Thọ"},
+                {"name" : "Huyện Quốc Oai"},
+                {"name" : "Huyện Sóc Sơn"},
+                {"name" : "Huyện Thạch Thất"},
+                {"name" : "Huyện Thanh Oai"},
+                {"name" : "Huyện Thanh Trì"},
+                {"name" : "Huyện Thường Tín"},
+                {"name" : "Huyện Ứng Hòa"},
+                {"name" : "Quận Ba Đình"},
+                {"name" : "Quận Bắc Từ Liêm"},
+                {"name" : "Quận Cầu Giấy"},
+                {"name" : "Quận Đống Đa"},
+                {"name" : "Quận Hà Đông"},
+                {"name" : "Quận Hai Bà Trưng"},
+                {"name" : "Quận Hoàn Kiếm"},
+                {"name" : "Quận Hoàng Mai"},
+                {"name" : "Quận Long Biên"},
+                {"name" : "Quận Nam Từ Liêm"},
+                {"name" : "Quận Tây Hồ"},
+                {"name" : "Quận Thanh Xuân"},
+                {"name" : "Thị xã Sơn Tây"}
+            ]
+        },
+        {
+            "name" : "Đà Nẵng",
+            "district" : [
+                {"name" : "Huyện Hòa Vang"},
+                {"name" : "Huyện Hoàng Sa"},
+                {"name" : "Quận Cẩm Lệ"},
+                {"name" : "Quận Hải Châu"},
+                {"name" : "Quận Liên Chiểu"},
+                {"name" : "Quận Ngũ Hành Sơn"},
+                {"name" : "Quận Sơn Trà"},
+                {"name" : "Quận Thanh Khê"}
+            ]
+        }
+    ]
+}

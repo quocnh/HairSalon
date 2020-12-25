@@ -66,6 +66,10 @@ npm install ng-image-slider --save
 ```python
 cd frondent > npm install --save ngx-lightbox
 ```
+6. Install angular-ng-autocomplete
+```python
+cd frondent > npm i angular-ng-autocomplete
+```
 
 ##################
 ### how to run ###

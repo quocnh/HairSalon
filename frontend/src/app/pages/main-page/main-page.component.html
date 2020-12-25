@@ -1,32 +1,62 @@
 <div class="row" style='position: sticky;top: 90px; z-index:999;'>
   <div class="col-md-10 pl-1" >
-    <form class="form" method="POST" action="#">
-      <div class="input-group input--large">
-          <label class="search-label">Tên Salon</label>
-          <input class="input--style-1" type="text" placeholder="" name="going">
+    <div class="row">
+      <div class="col-md-4">
+          <div class="form-group">
+              <label class="search-label">Thành phố</label>
+              <div class="input--style-1" >
+                  <ng-autocomplete [data]="cities" [searchKeyword]="keyword" (selected)='selectCityEvent($event)'
+                      (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                      [notFoundTemplate]="notFoundTemplate">    
+                                              
+                  </ng-autocomplete>
+                  
+                  <ng-template #itemTemplate let-item>                            
+                      <a [innerHTML]="item.name"></a>
+                  </ng-template>
+              
+                  <ng-template #notFoundTemplate let-notFound>
+                      <div [innerHTML]="notFound"></div>
+                  </ng-template>
+              </div>
+          </div>
       </div>
-      <div class="input-group input--large">
-          <label class="search-label">Thành phố</label>
-          <input class="input--style-1" type="text" name="city" placeholder="" id="input-city">
+      <div class="col-md-4">
+          <div class="form-group">
+              <label class="search-label">Quận</label>
+              <div class="input--style-1">
+                  <ng-autocomplete [data]="districts" [searchKeyword]="keyword" (selected)='selectDistrictEvent($event)'
+                      (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                      [notFoundTemplate]="notFoundTemplate">
+                  </ng-autocomplete>
+              
+                  <ng-template #itemTemplate let-item>
+                      <a [innerHTML]="item.name"></a>
+                  </ng-template>
+              
+                  <ng-template #notFoundTemplate let-notFound>
+                      <div [innerHTML]="notFound"></div>
+                  </ng-template>
+              </div>
+          </div>
       </div>
-      <div class="input-group input--large">
-          <label class="search-label">Quận</label>
-          <input class="input--style-1" type="text" name="district" placeholder="" id="input-district">
+      <div class="col-md-2">
+          <label class="search-label"></label>
+          <button class="btn-circle-search-submit" type="submit"><i class="fa fa-search"></i></button>                            
       </div>
-      <button class="btn-search-submit" type="submit"><i class="fa fa-search"></i></button>
-      
-    </form>
+    </div>
   </div>
   <div class="col-md-2 pr-1" >
-    <button class="btn-search-submit" type="submit" (click)="toggleMap()">
+    <button class="btn-circle-search-submit" type="submit" (click)="toggleMap()">
       <!-- <button type="button" class="btn btn-primary btn-round d-block mr-0 ml-auto" (click)="toggleMap()">        -->
           {{buttonMap}}
       </button>
   </div>
   
-  
 </div>
-
+<div class="row">
+  <label class="search-label"></label>
+</div>
 <div class="row" *ngIf="isMapShown; else noShowMap">
   
   <div class="col-md-3" >
