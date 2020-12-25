@@ -10,9 +10,9 @@ const SalonOwner = new mongoose.model(
             unique: true,
             ref: "User"
         },
-        name: {
+        username: {
             type: String,
-            required: [false, 'name']
+            required: [false, 'username']
         },
         firstname: {
             type: String,

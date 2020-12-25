@@ -1,76 +1,41 @@
-
-<form #customerForm="ngForm">
-    <div class="row">
-      <div class="col-md-7 pr-1">
+<div class="container">
+    <div [hidden]="submitted">
+      <h1>Đăng ký chủ salon</h1>
+      <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
         <div class="form-group">
-            <label>Tên Salon(*)</label>
-            <input type="text" class="form-control" [(ngModel)]="salon.name" [ngModelOptions]="{standalone: true}">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name"
+                 required
+                 [(ngModel)]="model.name" name="name"
+                 #name="ngModel">
+          <div [hidden]="name.valid || name.pristine"
+               class="alert alert-danger">
+            Name is required
           </div>
-      </div>
-      <div class="col-md-5 pl-1">
+        </div>
+  
         <div class="form-group">
-          <label for="exampleInputEmail1">Email(*)</label>
-          <input type="email" class="form-control" [(ngModel)]="salon.email" [ngModelOptions]="{standalone: true}" placeholder="abc@xyz.com">
+          <label for="alterEgo">Alter Ego</label>
+          <input type="text" class="form-control" id="alterEgo"
+                 [(ngModel)]="model.alterEgo" name="alterEgo">
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
+  
         <div class="form-group">
-          <label>Thông tin salon</label>
-          <input type="text" class="form-control" [(ngModel)]="salon.info" [ngModelOptions]="{standalone: true}" placeholder="Thêm thông tin về dịch vụ và thợ làm tóc">
+          <label for="power">Hero Power</label>
+          <select class="form-control" id="power"
+                  required
+                  [(ngModel)]="model.power" name="power"
+                  #power="ngModel">
+            <option *ngFor="let pow of powers" [value]="pow">{{pow}}</option>
+          </select>
+          <div [hidden]="power.valid || power.pristine" class="alert alert-danger">
+            Power is required
+          </div>
         </div>
-      </div>
+  
+        <button type="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">Submit</button>
+      </form>
     </div>
-
-    <div class="row">
-        <div class="col-md-6 pr-1">
-          <div class="form-group">
-            <label>Chủ Salon(*)</label>
-            <select input type="text" class="form-control"  [(ngModel)]="chosenSalonOwner" [ngModelOptions]="{standalone: true}">
-              <option *ngFor="let salonOwner of salonOwners" [ngValue]="salonOwner">
-                {{salonOwner.name}}
-              </option>
-            </select>
-          </div>
-        </div>
-        <div class="col-md-6 pl-1">
-            <div class="form-group">
-              <label>Số điện thoại(*)</label>
-              <input type="text" class="form-control" [(ngModel)]="salon.phone" [ngModelOptions]="{standalone: true}" placeholder="000-000-000" value="000-000-000">
-            </div>
-          </div>
-      </div>
-
-      <div class="row">
-          <div class="col-md-6 pr-1">
-              <div class="form-group">
-                <label>Thành Phố</label>
-                <input type="text" class="form-control" [(ngModel)]="salon.city" [ngModelOptions]="{standalone: true}" placeholder="Hồ Chí Minh" value="Hồ Chí Minh">
-              </div>
-            </div>
-        <div class="col-md-6 pl-1">
-          <div class="form-group">
-            <label>Quận</label>
-            <input type="text" class="form-control" [(ngModel)]="salon.district" [ngModelOptions]="{standalone: true}" placeholder="Quận 1" value="Quận 1">
-          </div>
-        </div>
-        
-      </div>
-      <div class="row">
-          <div class="col-md-12">
-            <div class="form-group">
-              <label>Địa chỉ</label>
-              <input type="text" class="form-control" [(ngModel)]="salon.address" [ngModelOptions]="{standalone: true}" placeholder="1 Điện Biên Phủ">
-            </div>
-          </div>
-        </div>
-
-    
-    <div class="row">
-      <div class="update ml-auto mr-auto">
-        <button type="submit" class="btn btn-primary btn-round" (click)="modal.dismiss()"> Cancel</button>
-        <button type="submit" class="btn btn-primary btn-round" (click)="addNewSalon()"> Ok</button>
-      </div>
-    </div>
-  </form>
+  
+   
+  </div>
