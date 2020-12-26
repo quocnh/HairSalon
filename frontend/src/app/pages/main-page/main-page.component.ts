@@ -34,7 +34,7 @@ export class MainPageComponent implements OnInit {
   districts:any[];
   selectedCity:any;
   selectedDistrict:any;
-  
+    
   //markers:any[];
 
   // tslint:disable-next-line: no-inferrable-types
@@ -109,14 +109,16 @@ export class MainPageComponent implements OnInit {
 
   loadMap() {
     
-    navigator.geolocation.watchPosition(() => {
+    navigator.geolocation.getCurrentPosition(() => {
       //Temp Long-Lat
       this.latitude = 10.81078;
       this.longitude = 106.66806;
       
       this.initMap(this.latitude, this.longitude);
-      
+
+      // Marker of current location
       this.addLocationMarker(this.latitude, this.longitude);
+
       for (var i = 0; i < this.salons.length; i++) {
         // console.log(i + ': ' + this.salons[i].latitude + ';' + this.salons[i].longitude);
         //this.markers[i] = L.marker([this.salons[i].latitude, this.salons[i].longitude]).addTo(this.mymap);
