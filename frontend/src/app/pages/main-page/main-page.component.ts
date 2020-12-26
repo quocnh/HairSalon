@@ -40,6 +40,7 @@ export class MainPageComponent implements OnInit {
   // tslint:disable-next-line: no-inferrable-types
   isMapShown: boolean = false;
   buttonMap: String = 'Mở bản đồ';
+  isListAllSalon = true;
 
   constructor(
     private salonUtilService: SalonUtilsService,
@@ -50,14 +51,6 @@ export class MainPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
-      if(params.latitude && params.latitude) {
-        this.latitude = params.latitude;
-        this.longitude = params.longitude;
-        console.log(this.longitude);
-        console.log(this.latitude);
-      }
-  });
 
     this.getCities().then(cities => {
       this.cities = cities;
@@ -66,13 +59,34 @@ export class MainPageComponent implements OnInit {
     console.log(this.cities);
 
     this.prefixPath = environment.baseUrl + '/main';
-    this.refreshAllSalonList();
+
     if (!navigator.geolocation) {
       console.log('location is not supported');
     }
     this.dbAddress = environment.dbAddress;
 
     this.mapControl(); 
+
+    this.route.params.subscribe((params: Params) => {
+      if(params.latitude && params.latitude) {
+        this.latitude = params.latitude;
+        this.longitude = params.longitude;
+        console.log(this.longitude);
+        console.log(this.latitude);
+        
+        
+        
+        this.latitude = 10.81078;
+        this.longitude = 106.66806;
+
+        this.salonUtilService.getSalonsFromLocation(this.longitude, this.latitude).subscribe((salons: Salon[]) => this.salons = salons);
+        this.isListAllSalon = false;
+      }
+    }); 
+
+    if (this.isListAllSalon) {
+      this.refreshAllSalonList();
+    }
   }
 
   refreshAllSalonList() {

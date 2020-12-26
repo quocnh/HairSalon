@@ -98,3 +98,7 @@ or
 2. 
  + backup:  mongodump -d salondbmanager -o dumpname
  + restore: mongorestore -d salondbmanager dumpname/salondbmanager
+
+# Enable Search nearby for Mongodb <https://docs.mongodb.com/manual/tutorial/geospatial-tutorial/>
+# -> Create index for location by mongodb command:
+> db.salons.createIndex({ location: "2dsphere" })

@@ -118,6 +118,23 @@ salonRouter.get('/city/:city', (req, res) => {
         
 });
 
+salonRouter.get('/location/:long/:lat', (req, res) => {
+    console.log(req.params );
+    Salon.find({ 
+        location: 
+        {
+            $near :
+                {
+                  $geometry: { type: "Point",  coordinates: [ Number(req.params.long), Number(req.params.lat) ] },
+                  $maxDistance: 2000
+                }
+        }
+    })
+        .then(salon => res.send(salon))
+        .catch((error) => console.log(error));
+        
+});
+
 salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
     if(req.files.length > 0){
         var strPhotoPath = Array(10);

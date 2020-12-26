@@ -79,6 +79,11 @@ export class SalonUtilsService {
     return this.webService.get(`salons/city_district/${city}/${district}`);
   }
 
+  getSalonsFromLocation(long: Number, lat:Number) {
+    return this.webService.get(`salons/location/${long}/${lat}`);
+  }
+
+
   getSalonsFromCity(city: string) {
     return this.webService.get(`salons/city/${city}`);
   }
