@@ -48,6 +48,7 @@ import { DistributorProfileComponent } from './pages/distributor-profile/distrib
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
 import { BecomeSalonownerComponent } from './pages/become-salonowner/become-salonowner.component';
 import { BecomeDistributorComponent } from './pages/become-distributor/become-distributor.component';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 @NgModule({
   declarations: [
@@ -99,6 +100,7 @@ import { BecomeDistributorComponent } from './pages/become-distributor/become-di
     FormsModule,
     ReactiveFormsModule,
     DateTimePickerModule,
+    AutocompleteLibModule,
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent],

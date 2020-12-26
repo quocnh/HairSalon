@@ -63,7 +63,7 @@ export class MainPageComponent implements OnInit {
     
     console.log(this.cities);
 
-    this.prefixPath = environment.baseUrl + this.router.url;
+    this.prefixPath = environment.baseUrl + '/main';
     this.refreshAllSalonList();
     if (!navigator.geolocation) {
       console.log('location is not supported');

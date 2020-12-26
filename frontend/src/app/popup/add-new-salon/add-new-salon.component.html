@@ -58,14 +58,43 @@
               <div class="row">
                   <div class="col-md-6 pr-1">
                       <div class="form-group">
-                        <label>Thành Phố</label>
-                        <input type="text" class="form-control" [(ngModel)]="salon.city" [ngModelOptions]="{standalone: true}" placeholder="Hồ Chí Minh" value="Hồ Chí Minh">
+                        <label>Thành Phố(*)</label>
+                        <!-- <input type="text" class="form-control" [(ngModel)]="salon.city" [ngModelOptions]="{standalone: true}" placeholder="Hồ Chí Minh" value="Hồ Chí Minh"> -->
+                        <div class="input--style-1" >
+                          <ng-autocomplete [data]="cities" [searchKeyword]="keyword" (selected)='selectCityEvent($event)'
+                              (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                              [notFoundTemplate]="notFoundTemplate">    
+                                                      
+                          </ng-autocomplete>
+                          
+                          <ng-template #itemTemplate let-item>                            
+                              <a [innerHTML]="item.name"></a>
+                          </ng-template>
+                      
+                          <ng-template #notFoundTemplate let-notFound>
+                              <div [innerHTML]="notFound"></div>
+                          </ng-template>
+                      </div>
                       </div>
                     </div>
                 <div class="col-md-6 pl-1">
                   <div class="form-group">
-                    <label>Quận</label>
-                    <input type="text" class="form-control" [(ngModel)]="salon.district" [ngModelOptions]="{standalone: true}" placeholder="Quận 1" value="Quận 1">
+                    <label>Quận(*)</label>
+                    <!-- <input type="text" class="form-control" [(ngModel)]="salon.district" [ngModelOptions]="{standalone: true}" placeholder="Quận 1" value="Quận 1"> -->
+                    <div class="input--style-1" >
+                      <ng-autocomplete [data]="districts" [searchKeyword]="keyword" (selected)='selectDistrictEvent($event)'
+                          (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                          [notFoundTemplate]="notFoundTemplate">
+                      </ng-autocomplete>
+                  
+                      <ng-template #itemTemplate let-item>
+                          <a [innerHTML]="item.name"></a>
+                      </ng-template>
+                  
+                      <ng-template #notFoundTemplate let-notFound>
+                          <div [innerHTML]="notFound"></div>
+                      </ng-template>
+                    </div>
                   </div>
                 </div>
                 
