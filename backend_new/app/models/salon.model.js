@@ -103,6 +103,8 @@ SalonSchema.pre('save', async function(next) {
         coordinates: [loc[0].longitude, loc[0].latitude],
         formattedAddress: loc[0].formattedAddress
     };
+    this.latitude = loc[0].latitude;
+    this.longitude = loc[0].longitude;
     // Do not save address
     next();
 });

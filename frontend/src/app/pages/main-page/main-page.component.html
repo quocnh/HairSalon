@@ -7,7 +7,7 @@
               <div class="input--style-1" >
                   <ng-autocomplete [data]="cities" [searchKeyword]="keyword" (selected)='selectCityEvent($event)'
                       (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
-                      [notFoundTemplate]="notFoundTemplate">    
+                      [notFoundTemplate]="notFoundTemplate" (inputCleared)="handleCityEmptyInput()" >    
                                               
                   </ng-autocomplete>
                   
@@ -27,7 +27,7 @@
               <div class="input--style-1">
                   <ng-autocomplete [data]="districts" [searchKeyword]="keyword" (selected)='selectDistrictEvent($event)'
                       (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
-                      [notFoundTemplate]="notFoundTemplate">
+                      [notFoundTemplate]="notFoundTemplate" (inputCleared)="handleDistrictEmptyInput()">
                   </ng-autocomplete>
               
                   <ng-template #itemTemplate let-item>
@@ -40,9 +40,9 @@
               </div>
           </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-1">
           <label class="search-label"></label>
-          <button class="btn-circle-search-submit" type="submit"><i class="fa fa-search"></i></button>                            
+          <button class="btn-circle-search-submit" type="submit" (click)="searchSalons()"><i class="fa fa-search"></i></button>                                    
       </div>
     </div>
   </div>

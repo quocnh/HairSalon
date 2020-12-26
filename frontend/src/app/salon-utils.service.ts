@@ -74,6 +74,16 @@ export class SalonUtilsService {
     return this.webService.get(`salonOwners/userId/${userId}`);
   }
 
+  // get salonOwners Id from city/district
+  getSalonsFromCityDistrict(city: string, district:string) {
+    return this.webService.get(`salons/city_district/${city}/${district}`);
+  }
+
+  getSalonsFromCity(city: string) {
+    return this.webService.get(`salons/city/${city}`);
+  }
+
+
   getOneSalon(salonId: string) {
     return this.webService.get(`salons/${salonId}`);
   }

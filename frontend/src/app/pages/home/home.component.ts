@@ -53,6 +53,7 @@ export class HomeComponent implements OnInit {
     console.log(event);
     this.selectedCity = event;
     this.districts = event.district;
+    this.selectedDistrict = null;
   }
   selectDistrictEvent(event){
     console.log(event);
