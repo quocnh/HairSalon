@@ -95,8 +95,7 @@ const SalonSchema = new mongoose.Schema({
 });
 
 // Geocoder & create location
-SalonSchema.pre('save', async function(next) {
-    console.log(this.address);
+SalonSchema.pre('save', async function(next) {    
     const loc = await geocoder.geocode(this.address);
     console.log(loc);
     this.location = {
