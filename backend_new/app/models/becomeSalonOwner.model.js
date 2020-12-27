@@ -46,9 +46,9 @@ const SalonOwner = new mongoose.model(
             type: String,
             required: [false, 'address']
         },
-        salonQuantity: {
-            type: Number,
-            required: [false, 'Salon quantity']
+        status: {
+            type: String,
+            required: [false, 'application satatus']
         },
     })
 );

@@ -1,41 +1,129 @@
-<div class="container">
-    <div [hidden]="submitted">
-      <h1>Đăng ký chủ salon</h1>
-      <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" class="form-control" id="name"
-                 required
-                 [(ngModel)]="model.name" name="name"
-                 #name="ngModel">
-          <div [hidden]="name.valid || name.pristine"
-               class="alert alert-danger">
-            Name is required
-          </div>
+<div class="container" style="content: normal;">
+    <h4>Đăng ký thành chủ salon</h4>
+    <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+
+        <div class="row">
+            <div class="col-xs-6 col-md-6">
+                <div class="form-group">
+                    <label for="username">Tên đăng nhập</label>
+                    <input type="text" class="form-control" name="username" [(ngModel)]="form.username" required
+                        #username="ngModel" />
+                    <!-- <div class="alert alert-danger" role="alert" *ngIf="f.submitted && username.invalid">
+                        Username is required!
+                    </div> -->
+                </div>
+            </div>
+            
         </div>
-  
-        <div class="form-group">
-          <label for="alterEgo">Alter Ego</label>
-          <input type="text" class="form-control" id="alterEgo"
-                 [(ngModel)]="model.alterEgo" name="alterEgo">
+        <div class="row">
+            <div class="col-xs-6 col-md-6">
+                <div class="form-group">
+                    <label for="lastname">Họ</label>
+                    <input type="text" class="form-control" name="lastname" [(ngModel)]="form.lastname" required
+                        minlength="4" #lastname="ngModel" />
+                    <!-- <div class="alert alert-danger" role="alert" *ngIf="f.submitted && password.invalid">
+                        <div *ngIf="password.errors.required">Password is required</div>
+                        <div *ngIf="password.errors.minlength">
+                            Password must be at least 6 characters
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-6">
+                <div class="form-group">
+                    <label for="firstname">Tên</label>
+                    <input type="text" class="form-control" name="firstname" [(ngModel)]="form.firstname" required
+                        minlength="4" #firstname="ngModel" />
+                    <!-- <div class="alert alert-danger" role="alert" *ngIf="f.submitted && password.invalid">
+                        <div *ngIf="password.errors.required">Password is required</div>
+                        <div *ngIf="password.errors.minlength">
+                            Password must be at least 6 characters
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>  
+        <div class="row">
+            <div class="col-xs-6 col-md-6">
+                <div class="form-group">
+                    <label for="phone">Số điện thoại</label>
+                    <input type="tel" class="form-control" name="phone" [(ngModel)]="form.phone" required
+                        minlength="4" #phone="ngModel" />
+                    <!-- <div class="alert alert-danger" role="alert" *ngIf="f.submitted && password.invalid">
+                        <div *ngIf="password.errors.required">Password is required</div>
+                        <div *ngIf="password.errors.minlength">
+                            Password must be at least 6 characters
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <div class="col-xs-6 col-md-6">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" name="email" [(ngModel)]="form.email" required
+                        minlength="4" #email="ngModel" />
+                    <!-- <div class="alert alert-danger" role="alert" *ngIf="f.submitted && password.invalid">
+                        <div *ngIf="password.errors.required">Password is required</div>
+                        <div *ngIf="password.errors.minlength">
+                            Password must be at least 6 characters
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+           
+        </div>  
+        <div class="row">
+            <div class="col-xs-4 col-md-2">
+                <div class="form-group">
+                    <label for="city">Thành phố</label>
+                    <input type="text" class="form-control" name="city" [(ngModel)]="form.city" required
+                        minlength="4" #city="ngModel" />
+                    <!-- <div class="alert alert-danger" role="alert" *ngIf="f.submitted && password.invalid">
+                        <div *ngIf="password.errors.required">Password is required</div>
+                        <div *ngIf="password.errors.minlength">
+                            Password must be at least 6 characters
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <div class="col-xs-4 col-md-2">
+                <div class="form-group">
+                    <label for="district">Quận</label>
+                    <input type="text" class="form-control" name="district" [(ngModel)]="form.district" required
+                        minlength="4" #district="ngModel" />
+                    <!-- <div class="alert alert-danger" role="alert" *ngIf="f.submitted && password.invalid">
+                        <div *ngIf="password.errors.required">Password is required</div>
+                        <div *ngIf="password.errors.minlength">
+                            Password must be at least 6 characters
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <div class="col-xs-4 col-md-8">
+                <div class="form-group">
+                    <label for="address">Địa chỉ</label>
+                    <input type="text" class="form-control" name="address" [(ngModel)]="form.address" required
+                        minlength="4" #address="ngModel" />
+                    <!-- <div class="alert alert-danger" role="alert" *ngIf="f.submitted && password.invalid">
+                        <div *ngIf="password.errors.required">Password is required</div>
+                        <div *ngIf="password.errors.minlength">
+                            Password must be at least 6 characters
+                        </div>
+                    </div> -->
+                </div>
+            </div>
         </div>
-  
+    
+
         <div class="form-group">
-          <label for="power">Hero Power</label>
-          <select class="form-control" id="power"
-                  required
-                  [(ngModel)]="model.power" name="power"
-                  #power="ngModel">
-            <option *ngFor="let pow of powers" [value]="pow">{{pow}}</option>
-          </select>
-          <div [hidden]="power.valid || power.pristine" class="alert alert-danger">
-            Power is required
-          </div>
+            <button class="btn btn-primary btn-block">
+                Submit
+            </button>
         </div>
-  
-        <button type="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">Submit</button>
-      </form>
-    </div>
-  
-   
-  </div>
+        <!-- <div class="form-group">
+            <div class="alert alert-danger" role="alert" *ngIf="f.submitted && isLoginFailed">
+                Login failed: {{ errorMessage }}
+            </div>
+        </div> -->
+    </form>
+</div>
