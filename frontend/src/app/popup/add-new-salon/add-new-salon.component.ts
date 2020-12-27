@@ -3,6 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import Salon from '../../module/salon';
 import { SalonUtilsService } from '../../salon-utils.service';
 import SalonOwner from '../../module/salonOwner';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-new-salon',
@@ -15,12 +16,22 @@ export class AddNewSalonComponent implements OnInit {
   salonOwners: SalonOwner[];
   chosenSalonOwner: SalonOwner;
 
+  keyword = 'name';
+  cities:any[];
+  districts:any[];
+  selectedCity:any;
+  selectedDistrict:any;
+
   constructor(
     public modal: NgbActiveModal,
     private salonUtilService: SalonUtilsService,
+    private http: HttpClient
     ) {}
 
   ngOnInit(): void {
+    this.getCities().then(cities => {
+      this.cities = cities;
+    });
     console.log('Load modal');
     this.salonUtilService.getSalonOwners().subscribe((salonOwners: SalonOwner[]) => this.salonOwners = salonOwners);
   }
@@ -29,7 +40,36 @@ export class AddNewSalonComponent implements OnInit {
     console.log(this.salon.name);
     console.log(this.chosenSalonOwner.name);
     this.salon._salonOwnerId = this.chosenSalonOwner._id;
+    this.salon.address = this.salon.address + ' ' + this.selectedDistrict.name + ' ' + this.selectedCity.name;    
+    console.log(this.salon.address);
     this.modal.close(this.salon);
   }
 
+  getCities() {
+    return this.http.get<any>('assets/json/cities.json')
+      .toPromise()
+      .then(res => <any[]>res.data)
+      .then(data => { return data; });
+  }
+
+  selectCityEvent(event){
+    
+    this.selectedCity = event;
+    this.salon.city = this.selectedCity.name;
+    this.districts = event.district;
+    console.log(this.salon.city);
+  }
+  selectDistrictEvent(event){
+    
+    this.selectedDistrict = event;
+    this.salon.district = this.selectedDistrict.name;
+    console.log(this.salon.district);
+
+  }
+  onChangeSearch(event){
+    //console.log(event);
+  }
+  onFocused(event){
+    //console.log(event);
+  }
 }

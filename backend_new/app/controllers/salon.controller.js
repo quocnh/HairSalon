@@ -63,8 +63,8 @@ salonRouter.post('/', upload.array('newPhotos[]', 10), (req, res) => {
         district: req.body.district,
         city: req.body.city,
         address: req.body.address,
-        longitude: req.body.longitude,
-        latitude: req.body.latitude,
+        //longitude: req.body.longitude,
+        //latitude: req.body.latitude,
         info: req.body.info,
         services: req.body.services,
         priceFrom: '0',
@@ -93,6 +93,43 @@ salonRouter.delete('/:salonId', (req, res) => {
 
 salonRouter.get('/:salonId', (req, res) => {
     Salon.find({ _id: req.params.salonId})
+        .then(salon => res.send(salon))
+        .catch((error) => console.log(error));
+        
+});
+
+salonRouter.get('/city_district/:city/:district', (req, res) => {
+
+    Salon.find({ 
+        city: req.params.city,
+        district: req.params.district
+    })
+        .then(salon => res.send(salon))
+        .catch((error) => console.log(error));
+        
+});
+
+salonRouter.get('/city/:city', (req, res) => {
+    Salon.find({ 
+        city: req.params.city
+    })
+        .then(salon => res.send(salon))
+        .catch((error) => console.log(error));
+        
+});
+
+salonRouter.get('/location/:long/:lat', (req, res) => {
+    console.log(req.params );
+    Salon.find({ 
+        location: 
+        {
+            $near :
+                {
+                  $geometry: { type: "Point",  coordinates: [ Number(req.params.long), Number(req.params.lat) ] },
+                  $maxDistance: 2000
+                }
+        }
+    })
         .then(salon => res.send(salon))
         .catch((error) => console.log(error));
         
@@ -148,8 +185,8 @@ salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
                         district: req.body.district,
                         city: req.body.city,
                         address: req.body.address,
-                        longitude: req.body.longitude,
-                        latitude: req.body.latitude,
+                        //longitude: req.body.longitude,
+                        //latitude: req.body.latitude,
                         info: req.body.info,
                         //services: [req.body.services[],
                         priceFrom: req.body.priceFrom,

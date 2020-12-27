@@ -34,11 +34,13 @@ export class MainPageComponent implements OnInit {
   districts:any[];
   selectedCity:any;
   selectedDistrict:any;
+    
   //markers:any[];
 
   // tslint:disable-next-line: no-inferrable-types
   isMapShown: boolean = false;
   buttonMap: String = 'Mở bản đồ';
+  isListAllSalon = true;
 
   constructor(
     private salonUtilService: SalonUtilsService,
@@ -49,13 +51,6 @@ export class MainPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
-      this.latitude = params.latitude;
-      this.longitude = params.longitude;
-      console.log(this.longitude);
-      console.log(this.latitude);      
-
-  });
 
     this.getCities().then(cities => {
       this.cities = cities;
@@ -63,14 +58,35 @@ export class MainPageComponent implements OnInit {
     
     console.log(this.cities);
 
-    this.prefixPath = environment.baseUrl + this.router.url;
-    this.refreshAllSalonList();
+    this.prefixPath = environment.baseUrl + '/main';
+
     if (!navigator.geolocation) {
       console.log('location is not supported');
     }
     this.dbAddress = environment.dbAddress;
 
     this.mapControl(); 
+
+    this.route.params.subscribe((params: Params) => {
+      if(params.latitude && params.latitude) {
+        this.latitude = params.latitude;
+        this.longitude = params.longitude;
+        console.log(this.longitude);
+        console.log(this.latitude);
+        
+        
+        
+        this.latitude = 10.81078;
+        this.longitude = 106.66806;
+
+        this.salonUtilService.getSalonsFromLocation(this.longitude, this.latitude).subscribe((salons: Salon[]) => this.salons = salons);
+        this.isListAllSalon = false;
+      }
+    }); 
+
+    if (this.isListAllSalon) {
+      this.refreshAllSalonList();
+    }
   }
 
   refreshAllSalonList() {
@@ -95,7 +111,8 @@ export class MainPageComponent implements OnInit {
     this.mymap = L.map('hairSalonMap').setView([lat, long], 15);
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      // attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      attribution: '',
       maxZoom: 18,
       id: 'mapbox/streets-v11',
       tileSize: 512,
@@ -105,11 +122,17 @@ export class MainPageComponent implements OnInit {
   }
 
   loadMap() {
+    
+    navigator.geolocation.getCurrentPosition(() => {
+      //Temp Long-Lat
+      this.latitude = 10.81078;
+      this.longitude = 106.66806;
+      
+      this.initMap(this.latitude, this.longitude);
 
-    navigator.geolocation.watchPosition(() => {
-      this.initMap(10.81078, 106.66806);
-      //this.initMap(this.latitude, this.longitude);
-      this.addMarker(this.latitude, this.longitude);
+      // Marker of current location
+      this.addLocationMarker(this.latitude, this.longitude);
+
       for (var i = 0; i < this.salons.length; i++) {
         // console.log(i + ': ' + this.salons[i].latitude + ';' + this.salons[i].longitude);
         //this.markers[i] = L.marker([this.salons[i].latitude, this.salons[i].longitude]).addTo(this.mymap);
@@ -120,9 +143,20 @@ export class MainPageComponent implements OnInit {
 
 
   }
-
+  
   addMarker(lat, long) {
     L.marker([lat, long]).addTo(this.mymap);
+  }
+
+  addLocationMarker(lat, long) {
+    var circle = L.circle([lat, long], {
+      color: 'red',
+      fillColor: '#f03',
+      fillOpacity: 0.5,
+      radius: 50
+    }).addTo(this.mymap);
+
+    //L.marker([lat, long], {icon: redCircleMarker}).addTo(this.mymap);
   }
 
   mouseOverAction(salon, idx) {
@@ -149,6 +183,7 @@ export class MainPageComponent implements OnInit {
     console.log(event);
     this.selectedCity = event;
     this.districts = event.district;
+    this.selectedDistrict = null;
   }
   selectDistrictEvent(event){
     console.log(event);
@@ -156,9 +191,31 @@ export class MainPageComponent implements OnInit {
   }
   onChangeSearch(event){
     //console.log(event);
+        
+  }
+  handleCityEmptyInput(){
+    this.selectedCity = null;
+  }
+  handleDistrictEmptyInput(){
+    this.selectedDistrict = null;
   }
   onFocused(event){
     //console.log(event);
+  }
+
+  searchSalons(){
+    if (this.selectedCity) {
+      //console.log('Search city: ' + this.selectedCity.name);
+      if (this.selectedDistrict) {
+        //console.log('Search district: ' + this.selectedDistrict.name);
+        this.salonUtilService.getSalonsFromCityDistrict(this.selectedCity.name, this.selectedDistrict.name).subscribe((salons: Salon[]) => this.salons = salons);
+      } else {
+        this.salonUtilService.getSalonsFromCity(this.selectedCity.name).subscribe((salons: Salon[]) => this.salons = salons);
+      }
+    }
+    else {
+      this.refreshAllSalonList();
+    }
   }
 
 }

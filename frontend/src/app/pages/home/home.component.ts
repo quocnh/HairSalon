@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
   districts:any[];
   selectedCity:any;
   selectedDistrict:any;
+  isDisplayButtonNearby=false;
   
   constructor(
     private http: HttpClient,
@@ -27,15 +28,16 @@ export class HomeComponent implements OnInit {
     this.prefixPath = environment.baseUrl;
     this.getCities().then(cities => {
       this.cities = cities;
+      console.log(this.cities);
     });
     
-    console.log(this.cities);
 
     navigator.geolocation.getCurrentPosition((position) => {
       const coords = position.coords;
       const latLong = [coords.latitude, coords.longitude];
       this.myLatitude = coords.latitude;
       this.myLongitude = coords.longitude;
+      this.isDisplayButtonNearby = true;
       console.log(
         `lat: ${position.coords.latitude}, lon: ${position.coords.longitude}`
       );      
@@ -53,6 +55,7 @@ export class HomeComponent implements OnInit {
     console.log(event);
     this.selectedCity = event;
     this.districts = event.district;
+    this.selectedDistrict = null;
   }
   selectDistrictEvent(event){
     console.log(event);

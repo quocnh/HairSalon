@@ -7,8 +7,7 @@ const SalonSchema = new mongoose.Schema({
         type: String,
         trim: true,
         unique: true,
-        minlength: [3, 'Salon name must be more than 2 chars'],
-        maxlength: [10, 'salon name must be less than 10 chars']
+        maxlength: [50, 'salon name must be less than 50 chars']
     },
     _salonOwnerId: {
         type: mongoose.Types.ObjectId,
@@ -96,8 +95,7 @@ const SalonSchema = new mongoose.Schema({
 });
 
 // Geocoder & create location
-SalonSchema.pre('save', async function(next) {
-
+SalonSchema.pre('save', async function(next) {    
     const loc = await geocoder.geocode(this.address);
     console.log(loc);
     this.location = {
@@ -105,6 +103,8 @@ SalonSchema.pre('save', async function(next) {
         coordinates: [loc[0].longitude, loc[0].latitude],
         formattedAddress: loc[0].formattedAddress
     };
+    this.latitude = loc[0].latitude;
+    this.longitude = loc[0].longitude;
     // Do not save address
     next();
 });
