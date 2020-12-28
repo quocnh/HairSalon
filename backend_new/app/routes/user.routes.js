@@ -8,7 +8,7 @@ const express = require('express');
 const {success, error} = require("consola");
 const bodyParser = require('body-parser');
 const cors = require("cors");
-
+const becomeSalonOwnerController = require("../controllers/becomeSalonOwner.controller");
 const { authJwt } = require("../middlewares");
 const controller = require("../controllers/user.controller");
 const customerRoutes = require('../controllers/customer.controller');
@@ -54,7 +54,9 @@ module.exports = function (app) {
         [authJwt.verifyToken, authJwt.isDistributor],
         controller.distributorBoard
     );
-
+       
+    // app.post("/api/salon-owner/new-obj", becomeSalonOwnerController.createObj);
+        
     app.use('/salonOwners',     salonOwnerRoutes);
     app.use('/salons',          salonRoutes);
     app.use('/customers',       customerRoutes);
