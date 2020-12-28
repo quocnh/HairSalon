@@ -400,16 +400,16 @@ export class SalonUtilsService {
   }
   // -- Product Order <<<<<
 
-  // -- Become Salon Owner >>>>>  
-   createNewSalonOwner(becomeSalonOwnerObj: becomeSalonOwner) {
-    const fd = new FormData();
-    let key;
+  // // -- Become Salon Owner >>>>>  
+  //  createNewSalonOwner(becomeSalonOwnerObj: becomeSalonOwner) {
+  //   const fd = new FormData();
+  //   let key;
 
-    for (key in becomeSalonOwnerObj) {
-      fd.append(key, becomeSalonOwnerObj[key]);
-    }
-    // console.log('totalPrice : ' + becomeSalonOwnerObj.totalPrice);
-    return this.webService.post( `productOrder`, fd);
-  }
+  //   for (key in becomeSalonOwnerObj) {
+  //     fd.append(key, becomeSalonOwnerObj[key]);
+  //   }
+  //   // console.log('totalPrice : ' + becomeSalonOwnerObj.totalPrice);
+  //   return this.webService.post( `productOrder`, fd);
+  // }
 
 }

@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 const mongoose = require('mongoose');
 
-const SalonOwner = new mongoose.model(
+const BecomeSalonOwner = new mongoose.model(
     "BecomeSalonOwner",
     new mongoose.Schema({
         _userId: {
