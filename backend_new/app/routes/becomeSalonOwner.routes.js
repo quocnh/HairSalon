@@ -16,7 +16,7 @@ module.exports = function (app) {
 
 
     // TODO- check roles here later
-    app.post("/api/salon-owner/new-obj", becomeSalonOwnerController.createObj);
+    app.post("/api/salon-owner/new-obj", [authJwt.verifyToken], becomeSalonOwnerController.createObj);
 
     
 };
