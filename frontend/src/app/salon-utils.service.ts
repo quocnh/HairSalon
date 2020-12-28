@@ -11,7 +11,7 @@ import Product from './module/product';
 import productOrder from './module/productOrder';
 import SalonOwner from './module/salonOwner';
 import Distributor from './module/distributor';
-
+import becomeSalonOwner from './module/becomeSalonOwner';
 @Injectable({
   providedIn: 'root'
 })
@@ -399,4 +399,17 @@ export class SalonUtilsService {
     return this.webService.get(`productOrder/distributor/${distributorId}`);
   }
   // -- Product Order <<<<<
+
+  // // -- Become Salon Owner >>>>>  
+  //  createNewSalonOwner(becomeSalonOwnerObj: becomeSalonOwner) {
+  //   const fd = new FormData();
+  //   let key;
+
+  //   for (key in becomeSalonOwnerObj) {
+  //     fd.append(key, becomeSalonOwnerObj[key]);
+  //   }
+  //   // console.log('totalPrice : ' + becomeSalonOwnerObj.totalPrice);
+  //   return this.webService.post( `productOrder`, fd);
+  // }
+
 }

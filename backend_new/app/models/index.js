@@ -16,6 +16,7 @@ db.role = require("./role.model");
 db.customer = require("./customer.model");
 db.salonOwner = require("./salonOwner.model");
 db.distributor = require("./distributor.model");
+db.becomeSalonOwner = require("./becomeSalonOwner.model");
 
 db.ROLES = ["user", "admin", "salon_owner", "distributor"];
 
