@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { MessageService } from 'app/_services/message.service';
+import { SearchService } from 'app/_services/search.service';
 import { environment } from 'environments/environment';
+import { Subscription } from 'rxjs';
 import Salon from '../../module/salon';
 import { SalonUtilsService } from '../../salon-utils.service';
 
@@ -15,8 +18,10 @@ declare const L: any;
   templateUrl: './main-page.component.html'
 })
 
-export class MainPageComponent implements OnInit {
 
+export class MainPageComponent implements OnInit {
+  @Input() selectedCityName: string;
+  @Input() selectedDistrictName: string;
   content: string;
   latitude:number;
   longitude:number;
@@ -42,19 +47,54 @@ export class MainPageComponent implements OnInit {
   buttonMap: String = 'Mở bản đồ';
   isListAllSalon = true;
 
+  messages: any[] = [];
+  subscription: Subscription;
+
   constructor(
     private salonUtilService: SalonUtilsService,
     private userService: UserService,
     private router: Router,
     private route: ActivatedRoute,
-    private http: HttpClient
-  ) { }
+    private searchService: SearchService,
+    private messageService: MessageService
+  ) {
+    // subscribe to home component messages
+    this.subscription = this.messageService.onMessage().subscribe(messages => {
+      this.messages = [];
+      this.messages = messages;
+      
+      for(var index in this.messages)
+      { 
+        //console.log(this.messages[index].toString());
+        const tmpString:string  = this.messages[index].toString();
+        var splitted = tmpString.split(',');
+        
+        if(splitted.length == 2){
+          this.selectedCityName = splitted[0];
+          this.selectedDistrictName = splitted[1];
+          this.salonUtilService.getSalonsFromCityDistrict(this.selectedCityName, this.selectedDistrictName).subscribe((salons: Salon[]) => this.salons = salons);
+          this.isListAllSalon = false;
+          //console.log(this.selectedCityName);
+          //console.log(this.selectedDistrictName);
+        } else if(splitted.length == 1){
+          this.selectedCityName = splitted[0];
+          this.salonUtilService.getSalonsFromCity(this.selectedCityName).subscribe((salons: Salon[]) => this.salons = salons);
+          this.isListAllSalon = false;
+          //console.log(this.selectedCityName);
+        } else {
+
+        }
+
+      }
+
+    });
+  }
 
   ngOnInit(): void {
 
-    this.getCities().then(cities => {
-      this.cities = cities;
-    });
+    // this.searchService.getCities().then(cities => {
+    //   this.cities = cities;
+    // });
     
     console.log(this.cities);
 
@@ -81,12 +121,16 @@ export class MainPageComponent implements OnInit {
 
         this.salonUtilService.getSalonsFromLocation(this.longitude, this.latitude).subscribe((salons: Salon[]) => this.salons = salons);
         this.isListAllSalon = false;
-      }
+      }      
     }); 
 
     if (this.isListAllSalon) {
       this.refreshAllSalonList();
     }
+  }
+
+  ngOnChange(): void {
+    console.log(this.selectedCityName);
   }
 
   refreshAllSalonList() {
@@ -170,13 +214,6 @@ export class MainPageComponent implements OnInit {
 
   mouseOutAction(salon, idx) {
     //console.log('Mouse out action '+ idx);
-  }
-
-  getCities() {
-    return this.http.get<any>('assets/json/cities.json')
-      .toPromise()
-      .then(res => <any[]>res.data)
-      .then(data => { return data; });
   }
 
   selectCityEvent(event){

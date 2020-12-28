@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { GlobalConstants } from 'app/module/global-constants';
+import { SearchService } from 'app/_services/search.service';
 import { environment } from 'environments/environment';
 
 @Component({
@@ -21,12 +22,12 @@ export class HomeComponent implements OnInit {
   isDisplayButtonNearby=false;
   
   constructor(
-    private http: HttpClient,
+    private searchService: SearchService,
   ) { }
 
   ngOnInit(): void {
     this.prefixPath = environment.baseUrl;
-    this.getCities().then(cities => {
+    this.searchService.getCities().then(cities => {
       this.cities = cities;
       console.log(this.cities);
     });
@@ -42,13 +43,6 @@ export class HomeComponent implements OnInit {
         `lat: ${position.coords.latitude}, lon: ${position.coords.longitude}`
       );      
     })
-  }
-
-  getCities() {
-    return this.http.get<any>('assets/json/cities.json')
-      .toPromise()
-      .then(res => <any[]>res.data)
-      .then(data => { return data; });
   }
 
   selectCityEvent(event){

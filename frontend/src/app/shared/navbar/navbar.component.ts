@@ -10,13 +10,16 @@ import User from '../../module/user';
 import { SalonUtilsService } from '../../salon-utils.service';
 import { TokenStorageService } from '../../_services/token-storage.service';
 import { environment } from 'environments/environment';
+import { SearchService } from 'app/_services/search.service';
+import { MessageService } from 'app/_services/message.service';
 
 
 @Component({
   moduleId: module.id,
   // tslint:disable-next-line: component-selector
   selector: 'navbar-cmp',
-  templateUrl: 'navbar.component.html'
+  templateUrl: 'navbar.component.html',
+  styleUrls: ['./navbar.component.css']
 })
 
 export class NavbarComponent implements OnInit {
@@ -30,6 +33,15 @@ export class NavbarComponent implements OnInit {
   username: string;
   baseUrl: string;
   homePath: string;
+
+  keyword = 'name';
+  cities:any[];
+  districts:any[];
+  selectedCity:any;
+  selectedDistrict:any;
+  selectedCityName:string = 'none';
+  selectedDistrictName:string = 'none';
+  messages: any[] = [];
 
   private listTitles: any[];
   // tslint:disable-next-line: member-ordering
@@ -52,7 +64,10 @@ export class NavbarComponent implements OnInit {
     private element: ElementRef,
     private router: Router,
     private modalService: NgbModal,
-    private salonUtilService: SalonUtilsService,) {
+    private salonUtilService: SalonUtilsService,
+    private searchService: SearchService,
+    private messageService: MessageService
+    ) {
 
     this.location = location;
     this.nativeElement = element.nativeElement;
@@ -76,6 +91,10 @@ export class NavbarComponent implements OnInit {
             
       this.username = user.username;
     }
+
+    this.searchService.getCities().then(cities => {
+      this.cities = cities;
+    });
 //------------
     if (this.router.url.startsWith('/manager')) {
       this.listTitles = MANAGER_ROUTES.filter(menuItem => menuItem);
@@ -192,6 +211,56 @@ export class NavbarComponent implements OnInit {
       navbar.classList.remove('bg-white');
     }
 
+  }
+
+  selectCityEvent(event){
+    console.log(event);
+    this.selectedCity = event;
+    this.districts = event.district;
+    this.selectedCityName = this.selectedCity.name;
+    this.selectedDistrict = null;
+    this.selectedDistrictName = 'none';
+  }
+  selectDistrictEvent(event){
+    console.log(event);
+    this.selectedDistrict = event;
+    this.selectedDistrictName = this.selectedDistrict.name;
+  }
+  onChangeSearch(event){
+    //console.log(event);
+        
+  }
+  handleCityEmptyInput(){
+    this.selectedCity = null;
+  }
+  handleDistrictEmptyInput(){
+    this.selectedDistrict = null;
+  }
+  onFocused(event){
+    //console.log(event);
+  }
+
+  sendMessage() {
+    this.clearMessages();
+    
+    // send message to subscribers via observable subject
+    if ((this.selectedCityName) && (this.selectedCityName !== 'none')) {
+      this.messages.push(this.selectedCityName);      
+    }
+    if ((this.selectedDistrictName) && (this.selectedDistrictName !== 'none')) {
+      this.messages.push(this.selectedDistrictName);
+      
+    }
+    if(this.messages.length > 0) {
+      this.messageService.sendMessage(this.messages);
+    }
+
+  }
+
+  clearMessages() {
+    // clear messages
+    this.messageService.clearMessages();
+    this.messages = [];
   }
 
 }

@@ -4,6 +4,7 @@ import Salon from '../../module/salon';
 import { SalonUtilsService } from '../../salon-utils.service';
 import SalonOwner from '../../module/salonOwner';
 import { HttpClient } from '@angular/common/http';
+import { SearchService } from 'app/_services/search.service';
 
 @Component({
   selector: 'app-add-new-salon',
@@ -25,11 +26,11 @@ export class AddNewSalonComponent implements OnInit {
   constructor(
     public modal: NgbActiveModal,
     private salonUtilService: SalonUtilsService,
-    private http: HttpClient
+    private searchService: SearchService
     ) {}
 
   ngOnInit(): void {
-    this.getCities().then(cities => {
+    this.searchService.getCities().then(cities => {
       this.cities = cities;
     });
     console.log('Load modal');
@@ -43,13 +44,6 @@ export class AddNewSalonComponent implements OnInit {
     this.salon.address = this.salon.address + ' ' + this.selectedDistrict.name + ' ' + this.selectedCity.name;    
     console.log(this.salon.address);
     this.modal.close(this.salon);
-  }
-
-  getCities() {
-    return this.http.get<any>('assets/json/cities.json')
-      .toPromise()
-      .then(res => <any[]>res.data)
-      .then(data => { return data; });
   }
 
   selectCityEvent(event){
