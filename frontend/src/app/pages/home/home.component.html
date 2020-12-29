@@ -57,8 +57,10 @@
                 </div>
             </div>
             <div class="col-md-1">
-                <label class="search-label"></label>
-                <button class="btn-circle-search-submit" type="submit"><i class="fa fa-search"></i></button>                            
+                <label class="search-label"></label>                
+                <a [routerLink]="['../main/location', selectedCityName, selectedDistrictName]">                    
+                    <button class="btn-circle-search-submit" type="submit"><i class="fa fa-search"></i></button>
+                </a>
             </div>
             
         </div>       

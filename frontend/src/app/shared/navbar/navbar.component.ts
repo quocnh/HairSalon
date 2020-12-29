@@ -53,6 +53,7 @@ export class NavbarComponent implements OnInit {
   userObject: User = new User();
   // tslint:disable-next-line: member-ordering
   public isCollapsed = true;
+  isSearchVisible = false;
   // tslint:disable-next-line: member-ordering
   @ViewChild('navbar-cmp', { static: false }) button;
 
@@ -72,12 +73,19 @@ export class NavbarComponent implements OnInit {
     this.location = location;
     this.nativeElement = element.nativeElement;
     this.sidebarVisible = false;
+    this.isSearchVisible = false;
 
   }
 
   // tslint:disable-next-line: member-ordering
   ngOnInit() {
     this.baseUrl = environment.baseUrl;
+    if (this.router.url.includes('/main')){
+      this.isSearchVisible = true;
+    } else {
+      this.isSearchVisible = false;
+    }
+    
     
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 
