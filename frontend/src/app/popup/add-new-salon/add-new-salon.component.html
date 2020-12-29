@@ -60,8 +60,8 @@
                       <div class="form-group">
                         <label>Thành Phố(*)</label>
                         <!-- <input type="text" class="form-control" [(ngModel)]="salon.city" [ngModelOptions]="{standalone: true}" placeholder="Hồ Chí Minh" value="Hồ Chí Minh"> -->
-                        <div class="input--style-1" >
-                          <ng-autocomplete [data]="cities" [searchKeyword]="keyword" (selected)='selectCityEvent($event)'
+                        <div class="input--style-1" > 
+                          <ng-autocomplete [data]="cities" [searchKeyword]="keyword" (selected)='selectCityEvent($event)' placeHolder="Thành Phố"
                               (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                               [notFoundTemplate]="notFoundTemplate">    
                                                       
@@ -82,7 +82,7 @@
                     <label>Quận(*)</label>
                     <!-- <input type="text" class="form-control" [(ngModel)]="salon.district" [ngModelOptions]="{standalone: true}" placeholder="Quận 1" value="Quận 1"> -->
                     <div class="input--style-1" >
-                      <ng-autocomplete [data]="districts" [searchKeyword]="keyword" (selected)='selectDistrictEvent($event)'
+                      <ng-autocomplete [data]="districts" [searchKeyword]="keyword" (selected)='selectDistrictEvent($event)' placeHolder="Quận"
                           (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                           [notFoundTemplate]="notFoundTemplate">
                       </ng-autocomplete>
