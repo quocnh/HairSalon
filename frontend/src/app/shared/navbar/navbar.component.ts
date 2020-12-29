@@ -35,6 +35,7 @@ export class NavbarComponent implements OnInit {
   homePath: string;
 
   keyword = 'name';
+  // initialValue = 'Hồ Chí Minh';
   cities:any[];
   districts:any[];
   selectedCity:any;

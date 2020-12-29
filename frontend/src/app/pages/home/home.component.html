@@ -19,9 +19,9 @@
             </div>
             <div class="col-md-3">
                 <div class="form-group">
-                    <label class="search-label">Thành phố</label>
+                    <!-- <label class="search-label">Thành phố</label> -->
                     <div class="input--style-1" >
-                        <ng-autocomplete [data]="cities" [searchKeyword]="keyword" (selected)='selectCityEvent($event)'
+                        <ng-autocomplete [data]="cities" [searchKeyword]="keyword" placeHolder="Thành Phố" (selected)='selectCityEvent($event)'
                             (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                             [notFoundTemplate]="notFoundTemplate">    
                                                     
@@ -39,9 +39,9 @@
             </div>
             <div class="col-md-3">
                 <div class="form-group">
-                    <label class="search-label">Quận</label>
+                    <!-- <label class="search-label">Quận</label> -->
                     <div class="input--style-1">
-                        <ng-autocomplete [data]="districts" [searchKeyword]="keyword" (selected)='selectDistrictEvent($event)'
+                        <ng-autocomplete [data]="districts" [searchKeyword]="keyword" placeHolder="Quận" (selected)='selectDistrictEvent($event)' 
                             (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                             [notFoundTemplate]="notFoundTemplate">
                         </ng-autocomplete>
@@ -57,7 +57,7 @@
                 </div>
             </div>
             <div class="col-md-1">
-                <label class="search-label"></label>                
+                <!-- <label class="search-label"></label>                 -->
                 <a [routerLink]="['../main/location', selectedCityName, selectedDistrictName]">                    
                     <button class="btn-circle-search-submit" type="submit"><i class="fa fa-search"></i></button>
                 </a>

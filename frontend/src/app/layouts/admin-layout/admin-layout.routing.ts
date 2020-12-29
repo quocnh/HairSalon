@@ -31,6 +31,7 @@ export const AdminLayoutRoutes: Routes = [
     // { path: 'icons',          component: IconsComponent },
     // { path: 'maps',           component: MapsComponent },
     // { path: 'notifications',  component: NotificationsComponent },
+
     { path: 'profile',               component: UserComponent },
     { path: 'salonOwners',      component: SalonOwnersListComponent },
     { path: 'salonOwners/:salonOwnerId',      component: SalonOwnerProfileComponent },

@@ -4,6 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { NgbCalendar, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import Distributor from 'app/module/distributor';
 import { SalonUtilsService } from 'app/salon-utils.service';
+import { SearchService } from 'app/_services/search.service';
 import { TokenStorageService } from 'app/_services/token-storage.service';
 import { environment } from 'environments/environment';
 
@@ -35,6 +36,13 @@ export class DistributorProfileComponent implements OnInit {
   isDistributor = false;
   isModifiedEnable = false;
   distributorId:string;
+  keyword = 'name';
+  initialCity:string='';
+  initialDistrict:string='';
+  cities:any[];
+  districts:any[];
+  selectedCity:any;
+  selectedDistrict:any;
 
   constructor(
       private salonUtilService: SalonUtilsService,
@@ -42,11 +50,15 @@ export class DistributorProfileComponent implements OnInit {
       private http: HttpClient,
       private calendar: NgbCalendar,
       private ngbDateParserFormatter: NgbDateParserFormatter,
-      private tokenStorageService: TokenStorageService
+      private tokenStorageService: TokenStorageService,
+      private searchService: SearchService
       ) { }
 
   ngOnInit() {
     this.strAvatar = 'assets/img/default-avatar.png';
+    this.searchService.getCities().then(cities => {
+      this.cities = cities;
+    });
 
     // 1. Get userId
     this.isLoggedIn = !!this.tokenStorageService.getToken();
@@ -90,6 +102,12 @@ export class DistributorProfileComponent implements OnInit {
   updateProfile() {
     if ((JSON.stringify(this.distributorDb) !== JSON.stringify(this.distributor)) || (this.selectedFile !== null)) {
         //console.log(this.salonOwner);
+        if (this.distributor.city !== this.distributorDb.city) {
+          this.distributor.city = this.selectedCity.name;
+        }
+        if (this.distributor.district !== this.distributorDb.district) {
+          this.distributor.district = this.selectedDistrict.name;
+        }
         // update user profile
         this.salonUtilService.updateDistrbibutor(this.distributor, this.selectedFile).subscribe(
             // refresh page
@@ -124,5 +142,32 @@ export class DistributorProfileComponent implements OnInit {
         this.strAvatar = reader.result;
     }
     console.log(this.selectedFile);
+  }
+
+  selectCityEvent(event){
+    // console.log(event);
+    this.selectedCity = event;
+    this.districts = event.district;
+    this.distributor.city = this.selectedCity.name;
+    // console.log(this.salonOwner.city);
+  }
+  selectDistrictEvent(event){
+    // console.log(event);
+    this.selectedDistrict = event;
+    this.distributor.district = this.selectedDistrict.name;
+    // console.log(this.salonOwner.district);
+  }
+  onChangeSearch(event){
+    //console.log(event);
+        
+  }
+  handleCityEmptyInput(){
+    this.selectedCity = null;
+  }
+  handleDistrictEmptyInput(){
+    this.selectedDistrict = null;
+  }
+  onFocused(event){
+    //console.log(event);
   }
 }

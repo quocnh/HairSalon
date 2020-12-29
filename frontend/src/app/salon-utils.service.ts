@@ -49,8 +49,8 @@ export class SalonUtilsService {
     for (key in salonOwner) {
       fd.append(key, salonOwner[key]);
     }
-    console.log('update salonOwners : ' + salonOwner._id);
-    console.log('update phone : ' + salonOwner.phone);
+    // console.log('update salonOwners : ' + salonOwner._id);
+    // console.log('update phone : ' + salonOwner.phone);
     return this.webService.patch( `salonOwners/${salonOwner._id}`, fd);
   }
 

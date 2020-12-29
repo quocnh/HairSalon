@@ -45,7 +45,7 @@
       <ul class="navbar-nav mr-auto" routerLinkActive="active" style="opacity: 1;">
 
         <li class="nav-item" *ngIf="showAdminBoard">
-          <a href="{{baseUrl}}/admin" class="nav-link">Trang quản lý</a>
+          <a href="{{baseUrl}}/admin/salonOwners" class="nav-link">Trang quản lý</a>
         </li>
         <li class="nav-item" *ngIf="showDistributorBoard">
           <a href="{{baseUrl}}/distributor/profile" class="nav-link">Trang quản lý</a>
@@ -61,9 +61,10 @@
       <div class="navbar-nav mr-auto" *ngIf="isSearchVisible">
         <div class="col-md-4">
             <div class="form-group">
-                <label class="search-label">Thành phố</label>
+                <!-- <label class="search-label">Thành phố</label> -->
                 <div class="input--style-1" >
-                    <ng-autocomplete [data]="cities" [searchKeyword]="keyword" (selected)='selectCityEvent($event)'
+                    <ng-autocomplete [data]="cities" [searchKeyword]="keyword" [initialValue]="initialCity" 
+                        placeHolder="Thành Phố" (selected)='selectCityEvent($event)'
                         (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                         [notFoundTemplate]="notFoundTemplate" (inputCleared)="handleCityEmptyInput()" >    
                                                 
@@ -81,9 +82,10 @@
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                <label class="search-label">Quận</label>
+                <!-- <label class="search-label">Quận</label> -->
                 <div class="input--style-1">
-                    <ng-autocomplete [data]="districts" [searchKeyword]="keyword" (selected)='selectDistrictEvent($event)'
+                    <ng-autocomplete [data]="districts" [searchKeyword]="keyword" [initialValue]="initialDistrict" 
+                        placeHolder="Quận" (selected)='selectDistrictEvent($event)'
                         (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                         [notFoundTemplate]="notFoundTemplate" (inputCleared)="handleDistrictEmptyInput()">
                     </ng-autocomplete>
@@ -99,7 +101,7 @@
             </div>
         </div>
         <div class="col-md-1">
-            <label class="search-label"></label>
+            <!-- <label class="search-label"></label> -->
             <!-- <a href="{{baseUrl}}/main/location/{{selectedCityName}}/{{selectedDistrictName}}" class="nav-link"> -->
               <button class="btn-circle-search-submit" type="submit" (click)="sendMessage()"><i class="fa fa-search"></i></button>
               <!-- <app-main-page [selectedCityName]="selectedCityName" [selectedDistrictName]="selectedDistrictName"></app-main-page> -->
