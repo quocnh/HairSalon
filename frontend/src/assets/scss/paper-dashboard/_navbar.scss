@@ -2,7 +2,7 @@
     padding-top: $navbar-padding-base;
     padding-bottom: $navbar-padding-base;
     min-height: 53px;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
 
     a{
         vertical-align: middle;
@@ -188,6 +188,67 @@
         border: 1px solid transparent;
     }
 
+    .logo{
+        position: relative;
+        padding: 7px $padding-base-horizontal;
+        z-index: 4;
+        width: 20%;
+
+        a.logo-mini,
+        a.logo-normal{
+            @extend .animation-transition-general;
+        }
+
+        a.logo-mini{
+            opacity: 1;
+            float: left;
+            width: 34px;
+            text-align: center;
+            margin-left: 10px;
+            margin-right: 12px;
+        }
+
+        a.logo-normal{
+            display: block;
+            opacity: 1;
+            padding: 11px 0 8px;
+            @include transform-translate-x(0px);
+        }
+
+        &:after{
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 15px;
+            height: 1px;
+            width: calc(100% - 30px);
+            background-color: $opacity-5;
+
+        }
+
+        p{
+            float: left;
+            font-size: 20px;
+            margin: 10px 10px;
+            color: $white-color;
+            line-height: 20px;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        .simple-text{
+            text-transform: uppercase;
+            // padding: $padding-base-vertical 0;
+            display: block;
+            white-space: nowrap;
+            font-size: $font-size-large;
+            color: $white-color;
+            text-decoration: none;
+            font-weight: $font-weight-normal;
+            line-height: 40px;
+            overflow: hidden;
+        }
+    }
+
     .navbar-brand{
         text-transform: capitalize;
         font-size: $font-size-large-navbar;
@@ -313,5 +374,6 @@
     background-color: $new-black !important;
 }
 .bg-transparent{
-    background-color: rgba(114, 109, 109, 0.9) !important;
+    background-color: rgba(255, 255, 255, 1) !important;
+    box-shadow: 0 4px 2px -2px rgba(82, 81, 81, 0.2);
 }
