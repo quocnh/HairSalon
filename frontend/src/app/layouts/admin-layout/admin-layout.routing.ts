@@ -6,6 +6,7 @@ import { TableComponent } from '../../pages/table/table.component';
 import { TypographyComponent } from '../../pages/typography/typography.component';
 import { IconsComponent } from '../../pages/icons/icons.component';
 import { MapsComponent } from '../../pages/maps/maps.component';
+import { ApplicationRequestComponent } from '../../pages/application-request/application-request.component';
 import { NotificationsComponent } from '../../pages/notifications/notifications.component';
 import { SalonOwnersListComponent } from '../../pages/salon-owners-list/salon-owners-list.component';
 import { SalonViewComponent } from '../../pages/salon-view/salon-view.component';
@@ -30,8 +31,8 @@ export const AdminLayoutRoutes: Routes = [
     // { path: 'typography',     component: TypographyComponent },
     // { path: 'icons',          component: IconsComponent },
     // { path: 'maps',           component: MapsComponent },
-    // { path: 'notifications',  component: NotificationsComponent },
 
+    { path: 'application-request',  component: ApplicationRequestComponent },
     { path: 'profile',               component: UserComponent },
     { path: 'salonOwners',      component: SalonOwnersListComponent },
     { path: 'salonOwners/:salonOwnerId',      component: SalonOwnerProfileComponent },

@@ -57,7 +57,7 @@ export class ProductOrdersListViewComponent implements OnInit {
 
     if (this.isAdmin) {
       this.route.params.subscribe((params: Params) => {
-        console.log(params);
+        console.log("PARAMS: ", params);
         if (params.distributorId) {
           // For admin controller
           this.distributorId = params.distributorId;        

@@ -23,6 +23,7 @@ export const ADMIN_ROUTES: RouteInfo[] = [
     { path: 'salons',              title: 'Danh sách salon',               icon: 'nc-shop',   class: '' },
     { path: 'distributors',        title: 'Nhà phân phối',       icon: 'nc-delivery-fast',   class: '' },
     { path: 'barbers',             title: 'Thợ cắt tóc',         icon: 'nc-badge',   class: '' },
+    { path: 'application-request',             title: 'Đơn đăng ký Salon',         icon: 'nc-badge',   class: '' },
 ];
 
 export const MANAGER_ROUTES: RouteInfo[] = [    

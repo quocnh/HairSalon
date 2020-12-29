@@ -16,7 +16,11 @@ module.exports = function (app) {
 
 
     // TODO- check roles here later
-    app.post("/api/salon-owner/new-obj", [authJwt.verifyToken], becomeSalonOwnerController.createObj);
-
+    app.post("/api/salon-owner/newObj", [authJwt.verifyToken], becomeSalonOwnerController.createObj);
+    app.get(
+        "/api/salon-owner/getAll",
+        [authJwt.verifyToken, authJwt.isAdmin],
+        becomeSalonOwnerController.getAllBecomeSalonOwnerRequest
+    );
     
 };

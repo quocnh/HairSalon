@@ -17,8 +17,8 @@ export class BecomeSalonOwnerService {
   // update roles
   creatBecomeSalonOwner(obj): Observable<any> {
     console.log("Create a new become-salon-owner obj: " + obj.username + "," + obj.lastname);
-    console.log(API_URL + 'new-obj');
-    return this.http.post(API_URL + 'new-obj', {
+    console.log(API_URL + 'newObj');
+    return this.http.post(API_URL + 'newObj', {
       _userId: "5fde7118712b3c4ff65a377d",
       username: obj.username,
       // firstname: obj.firstname,
@@ -29,5 +29,12 @@ export class BecomeSalonOwnerService {
       // district: obj.district,
       status: "processing",
     }, httpOptions);
+  }
+
+  getAllBecomeSalonOwner(): Observable<any> {
+    console.log("get all application request: ");
+   
+    return this.http.get(API_URL + 'getAll', {
+    });
   }
 }
