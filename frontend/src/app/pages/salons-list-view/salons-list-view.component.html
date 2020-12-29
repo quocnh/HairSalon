@@ -34,7 +34,7 @@
                     <tr *ngFor="let salon of salons">
                         
                         <td>
-                            <a href="{{prefixPath}}/salons/{{salon._id}}">{{ salon.name }}</a>
+                            <a href="{{prefixPath}}/{{salon._id}}">{{ salon.name }}</a>
                         </td>
                         <td>
                             {{ salon.phone }}
@@ -50,7 +50,7 @@
                             <a data-toggle="tooltip" data-placement="top" title="Xóa"> <i class="fa fa-trash"></i></a>
                             </button>
                             <p class="pull-right"> &#160; </p>
-                            <a href="{{prefixPath}}/salons/{{salon._id}}">
+                            <a href="{{prefixPath}}/{{salon._id}}">
                                 <button class="btn btn-sm btn-info btn-round btn-icon pull-right" >
                                     <a data-toggle="tooltip" data-placement="top" title="Sửa"><i class="fa fa-pencil"></i></a>
                                 </button>
