@@ -31,6 +31,7 @@ export const AdminLayoutRoutes: Routes = [
     // { path: 'typography',     component: TypographyComponent },
     // { path: 'icons',          component: IconsComponent },
     // { path: 'maps',           component: MapsComponent },
+
     { path: 'application-request',  component: ApplicationRequestComponent },
     { path: 'profile',               component: UserComponent },
     { path: 'salonOwners',      component: SalonOwnersListComponent },

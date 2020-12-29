@@ -10,6 +10,7 @@ export const MainLayoutRoutes: Routes = [
     { path: '',                             component: MainPageComponent },
     { path: 'salons/:salonId',              component: SalonViewComponent},
     { path: 'coords/:latitude/:longitude',              component: MainPageComponent},
+    { path: 'location/:city/:district',              component: MainPageComponent},
     { path: 'become-salon-owner',               component: BecomeSalonownerComponent },
     { path: 'profile',               component: UserComponent },
 

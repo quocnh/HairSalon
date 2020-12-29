@@ -20,8 +20,8 @@ declare const L: any;
 
 
 export class MainPageComponent implements OnInit {
-  @Input() selectedCityName: string;
-  @Input() selectedDistrictName: string;
+  selectedCityName: string;
+  selectedDistrictName: string;
   content: string;
   latitude:number;
   longitude:number;
@@ -96,7 +96,7 @@ export class MainPageComponent implements OnInit {
     //   this.cities = cities;
     // });
     
-    console.log(this.cities);
+    // console.log(this.cities);
 
     this.prefixPath = environment.baseUrl + '/main';
 
@@ -108,7 +108,7 @@ export class MainPageComponent implements OnInit {
     this.mapControl(); 
 
     this.route.params.subscribe((params: Params) => {
-      if(params.latitude && params.latitude) {
+      if (params.latitude && params.latitude) {
         this.latitude = params.latitude;
         this.longitude = params.longitude;
         console.log(this.longitude);
@@ -121,7 +121,18 @@ export class MainPageComponent implements OnInit {
 
         this.salonUtilService.getSalonsFromLocation(this.longitude, this.latitude).subscribe((salons: Salon[]) => this.salons = salons);
         this.isListAllSalon = false;
-      }      
+      }else if (params.city !== 'none') {
+        this.selectedCityName = params.city;       
+
+        if(params.district !== 'none') {
+          this.selectedDistrictName = params.district;
+          this.salonUtilService.getSalonsFromCityDistrict(this.selectedCityName, this.selectedDistrictName).subscribe((salons: Salon[]) => this.salons = salons);            
+        }
+        else {
+          this.salonUtilService.getSalonsFromCity(this.selectedCityName).subscribe((salons: Salon[]) => this.salons = salons);            
+        }
+        this.isListAllSalon = false;        
+      }
     }); 
 
     if (this.isListAllSalon) {

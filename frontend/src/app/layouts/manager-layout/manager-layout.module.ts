@@ -22,6 +22,7 @@ import { BarberViewComponent } from '../../pages/barber-view/barber-view.compone
 import { BarberProfileViewComponent } from '../../pages/barber-profile-view/barber-profile-view.component';
 import { SalonsListViewComponent } from '../../pages/salons-list-view/salons-list-view.component';
 import { NgImageSliderModule } from 'ng-image-slider';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import { NgImageSliderModule } from 'ng-image-slider';
     FormsModule,
     NgbModule,
     NgImageSliderModule,
+    AutocompleteLibModule
   ],
   declarations: [
     SalonOwnersListComponent,

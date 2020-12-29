@@ -22,7 +22,7 @@
       </div>
       <div class="card-footer">
         <hr>
-        <div class="button-container">
+        <!-- <div class="button-container">
           <div class="row">
             <div class="col-lg-3 col-md-6 col-6 ml-auto">
               <h5>12
@@ -43,7 +43,7 @@
               </h5>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
 
@@ -130,16 +130,45 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-6 pr-1">
+            <div class="col-md-6">
               <div class="form-group">
-                <label>Quận</label>
-                <input type="text" class="form-control" placeholder="District" value="{{ customer.district }}" [(ngModel)]="customer.district" [ngModelOptions]="{standalone: true}">
+                <label class="label">Thành phố</label>
+                <div class="input--style-1">
+                  <ng-autocomplete [data]="cities" [searchKeyword]="keyword" [initialValue]="customer.city" placeHolder="Thành Phố"
+                    (selected)='selectCityEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
+                    [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" 
+                    (inputCleared)="handleCityEmptyInput()" [(ngModel)]="customer.city" [ngModelOptions]="{standalone: true}">
+            
+                  </ng-autocomplete>
+            
+                  <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.name"></a>
+                  </ng-template>
+            
+                  <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                  </ng-template>
+                </div>
               </div>
             </div>
-            <div class="col-md-6 pl-1">
+            <div class="col-md-6">
               <div class="form-group">
-                <label>Thành phố</label>
-                <input type="text" class="form-control" placeholder="City" value="{{ customer.city }}" [(ngModel)]="customer.city" [ngModelOptions]="{standalone: true}">
+                <label class="label">Quận</label>
+                <div class="input--style-1">
+                  <ng-autocomplete [data]="districts" [searchKeyword]="keyword" [initialValue]="customer.district" placeHolder="Quận"
+                    (selected)='selectDistrictEvent($event)' (inputChanged)='onChangeSearch($event)'
+                    (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+                    (inputCleared)="handleDistrictEmptyInput()" [(ngModel)]="customer.district" [ngModelOptions]="{standalone: true}">
+                  </ng-autocomplete>
+            
+                  <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.name"></a>
+                  </ng-template>
+            
+                  <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                  </ng-template>
+                </div>
               </div>
             </div>
             
@@ -155,7 +184,7 @@
     </div>
   </div>
 </div>
-<div class="card">
+<!-- <div class="card">
   <div class="card-header">
     <h4 class="card-title">Dịch vụ đã sử dụng</h4>
   </div>
@@ -220,4 +249,4 @@
       </li>
     </ul>
   </div>
-</div>
+</div> -->

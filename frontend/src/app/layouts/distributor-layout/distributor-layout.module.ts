@@ -21,6 +21,7 @@ import { BarberProfileViewComponent } from '../../pages/barber-profile-view/barb
 import { SalonsListViewComponent } from '../../pages/salons-list-view/salons-list-view.component';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { DistributorLayoutRoutes } from './distributor-layout.routing';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { DistributorLayoutRoutes } from './distributor-layout.routing';
     FormsModule,
     NgbModule,
     NgImageSliderModule,
+    AutocompleteLibModule
   ],
   declarations: [
     SalonOwnersListComponent,

@@ -20,6 +20,8 @@ export class HomeComponent implements OnInit {
   selectedCity:any;
   selectedDistrict:any;
   isDisplayButtonNearby=false;
+  selectedCityName:string = 'none';
+  selectedDistrictName:string = 'none';
   
   constructor(
     private searchService: SearchService,
@@ -29,7 +31,7 @@ export class HomeComponent implements OnInit {
     this.prefixPath = environment.baseUrl;
     this.searchService.getCities().then(cities => {
       this.cities = cities;
-      console.log(this.cities);
+      // console.log(this.cities);
     });
     
 
@@ -39,21 +41,22 @@ export class HomeComponent implements OnInit {
       this.myLatitude = coords.latitude;
       this.myLongitude = coords.longitude;
       this.isDisplayButtonNearby = true;
-      console.log(
-        `lat: ${position.coords.latitude}, lon: ${position.coords.longitude}`
-      );      
+      console.log(`lat: ${position.coords.latitude}, lon: ${position.coords.longitude}`);      
     })
   }
 
   selectCityEvent(event){
-    console.log(event);
+    // console.log(event);
     this.selectedCity = event;
     this.districts = event.district;
     this.selectedDistrict = null;
+    this.selectedCityName = this.selectedCity.name;
+    this.selectedDistrictName = 'none';
   }
   selectDistrictEvent(event){
-    console.log(event);
+    // console.log(event);
     this.selectedDistrict = event;
+    this.selectedDistrictName = this.selectedDistrict.name;
   }
   onChangeSearch(event){
     //console.log(event);
