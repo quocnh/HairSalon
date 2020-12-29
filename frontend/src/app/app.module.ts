@@ -49,6 +49,7 @@ import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component
 import { BecomeSalonownerComponent } from './pages/become-salonowner/become-salonowner.component';
 import { BecomeDistributorComponent } from './pages/become-distributor/become-distributor.component';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { ApplicationRequestComponent } from './pages/application-request/application-request.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
     DistributorProfileComponent,
     BecomeSalonownerComponent,
     BecomeDistributorComponent,
+    ApplicationRequestComponent,
   ],
   imports: [
     BrowserAnimationsModule,

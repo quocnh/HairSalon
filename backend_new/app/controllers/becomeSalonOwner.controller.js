@@ -25,3 +25,8 @@ exports.createObj = (req, res) => {
     });
     // res.status(200).send("XXXXXXX");
 };
+
+exports.getAllBecomeSalonOwnerRequest = (req,res) => {
+    // get all from db here - TODO
+    res.status(200).send("XXXXXXX");
+};
