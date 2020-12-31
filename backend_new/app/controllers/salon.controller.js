@@ -3,6 +3,7 @@
 const Salon = require('../models/salon.model');
 //const Service = require('../models/salon.model');
 const Barber = require('../models/barber.model');
+const geocoder = require('../utils/geocoder');
 
 var express = require('express');
 var salonRouter = express.Router();
@@ -174,6 +175,32 @@ salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
             console.log(req.body.name);
             console.log(req.body.services.name);
             console.log(req.body.services.price);
+
+            // const fullAddress = req.body.address + ' ' + req.body.district + ' ' + req.body.city;
+            // console.log(fullAddress);
+            // // var location = async function(fullAddress){
+            // //     const loc = await geocoder.geocode(fullAddress);
+            // //     const location = {
+            // //         type: 'Point',
+            // //         coordinates: [loc[0].longitude, loc[0].latitude],
+            // //         formattedAddress: loc[0].formattedAddress
+            // //     };
+            // //     const longitude = loc[0].longitude;
+            // //     const latitude = loc[0].latitute;
+            // //     return location;
+            // // }
+      
+            // const loc = geocoder.geocode(fullAddress);
+            //     const location = {
+            //         type: 'Point',
+            //         coordinates: [loc[0].longitude, loc[0].latitude],
+            //         formattedAddress: loc[0].formattedAddress
+            //     };
+            //     // const longitude = loc[0].longitude;
+            //     // const latitude = loc[0].latitute;
+            // console.log(location);         
+            
+
             Salon.findOneAndUpdate({ '_id': req.params.salonId}, 
                 {
                     $set: 
@@ -185,8 +212,9 @@ salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
                         district: req.body.district,
                         city: req.body.city,
                         address: req.body.address,
-                        //longitude: req.body.longitude,
-                        //latitude: req.body.latitude,
+                        // longitude: longitude,
+                        // latitude: latitude,
+                        // location: location,
                         info: req.body.info,
                         //services: [req.body.services[],
                         priceFrom: req.body.priceFrom,
@@ -196,7 +224,10 @@ salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
                     },
                 },
                 {new: true})
-                .then(salon => res.send(salon))
+                .then(salon => {
+                    salon.update();
+                    res.send(salon);
+                })
                 .catch((error) => console.log(error));
         }
     }

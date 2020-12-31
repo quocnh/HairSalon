@@ -5,6 +5,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { SalonUtilsService } from '../../salon-utils.service';
 import Service from '../../module/service';
 import { environment } from 'environments/environment';
+import { SearchService } from 'app/_services/search.service';
 // import { HereService } from '../../module/here.service';
 
 @Component({
@@ -14,6 +15,7 @@ import { environment } from 'environments/environment';
 export class SalonEditComponent implements OnInit {
   salonId: string;
   salon: Salon = new Salon();
+  salonDb: Salon = new Salon();
   modelDob: NgbDateStruct;
   today = this.calendar.getToday();
   addedService: Service = new Service();
@@ -22,11 +24,20 @@ export class SalonEditComponent implements OnInit {
   strPhotos: any = new Array();
   modifiedAddress: string;
 
+  keyword = 'name';
+  initialCity:string='';
+  initialDistrict:string='';
+  cities:any[];
+  districts:any[];
+  selectedCity:any;
+  selectedDistrict:any;
+  flagUpdate = false;
+
   constructor(
     private route: ActivatedRoute,
     private calendar: NgbCalendar,
     private salonUtilService: SalonUtilsService,
-    // private here: HereService
+    private searchService: SearchService    
     ) {
     }
 
@@ -38,7 +49,9 @@ export class SalonEditComponent implements OnInit {
     this.strPhotos[3] = 'assets/img/no_image.jpg';
     this.strPhotos[4] = 'assets/img/no_image.jpg';
 
-
+    this.searchService.getCities().then(cities => {
+      this.cities = cities;
+    });
 
     this.route.params.subscribe((params: Params) => {
       console.log(params);
@@ -69,6 +82,7 @@ export class SalonEditComponent implements OnInit {
     this.salonUtilService.getOneSalon(salonId).subscribe(
         (salons: Salon) => {
             this.salon = Object.assign({}, salons[0]);
+            this.salonDb = Object.assign({}, salons[0]);
             for (let i = 0; i < this.salon.photos.length; i++) {
               if (this.salon.photos[i] !== '') {
                 this.strPhotos[i] = environment.dbAddress + '/' + this.salon.photos[i];
@@ -140,39 +154,61 @@ export class SalonEditComponent implements OnInit {
   }
 
   updateSalonInfo() {
-    console.log('Update salon info');
+    
     for (let i = 0; i < this.selectedFiles.length; i++) {
       if (this.selectedFiles[i]) {
         console.log('Update photos: ' + i + ' ' + this.selectedFiles[i].name);
+        this.flagUpdate = true;
       }
     }
-    if (this.salon.address !== this.modifiedAddress) {
-      // update address
-      console.log(this.modifiedAddress);
-      this.salon.address = this.modifiedAddress;
-      /*
-      // convert to coordinator : long/lat
-      this.salonUtilService.getAddressfromHERE(this.modifiedAddress).subscribe(
-        (result: any) => {
-          console.log(result.items[0].position);
-          this.salon.longitude = result.items[0].position.lng;
-          this.salon.latitude = result.items[0].position.lat;
 
-          // update DB
-          this.salonUtilService.updateSalon(this.salon, this.selectedFiles).subscribe(
-            (salon: Salon) => {
-              this.salon = salon;
-            });
+    if ((JSON.stringify(this.salonDb) !== JSON.stringify(this.salon)) || (this.flagUpdate)) {
+      console.log('Update salon info');
+      if (this.salon.district !== this.salonDb.district) {
+        this.salon.district = this.selectedDistrict.name;
+      }
+      if (this.salon.city !== this.salonDb.city) {
+        this.salon.city = this.selectedCity.name;
+      }
+      this.flagUpdate = false;
+      this.salonUtilService.updateSalon(this.salon, this.selectedFiles).subscribe(
+        (salon: Salon) => {
+          this.salon = salon;
         }
-      )
-      */
+      );
+      this.selectedFiles = [];
     }
-      
-    this.salonUtilService.updateSalon(this.salon, this.selectedFiles).subscribe(
-      (salon: Salon) => {
-        this.salon = salon;
-      });
 
+      
+    
+
+  }
+
+  selectCityEvent(event){
+    // console.log(event);
+    this.selectedCity = event;
+    this.districts = event.district;
+    this.salon.city = this.selectedCity.name;
+    // console.log(this.salonOwner.city);
+  }
+  selectDistrictEvent(event){
+    // console.log(event);
+    this.selectedDistrict = event;
+    this.salon.district = this.selectedDistrict.name;
+    // console.log(this.salonOwner.district);
+  }
+  onChangeSearch(event){
+    //console.log(event);
+        
+  }
+  handleCityEmptyInput(){
+    this.selectedCity = null;
+  }
+  handleDistrictEmptyInput(){
+    this.selectedDistrict = null;
+  }
+  onFocused(event){
+    //console.log(event);
   }
 
 }

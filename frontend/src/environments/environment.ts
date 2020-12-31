@@ -5,10 +5,10 @@
 
 export const environment = {
   production: false,
-  // baseUrl: 'https://localhost:4200',
-  // dbAddress: 'http://localhost:8888/app',
-  // baseAPI: 'http://localhost:8888',
-  baseUrl: '',
-  dbAddress: 'http://171.244.39.13:8888/app',
-  baseAPI: 'http://171.244.39.13:8888',
+  baseUrl: 'https://localhost:4200',
+  dbAddress: 'http://localhost:3000/app',
+  baseAPI: 'http://localhost:3000',
+  // baseUrl: '',
+  // dbAddress: 'http://171.244.39.13:3000/app',
+  // baseAPI: 'http://171.244.39.13:3000',
 };

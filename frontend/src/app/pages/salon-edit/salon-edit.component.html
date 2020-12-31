@@ -3,13 +3,62 @@
         <div class="card card-chart">
             <div class="card-header">
                 <h4 class="card-title"> 
-                    Tên salon <input type="text" class="form-control card-title" placeholder="Tên salon" value="{{ salon.name }}" [(ngModel)]="salon.name" [ngModelOptions]="{standalone: true}">  
+                    Thông tin salon 
+                    
                 </h4>
-                   <br>         
-                <p class="card-category"> 
-                    <input type="text" class="form-control" placeholder="Địa chỉ" value="{{ salon.address }}" [(ngModel)]="modifiedAddress" [ngModelOptions]="{standalone: true}">
+                   <br>
+                <p class="card-category">
+                    <label class="label">Tên Salon</label> 
+                    <input type="text" class="form-control card-title" placeholder="Tên salon" value="{{ salon.name }}" [(ngModel)]="salon.name" [ngModelOptions]="{standalone: true}">  
                 </p>
-                
+                <p class="card-category">
+                    <label class="label">Địa chỉ</label> 
+                    <input type="text" class="form-control" placeholder="Địa chỉ" value="{{ salon.address }}" [(ngModel)]="salon.address" [ngModelOptions]="{standalone: true}">
+                </p>
+                <div class="row">              
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="label">Thành phố</label>
+                      <div class="input--style-1">
+                        <ng-autocomplete [data]="cities" [searchKeyword]="keyword" [initialValue]="salon.city" placeHolder="Thành Phố"
+                          (selected)='selectCityEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
+                          [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" 
+                          (inputCleared)="handleCityEmptyInput()" [(ngModel)]="salon.city" [ngModelOptions]="{standalone: true}">
+                  
+                        </ng-autocomplete>
+                  
+                        <ng-template #itemTemplate let-item>
+                          <a [innerHTML]="item.name"></a>
+                        </ng-template>
+                  
+                        <ng-template #notFoundTemplate let-notFound>
+                          <div [innerHTML]="notFound"></div>
+                        </ng-template>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="label">Quận</label>
+                      <div class="input--style-1">
+                        <ng-autocomplete [data]="districts" [searchKeyword]="keyword" [initialValue]="salon.district" placeHolder="Quận"
+                          (selected)='selectDistrictEvent($event)' (inputChanged)='onChangeSearch($event)'
+                          (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+                          (inputCleared)="handleDistrictEmptyInput()" [(ngModel)]="salon.district" [ngModelOptions]="{standalone: true}">
+                        </ng-autocomplete>
+                  
+                        <ng-template #itemTemplate let-item>
+                          <a [innerHTML]="item.name"></a>
+                        </ng-template>
+                  
+                        <ng-template #notFoundTemplate let-notFound>
+                          <div [innerHTML]="notFound"></div>
+                        </ng-template>
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
             </div>
         </div>
       </div>

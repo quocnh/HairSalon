@@ -88,7 +88,7 @@ export class ProductDetailEditComponent implements OnInit {
     }
   }
 
-  deleteProduct(productId: string) {
+  deleteProduct() {
     // TODO: Implement create new salon owner form popup
     this.deletedText = 'sản phẩm '+ this.product.name;
     console.log('Delete Product name ' + this.deletedText);

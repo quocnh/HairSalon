@@ -34,19 +34,19 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
     AutocompleteLibModule
   ],
   declarations: [
-    SalonOwnersListComponent,
-    CustomersListComponent,
-    DistributorListViewComponent,
-    BarberViewComponent,
-    DashboardComponent,
-    UserComponent,
-    TableComponent,
-    TypographyComponent,
-    IconsComponent,
-    MapsComponent,
-    NotificationsComponent,
-    BarberProfileViewComponent,
-    SalonsListViewComponent
+    // SalonOwnersListComponent,
+    // CustomersListComponent,
+    // DistributorListViewComponent,
+    // BarberViewComponent,
+    // DashboardComponent,
+    // UserComponent,
+    // TableComponent,
+    // TypographyComponent,
+    // IconsComponent,
+    // MapsComponent,
+    // NotificationsComponent,
+    // BarberProfileViewComponent,
+    // SalonsListViewComponent
   ]
 })
 

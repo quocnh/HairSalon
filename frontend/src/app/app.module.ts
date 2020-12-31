@@ -50,6 +50,19 @@ import { BecomeSalonownerComponent } from './pages/become-salonowner/become-salo
 import { BecomeDistributorComponent } from './pages/become-distributor/become-distributor.component';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { ApplicationRequestComponent } from './pages/application-request/application-request.component';
+import { SalonsListViewComponent } from './pages/salons-list-view/salons-list-view.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { UserComponent } from './pages/user/user.component';
+import { BarberProfileViewComponent } from './pages/barber-profile-view/barber-profile-view.component';
+import { BarberViewComponent } from './pages/barber-view/barber-view.component';
+import { CustomersListComponent } from './pages/customers-list/customers-list.component';
+import { SalonOwnersListComponent } from './pages/salon-owners-list/salon-owners-list.component';
+import { MapsComponent } from './pages/maps/maps.component';
+import { NotificationsComponent } from './pages/notifications/notifications.component';
+import { IconsComponent } from './pages/icons/icons.component';
+import { TypographyComponent } from './pages/typography/typography.component';
+import { TableComponent } from './pages/table/table.component';
+import { DistributorListViewComponent } from './pages/distributor-list-view/distributor-list-view.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +97,19 @@ import { ApplicationRequestComponent } from './pages/application-request/applica
     BecomeSalonownerComponent,
     BecomeDistributorComponent,
     ApplicationRequestComponent,
+    SalonsListViewComponent,
+    DashboardComponent,
+    UserComponent,
+    BarberProfileViewComponent,
+    BarberViewComponent,
+    CustomersListComponent,
+    SalonOwnersListComponent,
+    TableComponent,
+    TypographyComponent,
+    IconsComponent,
+    MapsComponent,
+    NotificationsComponent,
+    DistributorListViewComponent
   ],
   imports: [
     BrowserAnimationsModule,

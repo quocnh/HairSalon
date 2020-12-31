@@ -95,8 +95,25 @@ const SalonSchema = new mongoose.Schema({
 });
 
 // Geocoder & create location
-SalonSchema.pre('save', async function(next) {    
-    const loc = await geocoder.geocode(this.address);
+SalonSchema.pre('save', async function(next) {
+    fullAddress = this.address + ' ' + this.district + ' ' + this.city;
+    const loc = await geocoder.geocode(fullAddress);
+    console.log(loc);
+    this.location = {
+        type: 'Point',
+        coordinates: [loc[0].longitude, loc[0].latitude],
+        formattedAddress: loc[0].formattedAddress
+    };
+    this.latitude = loc[0].latitude;
+    this.longitude = loc[0].longitude;
+    // Do not save address
+    next();
+});
+
+SalonSchema.pre('update', async function(next) {
+    fullAddress = this.address + ' ' + this.district + ' ' + this.city;
+    const loc = await geocoder.geocode(fullAddress);
+    console.log('UPDATEEEEEEEEEEEEEEEEE');
     console.log(loc);
     this.location = {
         type: 'Point',

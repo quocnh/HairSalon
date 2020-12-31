@@ -19,7 +19,7 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
     AutocompleteLibModule
   ],
   declarations: [
-    MainPageComponent,
+    // MainPageComponent,
     SalonViewComponent,
   ]
 })

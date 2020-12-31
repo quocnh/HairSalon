@@ -19,6 +19,7 @@ export class ApplicationRequestComponent implements OnInit {
   isModifiedEnable = false;
   isAdmin = false;
   isSalonOwner = false;
+  pOrders:any; //QUOC need to fix it
 
   constructor(
     // private salonUtilService: SalonUtilsService,
