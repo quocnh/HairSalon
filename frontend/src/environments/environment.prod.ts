@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  baseUrl: '//localhost:4200/',
+  baseUrl: 'http://localhost:4200/',
+  dbAddress: 'http://localhost:8888/app'
 };

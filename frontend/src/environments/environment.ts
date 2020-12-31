@@ -5,6 +5,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://localhost:4200',
-  dbAddress: 'http://localhost:8888/app'
+  baseUrl: 'https://171.244..39.13:4200',
+  dbAddress: 'http://171.244..39.13:8888/app',
+  baseAPI: 'https://171.244..39.13:8888',
 };
