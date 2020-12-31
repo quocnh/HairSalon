@@ -1,49 +1,50 @@
-<div class="row" style='position: sticky;top: 90px; z-index:999;'>  
-  <div class="ml-auto" >
+<div class="row" style='position: sticky;top: 90px; z-index:999;'>
+  <div class="ml-auto">
     <button class="btn-circle-search-submit" type="submit" (click)="toggleMap()">
       <!-- <button type="button" class="btn btn-primary btn-round d-block mr-0 ml-auto" (click)="toggleMap()">        -->
-          {{buttonMap}}
-      </button>
-  </div>  
+      {{buttonMap}}
+    </button>
+  </div>
 </div>
 
 <div class="row" *ngIf="isMapShown; else noShowMap">
-  
-  <div class="col-md-3" >
+
+  <div class="col-md-3">
     <div class="row" *ngFor="let salon of salons; let i = index">
       <a href="{{prefixPath}}/salons/{{salon._id}}">
-        <div class="btn-primary card card-pricing" (mouseover)="mouseOverAction(salon, i)" (mouseout)="mouseOutAction(salon, i)"> 
+        <div class="btn-primary card card-pricing" (mouseover)="mouseOverAction(salon, i)"
+          (mouseout)="mouseOutAction(salon, i)">
           <div class="image">
-              <!--img src="assets/img/damir-bosnjak.jpg" alt="..." -->
-              <img src='{{dbAddress}}/{{salon.photos[0]}}' alt="..." >
+            <!--img src="assets/img/damir-bosnjak.jpg" alt="..." -->
+            <img src='{{dbAddress}}/{{salon.photos[0]}}' alt="...">
           </div>
-  
-          <div class="card-footer">          
 
-              <h6 class="text-left">{{ salon.name }}</h6>
-              <p class="text-left">{{salon.address | slice:0:20}}{{salon.address.length > 20 ? '...' : ''}}</p>
+          <div class="card-footer">
 
-              <div class="row">
-                <div class="col-md-5 text-left">
-                    <i class="fa fa-star text-danger"></i> {{salon.rate}} ({{salon.numRate}})
-                </div>
-                <div class="col-md-7 text-right" *ngIf="salon.services[0]; else noPrice">
-                  <p>{{salon.services[0].price | currency:'VND'}} ~</p>
-                </div>
+            <h6 class="text-left">{{ salon.name }}</h6>
+            <p class="text-left">{{salon.address | slice:0:20}}{{salon.address.length > 20 ? '...' : ''}}</p>
 
-                <ng-template #noPrice>
-                  <div class="col-md-7 text-right">
-                  <p>{{0 | currency:'VND'}} ~</p>
-                  </div>
-                </ng-template>
+            <div class="row">
+              <div class="col-md-5 text-left">
+                <i class="fa fa-star text-danger"></i> {{salon.rate}} ({{salon.numRate}})
               </div>
+              <div class="col-md-7 text-right" *ngIf="salon.services[0]; else noPrice">
+                <p>{{salon.services[0].price | currency:'VND'}} ~</p>
+              </div>
+
+              <ng-template #noPrice>
+                <div class="col-md-7 text-right">
+                  <p>{{0 | currency:'VND'}} ~</p>
+                </div>
+              </ng-template>
+            </div>
           </div>
-          </div>
+        </div>
       </a>
     </div>
   </div>
 
-  <div class="col-md-9" >
+  <div class="col-md-9">
     <div class="card " style='position: sticky;top: 140px'>
       <div class="map">
         <div id='hairSalonMap' class="map" style='height: 100%'></div>
@@ -57,31 +58,31 @@
   <div class="row">
     <div class="col-md-3" *ngFor="let salon of salons">
       <a href="{{prefixPath}}/salons/{{salon._id}}">
-        <div class="btn-primary card card-pricing" > 
+        <div class="btn-primary card card-pricing">
           <div class="image">
-              <!--img src="assets/img/damir-bosnjak.jpg" alt="..." -->
-              <img src='{{dbAddress}}/{{salon.photos[0]}}' alt="..." >
+            <!--img src="assets/img/damir-bosnjak.jpg" alt="..." -->
+            <img src='{{dbAddress}}/{{salon.photos[0]}}' alt="...">
           </div>
-  
+
           <div class="card-footer">
-              <h6 class="text-left">{{ salon.name }}</h6>
-              <p class="text-left">{{salon.address | slice:0:20}}{{salon.address.length > 20 ? '...' : ''}}</p>
+            <h6 class="text-left">{{ salon.name }}</h6>
+            <p class="text-left">{{salon.address | slice:0:20}}{{salon.address.length > 20 ? '...' : ''}}</p>
 
-              <div class="row">
-                <div class="col-md-5 text-left">
-                    <i class="fa fa-star text-danger"></i> {{salon.rate}} ({{salon.numRate}})
-                </div>
-                <div class="col-md-7 text-right" *ngIf="salon.services[0]; else noPrice">
-                  <p>{{salon.services[0].price | currency:'VND'}} ~</p>
-                </div>
-
-                <ng-template #noPrice>
-                  <div class="col-md-7 text-right">
-                  <p>{{0 | currency:'VND'}} ~</p>
-                  </div>
-                </ng-template>
-                
+            <div class="row">
+              <div class="col-md-5 text-left">
+                <i class="fa fa-star text-danger"></i> {{salon.rate}} ({{salon.numRate}})
               </div>
+              <div class="col-md-7 text-right" *ngIf="salon.services[0]; else noPrice">
+                <p>{{salon.services[0].price | currency:'VND'}} ~</p>
+              </div>
+
+              <ng-template #noPrice>
+                <div class="col-md-7 text-right">
+                  <p>{{0 | currency:'VND'}} ~</p>
+                </div>
+              </ng-template>
+
+            </div>
           </div>
         </div>
       </a>

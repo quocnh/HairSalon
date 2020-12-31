@@ -111,10 +111,14 @@ salonRouter.get('/city_district/:city/:district', (req, res) => {
 });
 
 salonRouter.get('/city/:city', (req, res) => {
+    console.log(req.params );
     Salon.find({ 
         city: req.params.city
     })
-        .then(salon => res.send(salon))
+        .then(salon => {
+            // console.log(salon);
+            res.send(salon);
+        })
         .catch((error) => console.log(error));
         
 });
@@ -225,7 +229,7 @@ salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
                 },
                 {new: true})
                 .then(salon => {
-                    salon.update();
+                    // salon.update();
                     res.send(salon);
                 })
                 .catch((error) => console.log(error));

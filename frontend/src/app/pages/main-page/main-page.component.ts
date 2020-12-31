@@ -119,17 +119,27 @@ export class MainPageComponent implements OnInit {
         this.latitude = 10.81078;
         this.longitude = 106.66806;
 
-        this.salonUtilService.getSalonsFromLocation(this.longitude, this.latitude).subscribe((salons: Salon[]) => this.salons = salons);
+        this.salonUtilService.getSalonsFromLocation(this.longitude, this.latitude).subscribe(
+          (salons: Salon[]) => this.salons = salons
+        );
         this.isListAllSalon = false;
+
       }else if (params.city !== 'none') {
         this.selectedCityName = params.city;       
 
         if(params.district !== 'none') {
           this.selectedDistrictName = params.district;
-          this.salonUtilService.getSalonsFromCityDistrict(this.selectedCityName, this.selectedDistrictName).subscribe((salons: Salon[]) => this.salons = salons);            
+          this.salonUtilService.getSalonsFromCityDistrict(this.selectedCityName, this.selectedDistrictName).subscribe(
+            (salons: Salon[]) => this.salons = salons
+          );            
         }
         else {
-          this.salonUtilService.getSalonsFromCity(this.selectedCityName).subscribe((salons: Salon[]) => this.salons = salons);            
+          this.salonUtilService.getSalonsFromCity(this.selectedCityName).subscribe(
+            (salons: Salon[]) => {
+              this.salons = salons;
+              console.log(this.salons);
+            }
+          );            
         }
         this.isListAllSalon = false;        
       }

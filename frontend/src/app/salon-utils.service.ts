@@ -85,6 +85,7 @@ export class SalonUtilsService {
 
 
   getSalonsFromCity(city: string) {
+    console.log('getSalonsFromCity ' + city);
     return this.webService.get(`salons/city/${city}`);
   }
 

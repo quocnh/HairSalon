@@ -63,6 +63,7 @@ import { IconsComponent } from './pages/icons/icons.component';
 import { TypographyComponent } from './pages/typography/typography.component';
 import { TableComponent } from './pages/table/table.component';
 import { DistributorListViewComponent } from './pages/distributor-list-view/distributor-list-view.component';
+import { MainPageComponent } from './pages/main-page/main-page.component';
 
 @NgModule({
   declarations: [
@@ -107,9 +108,10 @@ import { DistributorListViewComponent } from './pages/distributor-list-view/dist
     TableComponent,
     TypographyComponent,
     IconsComponent,
-    MapsComponent,
+    // MapsComponent,
     NotificationsComponent,
-    DistributorListViewComponent
+    DistributorListViewComponent,
+    MainPageComponent
   ],
   imports: [
     BrowserAnimationsModule,

@@ -3,12 +3,12 @@
     <a href="{{baseUrl}}/home" class="simple-text logo-mini">
       <div class="logo-image-small">
         <img src="assets/img/angular2-logo.png">
-        
+
       </div>
-      
+
     </a>
 
-      <a href="{{baseUrl}}/home" class="simple-text">Hair-Salon</a>
+    <a href="{{baseUrl}}/home" class="simple-text">Hair-Salon</a>
 
     <!-- <a href="{{baseUrl}}/home" class="simple-text">
       Hair-Salon
@@ -60,52 +60,53 @@
 
       <div class="navbar-nav mr-auto" *ngIf="isSearchVisible">
         <div class="col-md-4">
-            <div class="form-group">
-                <!-- <label class="search-label">Thành phố</label> -->
-                <div class="input--style-1" >
-                    <ng-autocomplete [data]="cities" [searchKeyword]="keyword" [initialValue]="initialCity" 
-                        placeHolder="Thành Phố" (selected)='selectCityEvent($event)'
-                        (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
-                        [notFoundTemplate]="notFoundTemplate" (inputCleared)="handleCityEmptyInput()" >    
-                                                
-                    </ng-autocomplete>
-                    
-                    <ng-template #itemTemplate let-item>                            
-                        <a [innerHTML]="item.name"></a>
-                    </ng-template>
-                
-                    <ng-template #notFoundTemplate let-notFound>
-                        <div [innerHTML]="notFound"></div>
-                    </ng-template>
-                </div>
+          <div class="form-group">
+            <!-- <label class="search-label">Thành phố</label> -->
+            <div class="input--style-1">
+              <ng-autocomplete [data]="cities" [searchKeyword]="keyword" [initialValue]="initialCity"
+                placeHolder="Thành Phố" (selected)='selectCityEvent($event)' (inputChanged)='onChangeSearch($event)'
+                (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+                (inputCleared)="handleCityEmptyInput()">
+
+              </ng-autocomplete>
+
+              <ng-template #itemTemplate let-item>
+                <a [innerHTML]="item.name"></a>
+              </ng-template>
+
+              <ng-template #notFoundTemplate let-notFound>
+                <div [innerHTML]="notFound"></div>
+              </ng-template>
             </div>
+          </div>
         </div>
         <div class="col-md-4">
-            <div class="form-group">
-                <!-- <label class="search-label">Quận</label> -->
-                <div class="input--style-1">
-                    <ng-autocomplete [data]="districts" [searchKeyword]="keyword" [initialValue]="initialDistrict" 
-                        placeHolder="Quận" (selected)='selectDistrictEvent($event)'
-                        (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
-                        [notFoundTemplate]="notFoundTemplate" (inputCleared)="handleDistrictEmptyInput()">
-                    </ng-autocomplete>
-                
-                    <ng-template #itemTemplate let-item>
-                        <a [innerHTML]="item.name"></a>
-                    </ng-template>
-                
-                    <ng-template #notFoundTemplate let-notFound>
-                        <div [innerHTML]="notFound"></div>
-                    </ng-template>
-                </div>
+          <div class="form-group">
+            <!-- <label class="search-label">Quận</label> -->
+            <div class="input--style-1">
+              <ng-autocomplete [data]="districts" [searchKeyword]="keyword" [initialValue]="initialDistrict"
+                placeHolder="Quận" (selected)='selectDistrictEvent($event)' (inputChanged)='onChangeSearch($event)'
+                (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+                (inputCleared)="handleDistrictEmptyInput()">
+              </ng-autocomplete>
+
+              <ng-template #itemTemplate let-item>
+                <a [innerHTML]="item.name"></a>
+              </ng-template>
+
+              <ng-template #notFoundTemplate let-notFound>
+                <div [innerHTML]="notFound"></div>
+              </ng-template>
             </div>
+          </div>
         </div>
         <div class="col-md-1">
-            <!-- <label class="search-label"></label> -->
-            <!-- <a href="{{baseUrl}}/main/location/{{selectedCityName}}/{{selectedDistrictName}}" class="nav-link"> -->
-              <button class="btn-circle-search-submit" type="submit" (click)="sendMessage()"><i class="fa fa-search"></i></button>
-              <!-- <app-main-page [selectedCityName]="selectedCityName" [selectedDistrictName]="selectedDistrictName"></app-main-page> -->
-            <!-- </a> -->
+          <!-- <label class="search-label"></label> -->
+          <!-- <a href="{{baseUrl}}/main/location/{{selectedCityName}}/{{selectedDistrictName}}" class="nav-link"> -->
+          <button class="btn-circle-search-submit" type="submit" (click)="sendMessage()"><i
+              class="fa fa-search"></i></button>
+          <!-- <app-main-page [selectedCityName]="selectedCityName" [selectedDistrictName]="selectedDistrictName"></app-main-page> -->
+          <!-- </a> -->
         </div>
       </div>
 
@@ -119,7 +120,7 @@
           </a>
           <div ngbDropdownMenu aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu dropdown-menu-right">
             <a ngbDropdownItem href="javascript:void(0)" (click)="logout()">Thoát</a>
-          
+
           </div>
         </li>
       </ul>
