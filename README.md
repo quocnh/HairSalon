@@ -102,3 +102,18 @@ or
 # Enable Search nearby for Mongodb <https://docs.mongodb.com/manual/tutorial/geospatial-tutorial/>
 # -> Create index for location by mongodb command:
 > db.salons.createIndex({ location: "2dsphere" })
+
+
+# deploying angular app in production
+```python
+- remove root url (localhost)
+- create a .htaccess in html apache folder 
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
+```
