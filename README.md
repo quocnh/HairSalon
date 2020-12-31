@@ -105,6 +105,7 @@ or
 
 
 # deploying angular app in production
+```python
 - remove root url (localhost)
 - create a .htaccess in html apache folder 
 <IfModule mod_rewrite.c>
@@ -115,3 +116,4 @@ or
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule . /index.html [L]
 </IfModule>
+```
