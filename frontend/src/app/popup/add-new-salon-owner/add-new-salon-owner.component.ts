@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbCalendar, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { SalonUtilsService } from 'app/salon-utils.service';
+import { SearchService } from 'app/_services/search.service';
 import SalonOwner from '../../module/salonOwner';
 
 @Component({
@@ -31,16 +32,24 @@ export class AddNewSalonOwnerComponent implements OnInit {
 
   modelDob: NgbDateStruct;
   today = this.calendar.getToday();
+  keyword = 'name';
+  cities:any[];
+  districts:any[];
+  selectedCity:any;
+  selectedDistrict:any;
 
   constructor(
     public modal: NgbActiveModal,
     private calendar: NgbCalendar,
     private ngbDateParserFormatter: NgbDateParserFormatter,
     private salonUtilService: SalonUtilsService,
+    private searchService: SearchService
     ) { }
 
   ngOnInit(): void {
-
+    this.searchService.getCities().then(cities => {
+      this.cities = cities;
+    });
     // this.salonUtilService.getAllSalons().subscribe((salons: Salon[]) => this.salons = salons);
     // this.modelDob = {
     //   year: 1985,
@@ -61,6 +70,27 @@ export class AddNewSalonOwnerComponent implements OnInit {
     console.log(this.salonOwner);
     this.modal.close(this.salonOwner);    
 
+  }
+
+  selectCityEvent(event){
+    
+    this.selectedCity = event;
+    this.salonOwner.city = this.selectedCity.name;
+    this.districts = event.district;
+    console.log(this.salonOwner.city);
+  }
+  selectDistrictEvent(event){
+    
+    this.selectedDistrict = event;
+    this.salonOwner.district = this.selectedDistrict.name;
+    console.log(this.salonOwner.district);
+
+  }
+  onChangeSearch(event){
+    //console.log(event);
+  }
+  onFocused(event){
+    //console.log(event);
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbCalendar, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { SalonUtilsService } from 'app/salon-utils.service';
+import { SearchService } from 'app/_services/search.service';
 import Distributor from '../../module/distributor';
 
 @Component({
@@ -32,15 +33,23 @@ export class AddNewDistributorComponent implements OnInit {
 
   modelDob: NgbDateStruct;
   today = this.calendar.getToday();
+  keyword = 'name';
+  cities:any[];
+  districts:any[];
+  selectedCity:any;
+  selectedDistrict:any;
 
   constructor(
     public modal: NgbActiveModal,
     private calendar: NgbCalendar,
     private ngbDateParserFormatter: NgbDateParserFormatter,
+    private searchService: SearchService
     ) { }
 
   ngOnInit(): void {
-
+    this.searchService.getCities().then(cities => {
+      this.cities = cities;
+    });
   }
 
   addNewDistributor() {
@@ -55,6 +64,27 @@ export class AddNewDistributorComponent implements OnInit {
     console.log(this.distributor);
     this.modal.close(this.distributor);    
 
+  }
+
+  selectCityEvent(event){
+    
+    this.selectedCity = event;
+    this.distributor.city = this.selectedCity.name;
+    this.districts = event.district;
+    console.log(this.distributor.city);
+  }
+  selectDistrictEvent(event){
+    
+    this.selectedDistrict = event;
+    this.distributor.district = this.selectedDistrict.name;
+    console.log(this.distributor.district);
+
+  }
+  onChangeSearch(event){
+    //console.log(event);
+  }
+  onFocused(event){
+    //console.log(event);
   }
 
 }
