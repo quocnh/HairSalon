@@ -128,3 +128,11 @@ sudo rm /var/lib/mongodb/mongod.lock
 sudo mongod --dbpath /var/lib/mongodb/ --repair
 sudo mongod --dbpath /var/lib/mongodb/ --journal
 ```
+# connect to remote mongo server
+```python
+use admin
+db.createUser({user:"admin",pwd:"admin",roles:[{role:"root",db:"admin"}]})
+
+- then, check port 27017
+netstat -anp | grep 27017
+```
