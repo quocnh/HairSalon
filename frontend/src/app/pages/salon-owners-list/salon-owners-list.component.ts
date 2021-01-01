@@ -16,8 +16,7 @@ import { Router } from '@angular/router';
 
 export class SalonOwnersListComponent implements OnInit {
 
-  salonOwners: SalonOwner[] = [];
-  displayedSalonOwners: SalonOwner[] = [];
+  salonOwners: SalonOwner[] = [];  
   addedSalonOwner: SalonOwner ;
   salonOwner: SalonOwner;
   name: string;
@@ -26,6 +25,7 @@ export class SalonOwnersListComponent implements OnInit {
 
   keyword = 'name';
   selectedSalonOwner:any;
+  displayedSalonOwners: SalonOwner[] = [];
 
   constructor(
     private salonUtilService: SalonUtilsService,

@@ -23,6 +23,10 @@ export class CustomersListComponent implements OnInit {
   deletedCustomer: Customer;
   addedCustomer: Customer = new Customer();
   prefixPath: string;
+  
+  keyword = 'username';
+  selectedCustomer:any;
+  displayedCustomers: Customer[] = [];
 
   constructor(
     private salonUtilService: SalonUtilsService,
@@ -34,6 +38,25 @@ export class CustomersListComponent implements OnInit {
     this.prefixPath = environment.baseUrl + this.router.url;
     this.refreshCustomerList();
   }
+
+  // --- Autocomplete Code --------------------------
+  selectEvent(event){
+    console.log(event);
+    this.selectedCustomer = event;
+    this.displayedCustomers = [];
+    this.displayedCustomers.push(this.selectedCustomer);
+  }
+  onChangeSearch(event){
+    //console.log(event);        
+  }
+  handleEmptyInput(){
+    this.selectedCustomer = null;
+    this.displayedCustomers = this.customers;
+  }
+  onFocused(event){
+    //console.log(event);
+  }
+  // --- Autocomplete Code -------------------------
 
   createNewCustomer() {
     // TODO: Implement create new customer form popup
@@ -84,6 +107,10 @@ export class CustomersListComponent implements OnInit {
 
   refreshCustomerList() {
     this.salonUtilService.getCustomers()
-      .subscribe((customers: Customer[]) => this.customers = customers);
+      .subscribe((customers: Customer[]) => 
+      {
+        this.customers = customers;
+        this.displayedCustomers = this.customers;
+      });
   }
 }
