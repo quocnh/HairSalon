@@ -29,6 +29,10 @@ export class SalonsListViewComponent implements OnInit {
   user: any;
   isAdmin = false;
   isSalonOwner = false;
+
+  keyword = 'name';
+  selectedSalon:any;
+  displayedSalons: Salon[] = [];
   
   constructor(
     private salonUtilService: SalonUtilsService,
@@ -87,6 +91,25 @@ export class SalonsListViewComponent implements OnInit {
       }
     );
   }
+
+  // --- Autocomplete Code --------------------------
+  selectEvent(event){
+    console.log(event);
+    this.selectedSalon = event;
+    this.displayedSalons = [];
+    this.displayedSalons.push(this.selectedSalon);
+  }
+  onChangeSearch(event){
+    //console.log(event);        
+  }
+  handleEmptyInput(){
+    this.selectedSalon = null;
+    this.displayedSalons = this.salons;
+  }
+  onFocused(event){
+    //console.log(event);
+  }
+  // --- Autocomplete Code -------------------------
 
   createNewSalon() {
     console.log('Create new salon');
@@ -173,7 +196,11 @@ export class SalonsListViewComponent implements OnInit {
   }
 
   refreshAllSalonList() {
-    this.salonUtilService.getAllSalons().subscribe((salons: Salon[]) => this.salons = salons);
+    this.salonUtilService.getAllSalons().subscribe((salons: Salon[]) => 
+    {
+      this.salons = salons;
+      this.displayedSalons = salons;
+    });
   }
 
 }
