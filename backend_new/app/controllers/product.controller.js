@@ -50,6 +50,17 @@ productRouter.get('/distributor/:distributorId', (req, res) => {
         
 });
 
+// Get all products from distributorId
+productRouter.get('/distributor-category/:distributorId/:category', (req, res) => {
+    Product.find({ 
+        _distributorId: req.params.distributorId,
+        category: req.params.category
+    })
+        .then(products => res.send(products))
+        .catch((error) => console.log(error));
+        
+});
+
 // Get product
 productRouter.get('/:productId', (req, res) => {
     // console.log(req.params.productId);

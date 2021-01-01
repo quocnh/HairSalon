@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Distributor from 'app/module/distributor';
+import { GlobalConstants } from 'app/module/global-constants';
 import Product from 'app/module/product';
 import User from 'app/module/user';
 import { AddNewProductComponent } from 'app/popup/add-new-product/add-new-product.component';
@@ -21,6 +22,7 @@ export class ProductsListViewComponent implements OnInit {
   addedProduct: Product;
   productPhoto: File;
   dbAddress: string;
+  Categories = GlobalConstants.ProductCategory;
 
   private roles: string[];
   isLoggedIn = false;
@@ -28,6 +30,12 @@ export class ProductsListViewComponent implements OnInit {
   isModifiedEnable = false;
   isAdmin = false;
   isSalonOwner = false;
+  
+  keywordCategory = 'value';
+  keywordProduct = 'name'
+  selectedCategory:any;
+  selectedProduct:any;
+  displayedProducts: Product[] = [];
 
   constructor(
     private salonUtilService: SalonUtilsService,
@@ -87,11 +95,46 @@ export class ProductsListViewComponent implements OnInit {
     console.log(this.prefixPath);
   }
 
+  // --- Autocomplete Code --------------------------
+  selectCategoryEvent(event){
+    console.log(event);
+    this.selectedCategory = event.value;
+    this.displayedProducts = [];
+    this.salonUtilService.getProductsFromDistributorIdAndCategoty(this.distributorId, this.selectedCategory).subscribe(
+      (retProducts: Product[]) => {        
+        this.displayedProducts = retProducts;
+      }
+    );
+  }
+  onChangeSearch(event){
+    //console.log(event);        
+  }
+  handleEmptyCategoryInput(){
+    this.selectedCategory = null;
+    this.displayedProducts = this.products;
+  }
+  onFocused(event){
+    //console.log(event);
+  }
+
+  selectProductEvent(event){
+    console.log(event);
+    this.selectedProduct = event;
+    this.displayedProducts = [];
+    this.displayedProducts.push(this.selectedProduct);
+  }
+  handleEmptyProductInput(){
+    this.selectedCategory = null;
+    this.displayedProducts = this.products;
+  }
+  // --- Autocomplete Code -------------------------
+
   refreshProductsList() {
     
     this.salonUtilService.getProductsFromDistributorId(this.distributorId).subscribe(
       (retProducts: Product[]) => {
-        this.products = retProducts;        
+        this.products = retProducts;
+        this.displayedProducts = retProducts;
       }
     );
   }

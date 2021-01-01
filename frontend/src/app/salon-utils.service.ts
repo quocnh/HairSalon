@@ -291,6 +291,10 @@ export class SalonUtilsService {
     return this.webService.get(`products/distributor/${distributorId}`);
   }
 
+  getProductsFromDistributorIdAndCategoty(distributorId:string, category:string) {
+    return this.webService.get(`products/distributor-category/${distributorId}/${category}`);
+  }
+
   // create products
   createProduct(product: Product, file: File) {
     const fd = new FormData();
