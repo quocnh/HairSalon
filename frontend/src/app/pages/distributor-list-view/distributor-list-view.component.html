@@ -1,75 +1,105 @@
 <div class="row">
 
-    <div class="col-md-12">
-        <div class="card">
-          <div class="card-header">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-md-6">
             <h4 class="card-title"> Danh sách nhà phân phối</h4>
           </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table">
-                <thead class=" text-primary">
-                  <th>
-                    Tên
-                  </th>
-                  <th>
-                    Số điện thoại
-                  </th>
-                  <th>
-                    Email
-                  </th>
-                  <th>
-                    Sản phẩm
-                  </th>
-                  <th>
-                    Đơn hàng
-                  </th>
-                  <th class="text-right" *ngIf="isModifiedEnable">
-                    <button class="btn btn-sm btn-success btn-round btn-icon " (click)= "createNewDistributor()">
-                      <a data-toggle="tooltip" data-placement="top" title="Thêm mới"> <i class="nc-icon nc-simple-add"></i></a>
-                    </button>
-                  </th>
+          <div class="col-md-6">
+            <th class="pull-right">
 
-                </thead>
-                <tbody>
-                    
-                    <tr *ngFor="let distributor of distributors">
-                        
-                        <td>
-                            <a href="{{prefixPath}}/{{distributor._id}}/profile">{{ distributor.name }}</a>
-                        </td>
-                        <td>
-                            {{ distributor.phone }}
-                        </td>
-                        <td>
-                            {{ distributor.email }}
-                        </td>
-                        <td>
-                          <a href="{{prefixPath}}/{{distributor._id}}/products">Tất cả sản phẩm</a>
-                        </td>
-                        <td>
-                          <a href="{{prefixPath}}/{{distributor._id}}/productOrders">Đơn hàng</a>
-                        </td>
-                    
-                        <td *ngIf="isModifiedEnable">
-                          <button class="btn btn-sm btn-danger btn-round btn-icon pull-right" (click)= "deleteDistributor(distributor._id)">
-                            <a data-toggle="tooltip" data-placement="top" title="Xóa"> <i class="fa fa-trash"></i></a>
-                          </button>
-                          <p class="pull-right"> &#160; </p>
-                          <a href="{{prefixPath}}/{{distributor._id}}/profile">
-                            <button class="btn btn-sm btn-info btn-round btn-icon pull-right">
-                              <a data-toggle="tooltip" data-placement="top" title="Sửa"><i class="fa fa-pencil"></i></a>
-                            </button>
-                          </a>            
-                          
-                        </td>
-                    </tr>
-                  
-                </tbody>
-              </table>
-            </div>
+              <div class="form-group">
+
+                <div class="input--style-1">
+                  <ng-autocomplete [data]="distributors" [searchKeyword]="keyword" placeHolder="Nhập tên nhà phân phối"
+                    (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)'
+                    (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                    [notFoundTemplate]="notFoundTemplate" (inputCleared)="handleEmptyInput()">
+                  </ng-autocomplete>
+
+                  <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.name"></a>
+                  </ng-template>
+
+                  <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                  </ng-template>
+                </div>
+              </div>
+
+
+            </th>
           </div>
         </div>
       </div>
-</div>   
-  
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class=" text-primary">
+              <th>
+                Tên
+              </th>
+              <th>
+                Số điện thoại
+              </th>
+              <th>
+                Email
+              </th>
+              <th>
+                Sản phẩm
+              </th>
+              <th>
+                Đơn hàng
+              </th>
+              <th class="text-right" *ngIf="isModifiedEnable">
+                <button class="btn btn-sm btn-success btn-round btn-icon " (click)="createNewDistributor()">
+                  <a data-toggle="tooltip" data-placement="top" title="Thêm mới"> <i
+                      class="nc-icon nc-simple-add"></i></a>
+                </button>
+              </th>
+
+            </thead>
+            <tbody>
+
+              <tr *ngFor="let distributor of displayedDistributors">
+
+                <td>
+                  <a href="{{prefixPath}}/{{distributor._id}}/profile">{{ distributor.name }}</a>
+                </td>
+                <td>
+                  {{ distributor.phone }}
+                </td>
+                <td>
+                  {{ distributor.email }}
+                </td>
+                <td>
+                  <a href="{{prefixPath}}/{{distributor._id}}/products">Tất cả sản phẩm</a>
+                </td>
+                <td>
+                  <a href="{{prefixPath}}/{{distributor._id}}/productOrders">Đơn hàng</a>
+                </td>
+
+                <td *ngIf="isModifiedEnable">
+                  <button class="btn btn-sm btn-danger btn-round btn-icon pull-right"
+                    (click)="deleteDistributor(distributor._id)">
+                    <a data-toggle="tooltip" data-placement="top" title="Xóa"> <i class="fa fa-trash"></i></a>
+                  </button>
+                  <p class="pull-right"> &#160; </p>
+                  <a href="{{prefixPath}}/{{distributor._id}}/profile">
+                    <button class="btn btn-sm btn-info btn-round btn-icon pull-right">
+                      <a data-toggle="tooltip" data-placement="top" title="Sửa"><i class="fa fa-pencil"></i></a>
+                    </button>
+                  </a>
+
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

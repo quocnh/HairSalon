@@ -26,6 +26,10 @@ export class BarberViewComponent implements OnInit {
   salon: Salon = new Salon();
   prefixPath: string;
 
+  keyword = 'username';
+  selectedBarber:any;
+  displayedBarbers: Barber[] = [];
+
   constructor(
     private salonUtilService: SalonUtilsService,
     private modalService: NgbModal,
@@ -36,6 +40,25 @@ export class BarberViewComponent implements OnInit {
     this.prefixPath = environment.baseUrl + this.router.url;
     this.refreshBarberList();
   }
+
+  // --- Autocomplete Code --------------------------
+  selectEvent(event){
+    console.log(event);
+    this.selectedBarber = event;
+    this.displayedBarbers = [];
+    this.displayedBarbers.push(this.selectedBarber);
+  }
+  onChangeSearch(event){
+    //console.log(event);        
+  }
+  handleEmptyInput(){
+    this.selectedBarber = null;
+    this.displayedBarbers = this.barbers;
+  }
+  onFocused(event){
+    //console.log(event);
+  }
+  // --- Autocomplete Code -------------------------
 
   createNewBarber() {
     // TODO: Implement create new customer form popup
@@ -92,6 +115,7 @@ export class BarberViewComponent implements OnInit {
     this.salonUtilService.getBarbers()
       .subscribe((barbers: Barber[]) => {
         this.barbers = barbers;
+        this.displayedBarbers = this.barbers;
         for (let i = 0; i < barbers.length; i++) {
           this.getSalonName(barbers[i]._salonId).then(data => (barbers[i].salonName = data));
         }

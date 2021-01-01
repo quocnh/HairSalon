@@ -21,6 +21,10 @@ export class DistributorListViewComponent implements OnInit {
   user: any;
   isModifiedEnable = false;
 
+  keyword = 'name';
+  selectedDistributor:any;
+  displayedDistributors: Distributor[] = [];
+
   constructor(
     private salonUtilService: SalonUtilsService,
     private modalService: NgbModal,
@@ -41,6 +45,25 @@ export class DistributorListViewComponent implements OnInit {
 
     this.refreshDistributorList();
   }
+
+  // --- Autocomplete Code --------------------------
+  selectEvent(event){
+    console.log(event);
+    this.selectedDistributor = event;
+    this.displayedDistributors = [];
+    this.displayedDistributors.push(this.selectedDistributor);
+  }
+  onChangeSearch(event){
+    //console.log(event);        
+  }
+  handleEmptyInput(){
+    this.selectedDistributor = null;
+    this.displayedDistributors = this.distributors;
+  }
+  onFocused(event){
+    //console.log(event);
+  }
+  // --- Autocomplete Code -------------------------
 
   createNewDistributor() {
     // TODO: Implement create new customer form popup
@@ -81,7 +104,11 @@ export class DistributorListViewComponent implements OnInit {
 
   refreshDistributorList() {
     this.salonUtilService.getDistributors()
-      .subscribe((distributors: Distributor[]) => this.distributors = distributors);
+      .subscribe((distributors: Distributor[]) => 
+      {
+        this.distributors = distributors;
+        this.displayedDistributors = distributors;
+      });
   }
 
 }
