@@ -17,11 +17,15 @@ import { Router } from '@angular/router';
 export class SalonOwnersListComponent implements OnInit {
 
   salonOwners: SalonOwner[] = [];
+  displayedSalonOwners: SalonOwner[] = [];
   addedSalonOwner: SalonOwner ;
   salonOwner: SalonOwner;
   name: string;
   public deletedSalonOwner: SalonOwner;
   prefixPath: string;
+
+  keyword = 'name';
+  selectedSalonOwner:any;
 
   constructor(
     private salonUtilService: SalonUtilsService,
@@ -33,6 +37,25 @@ export class SalonOwnersListComponent implements OnInit {
     this.prefixPath = environment.baseUrl + this.router.url;
     this.refreshSalonOwnersList();
   }
+
+  // --- Autocomplete Code --------------------------
+  selectEvent(event){
+    console.log(event);
+    this.selectedSalonOwner = event;
+    this.displayedSalonOwners = [];
+    this.displayedSalonOwners.push(this.selectedSalonOwner);
+  }
+  onChangeSearch(event){
+    //console.log(event);        
+  }
+  handleEmptyInput(){
+    this.selectedSalonOwner = null;
+    this.displayedSalonOwners = this.salonOwners;
+  }
+  onFocused(event){
+    //console.log(event);
+  }
+  // --- Autocomplete Code -------------------------
 
   createNewSalonOwner() {
     // TODO: Implement create new salon owner form popup
@@ -74,7 +97,10 @@ export class SalonOwnersListComponent implements OnInit {
 
   refreshSalonOwnersList() {
     this.salonUtilService.getSalonOwners()
-      .subscribe((salonOwners: SalonOwner[]) => this.salonOwners = salonOwners);
+      .subscribe((salonOwners: SalonOwner[]) => {
+        this.salonOwners = salonOwners;
+        this.displayedSalonOwners = this.salonOwners;
+      });
   }
 
 }

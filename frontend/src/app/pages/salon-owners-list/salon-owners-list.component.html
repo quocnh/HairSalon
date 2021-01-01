@@ -3,7 +3,35 @@
     <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h4 class="card-title"> Danh sách chủ salon</h4>
+            <div class="row">
+              <div class="col-md-6">
+                <h4 class="card-title"> Danh sách chủ salon</h4>
+                </div>
+              <div class="col-md-6">  
+                <th class="pull-right">
+
+                  <div class="form-group">                   
+                    
+                    <div class="input--style-1">                      
+                      <ng-autocomplete [data]="salonOwners" [searchKeyword]="keyword" placeHolder="Nhập tên chủ Salon"
+                         (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
+                         [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" (inputCleared)="handleEmptyInput()">
+                      </ng-autocomplete>
+
+                      <ng-template #itemTemplate let-item>
+                        <a [innerHTML]="item.name"></a>
+                      </ng-template>
+        
+                      <ng-template #notFoundTemplate let-notFound>
+                        <div [innerHTML]="notFound"></div>
+                      </ng-template>
+                    </div>
+                  </div>
+                  
+                    
+                </th>
+              </div>
+            </div>
           </div>
           <div class="card-body">
             <div class="table-responsive">
@@ -30,7 +58,7 @@
                 </thead>
                 <tbody>
                     
-                    <tr *ngFor="let salonOwner of salonOwners">
+                    <tr *ngFor="let salonOwner of displayedSalonOwners">
                         
                         <td>
                             <a href="{{prefixPath}}/{{salonOwner._id}}">{{ salonOwner.name }}</a>
