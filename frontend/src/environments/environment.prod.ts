@@ -1,8 +1,8 @@
 export const environment = {
   production: true,
   // baseUrl: 'http://localhost:4200/',
-  dbAddress: 'http://localhost:3000/app',
-  baseAPI: 'http://localhost:3000',
+  dbAddress: 'https://171.244.39.13:3000/app',
+  baseAPI: 'https://171.244.39.13:3000',
   baseUrl: '',
   // dbAddress: '',
   // baseAPI: '',

@@ -17,9 +17,9 @@
       <a href="{{prefixPath}}/{{item._id}}">
         <div class=" btn-primary card card-pricing">
           <div class="card-header " *ngIf="item.event; else noKM">
-            <h6 class="card-title">{{item.name}}</h6>
+            <h6 class="card-title addressStyle">{{item.name}}</h6>
             <!--p class="card-category">Tên nhà phân phối</p-->
-            <p class="card-category text-left" style="color:red">{{item.event}}</p>                            
+            <p class="card-category text-left addressStyle" style="color:red">{{item.event}}</p>                            
           </div>
           <ng-template #noKM>
             <div class="card-header ">
@@ -44,18 +44,18 @@
             <hr>
 
             <div class="row" >
-              <div class="col-lg-6 col-md-6 col-6 ml-auto">
-                <p class="card-category text-left">Giá ({{item.unit}})</p>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <p class="card-category text-left addressStyle">Giá ({{item.unit}})</p>
               </div>
-              <div class="col-lg-6 mr-auto text-right">
+              <div class="col-lg-6 col-md-6 col-sm-6 text-right addressStyle">
                 <h6><s>{{item.price| currency:'VND'}}</s></h6>
               </div>
             </div>
             <div class="row">
-              <div class="col-6 col-md-6"style="color:red">
-                  <img  src="../../../assets/img/sale.png" width="40" height="40" >{{item.discount}}% 
+              <div class="col-lg-6 col-md-6 col-sm-6"style="color:red">
+                  <img  src="../../../assets/img/sale.png" width="30" height="30" >{{item.discount}}% 
               </div>
-              <div class="col-lg-6 mr-auto text-right" style="color:red">
+              <div class="col-lg-6 col-md-6 col-sm-6 text-right addressStyle" style="color:red">
                 <h6>{{item.price*((100-item.discount)/100)| currency:'VND'}}</h6>
               </div>
               
@@ -68,16 +68,16 @@
               <hr>
   
               <div class="row" >
-                <div class="col-lg-6 col-md-6 col-6 ml-auto">
+                <div class="col-lg-6 col-md-6 col-sm-6">
                   <p class="card-category text-left">Giá ({{item.unit}})</p>
                 </div>
-                <div class="col-lg-6 mr-auto text-right">
+                <div class="col-lg-6 col-md-6 col-sm-6 text-right">
                   <h6>{{item.price| currency:'VND'}}</h6>
                 </div>
               </div>
               <div class="row">
                 
-                <div class="col-lg-12 mr-auto text-right" >
+                <div class="col-lg-6 col-md-6 col-sm-6 text-right" >
                   <p class="card-category text-left">&nbsp;</p>                  
                 </div>
                 

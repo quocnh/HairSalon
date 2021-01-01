@@ -1,0 +1,12 @@
+.addressStyle {
+    overflow:hidden;
+    transition:transform 0.3s ease-out;
+    height:auto;
+    max-height: 20px;
+    transform:scaleY(1); 
+    transform-origin:top;
+  }
+
+.addressStyle.collapsed {
+    transform:scaleY(0); 
+  }

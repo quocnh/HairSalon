@@ -5,6 +5,16 @@ const dbConfig = require("./app/config/db.config");
 const { success, error } = require("consola");
 
 const app = express();
+const https = require('https');
+const fs = require('fs');
+
+var key = fs.readFileSync('./cert/localhost.key');
+var cert = fs.readFileSync('./cert/localhost.crt');
+var options = {
+  key: key,
+  cert: cert
+};
+
 
 var corsOptions = {
     origin: "http://localhost:8081"
@@ -39,13 +49,19 @@ db.mongoose
 app.get("/", (req, res) => {
     res.json({ message: "Welcome to HaizSalon application." });
 });
-// app.set('trust proxy', true);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}.`);
+
+var server = https.createServer(options, app);
+
+server.listen(PORT, () => {
+  console.log("server starting on port : " + PORT)
 });
+
+// app.listen(PORT, () => {
+//     console.log(`Server is running on port ${PORT}.`);
+// });
 
 // initial() function helps us to create 4 important rows in roles collection at the first run.
 function initial() {
