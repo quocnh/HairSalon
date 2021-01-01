@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GlobalConstants } from 'app/module/global-constants';
 import Product from 'app/module/product';
 import productOrder from 'app/module/productOrder';
 import SalonOwner from 'app/module/salonOwner';
@@ -28,6 +29,10 @@ export class ProductOrdersListViewComponent implements OnInit {
   isSalonOwner = false;
   salonOwnerName: string[]=[];
   productName: string[]=[];
+
+  keyword = 'value';
+  selectedStatus:any;  
+  orderStatus = GlobalConstants.OrderStatus;
 
   constructor(
     private salonUtilService: SalonUtilsService,
@@ -87,7 +92,22 @@ export class ProductOrdersListViewComponent implements OnInit {
 
     //console.log(this.prefixPath);
   }
-
+  // --- Autocomplete Code --------------------------
+  selectEvent(event){
+    console.log(event);
+    this.selectedStatus = event.value;
+    
+  }
+  onChangeSearch(event){
+    //console.log(event);        
+  }
+  handleEmptyInput(){
+    this.selectedStatus = null;    
+  }
+  onFocused(event){
+    //console.log(event);
+  }
+  // --- Autocomplete Code -------------------------
   refreshOrderProductsList() {
     
     this.salonUtilService.getProductOrderFromDistributorId(this.distributorId).subscribe(
@@ -113,5 +133,10 @@ export class ProductOrdersListViewComponent implements OnInit {
         }
       }
     );
-  }  
+  }
+
+  updateOrder(pOrder: productOrder) {
+    //console.log(pOrder.status);
+    this.salonUtilService.updateOrder(pOrder).subscribe();    
+  }
 }

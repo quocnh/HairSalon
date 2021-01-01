@@ -15,6 +15,13 @@ export class GlobalConstants {
         {value: 'túi'}                                        
     ];
 
+    public static OrderStatus = [
+        'Đang xử lý',
+        'Đang vận chuyển',
+        'Hoàn thành',
+        'Hủy',
+    ];
+
     public static City = [
         [
             {name : 'Tp. Hồ Chí Minh'},

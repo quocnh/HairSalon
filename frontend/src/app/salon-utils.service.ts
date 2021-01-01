@@ -339,6 +339,8 @@ export class SalonUtilsService {
 
     return this.webService.patch( `products/${product._id}`, fd);
   }
+
+  
   //Get one product 
   getOneProduct(productId: string) {
     //console.log('Get Product : ' + productId);
@@ -402,6 +404,16 @@ export class SalonUtilsService {
   }
   getProductOrderFromDistributorId(distributorId:string) {
     return this.webService.get(`productOrder/distributor/${distributorId}`);
+  }
+  updateOrder(pOrder: productOrder) {
+    const fd = new FormData();
+    let key;
+
+    // tslint:disable-next-line: forin
+    for (key in pOrder) {
+      fd.append(key, pOrder[key]);
+    }
+    return this.webService.patch(`productOrder/${pOrder._id}` ,fd);
   }
   // -- Product Order <<<<<
 
