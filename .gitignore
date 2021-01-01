@@ -46,3 +46,4 @@ backend/uploads
 backend_new/uploads/avatar/*
 backend_new/uploads/salonPhotos/*
 backend_new/uploads/products/*
+frontend/dist.zip
