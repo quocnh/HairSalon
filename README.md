@@ -75,7 +75,12 @@ cd frondent > npm i angular-ng-autocomplete
 ### how to run ###
 ##################
 1. How to run frontend > cd frontend > npm start
+1.1 dont forget to start mongo server in other shell
+```python
+mongod
+```
 2. How to run backend > cd backend > nodemon app.js
+
 # create a page
 ```python
 ng generate component pages/<"page_name">
@@ -116,4 +121,18 @@ or
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule . /index.html [L]
 </IfModule>
+```
+# fix bug when cannot connecting mongo server
+```python
+sudo rm /var/lib/mongodb/mongod.lock
+sudo mongod --dbpath /var/lib/mongodb/ --repair
+sudo mongod --dbpath /var/lib/mongodb/ --journal
+```
+# connect to remote mongo server
+```python
+use admin
+db.createUser({user:"admin",pwd:"admin",roles:[{role:"root",db:"admin"}]})
+
+- then, check port 27017
+netstat -anp | grep 27017
 ```
