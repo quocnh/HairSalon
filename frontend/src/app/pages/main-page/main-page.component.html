@@ -22,7 +22,7 @@
           <div class="card-footer">
 
             <h6 class="text-left">{{ salon.name }}</h6>
-            <p class="text-left">{{salon.address | slice:0:20}}{{salon.address.length > 20 ? '...' : ''}}</p>
+            <p class="text-left addressStyle">{{salon.address}}</p>
 
             <div class="row">
               <div class="col-md-5 text-left">
@@ -55,7 +55,7 @@
 </div>
 
 <ng-template #noShowMap>
-  <div class="row">
+  <div class="row" >
     <div class="col-md-3" *ngFor="let salon of salons">
       <a href="{{prefixPath}}/salons/{{salon._id}}">
         <div class="btn-primary card card-pricing">
@@ -64,9 +64,10 @@
             <img src='{{dbAddress}}/{{salon.photos[0]}}' alt="...">
           </div>
 
-          <div class="card-footer">
+          <div class="card-body">
             <h6 class="text-left">{{ salon.name }}</h6>
-            <p class="text-left">{{salon.address | slice:0:20}}{{salon.address.length > 20 ? '...' : ''}}</p>
+            <p class="text-left addressStyle">{{salon.address}}</p>
+            <!-- <p class="text-left section">{{salon.address | slice:0:20}}{{salon.address.length > 20 ? '...' : ''}}</p> -->
 
             <div class="row">
               <div class="col-md-5 text-left">
