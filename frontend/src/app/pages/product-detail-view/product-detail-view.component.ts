@@ -50,12 +50,7 @@ export class ProductDetailViewComponent implements OnInit {
   ngOnInit() {
       //this.strAvatar = 'assets/img/default-avatar.png';     
       
-      this.strPhotos[0] = 'assets/img/default-avatar.png';      
-      this.strPhotos[1] = 'null';
-      this.strPhotos[2] = 'null';
-      this.strPhotos[3] = 'null';
-      this.strPhotos[4] = 'null';
-      this.strPhotos[5] = 'null';
+      this.initStrPhotos();
       this.pOrder.quantity = 0;
 
       // 1. Get userId
@@ -86,15 +81,24 @@ export class ProductDetailViewComponent implements OnInit {
       });
   }
 
+  initStrPhotos(){
+    this.strPhotos[0] = 'assets/img/default-avatar.png';      
+    this.strPhotos[1] = 'null';
+    this.strPhotos[2] = 'null';
+    this.strPhotos[3] = 'null';
+    this.strPhotos[4] = 'null';
+    this.strPhotos[5] = 'null';
+  }
+
   refreshProductProfile(productId) {
     console.log(productId);
     this.salonUtilService.getOneProduct(productId).subscribe(
         (product: Product) => {
           console.log(product);   
             this.product = Object.assign({}, product[0]);
-            this.productDb = Object.assign({}, product[0]);
+            this.productDb = Object.assign({}, product[0]);            
             for (let i = 0; i < this.product.photos.length; i++) {
-              if (this.product.photos[i]) {
+              if (this.product.photos[i] !== 'null') {
                 this.strPhotos[i] = environment.dbAddress + '/' + this.product.photos[i];
               }
             }

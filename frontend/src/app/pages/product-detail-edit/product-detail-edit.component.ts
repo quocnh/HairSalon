@@ -23,6 +23,7 @@ export class ProductDetailEditComponent implements OnInit {
   distributorName: string;
   selectedFiles: any = new Array(6);
   strPhotos: any = new Array(6);
+  deletedList:any = new Array(6);
 
   today = this.calendar.getToday();
   Category = GlobalConstants.ProductCategory;
@@ -30,6 +31,7 @@ export class ProductDetailEditComponent implements OnInit {
   isModifiedEnable = false;
   isLoggedIn = false;
   user: any;
+  isUpdateProduct = false;
   
   constructor(
       private salonUtilService: SalonUtilsService,
@@ -43,6 +45,9 @@ export class ProductDetailEditComponent implements OnInit {
       ) { }
 
   ngOnInit() {
+      for (var i = 0; i < this.deletedList.length; i++){
+        this.deletedList[i] = 0;
+      }
       this.strPhotos[0] = 'assets/img/default-avatar.png';
       
       this.strPhotos[1] = 'assets/img/no_photo_available.png';
@@ -77,9 +82,9 @@ export class ProductDetailEditComponent implements OnInit {
   }
 
   updateProduct() {
-    if ((JSON.stringify(this.productDb) !== JSON.stringify(this.product)) || (this.selectedFiles !== null)) {        
+    if ((JSON.stringify(this.productDb) !== JSON.stringify(this.product)) || (this.selectedFiles !== null) || (this.isUpdateProduct)) {        
         // update user profile
-        this.salonUtilService.updateProduct(this.product, this.selectedFiles).subscribe(
+        this.salonUtilService.updateProduct(this.product, this.selectedFiles, this.deletedList).subscribe(
             () => // refresh page
             this.refreshProductProfile(this.productId)
         );
@@ -150,7 +155,9 @@ export class ProductDetailEditComponent implements OnInit {
 
   deletePhoto(idx) {
     this.strPhotos[idx] = 'assets/img/no_photo_available.png';
-    this.product.photos[idx] = 'null';
+    //this.product.photos[idx] = 'null';
+    this.deletedList[idx]= 1;
+    this.isUpdateProduct = true;
   }
 
 }

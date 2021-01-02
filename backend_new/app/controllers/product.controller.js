@@ -103,12 +103,31 @@ productRouter.post('/', upload.array('newPhotos[]', 6), (req, res) => {
 
 productRouter.patch('/:productId', upload.array('newPhotos[]', 6), (req, res) => {
     var strPhotoPath = Array(6);
+    var fs = require('fs');
+    
     for (i = 0; i < strPhotoPath.length; i++){
-        if(req.body.photos[i]) {
+        if(req.body.photos[i] !== 'null') {
             strPhotoPath[i] = req.body.photos[i];
             //console.log(i + ': ' + req.body.photos[i]);
         } else {
-            strPhotoPath[i] = 'null';
+            strPhotoPath[i] = 'null';            
+        }
+        if (req.body.deletedPhotoList[i] === '1') {
+            // need to defind index as a const
+            const index = i;
+            //console.log('Xoa pphoto: ' + index);
+            //console.log(req.body.photos[index]);
+            strPhotoPath[index] = 'null';
+            
+            ////delete old file avatar
+            fs.exists(req.body.photos[index], function(exists) {
+                if(exists) {
+                    fs.unlink(req.body.photos[index], (err) => {
+                        if (err) throw err;
+                        console.log(req.body.photos[index] + ' was deleted.');
+                    });                    
+                }
+            });
         }
     }
     //strPhotoPath = req.body.photos;
@@ -130,8 +149,8 @@ productRouter.patch('/:productId', upload.array('newPhotos[]', 6), (req, res) =>
             if (req.files[i].path) {
                 const index = req.body.index[i];
                 strPhotoPath[index] = req.files[i].path;    
-                console.log(i + ': ' + index);
-                console.log(req.body.photos);
+                //console.log(i + ': ' + index);
+                //console.log(req.body.photos);
 
                 ////delete old file avatar
                 fs.exists(req.body.photos[index], function(exists) {

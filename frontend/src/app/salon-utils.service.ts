@@ -316,7 +316,7 @@ export class SalonUtilsService {
   }
 
   // Update product
-  updateProduct(product: Product, files: File[]) {
+  updateProduct(product: Product, files: File[], deletedList: any[]) {
     const fd = new FormData();
     let key;
 
@@ -326,6 +326,7 @@ export class SalonUtilsService {
         fd.append('index[]', i.toString());
         console.log('update Product : ' + files[i].name);
       }
+      fd.append('deletedPhotoList[]', deletedList[i].toString());
     }
 
     // tslint:disable-next-line: forin

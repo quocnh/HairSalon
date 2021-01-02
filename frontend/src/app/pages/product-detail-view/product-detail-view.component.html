@@ -108,7 +108,7 @@
   
         </div>
         <div class="card-body" *ngFor="let photo of strPhotos; let i = index">
-          <div *ngIf="(photo != 'null') && (i != 0)">
+          <div *ngIf="(photo !== 'null') && (i != 0)">
             <img src="{{photo}}" >
           </div>
           
