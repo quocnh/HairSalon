@@ -58,14 +58,14 @@ First, create a firewalld service configuration file on the master build server 
   <port protocol="tcp" port="27017"/>
 </service>
 ```
-to define the service, and then run the commands
+* to define the service, and then run the commands
 ```python
 root@761362-01:~# restorecon /etc/firewalld/services/mongod.xml
 root@761362-01:~# chmod 640 /etc/firewalld/services/mongod.xml
 root@761362-01:~# firewall-cmd --reload
 success
 ```
-Then add this file into firewalld
+* Then add this file into firewalld
 ```python
 firewall-cmd --zone=public --add-service=mongod
 ```
