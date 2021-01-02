@@ -71,3 +71,21 @@ success
 ```python
 firewall-cmd --zone=public --add-service=mongod
 ```
+
+* create user in mongo
+```python 
+> use admin;
+> db.createUser({
+      user: "admin",
+      pwd: "myadminpassword",
+      roles: [
+                { role: "userAdminAnyDatabase", db: "admin" },
+                { role: "readWriteAnyDatabase", db: "admin" },
+                { role: "dbAdminAnyDatabase",   db: "admin" }
+             ]
+  });
+```
+* login from a client
+```python
+mongorestore --db hairsalon_db --verbose dump/hairsalon_db
+```
