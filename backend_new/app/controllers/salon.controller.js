@@ -141,6 +141,8 @@ salonRouter.get('/location/:long/:lat', (req, res) => {
 });
 
 salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
+    var fs = require('fs');
+    //console.log(req.files.length);
     if(req.files.length > 0){
         var strPhotoPath = Array(10);
         // update photos
@@ -154,8 +156,20 @@ salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
         for (i = 0; i < req.files.length; i++)
         {
             if (req.files[i].path) {
-                strPhotoPath[req.body.index[i]] = req.files[i].path;    
-                // console.log(i + ': ' + strPhotoPath[req.body.index[i]]);
+                const index = req.body.index[i];
+                strPhotoPath[index] = req.files[i].path;    
+                //console.log(i + ': ' + index);
+                //console.log(req.body.photos);
+
+                ////delete old file avatar
+                fs.exists(req.body.photos[index], function(exists) {
+                    if(exists) {
+                        fs.unlink(req.body.photos[index], (err) => {
+                            if (err) throw err;
+                            console.log(req.body.photos[index] + ' was deleted.');
+                        });
+                    }
+                });
             }  
         }
 

@@ -130,12 +130,16 @@ export class SalonUtilsService {
     salon.priceFrom = 0;
 
     // tslint:disable-next-line: forin
-    for (key in salon) {
-      fd.append(key, salon[key]);
+    for (key in salon) {      
+      if(key !== 'photos') {
+        fd.append(key, salon[key]);
+      }
     }
     for (let i = 0; i < salon.photos.length; i++) {
       fd.append('photos[]', salon.photos[i]);
     }
+
+    console.log()
 
     return this.webService.patch( `salons/${salonId}`, fd);
   }  
