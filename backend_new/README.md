@@ -89,3 +89,7 @@ firewall-cmd --zone=public --add-service=mongod
 ```python
 mongo -u admin -p myadminpassword 171.244.39.13/admin
 ```
+* connection string db
+```python 
+mongodb://admin:myadminpassword@171.244.39.13:27017/?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&ssl=false
+```
