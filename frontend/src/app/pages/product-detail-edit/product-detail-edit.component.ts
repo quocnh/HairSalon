@@ -84,6 +84,7 @@ export class ProductDetailEditComponent implements OnInit {
   updateProduct() {
     if ((JSON.stringify(this.productDb) !== JSON.stringify(this.product)) || (this.selectedFiles !== null) || (this.isUpdateProduct)) {        
         // update user profile
+        this.isUpdateProduct = false;
         this.salonUtilService.updateProduct(this.product, this.selectedFiles, this.deletedList).subscribe(
             () => // refresh page
             this.refreshProductProfile(this.productId)
@@ -91,6 +92,7 @@ export class ProductDetailEditComponent implements OnInit {
     } else {
         // console.log('Giong' + JSON.stringify(this.customerDb) + '---' + JSON.stringify(this.customer));
     }
+    this.deletedList.fill(0);
   }
 
   deleteProduct() {

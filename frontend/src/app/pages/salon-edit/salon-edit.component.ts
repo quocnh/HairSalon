@@ -6,6 +6,7 @@ import { SalonUtilsService } from '../../salon-utils.service';
 import Service from '../../module/service';
 import { environment } from 'environments/environment';
 import { SearchService } from 'app/_services/search.service';
+import { newArray } from '@angular/compiler/src/util';
 // import { HereService } from '../../module/here.service';
 
 @Component({
@@ -21,33 +22,40 @@ export class SalonEditComponent implements OnInit {
   addedService: Service = new Service();
   addedSalon: Salon = new Salon();
   selectedFiles: any = new Array(10);
-  strPhotos: any = new Array();
+  deletedList: any = new Array(10);
+  // selectedDetailSalonFiles:any = new Array(5);
+  strPhotos: any = new Array(10);
+  // strDetailSalonPhotos:any = new Array(10);
   modifiedAddress: string;
 
   keyword = 'name';
-  initialCity:string='';
-  initialDistrict:string='';
-  cities:any[];
-  districts:any[];
-  selectedCity:any;
-  selectedDistrict:any;
+  initialCity: string = '';
+  initialDistrict: string = '';
+  cities: any[];
+  districts: any[];
+  selectedCity: any;
+  selectedDistrict: any;
   flagUpdate = false;
 
   constructor(
     private route: ActivatedRoute,
     private calendar: NgbCalendar,
     private salonUtilService: SalonUtilsService,
-    private searchService: SearchService    
-    ) {
-    }
+    private searchService: SearchService
+  ) {
+  }
 
   ngOnInit(): void {
-    this.strPhotos[0] = 'assets/img/no_image.jpg';
 
-    this.strPhotos[1] = 'assets/img/no_image.jpg';
-    this.strPhotos[2] = 'assets/img/no_image.jpg';
-    this.strPhotos[3] = 'assets/img/no_image.jpg';
-    this.strPhotos[4] = 'assets/img/no_image.jpg';
+    for (var i = 0; i < this.strPhotos.length; i++) {
+      if (i < 5) {
+        this.strPhotos[i] = 'assets/img/no_image.jpg';
+      } else {
+        this.strPhotos[i] = 'assets/img/no_photo_available.png';
+      }
+      this.deletedList[i] = 0;
+
+    }
 
     this.searchService.getCities().then(cities => {
       this.cities = cities;
@@ -80,20 +88,20 @@ export class SalonEditComponent implements OnInit {
 
   getSalonInfo(salonId) {
     this.salonUtilService.getOneSalon(salonId).subscribe(
-        (salons: Salon) => {
-            this.salon = Object.assign({}, salons[0]);
-            this.salonDb = Object.assign({}, salons[0]);
-            for (let i = 0; i < this.salon.photos.length; i++) {
-              if (this.salon.photos[i] !== '') {
-                this.strPhotos[i] = environment.dbAddress + '/' + this.salon.photos[i];
-              }
-            }
-            console.log(this.salon);
-        });
+      (salons: Salon) => {
+        this.salon = Object.assign({}, salons[0]);
+        this.salonDb = Object.assign({}, salons[0]);
+        for (let i = 0; i < this.salon.photos.length; i++) {
+          if ((this.salon.photos[i] !== '') && (this.salon.photos[i] !== 'null')) {
+            this.strPhotos[i] = environment.dbAddress + '/' + this.salon.photos[i];
+          }
+        }
+        console.log(this.salon);
+      });
   }
 
   showImageSlider() {
-    console.log ('Show imageSlider');
+    console.log('Show imageSlider');
   }
 
   addNewService(service: Service) {
@@ -102,10 +110,10 @@ export class SalonEditComponent implements OnInit {
 
     this.salonUtilService.addSalonService(this.salon._id, service).subscribe(
       (salon: Salon) => {
-          this.salon = salon;
-          this.addedService.name = null;
-          this.addedService.price = null;
-          // console.log(this.salon);
+        this.salon = salon;
+        this.addedService.name = null;
+        this.addedService.price = null;
+        // console.log(this.salon);
       });
   }
 
@@ -137,7 +145,7 @@ export class SalonEditComponent implements OnInit {
     const reader = new FileReader();
     reader.readAsDataURL(this.selectedFiles[0]);
     reader.onload = (_event) => {
-        this.strPhotos[0] = reader.result;
+      this.strPhotos[0] = reader.result;
     }
     console.log(this.selectedFiles[0]);
   }
@@ -148,13 +156,13 @@ export class SalonEditComponent implements OnInit {
     const reader = new FileReader();
     reader.readAsDataURL(this.selectedFiles[idx]);
     reader.onload = (_event) => {
-        this.strPhotos[idx] = reader.result;
+      this.strPhotos[idx] = reader.result;
     }
     console.log(this.selectedFiles[idx]);
   }
 
   updateSalonInfo() {
-    
+
     for (let i = 0; i < this.selectedFiles.length; i++) {
       if (this.selectedFiles[i]) {
         console.log('Update photos: ' + i + ' ' + this.selectedFiles[i].name);
@@ -171,44 +179,64 @@ export class SalonEditComponent implements OnInit {
         this.salon.city = this.selectedCity.name;
       }
       this.flagUpdate = false;
-      this.salonUtilService.updateSalon(this.salon, this.selectedFiles).subscribe(
+      this.salonUtilService.updateSalon(this.salon, this.selectedFiles, this.deletedList).subscribe(
         (salon: Salon) => {
           this.salon = salon;
+          for (let i = 0; i < this.salon.photos.length; i++) {
+            if ((this.salon.photos[i] !== '') && (this.salon.photos[i] !== 'null')) {
+              this.strPhotos[i] = environment.dbAddress + '/' + this.salon.photos[i];
+            }
+          }
         }
       );
       this.selectedFiles = [];
+      this.deletedList.fill(0);
     }
-
-      
-    
-
   }
 
-  selectCityEvent(event){
+  selectCityEvent(event) {
     // console.log(event);
     this.selectedCity = event;
     this.districts = event.district;
     this.salon.city = this.selectedCity.name;
     // console.log(this.salonOwner.city);
   }
-  selectDistrictEvent(event){
+  selectDistrictEvent(event) {
     // console.log(event);
     this.selectedDistrict = event;
     this.salon.district = this.selectedDistrict.name;
     // console.log(this.salonOwner.district);
   }
-  onChangeSearch(event){
+  onChangeSearch(event) {
     //console.log(event);
-        
+
   }
-  handleCityEmptyInput(){
+  handleCityEmptyInput() {
     this.selectedCity = null;
   }
-  handleDistrictEmptyInput(){
+  handleDistrictEmptyInput() {
     this.selectedDistrict = null;
   }
-  onFocused(event){
+  onFocused(event) {
     //console.log(event);
+  }
+
+  onFileSelectedDetailSalon(event, idx) {
+    this.flagUpdate = true;
+    this.selectedFiles[idx] = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(this.selectedFiles[idx]);
+    reader.onload = (_event) => {
+      this.strPhotos[idx] = reader.result;
+    }
+    console.log(this.selectedFiles[idx]);
+  }
+
+  deletePhoto(idx) {
+    this.strPhotos[idx] = 'assets/img/no_photo_available.png';
+    //this.product.photos[idx] = 'null';
+    this.deletedList[idx] = 1;
+    this.flagUpdate = true;
   }
 
 }

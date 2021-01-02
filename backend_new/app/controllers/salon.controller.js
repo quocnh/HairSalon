@@ -10,10 +10,10 @@ var salonRouter = express.Router();
 const multer = require('multer');
 
 const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
+    destination: function (req, file, cb) {
         cb(null, './uploads/salonPhotos/');
     },
-    filename: function(req, file, cb) {
+    filename: function (req, file, cb) {
         cb(null, new Date().toISOString().replace(/:/g, '-') + '_' + file.originalname);
     }
 });
@@ -27,9 +27,9 @@ const fileFilter = (req, file, cb) => {
     }
 };
 const upload = multer({
-    storage: storage, 
+    storage: storage,
     limits: {
-        fileSize: 1024*1024*5
+        fileSize: 1024 * 1024 * 5
     },
     fileFilter: fileFilter
 });
@@ -45,18 +45,18 @@ salonRouter.post('/', upload.array('newPhotos[]', 10), (req, res) => {
     var strPhotoPath = "";
     var strDefaultPhoto = Array(10);
     if (req.file) {
-        if(req.files.length > 0){
+        if (req.files.length > 0) {
             // console.log(req.files);
             strPhotoPath = req.file.path;
         }
     }
-    
+
     // console.log(req.body);
     for (i = 0; i < strDefaultPhoto.length; i++) {
         strDefaultPhoto[i] = "uploads/salonPhotos/default.jpg";
     }
-    
-    const salon = new Salon({ 
+
+    const salon = new Salon({
         name: req.body.name,
         _salonOwnerId: req.body._salonOwnerId,
         phone: req.body.phone,
@@ -74,45 +74,45 @@ salonRouter.post('/', upload.array('newPhotos[]', 10), (req, res) => {
         numRate: '0',
         photos: strDefaultPhoto,
     });
-    
+
     salon.save()
-    .then(newSalon => res.send(newSalon))
-    .catch((error) => {
-        console.log(error);
-        if (error.code === 11000) {
-            return res.status(400).json({ error: 'This salon already existes'});
-        }
-        res.status(500).json({ error: 'Server error'});
-    });
+        .then(newSalon => res.send(newSalon))
+        .catch((error) => {
+            console.log(error);
+            if (error.code === 11000) {
+                return res.status(400).json({ error: 'This salon already existes' });
+            }
+            res.status(500).json({ error: 'Server error' });
+        });
 });
 
 salonRouter.delete('/:salonId', (req, res) => {
-    Salon.findByIdAndDelete({_id:req.params.salonId})
+    Salon.findByIdAndDelete({ _id: req.params.salonId })
         .then(salon => res.send(salon))
         .catch((error) => console.log(error));
 });
 
 salonRouter.get('/:salonId', (req, res) => {
-    Salon.find({ _id: req.params.salonId})
+    Salon.find({ _id: req.params.salonId })
         .then(salon => res.send(salon))
         .catch((error) => console.log(error));
-        
+
 });
 
 salonRouter.get('/city_district/:city/:district', (req, res) => {
 
-    Salon.find({ 
+    Salon.find({
         city: req.params.city,
         district: req.params.district
     })
         .then(salon => res.send(salon))
         .catch((error) => console.log(error));
-        
+
 });
 
 salonRouter.get('/city/:city', (req, res) => {
-    console.log(req.params );
-    Salon.find({ 
+    console.log(req.params);
+    Salon.find({
         city: req.params.city
     })
         .then(salon => {
@@ -120,135 +120,120 @@ salonRouter.get('/city/:city', (req, res) => {
             res.send(salon);
         })
         .catch((error) => console.log(error));
-        
+
 });
 
 salonRouter.get('/location/:long/:lat', (req, res) => {
-    console.log(req.params );
-    Salon.find({ 
-        location: 
+    console.log(req.params);
+    Salon.find({
+        location:
         {
-            $near :
-                {
-                  $geometry: { type: "Point",  coordinates: [ Number(req.params.long), Number(req.params.lat) ] },
-                  $maxDistance: 2000
-                }
+            $near:
+            {
+                $geometry: { type: "Point", coordinates: [Number(req.params.long), Number(req.params.lat)] },
+                $maxDistance: 2000
+            }
         }
     })
         .then(salon => res.send(salon))
         .catch((error) => console.log(error));
-        
+
 });
 
 salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
     var fs = require('fs');
+    var strPhotoPath = Array(10);
+
     //console.log(req.files.length);
-    if(req.files.length > 0){
-        var strPhotoPath = Array(10);
-        // update photos
-        // console.log(req.files.length);
-        // console.log(req.body);
-        for (i = 0; i < strPhotoPath.length; i++){
+    for (i = 0; i < strPhotoPath.length; i++) {
+        if (req.body.photos[i] !== 'null') {
             strPhotoPath[i] = req.body.photos[i];
-        } 
-        // console.log(strPhotoPath);
-
-        for (i = 0; i < req.files.length; i++)
-        {
-            if (req.files[i].path) {
-                const index = req.body.index[i];
-                strPhotoPath[index] = req.files[i].path;    
-                //console.log(i + ': ' + index);
-                //console.log(req.body.photos);
-
-                ////delete old file avatar
-                fs.exists(req.body.photos[index], function(exists) {
-                    if(exists) {
-                        fs.unlink(req.body.photos[index], (err) => {
-                            if (err) throw err;
-                            console.log(req.body.photos[index] + ' was deleted.');
-                        });
-                    }
-                });
-            }  
+            //console.log(i + ': ' + req.body.photos[i]);
+        } else {
+            strPhotoPath[i] = 'null';
         }
+        if (req.body.deletedPhotoList[i] === '1') {
+            // need to defind index as a const
+            const index = i;
+            //console.log('Xoa pphoto: ' + index);
+            //console.log(req.body.photos[index]);
+            strPhotoPath[index] = 'null';
 
-        Salon.findOneAndUpdate({ '_id': req.params.salonId}, 
-        {
-            $set: 
-            { 
-                photos: strPhotoPath
-            },
-        },
-        {new: true})
-        .then(salon => res.send(salon))
-        .catch((error) => console.log(error));
-        
+            ////delete old file avatar
+            fs.exists(req.body.photos[index], function (exists) {
+                if (exists) {
+                    fs.unlink(req.body.photos[index], (err) => {
+                        if (err) throw err;
+                        console.log(req.body.photos[index] + ' was deleted.');
+                    });
+                }
+            });
+        }
     }
-    else {
-        console.log(req.body);
-    
-        if (req.body.name) {
-            
-            console.log(req.body.name);
-            console.log(req.body.services.name);
-            console.log(req.body.services.price);
 
-            // const fullAddress = req.body.address + ' ' + req.body.district + ' ' + req.body.city;
-            // console.log(fullAddress);
-            // // var location = async function(fullAddress){
-            // //     const loc = await geocoder.geocode(fullAddress);
-            // //     const location = {
-            // //         type: 'Point',
-            // //         coordinates: [loc[0].longitude, loc[0].latitude],
-            // //         formattedAddress: loc[0].formattedAddress
-            // //     };
-            // //     const longitude = loc[0].longitude;
-            // //     const latitude = loc[0].latitute;
-            // //     return location;
-            // // }
-      
-            // const loc = geocoder.geocode(fullAddress);
-            //     const location = {
-            //         type: 'Point',
-            //         coordinates: [loc[0].longitude, loc[0].latitude],
-            //         formattedAddress: loc[0].formattedAddress
-            //     };
-            //     // const longitude = loc[0].longitude;
-            //     // const latitude = loc[0].latitute;
-            // console.log(location);         
-            
+    console.log(req.body);
 
-            Salon.findOneAndUpdate({ '_id': req.params.salonId}, 
+    if (req.body.name) {
+
+        console.log(req.body.name);
+        //console.log(req.body.services.name);
+        //console.log(req.body.services.price);
+
+        // const fullAddress = req.body.address + ' ' + req.body.district + ' ' + req.body.city;
+        // console.log(fullAddress);
+        // // var location = async function(fullAddress){
+        // //     const loc = await geocoder.geocode(fullAddress);
+        // //     const location = {
+        // //         type: 'Point',
+        // //         coordinates: [loc[0].longitude, loc[0].latitude],
+        // //         formattedAddress: loc[0].formattedAddress
+        // //     };
+        // //     const longitude = loc[0].longitude;
+        // //     const latitude = loc[0].latitute;
+        // //     return location;
+        // // }
+
+        // const loc = geocoder.geocode(fullAddress);
+        //     const location = {
+        //         type: 'Point',
+        //         coordinates: [loc[0].longitude, loc[0].latitude],
+        //         formattedAddress: loc[0].formattedAddress
+        //     };
+        //     // const longitude = loc[0].longitude;
+        //     // const latitude = loc[0].latitute;
+        // console.log(location);         
+
+
+        Salon.findOneAndUpdate({ '_id': req.params.salonId },
+            {
+                $set:
                 {
-                    $set: 
-                    { 
-                        name: req.body.name,
-                        _salonOwnerId: req.body._salonOwnerId,
-                        phone: req.body.phone,
-                        email: req.body.email,
-                        district: req.body.district,
-                        city: req.body.city,
-                        address: req.body.address,
-                        // longitude: longitude,
-                        // latitude: latitude,
-                        // location: location,
-                        info: req.body.info,
-                        //services: [req.body.services[],
-                        priceFrom: req.body.priceFrom,
-                        priceTo: req.body.priceTo,
-                        rate: req.body.rate,
-                        numRate: req.body.numRate,
-                    },
+                    name: req.body.name,
+                    _salonOwnerId: req.body._salonOwnerId,
+                    phone: req.body.phone,
+                    email: req.body.email,
+                    district: req.body.district,
+                    city: req.body.city,
+                    address: req.body.address,
+                    // longitude: longitude,
+                    // latitude: latitude,
+                    // location: location,
+                    info: req.body.info,
+                    //services: [req.body.services[],
+                    priceFrom: req.body.priceFrom,
+                    priceTo: req.body.priceTo,
+                    rate: req.body.rate,
+                    numRate: req.body.numRate,
+                    photos: strPhotoPath
                 },
-                {new: true})
-                .then(salon => {
-                    // salon.update();
-                    res.send(salon);
-                })
-                .catch((error) => console.log(error));
-        }
-    }
+            },
+            { new: true })
+            .then(salon => {
+                // salon.update();
+                res.send(salon);
+            })
+            .catch((error) => console.log(error));
+    }    
 
 });
 
@@ -264,8 +249,8 @@ salonRouter.patch('/:salonId/addService', (req, res) => {
         addedService.name = req.body.name;
         addedService.price = req.body.price;
         //console.log(addedService);
-        
-        Salon.findOneAndUpdate({ '_id': req.params.salonId}, 
+
+        Salon.findOneAndUpdate({ '_id': req.params.salonId },
             {
                 $push:
                 {
@@ -273,7 +258,7 @@ salonRouter.patch('/:salonId/addService', (req, res) => {
                 },
 
             },
-            {new: true})
+            { new: true })
             .then(salon => {
                 res.send(salon);
             })
@@ -294,14 +279,14 @@ salonRouter.patch('/:salonId/delService', (req, res) => {
         service.name = req.body.name;
         service.price = req.body.price;
         console.log(service);
-        Salon.findOneAndUpdate({ '_id': req.params.salonId}, 
+        Salon.findOneAndUpdate({ '_id': req.params.salonId },
             {
-                $pull: 
+                $pull:
                 {
                     services: service
                 }
             },
-            {new: true})
+            { new: true })
             .then(salon => res.send(salon))
             .catch((error) => console.log(error));
     }
@@ -315,17 +300,17 @@ salonRouter.patch('/:salonId/updateService/:sIndex', (req, res) => {
     };
     const index = req.params.sIndex;
     const service = Object.create(Service);
-    let tid = {["services." + index] : service};
+    let tid = { ["services." + index]: service };
     if (req.body.name) {
         //console.log(req.body);
         service.name = req.body.name;
         service.price = req.body.price;
         console.log(tid);
-        Salon.findOneAndUpdate({ '_id': req.params.salonId}, 
+        Salon.findOneAndUpdate({ '_id': req.params.salonId },
             {
                 $set: tid
             },
-            {new: true})
+            { new: true })
             .then(salon => res.send(salon))
             .catch((error) => console.log(error));
     }
@@ -333,21 +318,21 @@ salonRouter.patch('/:salonId/updateService/:sIndex', (req, res) => {
 });
 // Barber
 salonRouter.get('/:salonId/barbers', (req, res) => {
-    Barber.find({_salonId: req.params.salonId})
+    Barber.find({ _salonId: req.params.salonId })
         .then(barbers => res.send(barbers))
         .catch((error) => console.log(error));
 });
 
 salonRouter.post('/:salonId/barbers', upload.single('avatar'), (req, res) => {
     var strAvatarPath = "";
-    if(req.file){
+    if (req.file) {
         console.log(req.file);
         strAvatarPath = req.file.path;
     }
-    
+
     console.log(req.body);
     //var strBody = JSON.parse(JSON.stringify(req.body));
-    
+
     const barber = new Barber({
         _salonId: req.params.salonId,
         username: req.body.username,
@@ -361,15 +346,15 @@ salonRouter.post('/:salonId/barbers', upload.single('avatar'), (req, res) => {
         avatar: strAvatarPath,
 
     });
-    
+
     barber.save()
-    .then(savedBarber => res.send(savedBarber))
-    .catch((error) => console.log(error));
+        .then(savedBarber => res.send(savedBarber))
+        .catch((error) => console.log(error));
 });
 
 
 salonRouter.delete('/:salonId/barbers/:barberId', (req, res) => {
-    Barber.findByIdAndDelete({ _salonId: req.params.salonId, _id:req.params.barberId})
+    Barber.findByIdAndDelete({ _salonId: req.params.salonId, _id: req.params.barberId })
         .then(barber => res.send(barber))
         .catch((error) => console.log(error));
 });

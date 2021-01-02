@@ -114,15 +114,19 @@ export class SalonUtilsService {
   }
 
   // -- update Salon
-  updateSalon(salon: Salon, files: File[]) {
+  updateSalon(salon: Salon, files: File[], deletedList:any[]) {
     let key;
     const salonId: String  = salon._id;
     const fd = new FormData();
+    //avatar
+    console.log(deletedList);
+    
     for (let i = 0; i < files.length; i++) {
       if (files[i]) {
         fd.append('newPhotos[]', files[i]);
         fd.append('index[]', i.toString());        
       }
+      fd.append('deletedPhotoList[]', deletedList[i].toString());
     }
 
     // temp code
@@ -138,8 +142,6 @@ export class SalonUtilsService {
     for (let i = 0; i < salon.photos.length; i++) {
       fd.append('photos[]', salon.photos[i]);
     }
-
-    console.log()
 
     return this.webService.patch( `salons/${salonId}`, fd);
   }  

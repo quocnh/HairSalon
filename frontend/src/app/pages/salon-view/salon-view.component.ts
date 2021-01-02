@@ -23,7 +23,7 @@ export class SalonViewComponent implements OnInit {
   today = this.calendar.getToday();
   selectServices: Array<Service> = [];
   total: number;
-  strPhotos: any = new Array();
+  strPhotos: any = new Array(10);
   time = {hour: 13, minute: 30};
   meridian = true;
   barbers: Array<Barber> = [];
@@ -37,12 +37,13 @@ export class SalonViewComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.strPhotos[0] = 'assets/img/no_image.jpg';
-
-    this.strPhotos[1] = 'assets/img/no_image.jpg';
-    this.strPhotos[2] = 'assets/img/no_image.jpg';
-    this.strPhotos[3] = 'assets/img/no_image.jpg';
-    this.strPhotos[4] = 'assets/img/no_image.jpg';
+    for (var i = 0; i < this.strPhotos.length; i++) {
+      if (i < 5) {
+        this.strPhotos[i] = 'assets/img/no_image.jpg';
+      } else {
+        this.strPhotos[i] = 'null';
+      }
+    }
 
 
     this.total = 0;
@@ -64,7 +65,7 @@ export class SalonViewComponent implements OnInit {
         (salons: Salon) => {
             this.salon = Object.assign({}, salons[0]);
             for (let i = 0; i < this.salon.photos.length; i++) {
-              if (this.salon.photos[i] !== '') {
+              if ((this.salon.photos[i] !== '') && (this.salon.photos[i] !== 'null')) {
                 this.strPhotos[i] = environment.dbAddress+ '/' + this.salon.photos[i];
               }
             }

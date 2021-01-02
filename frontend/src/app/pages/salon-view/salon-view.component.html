@@ -55,6 +55,12 @@
         <div class="card-body">
           <img src="../../../assets/img/salonmenu.jpg">
         </div>
+        <div class="card-body" *ngFor="let photo of strPhotos; let i = index">
+          <div *ngIf="(photo !== '') && (photo !== 'null') && (i >= 5)">
+            <img src="{{photo}}" >
+          </div>
+          
+        </div>
       </div>
       <div class="card card-chart">
         <div class="card-header">
