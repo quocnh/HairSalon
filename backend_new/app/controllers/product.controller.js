@@ -100,16 +100,7 @@ productRouter.post('/', upload.array('newPhotos[]', 6), (req, res) => {
     .then(savedProduct => res.send(savedProduct))
     .catch((error) => console.log(error));
 });
-function checkFileExist(path) {
-    fs.exists(path, function(exists) {
-        if(exists) {
-            fs.unlink(req.body.photos[index], (err) => {
-                if (err) throw err;
-                console.log(req.body.photos[index] + ' was deleted.');
-              });
-        }
-        });
-}
+
 productRouter.patch('/:productId', upload.array('newPhotos[]', 6), (req, res) => {
     var strPhotoPath = Array(6);
     for (i = 0; i < strPhotoPath.length; i++){
@@ -125,19 +116,34 @@ productRouter.patch('/:productId', upload.array('newPhotos[]', 6), (req, res) =>
     console.log(strPhotoPath);
 
     if(req.files.length > 0){
-        
+        var strPhotoPath = Array(10);
         // update photos
-        // console.log(req.files.length);   
+        // console.log(req.files.length);
+        // console.log(req.body);
+        for (i = 0; i < strPhotoPath.length; i++){
+            strPhotoPath[i] = req.body.photos[i];
+        } 
+        // console.log(strPhotoPath);
 
         for (i = 0; i < req.files.length; i++)
         {
             if (req.files[i].path) {
-                strPhotoPath[req.body.index[i]] = req.files[i].path;    
-                console.log(i + ': ' + strPhotoPath[req.body.index[i]]);
+                const index = req.body.index[i];
+                strPhotoPath[index] = req.files[i].path;    
+                console.log(i + ': ' + index);
+                console.log(req.body.photos);
+
+                ////delete old file avatar
+                fs.exists(req.body.photos[index], function(exists) {
+                    if(exists) {
+                        fs.unlink(req.body.photos[index], (err) => {
+                            if (err) throw err;
+                            console.log(req.body.photos[index] + ' was deleted.');
+                        });
+                    }
+                });
             }  
         }
-        console.log(strPhotoPath);
-        console.log('<===');
     }
 
     Product.findOneAndUpdate({ '_id': req.params.productId}, 
