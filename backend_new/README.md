@@ -87,5 +87,5 @@ firewall-cmd --zone=public --add-service=mongod
 ```
 * login from a client
 ```python
-mongorestore --db hairsalon_db --verbose dump/hairsalon_db
+mongo -u admin -p myadminpassword 171.244.39.13/admin
 ```
