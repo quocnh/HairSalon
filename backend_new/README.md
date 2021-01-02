@@ -51,7 +51,7 @@ net:
 ```
 * config firewall on remote server
 
-First, create a firewalld service configuration file on the master build server called /etc/firewalld/services/mongod.xml with the following contents:
+First, create a firewalld service configuration file on the master build server called "/etc/firewalld/services/mongod.xml" with the following contents:
 ```python 
 <?xml version="1.0" encoding="utf-8"?>
 <service>
