@@ -70,6 +70,7 @@ success
 * Then add this file into firewalld
 ```python
 firewall-cmd --zone=public --add-service=mongod
+firewall-cmd --zone=public --add-service=node_server
 ```
 
 * create user in mongo
