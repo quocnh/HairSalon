@@ -38,6 +38,7 @@ https://downloads.mongodb.org/osx/mongodb-shell-osx-ssl-x86_64-3.6.2.tgz
 
 
 * config "/etc/mongod.conf" file
+
 Add the following lines
 ```python
 # network interfaces
@@ -49,6 +50,7 @@ net:
    authorization: 'enabled'
 ```
 * config firewall on remote server
+
 First, create a firewalld service configuration file on the master build server called /etc/firewalld/services/mongod.xml with the following contents:
 ```python 
 <?xml version="1.0" encoding="utf-8"?>
