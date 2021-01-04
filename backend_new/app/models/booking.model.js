@@ -7,9 +7,9 @@ const BookingSchema = new mongoose.Schema({
         require: [true, 'Salon id']
     },
 
-    _customerId: {
+    _userId: {
         type: mongoose.Types.ObjectId,
-        require: [false, 'Customer id']
+        require: [false, 'User id']
     },
 
     _barberId: {

@@ -3,23 +3,24 @@
     <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h4 class="card-title"> Danh sách lịch hẹn Salon </h4>
+            <h4 class="card-title"> Danh sách lịch hẹn Salon {{ salon.name }}</h4>
           </div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table">
                 <thead class=" text-primary">
-                  <th>Salon</th>
+                  <th>Stt</th>
+                  <th>Khách hàng</th>
                   <th>Create Date</th>
                   <th>Booking Date</th>
                   <th>Time</th>
-
+                  <th>&nbsp;</th>
                 </thead>
                 <tbody>
                     
-                    <tr *ngFor="let book of bookingList">
-                        
-                        <td>{{ book._salonId }}</td>
+                    <tr *ngFor="let book of bookingList; let i = index">
+                         <td>{{i+1}}</td>
+                        <td>{{ customerList[i].username }}</td>                       
                         <td>{{ book.createdDate | date}} </td>
                         <td>{{ book.bookingDate | date}}</td>
                         <td>{{ book.bookingTime}}</td>

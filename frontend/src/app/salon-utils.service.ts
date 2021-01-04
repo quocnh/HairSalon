@@ -120,7 +120,7 @@ export class SalonUtilsService {
     const fd = new FormData();
     //avatar
     console.log(deletedList);
-    
+
     for (let i = 0; i < files.length; i++) {
       if (files[i]) {
         fd.append('newPhotos[]', files[i]);
@@ -169,6 +169,9 @@ export class SalonUtilsService {
 
   getOneCustomer(customerId: string) {
     return this.webService.get(`customers/${customerId}`);
+  }
+  getOneCustomerFromUserId(userId: string) {
+    return this.webService.get(`customers/userId/${userId}`);
   }
 
   createCustomer(customer: Customer, file: File) {
@@ -375,6 +378,10 @@ export class SalonUtilsService {
     }
     //console.log('create Booking : ' + booking.bookingDate + ' salonId:' + booking._salonId);
     return this.webService.post(`bookings`, fd);  
+  }
+
+  deleteOneBooking(bookingId: string){
+    return this.webService.delete(`bookings/${bookingId}`);
   }
 
   getBookingsFromSalonId(salonId: string) {

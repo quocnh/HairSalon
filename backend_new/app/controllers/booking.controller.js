@@ -68,7 +68,7 @@ bookingRouter.post('/',upload.single('booking'), (req, res) => {
     const booking = new Booking({
         _salonId: req.body._salonId,
         _barberId: req.body._barberId,
-        _customerId: req.body._customerId,
+        _userId: req.body._userId,
         bookingDate: req.body.date,
         bookingTime: req.body.time,
         info: req.body.info,
@@ -90,7 +90,7 @@ bookingRouter.patch('/:bookingId', (req, res) => {
                 { 
                     _salonId: req.body._salonId,
                     _barberId: req.body._barberId,
-                    _customerId: req.body._customerId,
+                    _userId: req.body._userId,
                     bookingDate: req.body.date,
                     bookingTime: req.body.time,
                     info: req.body.info,

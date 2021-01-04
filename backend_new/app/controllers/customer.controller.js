@@ -76,6 +76,13 @@ customerRouter.get('/:customerId', (req, res) => {
         
 });
 
+customerRouter.get('/userId/:userId', (req, res) => {
+    Customer.find({ _userId: req.params.userId})
+        .then(customer => res.send(customer))
+        .catch((error) => console.log(error));
+        
+});
+
 customerRouter.patch('/:customerId', upload.single('avatar'), (req, res) => {
     var strAvatarPath = "";
     var fs = require('fs');

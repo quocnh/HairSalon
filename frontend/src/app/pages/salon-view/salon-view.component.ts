@@ -8,6 +8,7 @@ import Service from '../../module/service';
 import { Lightbox } from 'ngx-lightbox';
 import Booking from 'app/module/booking';
 import { environment } from 'environments/environment';
+import { TokenStorageService } from 'app/_services/token-storage.service';
 
 @Component({
   selector: 'app-salon-view',
@@ -29,11 +30,15 @@ export class SalonViewComponent implements OnInit {
   barbers: Array<Barber> = [];
   booking: Booking = new Booking();
 
+  isLoggedIn = false;
+  user: any;
+
   constructor(
     private route: ActivatedRoute,
     private calendar: NgbCalendar,
     private salonUtilService: SalonUtilsService,
     private _lightbox: Lightbox,
+    private tokenStorageService: TokenStorageService
     ) { }
 
   ngOnInit(): void {
@@ -82,7 +87,18 @@ export class SalonViewComponent implements OnInit {
 
   reserveService() {
     console.log('Reserve Service');
+
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+    if (this.isLoggedIn) {      
+      this.user = this.tokenStorageService.getUser();
+      console.log(this.user);
+    } else {
+      // Not login yet
+      return;
+    }
+
     this.booking._salonId = this.salonId;
+    this.booking._userId = this.user.id;
     this.salonUtilService.createBooking(this.booking).subscribe(
       (booking: Booking) => {
         console.log(booking);
