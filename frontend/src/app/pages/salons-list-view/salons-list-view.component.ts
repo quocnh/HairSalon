@@ -192,7 +192,11 @@ export class SalonsListViewComponent implements OnInit {
   }
 
   refreshSalonList() {
-    this.salonUtilService.getSalonsFromOwnerId(this.ownerId).subscribe((salons: Salon[]) => this.salons = salons);
+    this.salonUtilService.getSalonsFromOwnerId(this.ownerId).subscribe((salons: Salon[]) => {
+      console.log(salons);
+      this.salons = salons;
+      this.displayedSalons = salons;
+    });
   }
 
   refreshAllSalonList() {
