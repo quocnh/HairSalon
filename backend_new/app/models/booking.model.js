@@ -47,7 +47,7 @@ const BookingSchema = new mongoose.Schema({
 BookingSchema.pre('save', async function(next) {
 
     this.createdDate = new Date().getTime();
-    console.log('timestamp: ' + this.createdDate);
+    // console.log('timestamp: ' + this.createdDate);
     next();
 });
 

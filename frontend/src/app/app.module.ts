@@ -64,6 +64,7 @@ import { TypographyComponent } from './pages/typography/typography.component';
 import { TableComponent } from './pages/table/table.component';
 import { DistributorListViewComponent } from './pages/distributor-list-view/distributor-list-view.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
+import { ModifyBookingComponent } from './popup/modify-booking/modify-booking.component';
 
 @NgModule({
   declarations: [
@@ -111,7 +112,8 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
     // MapsComponent,
     NotificationsComponent,
     DistributorListViewComponent,
-    MainPageComponent
+    MainPageComponent,
+    ModifyBookingComponent
   ],
   imports: [
     BrowserAnimationsModule,

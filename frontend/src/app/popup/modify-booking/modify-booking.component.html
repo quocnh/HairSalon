@@ -1,0 +1,90 @@
+<link href="https://cdn.syncfusion.com/ej2/ej2-base/styles/material.css" rel="stylesheet" />
+<link href="https://cdn.syncfusion.com/ej2/ej2-buttons/styles/material.css" rel="stylesheet" />
+<link href="https://cdn.syncfusion.com/ej2/ej2-inputs/styles/material.css" rel="stylesheet" />
+<link href="https://cdn.syncfusion.com/ej2/ej2-popups/styles/material.css" rel="stylesheet" />
+<link href="https://cdn.syncfusion.com/ej2/ej2-lists/styles/material.css" rel="stylesheet" />
+<link href="https://cdn.syncfusion.com/ej2/ej2-calendars/styles/material.css" rel="stylesheet" />
+
+<div class="modal-body">
+    <div class="card card-user">
+        <div class="card-header">
+            <h5 class="card-title">Thay đổi thông tin lịch hẹn</h5>
+        </div>
+        <div class="card-body">
+            <form #customerForm="ngForm">
+
+                <div class="row">
+                    <div class="col-md-6 pr-1">
+                        <div class="form-group">
+                            <label>Khách hàng</label>
+                            <input type="text" class="form-control" [(ngModel)]="customer_username"
+                                [ngModelOptions]="{standalone: true}" placeholder="uername">
+                        </div>
+                    </div>
+                    <div class="col-md-6 pr-1">
+                        <label>Trạng thái</label>
+                        <div class="form-group">
+                            <select input type="text" class="form-control"
+                                (change)="selectStatusEvent($event.target.options.selectedIndex)">
+                                <option [selected]="bs == booking.status" *ngFor="let bs of bookingStatus">
+                                    <p style="text-align:left;">{{bs}}</p>
+                                </option>
+                            </select>
+                        </div>                        
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Ngày đặt</label>
+                            <input class="form-control" name="dateP" [(ngModel)]="modelDob"
+                                [ngModelOptions]="{standalone: true}" ngbDatepicker [footerTemplate]="footerTemplate"
+                                #d="ngbDatepicker" [minDate]="today" (click)="d.toggle()">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Thời gian</label>
+                            <div class="form-group">
+                                <select input type="text" class="form-control"
+                                    (change)="selectBookingTimeEvent($event.target.options.selectedIndex)">
+                                    <option [selected]="bt == booking.bookingTime" *ngFor="let bt of bookingTime">
+                                        <p style="text-align:left;">{{bt}}</p>
+                                    </option>
+                                </select>                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>Yêu cầu thợ</label>
+                        <div class="form-group">
+                            <select input type="text" class="form-control"
+                                (change)="selectBarberOnChange($event.target.options.selectedIndex)">
+                                <option [selected]="b._id == booking._barberId" *ngFor="let b of barbers">
+                                    <p style="text-align:left;">[ {{b.username}} ] {{b.lastname}} {{b.firstname}}</p>
+                                </option>
+                            </select>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="row">
+                    <div class="update ml-auto mr-auto">
+                        <button type="submit" class="btn btn-primary btn-round" (click)="modal.dismiss()">
+                            Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-round" (click)="doApply()">
+                            Ok</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

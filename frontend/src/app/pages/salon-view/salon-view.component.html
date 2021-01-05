@@ -1,24 +1,24 @@
 <div class="row">
-    <div class="card card-plain">
-        <div class="card-header">
-          <h4 class="card-title"> {{salon.name}}</h4>
-          <p class="card-category"> <i class="fa fa-star text-danger"></i> 4.5 (232) Address {{salon.address}}</p>
-        </div>
+  <div class="card card-plain">
+    <div class="card-header">
+      <h4 class="card-title"> {{salon.name}}</h4>
+      <p class="card-category"> <i class="fa fa-star text-danger"></i> 4.5 (232) Address {{salon.address}}</p>
     </div>
+  </div>
 </div>
 
-<div class="row"> 
-  <div class="col-md-6" >
-    <div class=" btn-image " (click)="open(0)" >
+<div class="row">
+  <div class="col-md-6">
+    <div class=" btn-image " (click)="open(0)">
       <img src={{strPhotos[0]}} style="object-fit: fill; height:404px; width:100%">
-      
+
     </div>
   </div>
 
   <div class="col-md-6" style="padding: 2px; margin: 0">
-    <div class="row"> 
+    <div class="row">
       <div class="col-md-6" style="padding: 1px; margin: 0">
-        <div class=" btn-image " (click)="open(1)" >
+        <div class=" btn-image " (click)="open(1)">
           <img src={{strPhotos[1]}} style="object-fit: fill; height:200px; width:100%">
         </div>
       </div>
@@ -28,10 +28,10 @@
         </div>
       </div>
     </div>
-    
-    <div class="row"> 
+
+    <div class="row">
       <div class="col-md-6" style="padding: 1px; margin: 0">
-        <div class=" btn-image " (click)="open(3)" >
+        <div class=" btn-image " (click)="open(3)">
           <img src={{strPhotos[3]}} style="object-fit: fill; height:200px; width:100%">
         </div>
       </div>
@@ -41,142 +41,157 @@
         </div>
       </div>
     </div>
-  </div> 
+  </div>
 </div>
 
 <div class="row">
 
-    <div class="col-md-8">
-      <div class="card card-chart">
-        <div class="card-header">
-          <h5 class="card-title">Thông tin salon</h5>
-          <p class="card-category">{{salon.info}}</p>
-        </div>
-        <div class="card-body">
-          <img src="../../../assets/img/salonmenu.jpg">
-        </div>
-        <div class="card-body" *ngFor="let photo of strPhotos; let i = index">
-          <div *ngIf="(photo !== '') && (photo !== 'null') && (i >= 5)">
-            <img src="{{photo}}" >
-          </div>
-          
-        </div>
+  <div class="col-md-8">
+    <div class="card card-chart">
+      <div class="card-header">
+        <h5 class="card-title">Thông tin salon</h5>
+        <p class="card-category">{{salon.info}}</p>
       </div>
-      <div class="card card-chart">
-        <div class="card-header">
-          <h5 class="card-title">Bình luận</h5>
+      <div class="card-body">
+        <img src="../../../assets/img/salonmenu.jpg">
+      </div>
+      <div class="card-body" *ngFor="let photo of strPhotos; let i = index">
+        <div *ngIf="(photo !== '') && (photo !== 'null') && (i >= 5)">
+          <img src="{{photo}}">
         </div>
-        <div class="card-body">
-          <p class="card-category">Hiển thị bình luận</p>
-        </div>
+
       </div>
     </div>
+    <div class="card card-chart">
+      <div class="card-header">
+        <h5 class="card-title">Bình luận</h5>
+      </div>
+      <div class="card-body">
+        <p class="card-category">Hiển thị bình luận</p>
+      </div>
+    </div>
+  </div>
 
-    <div class="col-md-4">
-      <div class="card" style='position: sticky;top: 140px'>
-        <div class="card-header ">
-          <div class="row">
+  <div class="col-md-4">
+    <div class="card" style='position: sticky;top: 140px'>
+      <div class="card-header ">
+        <div class="row">
           <div class="col-md-12">
             <div class="form-group">
               <label>Chọn ngày</label>
-  
-                <input class="form-control" name="dateP" [(ngModel)]="modelDob" [ngModelOptions]="{standalone: true}" ngbDatepicker
-                  [footerTemplate]="footerTemplate" 
-                  #d="ngbDatepicker" 
-                  [minDate]="today"
-                  (click)="d.toggle()"
-                  >
-  
-                <ng-template #footerTemplate>
-                  <ngb-timepicker [(ngModel)]="time" [meridian]="meridian"></ngb-timepicker>
+
+              <input class="form-control" name="dateP" [(ngModel)]="modelDob" [ngModelOptions]="{standalone: true}"
+                ngbDatepicker [footerTemplate]="footerTemplate" #d="ngbDatepicker" [minDate]="today"
+                (click)="d.toggle()">
+
+              <ng-template #footerTemplate>
+                <!-- <ngb-timepicker [(ngModel)]="time" [meridian]="meridian"></ngb-timepicker>
                   <hr class="my-0">
                   <button class="btn btn-primary btn-sm m-2 float-left" (click)="model = today; d.close()">Today</button>
-                  <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Close</button>
-                </ng-template>
-  
+                  <button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Close</button> -->
+              </ng-template>
+
             </div>
           </div>
-          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Chọn buổi</label>
 
-            <label>Chọn thợ</label>
-            <div class="form-group" >
-              <select input type="text" class="form-control" (change)="selectBarberOnChange($event.target.options.selectedIndex)">
-                <option value="">Bất kỳ </option>
-                <option *ngFor="let b of barbers; let i = index">
-                  <p style="text-align:left;">[ {{b.username}} ] {{b.lastname}} {{b.firstname}}</p>
+              <select input type="text" class="form-control"
+                (change)="selectBookingTimeOnChange($event.target.options.selectedIndex)">
+                <option value="">Tùy chọn </option>
+                <option *ngFor="let b of bookingTime ; let i = index">
+                  <p style="text-align:left;"> {{b}} </p>
                 </option>
               </select>
-              
-            </div>
 
-        </div>
-        <div class="card-body ">
-          <label>Chọn dịch vụ</label>
-          <div class="form-group" >
-            <select input type="text" class="form-control" (change)="selectServiceOnChange($event.target.options.selectedIndex)">
-              <option value="">Chọn dịch vụ</option>
-              <option *ngFor="let s of salon.services; let i = index">
-                <p style="text-align:left;">{{s.name}} &emsp;</p>
-                <span class="text-right" data-type="currency">({{s.price|currency:"&#x20AB;":'symbol':'3.0'}} )</span>
-
-              </option>
-            </select>
-            
-          </div>
-
-          
-        </div>
-        <div class="card-footer ">
-          
-          <div class="card card-plain" *ngIf="selectServices.length > 0">
-            <label>Dịch vụ đã chọn</label>
-            <div class="card-body">
-              <div class="table-responsive" *ngIf="total !== 0">
-                <table class="table">
-                  <thead class=" text-primary">
-                    <th>
-                      Dịch vụ
-                    </th>
-                    <th class="text-right">
-                      Giá
-                    </th>
-                    <th class="text-right">
-                      &#160;
-                    </th>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let s of selectServices; let i = index">
-                      <td>
-                        {{s.name}}
-                      </td>
-                      <td class="text-right"data-type="currency">
-                        {{s.price|currency:"&#x20AB;":'symbol':'3.0'}}
-                      </td>
-                      <td >
-                        <button class="btn btn-sm btn-info btn-round btn-icon pull-right" (click)= "deleteSelectedService(i)">
-                          <a data-toggle="tooltip" data-placement="top" title="Xóa"><i class="nc-icon nc-simple-remove"></i></a>
-                        </button>
-                        
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
             </div>
           </div>
-          <hr>
-          <div class="stats">
-            <p style="text-align:left;">Tổng cộng
-              <span style="float:right;">
-                {{total|currency:"&#x20AB;":'symbol':'3.0'}}
-              </span>
-            </p> 
+        </div>
+
+        <label>Chọn thợ</label>
+        <div class="form-group">
+          <select input type="text" class="form-control"
+            (change)="selectBarberOnChange($event.target.options.selectedIndex)">
+            <option value="">Tùy chọn </option>
+            <option *ngFor="let b of barbers">
+              <p style="text-align:left;">[ {{b.username}} ] {{b.lastname}} {{b.firstname}}</p>
+            </option>
+          </select>
+
+        </div>
+
+      </div>
+      <div class="card-body ">
+        <label>Chọn dịch vụ</label>
+        <div class="form-group">
+          <select input type="text" class="form-control"
+            (change)="selectServiceOnChange($event.target.options.selectedIndex)">
+            <option value="">Chọn dịch vụ</option>
+            <option *ngFor="let s of salon.services; let i = index">
+              <p style="text-align:left;">{{s.name}} &emsp;</p>
+              <span class="text-right" data-type="currency">({{s.price|currency:"&#x20AB;":'symbol':'3.0'}} )</span>
+
+            </option>
+          </select>
+
+        </div>
+
+
+      </div>
+      <div class="card-footer ">
+
+        <div class="card card-plain" *ngIf="selectServices.length > 0">
+          <label>Dịch vụ đã chọn</label>
+          <div class="card-body">
+            <div class="table-responsive" *ngIf="total !== 0">
+              <table class="table">
+                <thead class=" text-primary">
+                  <th>
+                    Dịch vụ
+                  </th>
+                  <th class="text-right">
+                    Giá
+                  </th>
+                  <th class="text-right">
+                    &#160;
+                  </th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let s of selectServices; let i = index">
+                    <td>
+                      {{s.name}}
+                    </td>
+                    <td class="text-right" data-type="currency">
+                      {{s.price|currency:"&#x20AB;":'symbol':'3.0'}}
+                    </td>
+                    <td>
+                      <button class="btn btn-sm btn-info btn-round btn-icon pull-right"
+                        (click)="deleteSelectedService(i)">
+                        <a data-toggle="tooltip" data-placement="top" title="Xóa"><i
+                            class="nc-icon nc-simple-remove"></i></a>
+                      </button>
+
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-          <div class="btn btn-booking card card-btn" (click)= "reserveService()">
-            Đặt chỗ
-          </div>
+        </div>
+        <hr>
+        <div class="stats">
+          <p style="text-align:left;">Tổng cộng
+            <span style="float:right;">
+              {{total|currency:"&#x20AB;":'symbol':'3.0'}}
+            </span>
+          </p>
+        </div>
+        <div class="btn btn-booking card card-btn" (click)="reserveService()">
+          Đặt chỗ
         </div>
       </div>
     </div>
-    
+  </div>
+
 </div>

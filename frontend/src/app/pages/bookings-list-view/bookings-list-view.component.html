@@ -10,10 +10,11 @@
               <table class="table">
                 <thead class=" text-primary">
                   <th>Stt</th>
-                  <th>Khách hàng</th>
-                  <th>Create Date</th>
-                  <th>Booking Date</th>
-                  <th>Time</th>
+                  <th>Khách hàng</th>                  
+                  <th>Ngày đặt</th>
+                  <th>Thời gian</th>
+                  <th>Yêu cầu thợ</th>
+                  <th>Trạng thái</th>
                   <th>&nbsp;</th>
                 </thead>
                 <tbody>
@@ -21,17 +22,17 @@
                     <tr *ngFor="let book of bookingList; let i = index">
                          <td>{{i+1}}</td>
                         <td>{{ customerList[i].username }}</td>                       
-                        <td>{{ book.createdDate | date}} </td>
                         <td>{{ book.bookingDate | date}}</td>
                         <td>{{ book.bookingTime}}</td>
-
+                        <td>{{ barberList[i].firstname}} {{ barberList[i].lastname}}</td>
+                        <td>{{ book.status}}</td>
                         
                         <td >
-                            <button class="btn btn-sm btn-danger btn-round btn-icon pull-right" (click)= "deleteBooking(book._id)">
+                            <button class="btn btn-sm btn-danger btn-round btn-icon pull-right" (click)= "deleteBooking(book._id, i)">
                               <a data-toggle="tooltip" data-placement="top" title="Xóa"> <i class="fa fa-trash"></i></a>
                             </button>
                             <p class="pull-right"> &#160; </p>
-                            <button class="btn btn-sm btn-info btn-round btn-icon pull-right" (click)= "modifyBooking(book._id)">
+                            <button class="btn btn-sm btn-info btn-round btn-icon pull-right" (click)= "modifyBooking(book._id, i)">
                               <a data-toggle="tooltip" data-placement="top" title="Sửa"><i class="fa fa-pencil"></i></a>
                             </button>
                         </td>

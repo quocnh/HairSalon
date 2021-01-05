@@ -379,6 +379,19 @@ export class SalonUtilsService {
     //console.log('create Booking : ' + booking.bookingDate + ' salonId:' + booking._salonId);
     return this.webService.post(`bookings`, fd);  
   }
+  updateBooking(booking: Booking){
+    let key;
+    const fd = new FormData();
+
+    // tslint:disable-next-line: forin
+    for (key in booking) {
+      fd.append(key, booking[key]);
+      // console.log(key + ': ' + booking[key]);
+    }
+    
+    //console.log('create Booking : ' + booking.bookingDate + ' salonId:' + booking._salonId);
+    return this.webService.patch(`bookings`, fd);
+  }
 
   deleteOneBooking(bookingId: string){
     return this.webService.delete(`bookings/${bookingId}`);
@@ -386,7 +399,10 @@ export class SalonUtilsService {
 
   getBookingsFromSalonId(salonId: string) {
     return this.webService.get(`bookings/salon/${salonId}`);
-  }  
+  } 
+  getOneBooking(bookingId: string) {
+    return this.webService.get(`bookings/${bookingId}`);
+  } 
 
   // User Register
   callRegisterAPI(user : User){

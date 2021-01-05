@@ -57,20 +57,28 @@ bookingRouter.get('/customer/:customerId', (req, res) => {
 
 // Get all booking from salon
 bookingRouter.get('/salon/:salonId', (req, res) => {
-    console.log(req.params.salonId);
+    //console.log(req.params.salonId);
     Booking.find({_salonId:req.params.salonId})
         .then(bookings => res.send(bookings))
         .catch((error) => console.log(error));
 });
 
+// Get booking from bookingId
+bookingRouter.get('/:bookingId', (req, res) => {
+    //console.log(req.params.salonId);
+    Booking.find({_id:req.params.bookingId})
+        .then(bookings => res.send(bookings))
+        .catch((error) => console.log(error));
+});
+
 bookingRouter.post('/',upload.single('booking'), (req, res) => {
-    
+    console.log(req.body);
     const booking = new Booking({
         _salonId: req.body._salonId,
         _barberId: req.body._barberId,
         _userId: req.body._userId,
-        bookingDate: req.body.date,
-        bookingTime: req.body.time,
+        bookingDate: req.body.bookingDate,
+        bookingTime: req.body.bookingTime,
         info: req.body.info,
         status: req.body.status,
     });
@@ -80,29 +88,29 @@ bookingRouter.post('/',upload.single('booking'), (req, res) => {
     .catch((error) => console.log(error));
 });
 
-bookingRouter.patch('/:bookingId', (req, res) => {
+bookingRouter.patch('/',upload.single('booking'), (req, res) => {
 
-    if (req.body.bookingId) {
-        
-        console.log(req.body.bookingId);
-        Booking.findOneAndUpdate({ '_id': req.params.bookingId}, 
-            {$set: 
-                { 
-                    _salonId: req.body._salonId,
-                    _barberId: req.body._barberId,
-                    _userId: req.body._userId,
-                    bookingDate: req.body.date,
-                    bookingTime: req.body.time,
-                    info: req.body.info,
-                    status: req.body.status,
-                },
+    console.log(req.body);    
+   
+    //console.log(req.body.bookingId);
+    Booking.findOneAndUpdate({ '_id': req.body._id}, 
+        {$set: 
+            { 
+                _salonId: req.body._salonId,
+                _barberId: req.body._barberId,
+                _userId: req.body._userId,
+                bookingDate: req.body.bookingDate,
+                bookingTime: req.body.bookingTime,
+                info: req.body.info,
+                status: req.body.status,
             },
-            {new: true})
-            .then(booking => res.send(booking))
-            .catch((error) => console.log(error));
+        },
+        {new: true})
+        .then(booking => res.send(booking))
+        .catch((error) => console.log(error));
 
-        console.log(req.body);
-    }
+    //console.log(req.body);
+
 
 });
 

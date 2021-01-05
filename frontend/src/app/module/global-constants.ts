@@ -22,6 +22,19 @@ export class GlobalConstants {
         'Hủy',
     ];
 
+    public static BookingStatus = [
+        'Đang xử lý',
+        'Đã xác nhận',
+        'Hoàn thành',
+        'Hủy',
+    ];
+    public static BookingTime = [
+        'Sáng',
+        'Chiều',
+        'Tối',
+        'Tùy chọn',
+    ];
+
     public static City = [
         [
             {name : 'Tp. Hồ Chí Minh'},

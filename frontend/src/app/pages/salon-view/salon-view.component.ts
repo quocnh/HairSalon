@@ -9,6 +9,7 @@ import { Lightbox } from 'ngx-lightbox';
 import Booking from 'app/module/booking';
 import { environment } from 'environments/environment';
 import { TokenStorageService } from 'app/_services/token-storage.service';
+import { GlobalConstants } from 'app/module/global-constants';
 
 @Component({
   selector: 'app-salon-view',
@@ -25,13 +26,14 @@ export class SalonViewComponent implements OnInit {
   selectServices: Array<Service> = [];
   total: number;
   strPhotos: any = new Array(10);
-  time = {hour: 13, minute: 30};
+  time = { hour: 13, minute: 30 };
   meridian = true;
   barbers: Array<Barber> = [];
   booking: Booking = new Booking();
 
   isLoggedIn = false;
   user: any;
+  bookingTime = GlobalConstants.BookingTime;
 
   constructor(
     private route: ActivatedRoute,
@@ -39,7 +41,7 @@ export class SalonViewComponent implements OnInit {
     private salonUtilService: SalonUtilsService,
     private _lightbox: Lightbox,
     private tokenStorageService: TokenStorageService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     for (var i = 0; i < this.strPhotos.length; i++) {
@@ -64,32 +66,34 @@ export class SalonViewComponent implements OnInit {
       month: this.today.month,
       day: this.today.day
     }
+    this.booking.bookingTime = this.bookingTime[0];
   }
   getSalonInfo(salonId) {
     this.salonUtilService.getOneSalon(salonId).subscribe(
-        (salons: Salon) => {
-            this.salon = Object.assign({}, salons[0]);
-            for (let i = 0; i < this.salon.photos.length; i++) {
-              if ((this.salon.photos[i] !== '') && (this.salon.photos[i] !== 'null')) {
-                this.strPhotos[i] = environment.dbAddress+ '/' + this.salon.photos[i];
-              }
-            }
-            for (let i = 0; i < this.salon._barberId.length; i++) {
-              this.salonUtilService.getOneBarber(this.salon._barberId[i]).subscribe(
-                (barber: Barber) => {
-                  this.barbers[i] = barber[0];
-                  // console.log(this.barbers);
-                });
-            }
-            console.log(this.salon);
-        });
+      (salons: Salon) => {
+        this.salon = Object.assign({}, salons[0]);
+        for (let i = 0; i < this.salon.photos.length; i++) {
+          if ((this.salon.photos[i] !== '') && (this.salon.photos[i] !== 'null')) {
+            this.strPhotos[i] = environment.dbAddress + '/' + this.salon.photos[i];
+          }
+        }
+        // console.log(this.salon._barberId);
+        for (let i = 0; i < this.salon._barberId.length; i++) {
+          this.salonUtilService.getOneBarber(this.salon._barberId[i]).subscribe(
+            (barber: Barber) => {
+              this.barbers[i] = barber[0];
+              // console.log(this.barbers);
+            });
+        }
+        console.log(this.salon);
+      });
   }
 
   reserveService() {
     console.log('Reserve Service');
 
     this.isLoggedIn = !!this.tokenStorageService.getToken();
-    if (this.isLoggedIn) {      
+    if (this.isLoggedIn) {
       this.user = this.tokenStorageService.getUser();
       console.log(this.user);
     } else {
@@ -99,9 +103,14 @@ export class SalonViewComponent implements OnInit {
 
     this.booking._salonId = this.salonId;
     this.booking._userId = this.user.id;
+    this.booking.status = GlobalConstants.BookingStatus[0];
+    //console.log(this.modelDob);
+    // this.booking.bookingDate.setUTCDate(20);
+    this.booking.bookingDate = new Date(this.modelDob.year, this.modelDob.month, this.modelDob.day, 0, 0, 0, 0);
+    //console.log(this.booking.bookingDate);
     this.salonUtilService.createBooking(this.booking).subscribe(
       (booking: Booking) => {
-        console.log(booking);
+        //console.log(booking);
       });
   }
 
@@ -117,8 +126,16 @@ export class SalonViewComponent implements OnInit {
   selectBarberOnChange(sIndex) {
     if (sIndex > 0) {
       console.log(this.barbers[sIndex - 1]);
+      this.booking._barberId = this.barbers[sIndex - 1]._id;
     }
 
+  }
+
+  selectBookingTimeOnChange(sIndex) {
+    if (sIndex > 0) {
+      console.log(this.bookingTime[sIndex - 1]);
+      this.booking.bookingTime = this.bookingTime[sIndex - 1];
+    }
   }
 
   deleteSelectedService(sIndex) {
@@ -137,9 +154,9 @@ export class SalonViewComponent implements OnInit {
       const thumb = this.strPhotos[i];
 
       const album = {
-         src: src,
-         caption: caption,
-         thumb: thumb
+        src: src,
+        caption: caption,
+        thumb: thumb
       };
 
       albums.push(album);
