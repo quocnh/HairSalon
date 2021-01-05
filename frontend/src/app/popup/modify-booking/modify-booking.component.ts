@@ -90,7 +90,7 @@ export class ModifyBookingComponent implements OnInit {
 
   doApply(){
     
-    this.booking.bookingDate = new Date(this.modelDob.year, this.modelDob.month, this.modelDob.day, 0, 0, 0, 0);
+    this.booking.bookingDate = new Date(this.modelDob.year, this.modelDob.month-1, this.modelDob.day, 0, 0, 0, 0);
 
     console.log(this.booking);
     this.salonUtilService.updateBooking(this.booking).subscribe();

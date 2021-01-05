@@ -104,10 +104,10 @@ export class SalonViewComponent implements OnInit {
     this.booking._salonId = this.salonId;
     this.booking._userId = this.user.id;
     this.booking.status = GlobalConstants.BookingStatus[0];
-    //console.log(this.modelDob);
+    console.log(this.modelDob.month);
     // this.booking.bookingDate.setUTCDate(20);
-    this.booking.bookingDate = new Date(this.modelDob.year, this.modelDob.month, this.modelDob.day, 0, 0, 0, 0);
-    //console.log(this.booking.bookingDate);
+    this.booking.bookingDate = new Date(this.modelDob.year, this.modelDob.month-1, this.modelDob.day, 0, 0, 0, 0);
+    console.log(this.booking.bookingDate);
     this.salonUtilService.createBooking(this.booking).subscribe(
       (booking: Booking) => {
         //console.log(booking);
