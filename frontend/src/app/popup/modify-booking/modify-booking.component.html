@@ -39,7 +39,7 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Ngày đặt</label>
                             <input class="form-control" name="dateP" [(ngModel)]="modelDob"
-                                [ngModelOptions]="{standalone: true}" ngbDatepicker [footerTemplate]="footerTemplate"
+                                [ngModelOptions]="{standalone: true}" ngbDatepicker
                                 #d="ngbDatepicker" [minDate]="today" (click)="d.toggle()">
                         </div>
                     </div>

@@ -94,3 +94,19 @@ mongo -u admin -p myadminpassword 171.244.39.13/admin
 ```python 
 mongodb://admin:myadminpassword@171.244.39.13:27017/?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&ssl=false
 ```
+
+* How to configure .env at server
+1. npm install dotenv
+2. Create .env with the below content:
+### At server
+  NODE_ENV=development
+  PORT=3000
+  SSL_KEY="/etc/apache2/certificate/awinst.com/awinst.com.key"
+  SSL_CRT="/etc/apache2/certificate/awinst.com/awinst.com.crt"
+
+### At local debug:
+.env
+  NODE_ENV=development
+  PORT=3000
+  SSL_KEY="./cert/localhost.key"
+  SSL_CRT="./cert/localhost.crt"

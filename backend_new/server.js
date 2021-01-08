@@ -7,17 +7,14 @@ const { success, error } = require("consola");
 const app = express();
 const https = require('https');
 const fs = require('fs');
+const dotenv = require('dotenv');
+dotenv.config();
 
-var key = fs.readFileSync('./cert/localhost.key');
-var cert = fs.readFileSync('./cert/localhost.crt');
+var key = fs.readFileSync(`${process.env.SSL_KEY}`);
+var cert = fs.readFileSync(`${process.env.SSL_CRT}`);
 var options = {
   key: key,
   cert: cert
-};
-
-
-var corsOptions = {
-    origin: "http://localhost:8081"
 };
 
 app.use(cors());
@@ -51,11 +48,12 @@ app.get("/", (req, res) => {
 });
 
 // set port, listen for requests
+console.log(`Your port is configured in .env ${process.env.PORT}`);
 const PORT = process.env.PORT || 3000;
 
 var server = https.createServer(options, app);
 
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
   console.log("server starting on port : " + PORT)
 });
 
