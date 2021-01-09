@@ -74,7 +74,11 @@ firewall-cmd --zone=public --add-service=node_server
 ```
 
 * create user in mongo
-```python 
+* login mongo admin 
+
+```python
+ mongo -u admin -p myadminpassword 171.244.39.13/admin
+ 
 > use admin;
 > db.createUser({
       user: "admin",
