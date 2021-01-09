@@ -86,6 +86,12 @@ firewall-cmd --zone=public --add-service=node_server
              ]
   });
 ```
+* create admin user for hairsalon_db
+```python
+> use hairsalon_db
+switched to db hairsalon_db
+> db.createUser({user:'mark',pwd:'mark',roles:[{role:'readWrite',db:'hairsalon_db'}]})
+```
 * login from a client
 ```python
 mongo -u admin -p myadminpassword 171.244.39.13/admin
