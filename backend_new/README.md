@@ -114,7 +114,7 @@ mongodb://admin:myadminpassword@171.244.39.13:27017/?authSource=admin&readPrefer
 
 ### At local debug:
 .env
-  NODE_ENV=development
+  NODE_ENV=production
   PORT=3000
   SSL_KEY="./cert/localhost.key"
   SSL_CRT="./cert/localhost.crt"
