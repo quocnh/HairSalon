@@ -27,9 +27,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const db = require("./app/models");
 const Role = db.role;
-
+//mongodb://admin:myadminpassword@171.244.39.13:27017/?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&ssl=false
 db.mongoose
-    .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
+    .connect(`mongodb://${MG_USERNAME}:${MG_PASSWORD}@${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
