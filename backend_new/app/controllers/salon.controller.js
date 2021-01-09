@@ -144,7 +144,6 @@ salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
     var fs = require('fs');
     var strPhotoPath = Array(10);
 
-    //console.log(req.files.length);
     for (i = 0; i < strPhotoPath.length; i++) {
         if (req.body.photos[i] !== 'null') {
             strPhotoPath[i] = req.body.photos[i];
@@ -152,6 +151,31 @@ salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
         } else {
             strPhotoPath[i] = 'null';
         }
+    }
+
+    for (i = 0; i < req.files.length; i++)
+    {
+        if (req.files[i].path) {
+            const index = req.body.index[i];
+            strPhotoPath[index] = req.files[i].path;    
+            //console.log(i + ': ' + index);
+            //console.log(req.body.photos);
+
+            ////delete old file avatar
+            fs.exists(req.body.photos[index], function(exists) {
+                if(exists) {
+                    fs.unlink(req.body.photos[index], (err) => {
+                        if (err) throw err;
+                        console.log(req.body.photos[index] + ' was deleted.');
+                    });
+                }
+            });
+        }  
+    }
+
+
+    //console.log(req.files.length);
+    for (i = 0; i < strPhotoPath.length; i++) {
         if (req.body.deletedPhotoList[i] === '1') {
             // need to defind index as a const
             const index = i;
