@@ -1,9 +1,15 @@
-<div class="row">
-  <div class="card card-plain">
-    <div class="card-header">
-      <h4 class="card-title"> {{salon.name}}</h4>
-      <p class="card-category"> <i class="fa fa-star text-danger"></i> 4.5 (232) Address {{salon.address}}</p>
+<div class="card card-plain">
+  <div class="card-header">
+    <h4 class="card-title"> {{salon.name}}</h4>
+    <div class="row">
+      <div class="col-9">
+        <p class="card-category"> <i class="fa fa-map-marker text-danger"></i> {{salon.address}}</p>
+      </div>
+      <div class="col-3">
+        <p class="pull-right"> <i class="fa fa-star text-danger"></i> 4.5 (232)</p>
+      </div>
     </div>
+
   </div>
 </div>
 
