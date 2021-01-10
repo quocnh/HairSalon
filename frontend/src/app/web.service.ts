@@ -13,7 +13,7 @@ export class WebService {
   readonly HERE_KEY;
   constructor(private http: HttpClient) {
     this.ROOT_URL = environment.baseAPI;
-    this.HERE_URL = 'https://geocode.search.hereapi.com/v1/geocode?q=';
+    this.HERE_URL = 'https://cors-anywhere.herokuapp.com/https://geocode.search.hereapi.com/v1/geocode?q=';
     this.HERE_KEY = 'MdY-VgF6O64ulC_vNxa4bmEvIhrkkH85NIjw4ESTFs8';
   }
 

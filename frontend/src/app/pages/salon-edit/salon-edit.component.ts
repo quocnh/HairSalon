@@ -91,6 +91,13 @@ export class SalonEditComponent implements OnInit {
       (salons: Salon) => {
         this.salon = Object.assign({}, salons[0]);
         this.salonDb = Object.assign({}, salons[0]);
+        for (let i = 0; i < this.cities.length; i++){
+          if (this.cities[i].name === this.salon.city){
+            this.districts = this.cities[i].district;
+            break;
+          }
+        }
+        this.selectedCity = this.salon.city;
         for (let i = 0; i < this.salon.photos.length; i++) {
           if ((this.salon.photos[i] !== '') && (this.salon.photos[i] !== 'null')) {
             this.strPhotos[i] = environment.dbAddress + '/' + this.salon.photos[i];
@@ -179,18 +186,46 @@ export class SalonEditComponent implements OnInit {
         this.salon.city = this.selectedCity.name;
       }
       this.flagUpdate = false;
-      this.salonUtilService.updateSalon(this.salon, this.selectedFiles, this.deletedList).subscribe(
-        (salon: Salon) => {
-          this.salon = salon;
-          for (let i = 0; i < this.salon.photos.length; i++) {
-            if ((this.salon.photos[i] !== '') && (this.salon.photos[i] !== 'null')) {
-              this.strPhotos[i] = environment.dbAddress + '/' + this.salon.photos[i];
+
+      if (this.salon.address !== this.salonDb.address) {
+        const fullAddress = this.salon.address + ' ' + this.salon.district + ' ' + this.salon.city;
+        this.salonUtilService.getAddressfromHERE(fullAddress).subscribe(
+          (resposne: any) => {
+            console.log(resposne.items[0].position);
+            this.salon.longitude = resposne.items[0].position.lng;
+            this.salon.latitude = resposne.items[0].position.lat;
+  
+            this.salonUtilService.updateSalon(this.salon, this.selectedFiles, this.deletedList).subscribe(
+              (salon: Salon) => {
+                this.salon = salon;
+                this.salonDb = salon;
+                for (let i = 0; i < this.salon.photos.length; i++) {
+                  if ((this.salon.photos[i] !== '') && (this.salon.photos[i] !== 'null')) {
+                    this.strPhotos[i] = environment.dbAddress + '/' + this.salon.photos[i];
+                  }
+                }
+              }
+            );
+            this.selectedFiles = [];
+            this.deletedList.fill(0);
+          }
+        )
+      } else {
+        this.salonUtilService.updateSalon(this.salon, this.selectedFiles, this.deletedList).subscribe(
+          (salon: Salon) => {
+            this.salon = salon;
+            this.salonDb = salon;
+            for (let i = 0; i < this.salon.photos.length; i++) {
+              if ((this.salon.photos[i] !== '') && (this.salon.photos[i] !== 'null')) {
+                this.strPhotos[i] = environment.dbAddress + '/' + this.salon.photos[i];
+              }
             }
           }
-        }
-      );
-      this.selectedFiles = [];
-      this.deletedList.fill(0);
+        );
+        this.selectedFiles = [];
+        this.deletedList.fill(0);
+      }     
+      
     }
   }
 

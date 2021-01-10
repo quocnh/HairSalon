@@ -174,7 +174,7 @@ salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
     }
 
 
-    //console.log(req.files.length);
+    // console.log(req.body.deletedPhotoList);
     for (i = 0; i < strPhotoPath.length; i++) {
         if (req.body.deletedPhotoList[i] === '1') {
             // need to defind index as a const
@@ -195,27 +195,24 @@ salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
         }
     }
 
-    console.log(req.body);
+    // console.log(req.body);
 
     if (req.body.name) {
 
-        console.log(req.body.name);
+        // console.log(req.body.name);
         //console.log(req.body.services.name);
         //console.log(req.body.services.price);
 
-        // const fullAddress = req.body.address + ' ' + req.body.district + ' ' + req.body.city;
-        // console.log(fullAddress);
-        // // var location = async function(fullAddress){
-        // //     const loc = await geocoder.geocode(fullAddress);
-        // //     const location = {
-        // //         type: 'Point',
-        // //         coordinates: [loc[0].longitude, loc[0].latitude],
-        // //         formattedAddress: loc[0].formattedAddress
-        // //     };
-        // //     const longitude = loc[0].longitude;
-        // //     const latitude = loc[0].latitute;
-        // //     return location;
-        // // }
+        const fullAddress = req.body.address + ' ' + req.body.district + ' ' + req.body.city;
+        console.log(fullAddress);
+
+        //     const longitude = loc[0].longitude;
+        //     const latitude = loc[0].latitute;
+        //     console.log(longitude);
+        //     console.log(latitude);
+        //     return location;
+        // }
+        
 
         // const loc = geocoder.geocode(fullAddress);
         //     const location = {
@@ -226,7 +223,13 @@ salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
         //     // const longitude = loc[0].longitude;
         //     // const latitude = loc[0].latitute;
         // console.log(location);         
-
+        // req.body.latitude = 37.24;
+        // req.body.longitude = 127.06;
+        const location = {
+                    type: 'Point',
+                    coordinates: [req.body.longitude, req.body.latitude],
+                    formattedAddress: fullAddress
+                };
 
         Salon.findOneAndUpdate({ '_id': req.params.salonId },
             {
@@ -239,9 +242,9 @@ salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
                     district: req.body.district,
                     city: req.body.city,
                     address: req.body.address,
-                    // longitude: longitude,
-                    // latitude: latitude,
-                    // location: location,
+                    longitude: req.body.longitude,
+                    latitude: req.body.latitude,
+                    location: location,
                     info: req.body.info,
                     //services: [req.body.services[],
                     priceFrom: req.body.priceFrom,

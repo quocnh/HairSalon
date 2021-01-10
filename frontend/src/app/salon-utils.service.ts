@@ -126,6 +126,9 @@ export class SalonUtilsService {
         fd.append('newPhotos[]', files[i]);
         fd.append('index[]', i.toString());        
       }
+    }
+
+    for (let i = 0; i < deletedList.length; i++) {
       fd.append('deletedPhotoList[]', deletedList[i].toString());
     }
 
