@@ -3,13 +3,14 @@ import { ActivatedRoute, Params } from '@angular/router';
 import Salon from '../../module/salon';
 import Barber from '../../module/barber';
 import { SalonUtilsService } from '../../salon-utils.service';
-import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbCalendar, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Service from '../../module/service';
 import { Lightbox } from 'ngx-lightbox';
 import Booking from 'app/module/booking';
 import { environment } from 'environments/environment';
 import { TokenStorageService } from 'app/_services/token-storage.service';
 import { GlobalConstants } from 'app/module/global-constants';
+import { ConfirmComponent } from 'app/popup/confirm/confirm.component';
 
 @Component({
   selector: 'app-salon-view',
@@ -40,7 +41,8 @@ export class SalonViewComponent implements OnInit {
     private calendar: NgbCalendar,
     private salonUtilService: SalonUtilsService,
     private _lightbox: Lightbox,
-    private tokenStorageService: TokenStorageService
+    private tokenStorageService: TokenStorageService,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -104,13 +106,21 @@ export class SalonViewComponent implements OnInit {
     this.booking._salonId = this.salonId;
     this.booking._userId = this.user.id;
     this.booking.status = GlobalConstants.BookingStatus[0];
-    console.log(this.modelDob.month);
+    
     // this.booking.bookingDate.setUTCDate(20);
     this.booking.bookingDate = new Date(this.modelDob.year, this.modelDob.month-1, this.modelDob.day, 0, 0, 0, 0);
-    console.log(this.booking.bookingDate);
+    //console.log(this.booking.bookingDate);
     this.salonUtilService.createBooking(this.booking).subscribe(
       (booking: Booking) => {
         //console.log(booking);
+        const ref = this.modalService.open(ConfirmComponent);
+        ref.componentInstance.confirmInfo = 'Bạn đã thành công đặt lịch vào ngày ' + this.modelDob.day + ' tháng ' + this.modelDob.month + ' năm ' + this.modelDob.year;
+        ref.result.then((yes) => {
+          
+        },
+        (cancel) => {
+          console.log('cancel click');
+        })
       });
   }
 
