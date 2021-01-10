@@ -10,7 +10,7 @@ https://flutter.dev/docs/get-started/install/macos
 2. Setup flutter in VS Code
 ```python
 - install Dart
-- Install Flutter
+- install Flutter
 ```
 
 
