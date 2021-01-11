@@ -110,22 +110,6 @@ SalonSchema.pre('save', async function(next) {
     next();
 });
 
-// SalonSchema.pre('update', async function(next) {
-//     fullAddress = this.address + ' ' + this.district + ' ' + this.city;
-//     const loc = await geocoder.geocode(fullAddress);
-//     console.log('UPDATEEEEEEEEEEEEEEEEE');
-//     console.log(loc);
-//     this.location = {
-//         type: 'Point',
-//         coordinates: [loc[0].longitude, loc[0].latitude],
-//         formattedAddress: loc[0].formattedAddress
-//     };
-//     this.latitude = loc[0].latitude;
-//     this.longitude = loc[0].longitude;
-//     // Do not save address
-//     next();
-// });
-
 const Salon = mongoose.model('Salon', SalonSchema);
 
 module.exports = Salon;
