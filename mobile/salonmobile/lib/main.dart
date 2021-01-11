@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:salonmobile/constants.dart';
+import 'package:salonmobile/routes.dart';
 import 'package:salonmobile/screens/splash/splash_screen.dart';
 
 void main() {
@@ -22,7 +23,10 @@ class MyApp extends StatelessWidget {
         ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: SplashScreen(),
+      // home: SplashScreen(),
+      // use routeName so that we dont need to remember the name
+      initialRoute: SplashScreen.routeName,
+      routes: routes,
     );
   }
 }
