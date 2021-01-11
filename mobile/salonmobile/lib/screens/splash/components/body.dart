@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:salonmobile/constants.dart';
+import 'package:salonmobile/screens/splash/components/splash_content.dart';
 import 'package:salonmobile/size_config.dart';
 
 class Body extends StatefulWidget {
@@ -8,6 +9,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  int currentPage = 0;
   List<Map<String, String>> splashData = [
     {
       "text": "Chào bạn đến với Awinst, thiên đường làm đẹp!",
@@ -35,6 +37,11 @@ class _BodyState extends State<Body> {
             Expanded(
               flex: 3,
               child: PageView.builder(
+                onPageChanged: (value) {
+                  setState(() {
+                    currentPage = value;
+                  });
+                },
                 itemCount: splashData.length,
                 itemBuilder: (context, index) => SplashContent(
                   text: splashData[index]["text"],
@@ -42,47 +49,35 @@ class _BodyState extends State<Body> {
                 ),
               ),
             ),
-            Expanded(flex: 2, child: SizedBox())
+            Expanded(
+                flex: 2,
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                        splashData.length,
+                        (index) => buildDot(index: index),
+                      ),
+                    )
+                  ],
+                ))
           ],
         ),
       ),
     );
   }
-}
 
-class SplashContent extends StatelessWidget {
-  const SplashContent({
-    Key key,
-    this.text,
-    this.image,
-  }) : super(key: key);
-  final String text, image;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Spacer(),
-        Text(
-          "AWINST",
-          style: TextStyle(
-              fontSize: getProportionateScreenWidth(36),
-              color: kPrimaryColor,
-              fontWeight: FontWeight.bold),
-        ),
-        Text(
-          text,
-          textAlign: TextAlign.center,
-        ),
-        Spacer(
-          flex: 2,
-        ),
-        Image.asset(
-          image,
-          height: getProportionateScreenHeight(265),
-          width: getProportionateScreenWidth(235),
-        )
-      ],
+  AnimatedContainer buildDot({int index}) {
+    return AnimatedContainer(
+      duration: kAnimationDuration,
+      margin: EdgeInsets.only(right: 5),
+      height: 6,
+      width: currentPage == index ? 20 : 6,
+      decoration: BoxDecoration(
+        color: currentPage == index ? kPrimaryColor : Color(0xFFD8D8D8),
+        borderRadius: BorderRadius.circular(3),
+      ),
     );
   }
 }
