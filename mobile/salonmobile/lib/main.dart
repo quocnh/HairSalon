@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:salonmobile/constants.dart';
 import 'package:salonmobile/routes.dart';
 import 'package:salonmobile/screens/splash/splash_screen.dart';
+import 'package:salonmobile/utils/theme.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,15 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Hair Salon',
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
-        fontFamily: "Muli",
-        textTheme: TextTheme(
-          bodyText1: TextStyle(color: kTextColor),
-          bodyText2: TextStyle(color: kTextColor),
-        ),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      theme: theme(),
       // home: SplashScreen(),
       // use routeName so that we dont need to remember the name
       initialRoute: SplashScreen.routeName,
