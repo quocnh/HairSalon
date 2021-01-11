@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:salonmobile/components/default_button.dart';
 import 'package:salonmobile/constants.dart';
+import 'package:salonmobile/screens/sign_in/sign_in_screen.dart';
 import 'package:salonmobile/screens/splash/components/splash_content.dart';
 import 'package:salonmobile/size_config.dart';
 
@@ -70,7 +71,9 @@ class _BodyState extends State<Body> {
                       ),
                       DefaultButton(
                         text: "Tiếp tục",
-                        press: () {},
+                        press: () {
+                          Navigator.pushNamed(context, SignInScreen.routeName);
+                        },
                       ),
                       Spacer(),
                     ],
