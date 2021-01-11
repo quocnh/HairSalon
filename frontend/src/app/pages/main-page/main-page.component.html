@@ -1,4 +1,4 @@
-<div class="row" style='position: sticky;top: 90px; z-index:999;'>
+<div class="row" style='padding-bottom:20px; position: sticky;top: 90px; z-index:999;'>
   <div class="ml-auto">
     <button class="btn-circle-search-submit" type="submit" (click)="toggleMap()">
       <!-- <button type="button" class="btn btn-primary btn-round d-block mr-0 ml-auto" (click)="toggleMap()">        -->
@@ -55,7 +55,7 @@
 </div>
 
 <ng-template #noShowMap>
-  <div class="row" >
+  <div class="row">
     <div class="col-md-3" *ngFor="let salon of salons">
       <a href="{{prefixPath}}/salons/{{salon._id}}">
         <div class="btn-primary card card-pricing">
