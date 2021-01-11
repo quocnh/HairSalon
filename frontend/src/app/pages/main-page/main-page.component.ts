@@ -23,8 +23,10 @@ export class MainPageComponent implements OnInit {
   selectedCityName: string;
   selectedDistrictName: string;
   content: string;
-  latitude:number;
-  longitude:number;
+  initLatitude:number = 0;
+  initLongitude:number = 0;
+  myLatitude:number = 0;
+  myLongitude:number = 0;
   salons: Salon[] = [];
   name: string;
   ownerId: string;
@@ -108,29 +110,36 @@ export class MainPageComponent implements OnInit {
     this.mapControl(); 
 
     this.route.params.subscribe((params: Params) => {
-      if (params.latitude && params.latitude) {
-        this.latitude = params.latitude;
-        this.longitude = params.longitude;
-        console.log(this.longitude);
-        console.log(this.latitude);
+      if (params.latitude !== undefined && params.latitude !== undefined) {
+        this.initLatitude = params.latitude;
+        this.initLongitude = params.longitude;
+        console.log(this.initLongitude);
+        console.log(this.initLatitude);
         
         
-        
-        this.latitude = 10.81078;
-        this.longitude = 106.66806;
+        // LARRY: use for local test
+        // this.latitude = 10.81078;
+        // this.longitude = 106.66806;
 
-        this.salonUtilService.getSalonsFromLocation(this.longitude, this.latitude).subscribe(
+        this.salonUtilService.getSalonsFromLocation(this.initLongitude, this.initLatitude).subscribe(
           (salons: Salon[]) => this.salons = salons
         );
         this.isListAllSalon = false;
 
-      }else if (params.city !== 'none') {
+      }else if (params.city !== 'none' && params.city !== undefined) {      
         this.selectedCityName = params.city;       
 
         if(params.district !== 'none') {
           this.selectedDistrictName = params.district;
           this.salonUtilService.getSalonsFromCityDistrict(this.selectedCityName, this.selectedDistrictName).subscribe(
-            (salons: Salon[]) => this.salons = salons
+            (salons: Salon[]) => {
+              this.salons = salons;
+              if (this.salons[0]) {
+                // + : convert string to number
+                this.initLatitude = +this.salons[0].latitude;
+                this.initLongitude = +this.salons[0].longitude;
+              }              
+            }
           );            
         }
         else {
@@ -138,14 +147,22 @@ export class MainPageComponent implements OnInit {
             (salons: Salon[]) => {
               this.salons = salons;
               console.log(this.salons);
+              if (this.salons[0]) {
+                // + : convert string to number
+                this.initLatitude = +this.salons[0].latitude;
+                this.initLongitude = +this.salons[0].longitude;
+              }   
             }
           );            
         }
         this.isListAllSalon = false;        
       }
+      else {       
+        this.refreshAllSalonList();
+      }
     }); 
 
-    if (this.isListAllSalon) {
+    if (this.isListAllSalon) {      
       this.refreshAllSalonList();
     }
   }
@@ -188,15 +205,15 @@ export class MainPageComponent implements OnInit {
 
   loadMap() {
     
-    navigator.geolocation.getCurrentPosition(() => {
-      //Temp Long-Lat
-      this.latitude = 10.81078;
-      this.longitude = 106.66806;
-      
-      this.initMap(this.latitude, this.longitude);
+    navigator.geolocation.getCurrentPosition((position) => {
+      const coords = position.coords;
+      const latLong = [coords.latitude, coords.longitude];
+      this.myLatitude = coords.latitude;
+      this.myLongitude = coords.longitude;
+      this.initMap(this.myLatitude, this.myLongitude);
 
       // Marker of current location
-      this.addLocationMarker(this.latitude, this.longitude);
+      this.addLocationMarker(this.myLatitude, this.myLongitude);
 
       for (var i = 0; i < this.salons.length; i++) {
         // console.log(i + ': ' + this.salons[i].latitude + ';' + this.salons[i].longitude);
