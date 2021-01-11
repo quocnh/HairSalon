@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Hair Salon ',
+      title: 'Hair Salon',
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
         fontFamily: "Muli",
