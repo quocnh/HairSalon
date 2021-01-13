@@ -26,7 +26,7 @@ class Body extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "Sign in with your email and password  \nor continue with social media",
+                  "Cắt tóc, tạo mẫu tóc và nhiều dịch vụ khác tại Awinst. \nBạn còn chờ gì nữa, đăng nhập ngay!",
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
