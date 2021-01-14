@@ -5,10 +5,9 @@ export default class BecomeSalonOwner {
     name:string;
     firstname: string;
     lastname: string;
-    phone: number;
+    phone: string;
     email: string;
     district: string;
     city: string;
-    address: string;
-    avatar: string;
+    address: string;    
 }

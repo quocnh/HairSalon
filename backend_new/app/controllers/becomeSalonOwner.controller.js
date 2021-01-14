@@ -7,13 +7,14 @@ exports.createObj = (req, res) => {
     const becomeSalonOwner = new BecomeSalonOwner({
         _userId: req.body._userId,
         username: req.body.username,
-        // firstname: req.body.firstname,
-        // lastname: req.body.lastname,
-        // email: req.body.email,
-        // city: req.body.city,
-        // phone: req.body.phone,
-        // district: req.body.district,
-        // status: req.body.status,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        city: req.body.city,
+        phone: req.body.phone,
+        district: req.body.district,
+        address: req.body.address,
+        status: req.body.status,
 
     });
     becomeSalonOwner.save(err => {
@@ -23,10 +24,10 @@ exports.createObj = (req, res) => {
         }
         res.send({ message: "BecomeSalonOwner has been created successfully!" });
     });
-    // res.status(200).send("XXXXXXX");
 };
 
 exports.getAllBecomeSalonOwnerRequest = (req,res) => {
-    // get all from db here - TODO
-    res.status(200).send("XXXXXXX");
+    BecomeSalonOwner.find({})
+        .then(becomeSalonOwner => res.send(becomeSalonOwner))
+        .catch((error) => console.log(error));
 };

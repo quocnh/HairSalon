@@ -4,6 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { SalonUtilsService } from 'app/salon-utils.service';
 import { TokenStorageService } from 'app/_services/token-storage.service';
 import { BecomeSalonOwnerService } from '../../_services/become-salon-owner.service';
+import BecomeSalonOwner from 'app/module/becomeSalonOwner';
 @Component({
   selector: 'app-application-request',
   templateUrl: './application-request.component.html',
@@ -21,13 +22,15 @@ export class ApplicationRequestComponent implements OnInit {
   isSalonOwner = false;
   pOrders:any; //QUOC need to fix it
 
+  becomeSalonOwnerList: any;
+
   constructor(
     // private salonUtilService: SalonUtilsService,
     private route: ActivatedRoute,
     private router: Router,
     // private modalService: NgbModal,
     public becomeSalonOwnerService: BecomeSalonOwnerService,
-    private tokenStorageService: TokenStorageService
+    private tokenStorageService: TokenStorageService,
   ) { }
 
   ngOnInit(): void {
@@ -52,6 +55,7 @@ export class ApplicationRequestComponent implements OnInit {
       this.becomeSalonOwnerService.getAllBecomeSalonOwner().subscribe(
         data => {
           console.log(data);
+          this.becomeSalonOwnerList = data;
         },
         err => {
         }
@@ -66,6 +70,8 @@ export class ApplicationRequestComponent implements OnInit {
       //   }
 
       // });
+    } else {
+      return;
     }
     this.prefixPath = environment.baseUrl + this.router.url;    
 

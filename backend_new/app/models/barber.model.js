@@ -28,7 +28,7 @@ const BarberSchema = new mongoose.Schema({
     },
     
     phone: {
-        type: Number,
+        type: String,
         required: [true, 'Phone number must be provided']
     },
     email: {

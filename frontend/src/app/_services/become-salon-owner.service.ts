@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'environments/environment';
+import { GlobalConstants } from 'app/module/global-constants';
 
 const API_URL = environment.baseAPI + '/api/salon-owner/';
 
@@ -20,15 +21,17 @@ export class BecomeSalonOwnerService {
     console.log("Create a new become-salon-owner obj: " + obj.username + "," + obj.lastname);
     console.log(API_URL + 'newObj');
     return this.http.post(API_URL + 'newObj', {
-      _userId: "5fde7118712b3c4ff65a377d",
+      // _userId: "5fde7118712b3c4ff65a377d",
+      _userId: obj.userId,
       username: obj.username,
-      // firstname: obj.firstname,
-      // lastname: obj.lastname,
-      // email: obj.email,
-      // city: obj.city,
-      // phone: obj.phone,
-      // district: obj.district,
-      status: "processing",
+      firstname: obj.firstname,
+      lastname: obj.lastname,
+      email: obj.email,
+      city: obj.city,
+      phone: obj.phone,
+      district: obj.district,
+      address: obj.address,
+      status: GlobalConstants.BookingStatus[0],
     }, httpOptions);
   }
 

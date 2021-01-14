@@ -25,7 +25,7 @@ const SalonOwner = new mongoose.model(
         },
 
         phone: {
-            type: Number,
+            type: String,
             required: [false, 'Phone number must be provided']
         },
         email: {

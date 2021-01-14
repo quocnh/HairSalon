@@ -25,7 +25,7 @@ const BecomeSalonOwner = new mongoose.model(
         },
 
         phone: {
-            type: Number,
+            type: String,
             required: [false, 'Phone number must be provided']
         },
         email: {
@@ -48,7 +48,7 @@ const BecomeSalonOwner = new mongoose.model(
         },
         status: {
             type: String,
-            required: [false, 'application satatus']
+            required: [false, 'application status']
         },
     })
 );

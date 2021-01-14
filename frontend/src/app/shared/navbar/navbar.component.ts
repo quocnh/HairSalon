@@ -169,7 +169,7 @@ export class NavbarComponent implements OnInit {
         return this.listTitles[item].title;
       }
     }
-    return 'HairSalon';
+    return 'G-Salon';
   }
   // tslint:disable-next-line: member-ordering
   sidebarToggle() {
