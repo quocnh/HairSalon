@@ -15,20 +15,9 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   int currentPage = 0;
   List<Map<String, String>> splashData = [
-    {
-      "text": "Chào bạn đến với Awinst, thiên đường làm đẹp!",
-      "image": "assets/images/splash_1.png"
-    },
-    {
-      "text":
-          "Chúng tôi kết nối hàng ngàn cửa hàng salon \n trên khắp đất nước hình chữ S",
-      "image": "assets/images/splash_2.png"
-    },
-    {
-      "text":
-          "Làm đẹp và trải nghiệm tại Awinst tiện lợi hơn bao giờ hết. \nBạn chỉ cần ở nhà và tận hưởng!",
-      "image": "assets/images/splash_3.png"
-    },
+    {"text": "pageview_1", "image": "assets/images/splash_1.png"},
+    {"text": "pageview_2", "image": "assets/images/splash_2.png"},
+    {"text": "pageview_3", "image": "assets/images/splash_3.png"},
   ];
 
   @override
@@ -48,7 +37,7 @@ class _BodyState extends State<Body> {
                 },
                 itemCount: splashData.length,
                 itemBuilder: (context, index) => SplashContent(
-                  text: splashData[index]["text"],
+                  text: getText(context, index),
                   image: splashData[index]["image"],
                 ),
               ),
@@ -99,5 +88,23 @@ class _BodyState extends State<Body> {
         borderRadius: BorderRadius.circular(3),
       ),
     );
+  }
+
+  getText(BuildContext context, int index) {
+    switch (index) {
+      case 0:
+        return AppLocalizations.of(context)
+            .translate(splashData[index]["text"]);
+        break;
+      case 1:
+        return AppLocalizations.of(context)
+            .translate(splashData[index]["text"]);
+        break;
+      case 2:
+        return AppLocalizations.of(context)
+            .translate(splashData[index]["text"]);
+        break;
+      default:
+    }
   }
 }
