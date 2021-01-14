@@ -3,6 +3,7 @@ import 'package:salonmobile/components/default_button.dart';
 
 import 'package:salonmobile/screens/sign_in/sign_in_screen.dart';
 import 'package:salonmobile/screens/splash/components/splash_content.dart';
+import 'package:salonmobile/utils/app_localizations.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
@@ -71,7 +72,8 @@ class _BodyState extends State<Body> {
                         flex: 3,
                       ),
                       DefaultButton(
-                        text: "Tiếp tục",
+                        text:
+                            AppLocalizations.of(context).translate('continue'),
                         press: () {
                           Navigator.pushNamed(context, SignInScreen.routeName);
                         },
