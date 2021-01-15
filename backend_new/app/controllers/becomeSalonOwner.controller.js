@@ -3,6 +3,7 @@ const db = require("../models");
 const BecomeSalonOwner = db.becomeSalonOwner;
 const User = db.user;
 const Role = db.role;
+const SalonOwner = db.salonOwner;
 
 exports.createObj = (req, res) => {
     console.log("TEST1: ", req.body._userId);
@@ -58,12 +59,25 @@ exports.accept = (req, res) => {
                 },
             },
             {new: true})
-            .then(user => console.log(user.role))
+            .then(user => {
+                console.log(user.role);
+                // Create salon owner DB
+                const salonOwner = new SalonOwner({
+                    _userId: user._id,
+                    name: req.body.username,
+                    email: req.body.email,
+                    phone: req.body.phone,
+                    firstname: req.body.firstname,
+                    lastname: req.body.lastname,        
+                });
+                salonOwner.save((err, salonOwner) => {
+                    console.log(salonOwner);
+                });
+            })
             .catch((error) => console.log(error));
         });
     
-    // Create salon owner DB
-
+    
 
     // Update status of become Salon onwer
     BecomeSalonOwner.findOneAndUpdate({ '_id': req.body._id}, 

@@ -47,7 +47,11 @@ export class BecomeSalonOwnerService {
    
     return this.http.patch(API_URL + 'accept', {
       _id: obj._id,
-      username: obj.username,      
+      username: obj.username,
+      email : obj.email,
+      phone : obj.phone,
+      firstname : obj.firstname,
+      lastname : obj.lastname,      
       status: GlobalConstants.ApplicationRequestStatus[1],
     }, httpOptions);
   }

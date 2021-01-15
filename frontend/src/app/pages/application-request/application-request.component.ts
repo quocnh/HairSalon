@@ -71,7 +71,12 @@ export class ApplicationRequestComponent implements OnInit {
     console.log(bsoItem);
     if (this.isAdmin) {
       this.form._id = bsoItem._id;
-      this.form.username = bsoItem.username;      
+      this.form.username = bsoItem.username;
+      this.form.email = bsoItem.email,
+      this.form.phone = bsoItem.phone,
+      this.form.firstname = bsoItem.firstname,
+      this.form.lastname = bsoItem.lastname,
+
       this.becomeSalonOwnerService.acceptBecomeSalonOwner(this.form).subscribe(
         () => {
           //Change role for user
