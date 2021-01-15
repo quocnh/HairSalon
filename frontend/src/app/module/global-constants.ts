@@ -28,6 +28,11 @@ export class GlobalConstants {
         'Hoàn thành',
         'Hủy',
     ];
+    public static ApplicationRequestStatus = [
+        'Đang xử lý',
+        'Chấp nhận',
+        'Từ chối',        
+    ];
     public static BookingTime = [
         'Sáng',
         'Chiều',

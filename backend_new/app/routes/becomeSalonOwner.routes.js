@@ -17,6 +17,8 @@ module.exports = function (app) {
 
     // TODO- check roles here later
     app.post("/api/salon-owner/newObj", [authJwt.verifyToken], becomeSalonOwnerController.createObj);
+    app.patch("/api/salon-owner/accept", [authJwt.verifyToken], becomeSalonOwnerController.accept);
+    app.patch("/api/salon-owner/reject", [authJwt.verifyToken], becomeSalonOwnerController.reject);
     app.get(
         "/api/salon-owner/getAll",
         [authJwt.verifyToken, authJwt.isAdmin],

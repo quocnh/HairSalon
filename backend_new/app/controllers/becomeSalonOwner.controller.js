@@ -1,6 +1,8 @@
 const config = require("../config/auth.config");
 const db = require("../models");
 const BecomeSalonOwner = db.becomeSalonOwner;
+const User = db.user;
+const Role = db.role;
 
 exports.createObj = (req, res) => {
     console.log("TEST1: ", req.body._userId);
@@ -30,4 +32,89 @@ exports.getAllBecomeSalonOwnerRequest = (req,res) => {
     BecomeSalonOwner.find({})
         .then(becomeSalonOwner => res.send(becomeSalonOwner))
         .catch((error) => console.log(error));
+};
+
+exports.accept = (req, res) => {
+    console.log("Upgrade to salonOwner for ", req.body.username);
+
+    // Add salon owner role for user
+    Role.find(
+        {
+            name: 'salon_owner'
+        },
+        (err, roles) => {
+            if (err) {
+                res.status(500).send({ message: err });
+                return;
+            }
+            console.log(roles);
+            const newRole = roles.map((role) => role._id);
+            console.log(req.body.username);
+
+            User.findOneAndUpdate({ 'username': req.body.username}, 
+            {$set: 
+                { 
+                    roles: newRole,
+                },
+            },
+            {new: true})
+            .then(user => console.log(user.role))
+            .catch((error) => console.log(error));
+        });
+    
+    // Create salon owner DB
+
+
+    // Update status of become Salon onwer
+    BecomeSalonOwner.findOneAndUpdate({ '_id': req.body._id}, 
+    {$set: 
+        { 
+            status: req.body.status,
+        },
+    },
+    {new: true})
+    .then(becomeSalonOwner => res.send(becomeSalonOwner))
+    .catch((error) => console.log(error));
+};
+
+exports.reject = (req, res) => {
+    console.log("TEST1: ", req.body._id);
+    // change role to customer
+    Role.find(
+        {
+            name: 'user'
+        },
+        (err, roles) => {
+            if (err) {
+                res.status(500).send({ message: err });
+                return;
+            }
+            console.log(roles);
+            const newRole = roles.map((role) => role._id);
+            console.log(req.body.username);
+
+            User.findOneAndUpdate({ 'username': req.body.username}, 
+            {$set: 
+                { 
+                    roles: newRole,
+                },
+            },
+            {new: true})
+            .then(user => console.log(user.role))
+            .catch((error) => console.log(error));
+        });
+    
+    // Delete salon owner DB
+    // No need
+
+    // Update status of become Salon onwer
+    BecomeSalonOwner.findOneAndUpdate({ '_id': req.body._id}, 
+    {$set: 
+        { 
+            status: req.body.status,
+        },
+    },
+    {new: true})
+    .then(becomeSalonOwner => res.send(becomeSalonOwner))
+    .catch((error) => console.log(error));
 };

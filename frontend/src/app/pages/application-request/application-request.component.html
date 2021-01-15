@@ -35,13 +35,13 @@
                         <!-- <td> {{ order.event }} </td> -->
                         <!-- <td> {{ order.totalPrice | currency:'VND'}} </td> -->
                         <td >
-                            <button class="btn btn-sm btn-success pull-right" (click)= "accept(bsoItem._id)">
+                            <button class="btn btn-sm btn-success pull-right" (click)= "accept(bsoItem)">
                             <a data-toggle="tooltip" data-placement="top" >Chấp nhận</a>
                             </button>
 
                             <p class="pull-right"> &#160; </p>
 
-                            <button class="btn btn-sm btn-danger pull-right" (click)= "reject(bsoItem._id)">
+                            <button class="btn btn-sm btn-danger pull-right" (click)= "reject(bsoItem)">
                             <a data-toggle="tooltip" data-placement="top" >Từ chối</a>
                             </button>
                         </td>

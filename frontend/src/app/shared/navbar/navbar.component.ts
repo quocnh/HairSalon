@@ -121,7 +121,7 @@ export class NavbarComponent implements OnInit {
     this.tokenStorageService.signOut();
     this.homePath = this.baseUrl;
     this.router.navigate(['/home']);
-    //window.location.reload();
+    window.location.reload();
   }
 
   // call signin modal function
@@ -129,16 +129,14 @@ export class NavbarComponent implements OnInit {
     console.log('call login modal');
     const ref = this.modalService.open(LoginComponent);
     ref.result.then((result) => {
-      // if (result) {
-      //   console.log("navbar gets model info: " + result);
-
-      // }      
+      this.router.navigate(['home']);
+      window.location.reload();      
     },
       (cancel) => {
         console.log('cancel click');
       })
 
-    this.router.navigate(['home']);
+    
   }
   // call signup modal function
   register() {

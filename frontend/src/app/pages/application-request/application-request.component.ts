@@ -23,6 +23,7 @@ export class ApplicationRequestComponent implements OnInit {
   pOrders:any; //QUOC need to fix it
 
   becomeSalonOwnerList: any;
+  form: any = {};
 
   constructor(
     // private salonUtilService: SalonUtilsService,
@@ -52,31 +53,50 @@ export class ApplicationRequestComponent implements OnInit {
     
 
     if (this.isAdmin) {
-      this.becomeSalonOwnerService.getAllBecomeSalonOwner().subscribe(
-        data => {
-          console.log(data);
-          this.becomeSalonOwnerList = data;
+      this.refreshBecomeSalonOwnerList();
+    }    
+  }
+  refreshBecomeSalonOwnerList(){
+    this.becomeSalonOwnerService.getAllBecomeSalonOwner().subscribe(
+      data => {
+        console.log(data);
+        this.becomeSalonOwnerList = data;
+      },
+      err => {
+      }
+    );
+  }
+
+  accept(bsoItem){
+    console.log(bsoItem);
+    if (this.isAdmin) {
+      this.form._id = bsoItem._id;
+      this.form.username = bsoItem.username;      
+      this.becomeSalonOwnerService.acceptBecomeSalonOwner(this.form).subscribe(
+        () => {
+          //Change role for user
+
+          this.refreshBecomeSalonOwnerList();
         },
         err => {
         }
       );
-      // this.route.params.subscribe((params: Params) => {
-      //   console.log("Test ADMIN:", this.user.id);
-      //   if (params.distributorId) {
-      //     // For admin controller
-      //     // this.distributorId = params.distributorId;        
-      //     // this.refreshOrderProductsList();
-      //     return;
-      //   }
-
-      // });
-    } else {
-      return;
     }
-    this.prefixPath = environment.baseUrl + this.router.url;    
+  }
 
-    console.log(this.prefixPath);
-    
+  reject(bsoItem){
+    console.log(bsoItem._id);
+    if (this.isAdmin) {
+      this.form._id = bsoItem._id;
+      this.form.username = bsoItem.username;
+      this.becomeSalonOwnerService.rejectBecomeSalonOwner(bsoItem).subscribe(
+        () => {          
+          this.refreshBecomeSalonOwnerList();
+        },
+        err => {
+        }
+      );
+    }
   }
 
 }

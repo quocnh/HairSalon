@@ -31,7 +31,7 @@ export class BecomeSalonOwnerService {
       phone: obj.phone,
       district: obj.district,
       address: obj.address,
-      status: GlobalConstants.BookingStatus[0],
+      status: GlobalConstants.ApplicationRequestStatus[0],
     }, httpOptions);
   }
 
@@ -40,5 +40,25 @@ export class BecomeSalonOwnerService {
    
     return this.http.get(API_URL + 'getAll', {
     });
+  }
+
+  acceptBecomeSalonOwner(obj): Observable<any> {
+    console.log("Accept application request");
+   
+    return this.http.patch(API_URL + 'accept', {
+      _id: obj._id,
+      username: obj.username,      
+      status: GlobalConstants.ApplicationRequestStatus[1],
+    }, httpOptions);
+  }
+
+  rejectBecomeSalonOwner(obj): Observable<any> {
+    console.log("Reject application request");
+   
+    return this.http.patch(API_URL + 'reject', {
+      _id: obj._id,
+      username: obj.username,      
+      status: GlobalConstants.ApplicationRequestStatus[2],
+    }, httpOptions);
   }
 }
