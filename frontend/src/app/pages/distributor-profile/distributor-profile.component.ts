@@ -58,6 +58,7 @@ export class DistributorProfileComponent implements OnInit {
     this.strAvatar = 'assets/img/default-avatar.png';
     this.searchService.getCities().then(cities => {
       this.cities = cities;
+      console.log(this.cities);
     });
 
     // 1. Get userId

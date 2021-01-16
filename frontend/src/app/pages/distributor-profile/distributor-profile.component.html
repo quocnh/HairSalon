@@ -74,11 +74,12 @@
                 <div class="form-group">
                   <label class="label">Thành phố</label>
                   <div class="input--style-1">
-                    <ng-autocomplete [data]="cities" [searchKeyword]="keyword" [initialValue]="distributor.city" placeHolder="Thành Phố"
-                      (selected)='selectCityEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
-                      [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" 
-                      (inputCleared)="handleCityEmptyInput()" [(ngModel)]="distributor.city" [ngModelOptions]="{standalone: true}">
-              
+                    <ng-autocomplete [data]="cities" [searchKeyword]="keyword" [initialValue]="distributor.city"
+                      placeHolder="Thành Phố" (selected)='selectCityEvent($event)' (inputChanged)='onChangeSearch($event)'
+                      (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+                      (inputCleared)="handleCityEmptyInput()" [(ngModel)]="distributor.city"
+                      [ngModelOptions]="{standalone: true}">
+
                     </ng-autocomplete>
               
                     <ng-template #itemTemplate let-item>
@@ -98,7 +99,7 @@
                     <ng-autocomplete [data]="districts" [searchKeyword]="keyword" [initialValue]="distributor.district" placeHolder="Quận"
                       (selected)='selectDistrictEvent($event)' (inputChanged)='onChangeSearch($event)'
                       (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
-                      (inputCleared)="handleDistrictEmptyInput()" [(ngModel)]="distributor.district" [ngModelOptions]="{standalone: true}">
+                      (inputCleared)="handleDistrictEmptyInput()">
                     </ng-autocomplete>
               
                     <ng-template #itemTemplate let-item>
