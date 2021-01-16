@@ -49,7 +49,7 @@ export class BecomeSalonownerComponent implements OnInit {
 
     console.log('USER ID:');
     console.log(this.user.id);
-    // 2. Get distributorId
+    // 2. Get Customer info
     this.salonUtilService.getOneCustomerFromUserId(this.user.id).subscribe(
       (customers: Customer[]) => {        
         this.customer = Object.assign({}, customers[0]);
@@ -68,7 +68,7 @@ export class BecomeSalonownerComponent implements OnInit {
 
   onSubmit() { 
     console.log("test submit form"); 
-    this.becomeSalonOwnerService.creatBecomeSalonOwner(this.form).subscribe(
+    this.becomeSalonOwnerService.createBecomeSalonOwner(this.form).subscribe(
       data => {
         console.log(data);
         this.router.navigate(['home']);

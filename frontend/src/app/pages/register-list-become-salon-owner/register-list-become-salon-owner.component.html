@@ -26,22 +26,22 @@
                 </thead>
                 <tbody>
                     
-                    <tr *ngFor="let bsoItem of becomeSalonOwnerList; let i = index">                        
-                        <td> {{ bsoItem.username }}</td>
-                        <td> {{ bsoItem.firstname }} {{ bsoItem.lastname }}</td>
-                        <td> {{ bsoItem.email }} </td>
-                        <td> {{ bsoItem.phone }} </td>
-                        <td> {{ bsoItem.status }} </td>
+                    <tr *ngFor="let item of becomeSalonOwnerList; let i = index">                        
+                        <td> {{ item.username }}</td>
+                        <td> {{ item.firstname }} {{ item.lastname }}</td>
+                        <td> {{ item.email }} </td>
+                        <td> {{ item.phone }} </td>
+                        <td> {{ item.status }} </td>
                         <!-- <td> {{ order.event }} </td> -->
                         <!-- <td> {{ order.totalPrice | currency:'VND'}} </td> -->
                         <td >
-                            <button class="btn btn-sm btn-success pull-right" (click)= "accept(bsoItem)">
+                            <button class="btn btn-sm btn-success pull-right" (click)= "accept(item)">
                             <a data-toggle="tooltip" data-placement="top" >Chấp nhận</a>
                             </button>
 
                             <p class="pull-right"> &#160; </p>
 
-                            <button class="btn btn-sm btn-danger pull-right" (click)= "reject(bsoItem)">
+                            <button class="btn btn-sm btn-danger pull-right" (click)= "reject(item)">
                             <a data-toggle="tooltip" data-placement="top" >Từ chối</a>
                             </button>
                         </td>

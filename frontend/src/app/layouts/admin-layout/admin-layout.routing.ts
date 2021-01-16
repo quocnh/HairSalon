@@ -6,7 +6,6 @@ import { TableComponent } from '../../pages/table/table.component';
 import { TypographyComponent } from '../../pages/typography/typography.component';
 import { IconsComponent } from '../../pages/icons/icons.component';
 import { MapsComponent } from '../../pages/maps/maps.component';
-import { ApplicationRequestComponent } from '../../pages/application-request/application-request.component';
 import { NotificationsComponent } from '../../pages/notifications/notifications.component';
 import { SalonOwnersListComponent } from '../../pages/salon-owners-list/salon-owners-list.component';
 import { SalonViewComponent } from '../../pages/salon-view/salon-view.component';
@@ -21,6 +20,8 @@ import { DistributorProfileComponent } from 'app/pages/distributor-profile/distr
 import { ProductsListViewComponent } from 'app/pages/products-list-view/products-list-view.component';
 import { ProductDetailEditComponent } from 'app/pages/product-detail-edit/product-detail-edit.component';
 import { ProductOrdersListViewComponent } from 'app/pages/product-orders-list-view/product-orders-list-view.component';
+import { RegisterListBecomeSalonOwnerComponent } from 'app/pages/register-list-become-salon-owner/register-list-become-salon-owner.component';
+import { RegisterListBecomeDistributorComponent } from 'app/pages/register-list-become-distributor/register-list-become-distributor.component';
 
 export const AdminLayoutRoutes: Routes = [
 
@@ -32,7 +33,8 @@ export const AdminLayoutRoutes: Routes = [
     // { path: 'icons',          component: IconsComponent },
     // { path: 'maps',           component: MapsComponent },
 
-    { path: 'application-request',  component: ApplicationRequestComponent },
+    { path: 'become-salonowner-request',  component: RegisterListBecomeSalonOwnerComponent },
+    { path: 'become-distributor-request',  component: RegisterListBecomeDistributorComponent },
     { path: 'profile',               component: UserComponent },
     { path: 'salonOwners',      component: SalonOwnersListComponent },
     { path: 'salonOwners/:salonOwnerId',      component: SalonOwnerProfileComponent },

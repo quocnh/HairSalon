@@ -49,7 +49,6 @@ import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component
 import { BecomeSalonownerComponent } from './pages/become-salonowner/become-salonowner.component';
 import { BecomeDistributorComponent } from './pages/become-distributor/become-distributor.component';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
-import { ApplicationRequestComponent } from './pages/application-request/application-request.component';
 import { SalonsListViewComponent } from './pages/salons-list-view/salons-list-view.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { UserComponent } from './pages/user/user.component';
@@ -66,6 +65,8 @@ import { DistributorListViewComponent } from './pages/distributor-list-view/dist
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { ModifyBookingComponent } from './popup/modify-booking/modify-booking.component';
 import { ConfirmComponent } from './popup/confirm/confirm.component';
+import { RegisterListBecomeSalonOwnerComponent } from './pages/register-list-become-salon-owner/register-list-become-salon-owner.component';
+import { RegisterListBecomeDistributorComponent } from './pages/register-list-become-distributor/register-list-become-distributor.component';
 
 @NgModule({
   declarations: [
@@ -98,8 +99,7 @@ import { ConfirmComponent } from './popup/confirm/confirm.component';
     SalonOwnerProfileComponent,
     DistributorProfileComponent,
     BecomeSalonownerComponent,
-    BecomeDistributorComponent,
-    ApplicationRequestComponent,
+    BecomeDistributorComponent,    
     SalonsListViewComponent,
     DashboardComponent,
     UserComponent,
@@ -115,7 +115,9 @@ import { ConfirmComponent } from './popup/confirm/confirm.component';
     DistributorListViewComponent,
     MainPageComponent,
     ModifyBookingComponent,
-    ConfirmComponent
+    ConfirmComponent,
+    RegisterListBecomeSalonOwnerComponent,
+    RegisterListBecomeDistributorComponent
   ],
   imports: [
     BrowserAnimationsModule,

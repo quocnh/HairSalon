@@ -86,6 +86,7 @@ distributorRouter.get('/userId/:userId', (req, res) => {
             if (distributors[i]._userId == req.params.userId) {
                 console.log(distributors[i]);
                 res.send(distributors[i]._id);
+                return;
             }            
         }
     })

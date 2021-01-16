@@ -4,7 +4,7 @@ export default class Distributor {
     name:string;
     firstname: string;
     lastname: string;
-    phone: number;
+    phone: string;
     email: string;
     district: string;
     city: string;

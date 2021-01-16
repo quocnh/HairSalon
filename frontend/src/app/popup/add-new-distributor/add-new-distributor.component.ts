@@ -16,7 +16,7 @@ export class AddNewDistributorComponent implements OnInit {
   username: string;
   firstname: string;
   lastname: string;
-  phone: number;
+  phone: string;
   email: string;
   dob: string;
   gender: string;

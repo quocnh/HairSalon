@@ -1,6 +1,6 @@
 
 const { verifySignUp } = require("../middlewares");
-const becomeSalonOwnerController = require("../controllers/becomeSalonOwner.controller");
+const becomeDistributorController = require("../controllers/becomeDistributor.controller");
 const { authJwt } = require("../middlewares");
 
 module.exports = function (app) {
@@ -16,13 +16,13 @@ module.exports = function (app) {
 
 
     // TODO- check roles here later
-    app.post("/api/become-salon-owner/newObj", [authJwt.verifyToken], becomeSalonOwnerController.createObj);
-    app.patch("/api/become-salon-owner/accept", [authJwt.verifyToken], becomeSalonOwnerController.accept);
-    app.patch("/api/become-salon-owner/reject", [authJwt.verifyToken], becomeSalonOwnerController.reject);
+    app.post("/api/become-distributor/newObj", [authJwt.verifyToken], becomeDistributorController.createObj);
+    app.patch("/api/become-distributor/accept", [authJwt.verifyToken], becomeDistributorController.accept);
+    app.patch("/api/become-distributor/reject", [authJwt.verifyToken], becomeDistributorController.reject);
     app.get(
-        "/api/become-salon-owner/getAll",
+        "/api/become-distributor/getAll",
         [authJwt.verifyToken, authJwt.isAdmin],
-        becomeSalonOwnerController.getAllBecomeSalonOwnerRequest
+        becomeDistributorController.getAllBecomeDistributorRequest
     );
     
 };

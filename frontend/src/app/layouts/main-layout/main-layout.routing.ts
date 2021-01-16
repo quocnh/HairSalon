@@ -4,6 +4,7 @@ import { UserComponent } from 'app/pages/user/user.component';
 import { MainPageComponent } from '../../pages/main-page/main-page.component';
 import { SalonViewComponent } from '../../pages/salon-view/salon-view.component';
 import { BecomeSalonownerComponent } from 'app/pages/become-salonowner/become-salonowner.component';
+import { BecomeDistributorComponent } from 'app/pages/become-distributor/become-distributor.component';
 
 
 export const MainLayoutRoutes: Routes = [
@@ -12,6 +13,7 @@ export const MainLayoutRoutes: Routes = [
     { path: 'coords/:latitude/:longitude',              component: MainPageComponent},
     { path: 'location/:city/:district',              component: MainPageComponent},
     { path: 'become-salon-owner',               component: BecomeSalonownerComponent },
+    { path: 'become-distributor',               component: BecomeDistributorComponent },
     { path: 'profile',               component: UserComponent },
 
 ];

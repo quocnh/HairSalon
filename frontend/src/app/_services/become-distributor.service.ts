@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from 'environments/environment';
+import { Injectable } from '@angular/core';
 import { GlobalConstants } from 'app/module/global-constants';
+import { environment } from 'environments/environment';
+import { Observable } from 'rxjs';
 
-const API_URL = environment.baseAPI + '/api/become-salon-owner/';
+const API_URL = environment.baseAPI + '/api/become-distributor/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -13,12 +13,12 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class BecomeSalonOwnerService {
+export class BecomeDistributorService {
 
   constructor(private http: HttpClient) { }
   // update roles
-  createBecomeSalonOwner(obj): Observable<any> {
-    console.log("Create a new become-salon-owner obj: " + obj.username + "," + obj.lastname);
+  createBecomeDistributor(obj): Observable<any> {
+    console.log("Create a new become-Distributor obj: " + obj.username + "," + obj.lastname);
     console.log(API_URL + 'newObj');
     return this.http.post(API_URL + 'newObj', {
       // _userId: "5fde7118712b3c4ff65a377d",
@@ -35,14 +35,14 @@ export class BecomeSalonOwnerService {
     }, httpOptions);
   }
 
-  getAllBecomeSalonOwner(): Observable<any> {
+  getAllBecomeDistributor(): Observable<any> {
     console.log("get all application request: ");
    
     return this.http.get(API_URL + 'getAll', {
     });
   }
 
-  acceptBecomeSalonOwner(obj): Observable<any> {
+  acceptBecomeDistributor(obj): Observable<any> {
     console.log("Accept application request");
    
     return this.http.patch(API_URL + 'accept', {
@@ -56,7 +56,7 @@ export class BecomeSalonOwnerService {
     }, httpOptions);
   }
 
-  rejectBecomeSalonOwner(obj): Observable<any> {
+  rejectBecomeDistributor(obj): Observable<any> {
     console.log("Reject application request");
    
     return this.http.patch(API_URL + 'reject', {

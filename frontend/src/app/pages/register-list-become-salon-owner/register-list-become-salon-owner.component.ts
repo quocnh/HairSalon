@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'environments/environment';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import Customer from 'app/module/customer';
 import { SalonUtilsService } from 'app/salon-utils.service';
+import { BecomeSalonOwnerService } from 'app/_services/become-salon-owner.service';
 import { TokenStorageService } from 'app/_services/token-storage.service';
-import { BecomeSalonOwnerService } from '../../_services/become-salon-owner.service';
-import BecomeSalonOwner from 'app/module/becomeSalonOwner';
+import { environment } from 'environments/environment';
+
 @Component({
-  selector: 'app-application-request',
-  templateUrl: './application-request.component.html',
-  styleUrls: ['./application-request.component.css']
+  selector: 'app-register-list-become-salon-owner',
+  templateUrl: './register-list-become-salon-owner.component.html',
+  styleUrls: ['./register-list-become-salon-owner.component.css']
 })
-export class ApplicationRequestComponent implements OnInit {
+export class RegisterListBecomeSalonOwnerComponent implements OnInit {
   dbAddress: string;
   prefixPath: string;
 
@@ -78,9 +79,7 @@ export class ApplicationRequestComponent implements OnInit {
       this.form.lastname = bsoItem.lastname,
 
       this.becomeSalonOwnerService.acceptBecomeSalonOwner(this.form).subscribe(
-        () => {
-          //Change role for user
-
+        () => {          
           this.refreshBecomeSalonOwnerList();
         },
         err => {

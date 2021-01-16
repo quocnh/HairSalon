@@ -112,3 +112,4 @@ function initial() {
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
 require("./app/routes/becomeSalonOwner.routes")(app);
+require("./app/routes/becomeDistributor.routes")(app);
