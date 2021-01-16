@@ -12,7 +12,7 @@ export interface RouteInfo {
 
 export const ADMIN_ROUTES: RouteInfo[] = [
     // { path: 'dashboard',     title: 'Dashboard',         icon: 'nc-bank',       class: '' },
-    { path: 'icons',         title: 'Icons',             icon: 'nc-icon nc-diamond',    class: '' },
+    // { path: 'icons',         title: 'Icons',             icon: 'nc-icon nc-diamond',    class: '' },
     // { path: 'maps',          title: 'Maps',              icon: 'nc-pin-3',      class: '' },
     // { path: 'notifications', title: 'Notifications',     icon: 'nc-bell-55',    class: '' },    
     // { path: 'table',         title: 'Table List',        icon: 'nc-tile-56',    class: '' },
@@ -23,8 +23,8 @@ export const ADMIN_ROUTES: RouteInfo[] = [
     { path: 'salons',              title: 'Danh sách salon',               icon: 'nc-icon nc-shop',   class: '' },
     { path: 'distributors',        title: 'Nhà phân phối',       icon: 'nc-icon nc-delivery-fast',   class: '' },
     { path: 'barbers',             title: 'Thợ cắt tóc',         icon: 'nc-icon nc-badge',   class: '' },
-    { path: 'become-salonowner-request',             title: 'Đơn đăng ký Salon',         icon: 'nc-icon nc-badge',   class: '' },
-    { path: 'become-distributor-request',             title: 'Đơn đăng ký Nhà phân phối',         icon: 'nc-icon nc-badge',   class: '' },
+    { path: 'become-salonowner-request',             title: 'Đơn đăng ký Salon',         icon: 'nc-icon nc-paper',   class: '' },
+    { path: 'become-distributor-request',             title: 'Đơn đăng ký Nhà phân phối',         icon: 'nc-icon nc-paper',   class: '' },
 ];
 
 export const MANAGER_ROUTES: RouteInfo[] = [    
