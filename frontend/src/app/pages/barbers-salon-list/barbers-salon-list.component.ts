@@ -6,12 +6,13 @@ import { SalonUtilsService } from 'app/salon-utils.service';
 import { TokenStorageService } from 'app/_services/token-storage.service';
 
 @Component({
-  selector: 'app-bookings-salon-list',
-  templateUrl: './bookings-salon-list.component.html',
-  styleUrls: ['./bookings-salon-list.component.css']
+  selector: 'app-barbers-salon-list',
+  templateUrl: './barbers-salon-list.component.html',
+  styleUrls: ['./barbers-salon-list.component.css']
 })
-export class BookingsSalonListComponent implements OnInit {
+export class BarbersSalonListComponent implements OnInit {
 
+  
   salons: Salon[] = [];
   name: string;
   ownerId: string;
@@ -35,6 +36,7 @@ export class BookingsSalonListComponent implements OnInit {
 
   ngOnInit(): void {
 
+    //Get ownerId from login page
     // 1. Get userId
     this.isLoggedIn = !!this.tokenStorageService.getToken();
     if (this.isLoggedIn) {      
@@ -49,6 +51,7 @@ export class BookingsSalonListComponent implements OnInit {
     if(this.isSalonOwner) {
       this.refreshSalonList(this.user.id);
     }
+
     this.isListAllSalons = false;
 
     this.prefixPath = this.router.url;
@@ -75,5 +78,6 @@ export class BookingsSalonListComponent implements OnInit {
     });
     
   }
+
 
 }

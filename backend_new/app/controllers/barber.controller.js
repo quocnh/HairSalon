@@ -45,6 +45,12 @@ barberRouter.get('/', (req, res) => {
         .catch((error) => console.log(error));
 });
 
+barberRouter.get('/salonId/:salonId', (req, res) => {
+    Barber.find({_salonId: req.params.salonId})
+        .then(barbers => res.send(barbers))
+        .catch((error) => console.log(error));
+});
+
 barberRouter.post('/', upload.single('avatar'), (req, res) => {
     var strAvatarPath = "";
     if(req.file){

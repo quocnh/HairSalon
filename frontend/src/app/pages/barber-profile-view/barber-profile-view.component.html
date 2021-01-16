@@ -115,7 +115,7 @@
                   <label>Giới Tính </label>
                   <select input type="text" class="form-control"  [(ngModel)]="barber.gender" [ngModelOptions]="{standalone: true}">
                     <option [selected]="barber.gender == 'customer.gender' " *ngFor="let gender of genders">
-                      {{gender.value}}
+                      {{gender}}
                     </option>
                   </select>
                 </div>

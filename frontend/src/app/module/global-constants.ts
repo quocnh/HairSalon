@@ -40,33 +40,9 @@ export class GlobalConstants {
         'Tùy chọn',
     ];
 
-    public static City = [
-        [
-            {name : 'Tp. Hồ Chí Minh'},
-            [
-                {dist: 'Huyện Bình Chánh'},
-                {dist: 'Quận 1'},
-			    {dist: 'Quận 10'},
-			    {dist: 'Quận 11'},
-			    {dist: 'Quận 12'},
-			    {dist: 'Quận 2'},
-			    {dist: 'Quận 3'},
-
-            ]
-        ],
-        [
-            {name : 'Hanoi'},
-            [
-                {dist: 'asdad'},
-                {dist: 'Quận a'},
-			    {dist: 'Quận b'},
-			    {dist: 'Quận v1'},
-			    {dist: 'Quận b2'},
-			    {dist: 'Quận nn'},
-			    {dist: 'Quận r3'},
-
-            ]
-        ]
-		
-    ]
+    public static Genders = [
+        'Nam',
+        'Nữ',
+        'Khác'
+    ];
 }

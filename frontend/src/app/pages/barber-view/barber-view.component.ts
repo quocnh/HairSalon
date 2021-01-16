@@ -6,8 +6,9 @@ import { AddNewCustomerComponent } from '../../popup/add-new-customer/add-new-cu
 import { DeleteCustomerComponent } from '../../popup/delete-customer/delete-customer.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { stringify } from 'querystring';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { environment } from 'environments/environment';
+import { TokenStorageService } from 'app/_services/token-storage.service';
 
 @Component({
   selector: 'app-barber-view',
@@ -30,15 +31,43 @@ export class BarberViewComponent implements OnInit {
   selectedBarber:any;
   displayedBarbers: Barber[] = [];
 
+  isLoggedIn = false;
+  user: any;
+  isSalonOwner = false;
+  salonId: string;
+
   constructor(
     private salonUtilService: SalonUtilsService,
     private modalService: NgbModal,
-    private router:Router,
+    private route: ActivatedRoute,
+    private router: Router,
+    private tokenStorageService: TokenStorageService
   ) { }
 
   ngOnInit() {
     this.prefixPath = environment.baseUrl + this.router.url;
-    this.refreshBarberList();
+
+    // 1. Get userId
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+    if (this.isLoggedIn) {      
+      this.user = this.tokenStorageService.getUser();
+      console.log('LOGGED IN:' +  this.user.roles);
+      this.isSalonOwner = this.user.roles.includes('ROLE_SALON_OWNER');
+    } else {
+      // Not login yet
+      return;
+    }
+
+    this.route.params.subscribe((param: Params) => {
+      this.salonId = param.salonId;
+      console.log(this.salonId);
+      if (!this.salonId) {
+        if(this.isSalonOwner) {
+          this.refreshBarberList(this.salonId);
+        }
+      } 
+    });   
+    
   }
 
   // --- Autocomplete Code --------------------------
@@ -79,7 +108,7 @@ export class BarberViewComponent implements OnInit {
         this.addedBarber._salonId = result._salonId;
 
         this.salonUtilService.createBarber(this.addedBarber, null).subscribe(
-          (yes) => this.refreshBarberList()
+          (yes) => this.refreshBarberList(this.salonId)
         );
       }
     },
@@ -102,7 +131,7 @@ export class BarberViewComponent implements OnInit {
         // delete barber
         ref.result.then((yes) => {
           this.salonUtilService.deleteBarber(barberId).subscribe(
-            () => this.refreshBarberList()
+            () => this.refreshBarberList(this.salonId)
           );
         },
         (cancel) => {
@@ -111,8 +140,8 @@ export class BarberViewComponent implements OnInit {
       });
   }
 
-  refreshBarberList() {
-    this.salonUtilService.getBarbers()
+  refreshBarberList(salonId) {
+    this.salonUtilService.getBarbersFromSalonId(salonId)
       .subscribe((barbers: Barber[]) => {
         this.barbers = barbers;
         this.displayedBarbers = this.barbers;

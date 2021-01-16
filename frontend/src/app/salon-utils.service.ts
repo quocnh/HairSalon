@@ -216,6 +216,10 @@ export class SalonUtilsService {
     return this.webService.get(`barbers`);
   }
 
+  getBarbersFromSalonId(salonId: string) {
+    return this.webService.get(`barbers/salonId/${salonId}`);
+  }
+
   getOneBarber(barberId: string) {
     return this.webService.get(`barbers/${barberId}`);
   }

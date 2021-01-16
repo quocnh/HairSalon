@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { NgbDateStruct, NgbDateParserFormatter, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'environments/environment';
 import { TokenStorageService } from 'app/_services/token-storage.service';
+import { GlobalConstants } from 'app/module/global-constants';
 
 @Component({
   selector: 'app-barber-profile-view',
@@ -19,11 +20,8 @@ export class BarberProfileViewComponent implements OnInit {
   barber: Barber = new Barber();
   strAvatar: any;
   salonName: string;
-  genders = [
-      {value: 'Nam'},
-      {value: 'Nữ'},
-      {value: 'Khác'}
-  ];
+  genders = GlobalConstants.Genders;
+  
   selectedFile: File = null;
   modelDob: NgbDateStruct;
   today = this.calendar.getToday();

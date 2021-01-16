@@ -67,6 +67,7 @@ import { ModifyBookingComponent } from './popup/modify-booking/modify-booking.co
 import { ConfirmComponent } from './popup/confirm/confirm.component';
 import { RegisterListBecomeSalonOwnerComponent } from './pages/register-list-become-salon-owner/register-list-become-salon-owner.component';
 import { RegisterListBecomeDistributorComponent } from './pages/register-list-become-distributor/register-list-become-distributor.component';
+import { BarbersSalonListComponent } from './pages/barbers-salon-list/barbers-salon-list.component';
 
 @NgModule({
   declarations: [
@@ -117,7 +118,8 @@ import { RegisterListBecomeDistributorComponent } from './pages/register-list-be
     ModifyBookingComponent,
     ConfirmComponent,
     RegisterListBecomeSalonOwnerComponent,
-    RegisterListBecomeDistributorComponent
+    RegisterListBecomeDistributorComponent,
+    BarbersSalonListComponent
   ],
   imports: [
     BrowserAnimationsModule,
