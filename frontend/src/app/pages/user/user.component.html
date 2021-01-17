@@ -90,7 +90,7 @@
               <div class="form-group">
                 <label>Ngày sinh</label>
 
-                  <input class="form-control" placeholder="{{ customer.dob | date}}" name="dp" [(ngModel)]="modelDob" value="{{ customer.dob | date}}" ngbDatepicker
+                  <input class="form-control" placeholder="{{ customer.dob | date: 'dd/MM/yyyy'}}" name="dp" [(ngModel)]="modelDob" value="{{ customer.dob | date: 'dd/MM/yyyy'}}" ngbDatepicker
                     [footerTemplate]="footerTemplate" 
                     #d="ngbDatepicker" 
                     [minDate]="{year: 1920, month: 1, day: 1}" [maxDate]="today"

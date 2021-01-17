@@ -45,4 +45,9 @@ export class GlobalConstants {
         'Nữ',
         'Khác'
     ];
+
+    public static PaymentTypes = [
+        'Tiền mặt',
+        'Chuyển khoản'
+    ];
 }

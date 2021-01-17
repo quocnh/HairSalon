@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { NgbCalendar, NgbDateParserFormatter, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCalendar, NgbDateParserFormatter, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Distributor from 'app/module/distributor';
 import { GlobalConstants } from 'app/module/global-constants';
 import Product from 'app/module/product';
@@ -35,6 +35,9 @@ export class ProductDetailViewComponent implements OnInit {
   user: any;
   orderedQuantity = 0;
   pOrder: productOrder = new productOrder();
+  PaymentTypes = GlobalConstants.PaymentTypes;
+  modelDob: NgbDateStruct;
+  discount = 0;
 
   constructor(
       private salonUtilService: SalonUtilsService,
@@ -102,8 +105,12 @@ export class ProductDetailViewComponent implements OnInit {
                 this.strPhotos[i] = environment.dbAddress + '/' + this.product.photos[i];
               }
             }
+            if (this.productDb.discount > 0) {
+              this.discount = this.productDb.discount;
+            }
+
             
-            //console.log(this.strAvatar);
+            console.log(this.productDb.price);
 
             // get distributor name from distributor Id
             console.log(this.product._distributorId);
@@ -121,10 +128,22 @@ export class ProductDetailViewComponent implements OnInit {
     this.pOrder.status = "processing";
     this.pOrder._productId = this.productDb._id;
     this.pOrder._distributorId = this.productDb._distributorId;
-    this.pOrder.totalPrice = this.pOrder.quantity*this.productDb.price*((100-this.productDb.discount)/100);
+    
     this.pOrder.paidAmount = 0;
-    this.pOrder.discount = this.productDb.discount;
-    this.pOrder.event = this.productDb.event;
+    this.pOrder.discount = this.discount;
+
+    if (this.productDb.event) {
+      this.pOrder.event = this.productDb.event;
+    } else {
+      this.pOrder.event = "";
+    }
+
+    console.log(this.discount);
+
+    this.pOrder.totalPrice = this.pOrder.quantity*this.productDb.price*((100-this.discount)/100);
+    
+
+    this.pOrder.expectedDeliveryDate = new Date(this.modelDob.year, this.modelDob.month-1, this.modelDob.day, 0, 0, 0, 0);
 
     this.salonUtilService.getSalonOwnerIdFromUserId(this.user.id).subscribe(
       (retOwnerId: string) => {

@@ -22,7 +22,7 @@
                     <tr *ngFor="let book of bookingList; let i = index">
                          <td>{{i+1}}</td>
                         <td>{{ customerList[i].username }}</td>                       
-                        <td>{{ book.bookingDate | date}}</td>
+                        <td>{{ book.bookingDate | date: 'dd/MM/yyyy'}}</td>
                         <td>{{ book.bookingTime}}</td>
                         <td>{{ barberList[i].firstname}} {{ barberList[i].lastname}}</td>
                         <td>{{ book.status}}</td>

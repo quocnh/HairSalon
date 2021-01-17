@@ -73,6 +73,8 @@ productOrderRouter.post('/', upload.array('newPhotos[]', 1), (req, res) => {
         paidAmount: req.body.paidAmount,
         event: req.body.event,
         discount: req.body.discount,
+        expectedDeliveryDate: req.body.expectedDeliveryDate,
+        paymentType: req.body.paymentType,
         status: req.body.status,
 
     });
@@ -97,6 +99,8 @@ productOrderRouter.patch('/:productOrderId', upload.array('newPhotos[]', 1), (re
             paidAmount: req.body.paidAmount,
             event: req.body.event,
             discount: req.body.discount,
+            expectedDeliveryDate: req.body.expectedDeliveryDate,
+            paymentType: req.body.paymentType,
             status: req.body.status,
         },
     },

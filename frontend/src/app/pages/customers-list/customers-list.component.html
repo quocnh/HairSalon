@@ -57,7 +57,7 @@
 
                 <td><a href="{{prefixPath}}/{{customer._id}}/profile">{{ customer.username }}</a></td>
                 <td>{{ customer.firstname }} {{ customer.lastname }}</td>
-                <td>{{ customer.dob | date}}</td>
+                <td>{{ customer.dob | date: 'dd/MM/yyyy'}}</td>
                 <td>{{ customer.phone}}</td>
                 <td>{{ customer.email }}</td>
 

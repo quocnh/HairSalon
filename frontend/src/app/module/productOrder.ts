@@ -11,5 +11,7 @@ export default class productOrder {
     paidAmount: number;
     event: string;    
     discount: number;
+    expectedDeliveryDate: Date;
+    paymentType: string;
     status: string; //'status of order (completed/delivery/waiting for payment)'
 }

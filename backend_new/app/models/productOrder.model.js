@@ -42,6 +42,16 @@ const ProductOrderSchema = new mongoose.Schema({
         required: [false, 'Giảm giá % (50%)']
     },
 
+    expectedDeliveryDate: { 
+        type: Date , 
+        required: [false, 'expected date of delivery']
+    },
+
+    paymentType: { 
+        type: String , 
+        required: [false, 'Payment type']
+    },
+
     status: { 
         type: String , 
         required: [false, 'status of order (completed/delivery/waiting for payment)']

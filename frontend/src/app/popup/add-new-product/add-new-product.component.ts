@@ -36,7 +36,7 @@ export class AddNewProductComponent implements OnInit {
       (distributor:Distributor) => {
         this.product._distributorName = distributor[0].name;
         if (this.product.name) {
-          console.log('RESULT: added product name: ' + this.product.name);
+          console.log(this.product);
                
           this.salonUtilService.createProduct(this.product, this.selectedFile).subscribe(
             () => this.modal.close(this.product)

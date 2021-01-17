@@ -322,6 +322,7 @@ export class SalonUtilsService {
     // tslint:disable-next-line: forin
     for (key in product) {
       fd.append(key, product[key]);
+      console.log(key + ': ' + product[key]);
     }
     console.log('create Product : ' + product.name);
     return this.webService.post( `products`, fd);
