@@ -120,8 +120,8 @@ export class NavbarComponent implements OnInit {
   logout(): void {
     this.tokenStorageService.signOut();
     this.homePath = this.baseUrl;
-    this.router.navigate(['/home']);
-    window.location.reload();
+    this.router.navigate(['/']);
+    //window.location.reload();
   }
 
   // call signin modal function
@@ -129,8 +129,8 @@ export class NavbarComponent implements OnInit {
     console.log('call login modal');
     const ref = this.modalService.open(LoginComponent);
     ref.result.then((result) => {
-      this.router.navigate(['home']);
-      window.location.reload();      
+      this.router.navigate(['/']);
+      // window.location.reload();      
     },
       (cancel) => {
         console.log('cancel click');
