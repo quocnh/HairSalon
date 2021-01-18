@@ -316,7 +316,7 @@ export class SalonUtilsService {
     const fd = new FormData();
     let key;
     if (file) {
-      fd.append('product', file, file.name);
+      fd.append('newPhotos[]', file, file.name);
     }
 
     // tslint:disable-next-line: forin

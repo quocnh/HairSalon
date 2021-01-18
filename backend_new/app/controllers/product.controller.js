@@ -71,11 +71,14 @@ productRouter.get('/:productId', (req, res) => {
 });
 
 productRouter.post('/', upload.array('newPhotos[]', 6), (req, res) => {
-    var strPhotoPath =Array(6);
-    strPhotoPath[0] = "uploads/products/no_photo_available.png";
+    var strPhotoPath = Array(6);    
+    for (i = 0; i < 6; i++){
+        strPhotoPath[i] = "uploads/products/no_image.jpg";
+    }
+
     if(req.files.length > 0){
-        console.log(req.file);
-        strPhotoPath[0] = req.file.path[0];
+        console.log(req.files);
+        strPhotoPath[0] = req.files[0].path;
     }
     
     console.log(req.body);
@@ -92,6 +95,7 @@ productRouter.post('/', upload.array('newPhotos[]', 6), (req, res) => {
         category: req.body.category,
         _distributorName: req.body._distributorName,
         unit: req.body.unit,
+        brand: req.body.brand,
         photos: strPhotoPath,
 
     });
@@ -179,6 +183,7 @@ productRouter.patch('/:productId', upload.array('newPhotos[]', 6), (req, res) =>
             category: req.body.category,
             _distributorName: req.body._distributorName,
             unit: req.body.unit,
+            brand: req.body.brand,
             photos: strPhotoPath
         },
     },

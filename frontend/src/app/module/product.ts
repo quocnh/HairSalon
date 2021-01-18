@@ -9,6 +9,7 @@ export default class Product {
     quantity: number;
     photos: string[];
     event: string;
+    brand: string;
     category: string;
     discount: number;
     unit: string;

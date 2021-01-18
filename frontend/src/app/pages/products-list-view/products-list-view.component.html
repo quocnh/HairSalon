@@ -57,7 +57,7 @@
       <a href="{{prefixPath}}/{{item._id}}">
         <div class=" btn-primary card card-pricing">
           <div class="card-header " *ngIf="item.event; else noKM">
-            <h6 class="card-title addressStyle">{{item.name}}</h6>
+            <h6 class="card-title addressStyle">{{item.brand}}-{{item.name}}</h6>
             <!--p class="card-category">Tên nhà phân phối</p-->
             <p class="card-category text-left addressStyle" style="color:red">{{item.event}}</p>                            
           </div>

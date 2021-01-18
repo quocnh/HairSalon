@@ -17,14 +17,23 @@
                 <img class="avatar-btn border-gray" src={{strProductPhoto}} (click)="fileInput.click()">
                 <input #fileInput type="file" (change)="onFileSelected($event)" style="display:none;" />
             </a>
+
             <div class="row">
-                <div class="col-md-8">
-                    <div class="form-group">
-                        <label>Tên sản phẩm(*)</label>
-                        <input type="text" class="form-control" [(ngModel)]="product.name" [ngModelOptions]="{standalone: true}" placeholder="Tên sản phẩm" >
-                    </div>
+              <div class="col-md-12">
+                  <div class="form-group">
+                      <label>Tên sản phẩm(*)</label>
+                      <input type="text" class="form-control" [(ngModel)]="product.name" [ngModelOptions]="{standalone: true}" placeholder="Tên sản phẩm" >
+                  </div>
+              </div>              
+            </div>
+            <div class="row">
+                <div class="col-md-7">
+                  <div class="form-group">
+                      <label>Tên hãng</label>
+                      <input type="text" class="form-control" [(ngModel)]="product.brand" [ngModelOptions]="{standalone: true}" placeholder="Tên hãng" >
+                  </div>
                 </div>
-                <div class="col-md-4 pr-1">
+                <div class="col-md-5">
                     <div class="form-group">
                       <label>Loại sản phẩm</label>
                         <select input type="text" class="form-control"  [(ngModel)]="product.category" [ngModelOptions]="{standalone: true}">
@@ -35,16 +44,7 @@
                     </div>
                   </div>
             </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label>Thông tin</label>
-                        <input type="text" class="form-control" [(ngModel)]="product.info" [ngModelOptions]="{standalone: true}" placeholder="Thông tin chi tiết">
-                    </div>
-                </div>
-            </div>
-
+        
             <div class="row">
 
                 <div class="col-md-4 pr-1">
@@ -53,13 +53,13 @@
                         <input type="text" class="form-control" [(ngModel)]="product.price" [ngModelOptions]="{standalone: true}" placeholder="Giá">
                     </div>
                 </div>
-                <div class="col-md-5 pr-1">
+                <div class="col-md-5">
                     <div class="form-group">
                         <label>Số lượng</label>
                         <input type="text" class="form-control" [(ngModel)]="product.quantity" [ngModelOptions]="{standalone: true}" placeholder="Số lượng trong kho">
                     </div>
                 </div>
-                <div class="col-md-3 pr-1">
+                <div class="col-md-3">
                     <div class="form-group">
                       <label>Đơn vị</label>
                         <select input type="text" class="form-control"  [(ngModel)]="product.unit" [ngModelOptions]="{standalone: true}">
@@ -69,6 +69,15 @@
                         </select>
                     </div>
                   </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                  <div class="form-group">
+                      <label>Thông tin chi tiết</label>
+                      <input type="text" class="form-control" [(ngModel)]="product.info" [ngModelOptions]="{standalone: true}" placeholder="Thông tin thêm về sản phẩm">
+                  </div>
+              </div>
             </div>
 
             <div class="row">
