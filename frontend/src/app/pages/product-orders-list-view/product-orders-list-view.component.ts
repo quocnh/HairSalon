@@ -17,7 +17,10 @@ import { environment } from 'environments/environment';
 export class ProductOrdersListViewComponent implements OnInit {
 
   public distributorId: string;  
-  pOrders: productOrder[] = [];    
+  pOrders: productOrder[] = [];
+  pOrders_procesing:  productOrder[] = [];
+  pOrders_delivering:  productOrder[] = [];
+  pOrders_complete:  productOrder[] = [];
   dbAddress: string;
   prefixPath: string;
 
@@ -129,6 +132,15 @@ export class ProductOrdersListViewComponent implements OnInit {
           }
           if ((!this.pOrders[i].discount) || (this.pOrders[i].discount == null)) {
             this.pOrders[i].discount = 0;
+          }
+
+          //move to 3 groups based on status
+          if (this.pOrders[i].status === GlobalConstants.OrderStatus[0]) {
+            this.pOrders_procesing.push(this.pOrders[i]);
+          } else  if (this.pOrders[i].status === GlobalConstants.OrderStatus[1]) {
+            this.pOrders_delivering.push(this.pOrders[i]);
+          } else {
+            this.pOrders_complete.push(this.pOrders[i]);
           }
         }
       }

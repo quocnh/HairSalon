@@ -5,7 +5,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-            <h4 class="card-title"> Danh sách đơn hàng</h4>
+            <h4 class="card-title"> Danh sách đơn hàng đang xử lý</h4>
             </div>
             <div class="card-body">
             <div class="table-responsive">
@@ -28,7 +28,7 @@
                 </thead>
                 <tbody>
                     
-                    <tr *ngFor="let order of pOrders; let i = index">                        
+                    <tr *ngFor="let order of pOrders_procesing; let i = index">                        
                         <td><a href="{{prefixPath}}/salonOwners/{{order._salonOwnerId}}">{{ salonOwnerName[i] }}</a></td>
                         <td><a href="{{prefixPath}}/products/{{order._productId}}">{{ productName[i] }} </a></td>
                         <td> {{ order.quantity }} </td>
@@ -74,6 +74,158 @@
             </div>
         </div>
         </div>
-</div>   
+</div>
+
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+            <h4 class="card-title"> Danh sách đơn hàng đang vận chuyển</h4>
+            </div>
+            <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                <thead class=" text-primary">
+                    <th>Chủ salon</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Số lượng</th> 
+                    <th>Giảm giá</th>
+                    <th>Khuyến mãi</th>
+                    <th>Trạng thái</th>
+                    <th>Hình thức thanh toán</th>
+                    <th>Ngày giao hàng</th>
+                    <th>Giá</th>                    
+                    <th class="text-right">
+                    <!-- <button class="btn btn-sm btn-success btn-round btn-icon " (click)= "createNewSalon()">
+                        <a data-toggle="tooltip" data-placement="top" title="Thêm mới"> <i class="nc-icon nc-simple-add"></i></a>
+                    </button> -->
+                    </th>
+                </thead>
+                <tbody>
+                    
+                    <tr *ngFor="let order of pOrders_delivering; let i = index">                        
+                        <td><a href="{{prefixPath}}/salonOwners/{{order._salonOwnerId}}">{{ salonOwnerName[i] }}</a></td>
+                        <td><a href="{{prefixPath}}/products/{{order._productId}}">{{ productName[i] }} </a></td>
+                        <td> {{ order.quantity }} </td>
+                        <td> {{ order.discount }} </td>
+                        <td> {{ order.event }} </td>
+                        <td> {{ order.paymentType }} </td>
+                        <td> {{ order.expectedDeliveryDate | date: 'dd/MM/yyyy'}} </td>
+                        <td> 
+                            <div class="form-group">                   
+                    
+                                <div class="input--style-1">                      
+                                  <ng-autocomplete [data]="orderStatus" placeHolder="Không xác định" [initialValue]="order.status"
+                                     (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
+                                     [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" (inputCleared)="handleEmptyInput()"
+                                     [(ngModel)]="order.status" [ngModelOptions]="{standalone: true}">
+                                  </ng-autocomplete>
+            
+                                  <ng-template #itemTemplate let-item>
+                                    <a [innerHTML]="item"></a>
+                                  </ng-template>
+                    
+                                  <ng-template #notFoundTemplate let-notFound>
+                                    <div [innerHTML]="notFound"></div>
+                                  </ng-template>
+                                </div>
+                              </div>
+                        </td>
+                        <td> {{ order.totalPrice | currency:'VND'}} </td>                        
+                        <td >
+                            <button class="btn btn-sm btn-danger btn-round btn-icon pull-right" (click)= "deleteOrder(order._id)">
+                            <a data-toggle="tooltip" data-placement="top" title="Xóa"> <i class="fa fa-trash"></i></a>
+                            </button>
+                            <p class="pull-right"> &#160; </p>                            
+                            <button class="btn btn-sm btn-info btn-round btn-icon pull-right" (click)= "updateOrder(order)">
+                                <a data-toggle="tooltip" data-placement="top" title="Cập nhật"><i class="fa fa-pencil"></i></a>
+                            </button>                            
+                        </td>
+                    </tr>
+                    
+                </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+        </div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+            <h4 class="card-title"> Danh sách đơn hàng hoàn thành</h4>
+            </div>
+            <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                <thead class=" text-primary">
+                    <th>Chủ salon</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Số lượng</th> 
+                    <th>Giảm giá</th>
+                    <th>Khuyến mãi</th>
+                    <th>Trạng thái</th>
+                    <th>Hình thức thanh toán</th>
+                    <th>Ngày giao hàng</th>
+                    <th>Giá</th>                    
+                    <th class="text-right">
+                    <!-- <button class="btn btn-sm btn-success btn-round btn-icon " (click)= "createNewSalon()">
+                        <a data-toggle="tooltip" data-placement="top" title="Thêm mới"> <i class="nc-icon nc-simple-add"></i></a>
+                    </button> -->
+                    </th>
+                </thead>
+                <tbody>
+                    
+                    <tr *ngFor="let order of pOrders_complete; let i = index">                        
+                        <td><a href="{{prefixPath}}/salonOwners/{{order._salonOwnerId}}">{{ salonOwnerName[i] }}</a></td>
+                        <td><a href="{{prefixPath}}/products/{{order._productId}}">{{ productName[i] }} </a></td>
+                        <td> {{ order.quantity }} </td>
+                        <td> {{ order.discount }} </td>
+                        <td> {{ order.event }} </td>
+                        <td> {{ order.paymentType }} </td>
+                        <td> {{ order.expectedDeliveryDate | date: 'dd/MM/yyyy'}} </td>
+                        <td> 
+                            <div class="form-group">                   
+                    
+                                <div class="input--style-1">                      
+                                  <ng-autocomplete [data]="orderStatus" placeHolder="Không xác định" [initialValue]="order.status"
+                                     (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
+                                     [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" (inputCleared)="handleEmptyInput()"
+                                     [(ngModel)]="order.status" [ngModelOptions]="{standalone: true}">
+                                  </ng-autocomplete>
+            
+                                  <ng-template #itemTemplate let-item>
+                                    <a [innerHTML]="item"></a>
+                                  </ng-template>
+                    
+                                  <ng-template #notFoundTemplate let-notFound>
+                                    <div [innerHTML]="notFound"></div>
+                                  </ng-template>
+                                </div>
+                              </div>
+                        </td>
+                        <td> {{ order.totalPrice | currency:'VND'}} </td>                        
+                        <td >
+                            <button class="btn btn-sm btn-danger btn-round btn-icon pull-right" (click)= "deleteOrder(order._id)">
+                            <a data-toggle="tooltip" data-placement="top" title="Xóa"> <i class="fa fa-trash"></i></a>
+                            </button>
+                            <p class="pull-right"> &#160; </p>                            
+                            <button class="btn btn-sm btn-info btn-round btn-icon pull-right" (click)= "updateOrder(order)">
+                                <a data-toggle="tooltip" data-placement="top" title="Cập nhật"><i class="fa fa-pencil"></i></a>
+                            </button>                            
+                        </td>
+                    </tr>
+                    
+                </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+        </div>
+</div>
     
 
