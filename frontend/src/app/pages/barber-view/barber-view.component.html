@@ -38,12 +38,12 @@
             <div class="table-responsive">
               <table class="table">
                 <thead class=" text-primary">
-                    <th>username</th>
+                    <!-- <th>username</th> -->
                   <th>Full Name</th>
                   <th>Salon</th>
                   <th>Phone</th>
                   <th>Email</th>
-                  <th>Profile</th>
+                  <th>Quê quán</th>
                   
                   <th class="text-right">
                     <button class="btn btn-sm btn-success btn-round btn-icon " (click)= "createNewBarber()">
@@ -55,19 +55,19 @@
                 <tbody>
                     
                     <tr *ngFor="let barber of displayedBarbers">
-                        <td><a href="{{prefixPath}}/{{barber._id}}/profile">{{ barber.username }}</a></td>
-                        <td>{{ barber.firstname }} {{ barber.lastname }}</td>
+                        <!-- <td><a href="{{prefixPath}}/{{barber._id}}/profile">{{ barber.username }}</a></td> -->
+                        <td><a href="{{prefixPath}}/profile/{{barber._id}}">{{ barber.firstname }} {{ barber.lastname }}</a></td>
                         <td>{{ barber.salonName }}</td>
                         <td>{{ barber.phone}}</td>
                         <td>{{ barber.email }}</td>
-                        <td>{{ barber.profile }}</td>
+                        <td>{{ barber.hometown }}</td>
                         
                         <td >
                             <button class="btn btn-sm btn-danger btn-round btn-icon pull-right" (click)= "deleteBarber(barber._id)">
                               <a data-toggle="tooltip" data-placement="top" title="Xóa"> <i class="fa fa-trash"></i></a>
                             </button>
                             <p class="pull-right"> &#160; </p>
-                            <a href="{{prefixPath}}/{{barber._id}}/profile">
+                            <a href="{{prefixPath}}/profile/{{barber._id}}/">
                               <button class="btn btn-sm btn-info btn-round btn-icon pull-right">
                                 <a data-toggle="tooltip" data-placement="top" title="Sửa"><i class="fa fa-pencil"></i></a>
                               </button>

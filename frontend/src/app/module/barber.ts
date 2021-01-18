@@ -12,5 +12,7 @@ export default class Barber {
     gender: string;
     profile: string;
     avatar: string;
+    hometown: string;
+    idcard: string;
 
 }

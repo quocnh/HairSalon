@@ -31,7 +31,7 @@ export const ManagerLayoutRoutes: Routes = [
     { path: 'barbers',               component: BarbersSalonListComponent },
     { path: 'barbers/:salonId',               component: BarberViewComponent },
     { path: 'bookings',               component: BookingsSalonListComponent },
-    { path: 'barbers/:barberId/profile',           component: BarberProfileViewComponent },
+    { path: 'barbers/:salonId/profile/:barberId',           component: BarberProfileViewComponent },
     { path: 'salons/:salonId',               component: SalonEditComponent },
     { path: 'bookings/:salonId',               component: BookingsListViewComponent },
     { path: 'bookings/:salonId/:bookingId',               component: BookingViewComponent },

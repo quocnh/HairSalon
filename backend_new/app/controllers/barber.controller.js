@@ -45,7 +45,7 @@ barberRouter.get('/', (req, res) => {
         .catch((error) => console.log(error));
 });
 
-barberRouter.get('/salonId/:salonId', (req, res) => {
+barberRouter.get('/salonId/:salonId', (req, res) => {    
     Barber.find({_salonId: req.params.salonId})
         .then(barbers => res.send(barbers))
         .catch((error) => console.log(error));
@@ -72,6 +72,8 @@ barberRouter.post('/', upload.single('avatar'), (req, res) => {
         gender: req.body.gender,
         profile: req.body.profile,
         avatar: strAvatarPath,
+        hometown: req.body.hometown,
+        idcard: req.body.idcard
 
     });
     
@@ -110,9 +112,9 @@ barberRouter.patch('/:barberId', upload.single('avatar'), (req, res) => {
         strAvatarPath = req.body.avatar;
     }
     
-    if (req.body.username) {
+    if (req.body._salonId) {
         
-        console.log(req.body.username);
+        console.log(req.body._salonId);
         Barber.findOneAndUpdate({ '_id': req.params.barberId}, 
             {$set: 
                 { 
@@ -126,6 +128,8 @@ barberRouter.patch('/:barberId', upload.single('avatar'), (req, res) => {
                     gender: req.body.gender,
                     profile: req.body.profile,
                     avatar: strAvatarPath,
+                    hometown: req.body.hometown,
+                    idcard: req.body.idcard
                 },
             })
             .then(barber => res.send(barber))

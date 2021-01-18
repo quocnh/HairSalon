@@ -10,14 +10,13 @@ import { GlobalConstants } from 'app/module/global-constants';
 import { TokenStorageService } from 'app/_services/token-storage.service';
 
 @Component({
-  selector: 'app-add-new-customer',
-  templateUrl: './add-new-customer.component.html',
-  styleUrls: ['./add-new-customer.component.css']
+  selector: 'app-add-new-barber',
+  templateUrl: './add-new-barber.component.html',
+  styleUrls: ['./add-new-barber.component.css']
 })
-export class AddNewCustomerComponent implements OnInit {
+export class AddNewBarberComponent implements OnInit {
   @Input() 
-  public objectName;
-  public customer: Customer = new Customer();
+  public salonId;  
   public barber: Barber = new Barber();
 
   salons: Salon[];
@@ -34,9 +33,10 @@ export class AddNewCustomerComponent implements OnInit {
   city: string;
   address: string;
   avatar: string;
+  idcard: string;
+  hometown: string;
 
   genders = GlobalConstants.Genders;
-  objectDisplayedName = 'user';
 
   modelDob: NgbDateStruct;
   today = this.calendar.getToday();
@@ -78,69 +78,48 @@ export class AddNewCustomerComponent implements OnInit {
       // Not login yet
       return;
     }
-
     
-    console.log(this.objectName);
+    console.log(this.salonId);
     this.searchService.getCities().then(cities => {
       this.cities = cities;
     });
-    if (this.objectName === 'customer') {
-      this.objectDisplayedName = "khách hàng";
-    } else if (this.objectName === 'barber') {
-      this.objectDisplayedName = "thợ cắt tóc";
-    }
 
-    this.salonUtilService.getAllSalons().subscribe((salons: Salon[]) => this.salons = salons);
     this.modelDob = {
       year: 1985,
       month: 4,
       day: 4
     }
+
+    if (this.isAdmin) {
+      this.salonUtilService.getAllSalons().subscribe((salons: Salon[]) => this.salons = salons);
+    } else if (this.isSalonOwner) {
+      this.salonUtilService.getOneSalon(this.salonId).subscribe((salons: Salon[]) => this.salons = salons);
+    }
+
+    
+    
   }
 
   addNewObject() {
-    if (this.objectName === 'customer') {
-      this.customer.dob = this.ngbDateParserFormatter.format(this.modelDob);
-      this.customer.username = this.username;
-      this.customer.firstname = this.firstname;
-      this.customer.lastname = this.lastname;
-      this.customer.phone = this.phone;
-      this.customer.email = this.email;
-      this.customer.gender = this.gender;
 
-      console.log(this.customer);
-      this.modal.close(this.customer);
-    } else if (this.objectName === 'barber') {
-      console.log(this.chosenSalon);
-      this.barber.dob = this.ngbDateParserFormatter.format(this.modelDob);
-      this.barber.username = this.username;
-      this.barber.firstname = this.firstname;
-      this.barber.lastname = this.lastname;
-      this.barber.phone = this.phone;
-      this.barber.email = this.email;
-      this.barber.gender = this.gender;
-      this.barber._salonId = this.chosenSalon._id;
+    console.log(this.chosenSalon);
+    this.barber.dob = this.ngbDateParserFormatter.format(this.modelDob);
+    this.barber.username = this.username;
+    this.barber.firstname = this.firstname;
+    this.barber.lastname = this.lastname;
+    this.barber.phone = this.phone;
+    this.barber.email = this.email;
+    this.barber.gender = this.gender;
+    this.barber._salonId = this.chosenSalon._id;
+    this.barber.hometown = this.hometown;
+    this.barber.idcard = this.idcard;
 
-      console.log(this.barber);
-      this.modal.close(this.barber);
-    }
+    console.log(this.barber);
+    this.modal.close(this.barber);
+
 
   }
 
-  selectCityEvent(event){
-    
-    this.selectedCity = event;
-    this.customer.city = this.selectedCity.name;
-    this.districts = event.district;
-    console.log(this.customer.city);
-  }
-  selectDistrictEvent(event){
-    
-    this.selectedDistrict = event;
-    this.customer.district = this.selectedDistrict.name;
-    console.log(this.customer.district);
-
-  }
   onChangeSearch(event){
     //console.log(event);
   }

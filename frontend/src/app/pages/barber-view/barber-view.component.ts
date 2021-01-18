@@ -9,6 +9,7 @@ import { stringify } from 'querystring';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { environment } from 'environments/environment';
 import { TokenStorageService } from 'app/_services/token-storage.service';
+import { AddNewBarberComponent } from 'app/popup/add-new-barber/add-new-barber.component';
 
 @Component({
   selector: 'app-barber-view',
@@ -61,7 +62,8 @@ export class BarberViewComponent implements OnInit {
     this.route.params.subscribe((param: Params) => {
       this.salonId = param.salonId;
       console.log(this.salonId);
-      if (!this.salonId) {
+      
+      if (this.salonId) {
         if(this.isSalonOwner) {
           this.refreshBarberList(this.salonId);
         }
@@ -91,8 +93,8 @@ export class BarberViewComponent implements OnInit {
 
   createNewBarber() {
     // TODO: Implement create new customer form popup
-    const ref = this.modalService.open(AddNewCustomerComponent);
-    ref.componentInstance.objectName = 'barber';
+    const ref = this.modalService.open(AddNewBarberComponent);
+    ref.componentInstance.salonId = this.salonId;
     ref.result.then((result) => {
       if (result) {
         console.log(result);
@@ -106,6 +108,8 @@ export class BarberViewComponent implements OnInit {
         this.addedBarber.gender = result.gender;
         this.addedBarber.profile = result.profile;
         this.addedBarber._salonId = result._salonId;
+        this.addedBarber.hometown = result.hometown;
+        this.addedBarber.idcard = result.idcard;
 
         this.salonUtilService.createBarber(this.addedBarber, null).subscribe(
           (yes) => this.refreshBarberList(this.salonId)

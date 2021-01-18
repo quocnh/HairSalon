@@ -68,6 +68,7 @@ import { ConfirmComponent } from './popup/confirm/confirm.component';
 import { RegisterListBecomeSalonOwnerComponent } from './pages/register-list-become-salon-owner/register-list-become-salon-owner.component';
 import { RegisterListBecomeDistributorComponent } from './pages/register-list-become-distributor/register-list-become-distributor.component';
 import { BarbersSalonListComponent } from './pages/barbers-salon-list/barbers-salon-list.component';
+import { AddNewBarberComponent } from './popup/add-new-barber/add-new-barber.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { BarbersSalonListComponent } from './pages/barbers-salon-list/barbers-sa
     DeleteCustomerComponent,
     AddNewDistributorComponent,
     DeleteDistributorComponent,
+    AddNewBarberComponent,
     MainLayoutComponent,
     HomeLayoutComponent,
     BookingViewComponent,
@@ -119,7 +121,7 @@ import { BarbersSalonListComponent } from './pages/barbers-salon-list/barbers-sa
     ConfirmComponent,
     RegisterListBecomeSalonOwnerComponent,
     RegisterListBecomeDistributorComponent,
-    BarbersSalonListComponent
+    BarbersSalonListComponent,
   ],
   imports: [
     BrowserAnimationsModule,

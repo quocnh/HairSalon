@@ -251,7 +251,7 @@ export class SalonUtilsService {
       fd.append(key, barber[key]);
     }
 
-    console.log('update Barber : ' + barberId + file.name);
+    console.log('update Barber : ' + barberId);
     return this.webService.patch( `barbers/${barberId}`, fd);
   }
 

@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const BarberSchema = new mongoose.Schema({
     _userId: {
         type: mongoose.Types.ObjectId,
-        require: [true, 'User id']
+        require: [false, 'User id']
     },
     _salonId: {
         type: mongoose.Types.ObjectId,
@@ -14,7 +14,7 @@ const BarberSchema = new mongoose.Schema({
     username: { 
         type: String,
         minlength: 3,
-        required: [false, 'username must be provided']
+        required: [false, 'username ']
     },
 
     firstname: { 
@@ -52,6 +52,14 @@ const BarberSchema = new mongoose.Schema({
     avatar: {
         type: String,
         require: [false, 'profile avatar']
+    },
+    hometown: {
+        type: String,
+        require: [false, 'hometown info']
+    },
+    idcard: {
+        type: String,
+        require: [false, 'CMND']
     }
 });
 
