@@ -128,8 +128,13 @@ export class SalonViewComponent implements OnInit {
     sIndex -= 1;
     if (sIndex >= 0) {
       this.selectServices.push(this.salon.services[sIndex]);
-      // console.log(this.selectServices);
-      this.total += +this.salon.services[sIndex].price;
+      console.log(this.salon.services[sIndex].name);
+      console.log(this.salon.services[sIndex].discount);
+      if (+this.salon.services[sIndex].discount > 0) {
+        this.total += (+this.salon.services[sIndex].price)*(+this.salon.services[sIndex].discount)/100;
+      } else {
+        this.total += +this.salon.services[sIndex].price;
+      }      
     }
   }
 
@@ -149,8 +154,14 @@ export class SalonViewComponent implements OnInit {
   }
 
   deleteSelectedService(sIndex) {
-    // console.log(sIndex);
-    this.total -= +this.selectServices[sIndex].price;
+    console.log('Xoa ' + sIndex);
+    console.log(this.selectServices[sIndex].name);
+    if (+this.selectServices[sIndex].discount > 0) {
+      this.total -= (+this.selectServices[sIndex].price)*(+this.selectServices[sIndex].discount)/100;
+    } else {
+      this.total -= +this.selectServices[sIndex].price;
+    }
+
     this.selectServices.splice(sIndex, 1);
   }
 

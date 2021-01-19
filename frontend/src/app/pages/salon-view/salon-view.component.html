@@ -134,7 +134,13 @@
             <option value="">Chọn dịch vụ</option>
             <option *ngFor="let s of salon.services; let i = index">
               <p style="text-align:left;">{{s.name}} &emsp;</p>
-              <span class="text-right" data-type="currency">({{s.price|currency:"&#x20AB;":'symbol':'3.0'}} )</span>
+              <div *ngIf="s.discount > 0; else noDiscount">
+                <span class="text-right" data-type="currency" style="color:red">({{s.price|currency:"&#x20AB;":'symbol':'3.0'}}) -{{s.discount}}%</span>
+                <span class="text-right" data-type="currency" style="color:red">{{s.event}}</span>
+              </div>
+              <ng-template #noDiscount>                
+                <span class="text-right" data-type="currency">({{s.price|currency:"&#x20AB;":'symbol':'3.0'}} ) {{s.event}}</span>
+              </ng-template>              
 
             </option>
           </select>
@@ -154,8 +160,14 @@
                   <th>
                     Dịch vụ
                   </th>
-                  <th class="text-right">
+                  <th >
                     Giá
+                  </th>
+                  <th >
+                    Giảm giá (%)
+                  </th>
+                  <th>
+                    Khuyến mãi
                   </th>
                   <th class="text-right">
                     &#160;
@@ -168,6 +180,12 @@
                     </td>
                     <td class="text-right" data-type="currency">
                       {{s.price|currency:"&#x20AB;":'symbol':'3.0'}}
+                    </td>
+                    <td>
+                      {{s.discount}}
+                    </td>
+                    <td>
+                      {{s.event}}
                     </td>
                     <td>
                       <button class="btn btn-sm btn-info btn-round btn-icon pull-right"

@@ -4,10 +4,13 @@ const Salon = require('../models/salon.model');
 //const Service = require('../models/salon.model');
 const Barber = require('../models/barber.model');
 const geocoder = require('../utils/geocoder');
+const Service = require('../models/common.model');
 
 var express = require('express');
 var salonRouter = express.Router();
 const multer = require('multer');
+
+
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -268,16 +271,15 @@ salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
 });
 
 salonRouter.patch('/:salonId/addService', (req, res) => {
-    const Service = {
-        name: String,
-        price: Number
-    };
+    
 
     const addedService = Object.create(Service);
     if (req.body.name) {
         //console.log(req.body);
         addedService.name = req.body.name;
         addedService.price = req.body.price;
+        addedService.discount = req.body.discount;
+        addedService.event = req.body.event;
         //console.log(addedService);
 
         Salon.findOneAndUpdate({ '_id': req.params.salonId },
@@ -299,15 +301,14 @@ salonRouter.patch('/:salonId/addService', (req, res) => {
 });
 
 salonRouter.patch('/:salonId/delService', (req, res) => {
-    const Service = {
-        name: String,
-        price: Number
-    };
+
     const service = Object.create(Service);
     if (req.body.name) {
         //console.log(req.body);
         service.name = req.body.name;
         service.price = req.body.price;
+        service.discount = req.body.discount;
+        service.event = req.body.event;
         console.log(service);
         Salon.findOneAndUpdate({ '_id': req.params.salonId },
             {
@@ -324,10 +325,7 @@ salonRouter.patch('/:salonId/delService', (req, res) => {
 });
 
 salonRouter.patch('/:salonId/updateService/:sIndex', (req, res) => {
-    const Service = {
-        name: String,
-        price: Number
-    };
+
     const index = req.params.sIndex;
     const service = Object.create(Service);
     let tid = { ["services." + index]: service };
@@ -335,6 +333,8 @@ salonRouter.patch('/:salonId/updateService/:sIndex', (req, res) => {
         //console.log(req.body);
         service.name = req.body.name;
         service.price = req.body.price;
+        service.discount = req.body.discount;
+        service.event = req.body.event;
         console.log(tid);
         Salon.findOneAndUpdate({ '_id': req.params.salonId },
             {

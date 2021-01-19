@@ -112,18 +112,43 @@
 </div>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-8">
     <div class="card card-chart">
       <div class="card-header">
-        <h5 class="card-title">Dịch vụ</h5>
+        <h5 class="card-title">Danh sách Dịch vụ</h5>
+        <div class="row">
+          <div class="col-md-3">
+            Dịch vụ
+          </div>
+          <div class="col-md-2">
+            Giá
+          </div>
+          <div class="col-md-2">
+            Giảm giá(%)
+          </div>
+          <div class="col-md-3">
+            Khuyến mãi
+          </div>
+          <div class="col-md-2">            
+            Cập nhật
+          </div>
+        </div>
         <div class="row" *ngFor="let s of salon.services; let i = index">
-          <div class="col-md-7">
+          <div class="col-md-3">
             <input id="n-{{i}}" type="text" class="form-control card-title" placeholder="dịch vụ" value="{{ s.name }}"
               [(ngModel)]="s.name" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col-md-3">
+          <div class="col-md-2">
             <input id="p-{{i}}" type="text" class="form-control card-title" placeholder="Giá" value="{{s.price }}"
               [(ngModel)]="s.price" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col-md-2">
+            <input id="p-{{i}}" type="text" class="form-control card-title" value="{{s.discount }}"
+              [(ngModel)]="s.discount" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col-md-3">
+            <input id="p-{{i}}" type="text" class="form-control card-title" value="{{s.event }}"
+              [(ngModel)]="s.event" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col-md-2">
             <button class="btn btn-sm btn-danger btn-round btn-icon pull-right" (click)="deleteService(s)">
@@ -161,7 +186,7 @@
     </div>
   </div>
 
-  <div class="col-md-6">
+  <div class="col-md-4">
     <div class="card card-chart">
       <div class="card-header">
         <h5 class="card-title">Thông tin salon</h5>        
