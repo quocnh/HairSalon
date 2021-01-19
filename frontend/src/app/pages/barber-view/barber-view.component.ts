@@ -35,6 +35,7 @@ export class BarberViewComponent implements OnInit {
   isLoggedIn = false;
   user: any;
   isSalonOwner = false;
+  isAdmin = false;
   salonId: string;
 
   constructor(
@@ -54,6 +55,7 @@ export class BarberViewComponent implements OnInit {
       this.user = this.tokenStorageService.getUser();
       console.log('LOGGED IN:' +  this.user.roles);
       this.isSalonOwner = this.user.roles.includes('ROLE_SALON_OWNER');
+      this.isAdmin = this.user.roles.includes('ROLE_ADMIN');
     } else {
       // Not login yet
       return;
@@ -64,10 +66,15 @@ export class BarberViewComponent implements OnInit {
       console.log(this.salonId);
       
       if (this.salonId) {
-        if(this.isSalonOwner) {
+        if ((this.isSalonOwner) || (this.isAdmin)){
           this.refreshBarberList(this.salonId);
         }
-      } 
+      } else {
+        if(this.isAdmin) {
+          this.refreshBarberListAll();
+        }
+      }
+      
     });   
     
   }
@@ -146,6 +153,17 @@ export class BarberViewComponent implements OnInit {
 
   refreshBarberList(salonId) {
     this.salonUtilService.getBarbersFromSalonId(salonId)
+      .subscribe((barbers: Barber[]) => {
+        this.barbers = barbers;
+        this.displayedBarbers = this.barbers;
+        for (let i = 0; i < barbers.length; i++) {
+          this.getSalonName(barbers[i]._salonId).then(data => (barbers[i].salonName = data));
+        }
+      });
+  }
+
+  refreshBarberListAll() {
+    this.salonUtilService.getBarbers()
       .subscribe((barbers: Barber[]) => {
         this.barbers = barbers;
         this.displayedBarbers = this.barbers;

@@ -39,18 +39,10 @@
             <div class="table-responsive">
                 <table class="table">
                 <thead class=" text-primary">
-                    <th>
-                    Tên salon
-                    </th>
-                    <th>
-                    Số điện thoại
-                    </th>
-                    <th>
-                    Email
-                    </th> 
-                    <th>
-                    Thông tin
-                    </th>
+                    <th>Tên salon</th>
+                    <th>Số điện thoại</th>
+                    <th>Email</th> 
+                    <th>Danh sách thợ cắt tóc</th>
                     <th class="text-right">
                     <button class="btn btn-sm btn-success btn-round btn-icon " (click)= "createNewSalon()">
                         <a data-toggle="tooltip" data-placement="top" title="Thêm mới"> <i class="nc-icon nc-simple-add"></i></a>
@@ -71,7 +63,7 @@
                             {{ salon.email }}
                         </td>
                         <td>
-                            {{ salon.info }}
+                          <a href="{{prefixPath}}/barbers/{{salon._id}}">Danh sách thợ cắt tóc</a>
                         </td>
                         <td >
                             <button class="btn btn-sm btn-danger btn-round btn-icon pull-right" (click)= "deleteSalon(salon._id)">

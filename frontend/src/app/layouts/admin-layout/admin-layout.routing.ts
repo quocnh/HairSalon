@@ -22,6 +22,7 @@ import { ProductDetailEditComponent } from 'app/pages/product-detail-edit/produc
 import { ProductOrdersListViewComponent } from 'app/pages/product-orders-list-view/product-orders-list-view.component';
 import { RegisterListBecomeSalonOwnerComponent } from 'app/pages/register-list-become-salon-owner/register-list-become-salon-owner.component';
 import { RegisterListBecomeDistributorComponent } from 'app/pages/register-list-become-distributor/register-list-become-distributor.component';
+import { BarbersSalonListComponent } from 'app/pages/barbers-salon-list/barbers-salon-list.component';
 
 export const AdminLayoutRoutes: Routes = [
 
@@ -36,19 +37,25 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'become-salonowner-request',  component: RegisterListBecomeSalonOwnerComponent },
     { path: 'become-distributor-request',  component: RegisterListBecomeDistributorComponent },
     { path: 'profile',               component: UserComponent },
+
     { path: 'salonOwners',      component: SalonOwnersListComponent },
     { path: 'salonOwners/:salonOwnerId',      component: SalonOwnerProfileComponent },
     { path: 'salonOwners/:salonOwnerId/salons',       component: SalonsListViewComponent },
     { path: 'salonOwners/:salonOwnerId/salons/:salonId',       component: SalonEditComponent },
+
     { path: 'customers',        component: CustomersListComponent },
-    { path: 'salons',               component: SalonsListViewComponent },
-    { path: 'distributors',         component: DistributorListViewComponent },
-    { path: 'barbers',               component: BarberViewComponent },
+    { path: 'customers/:userId/profile',           component: UserComponent },
+
+    { path: 'salons',               component: SalonsListViewComponent },    
+    { path: 'salons/:salonId',               component: SalonEditComponent },
+    { path: 'salons/barbers/:salonId',               component: BarberViewComponent },
+
+    { path: 'distributors',         component: DistributorListViewComponent },    
     { path: 'distributors/:distributorId/profile',         component: DistributorProfileComponent },
     { path: 'distributors/:distributorId/products',         component: ProductsListViewComponent },
     { path: 'distributors/:distributorId/products/:productId',         component: ProductDetailEditComponent },
-    { path: 'distributors/:distributorId/productOrders',         component: ProductOrdersListViewComponent },
-    { path: 'customers/:userId/profile',           component: UserComponent },
+    { path: 'distributors/:distributorId/productOrders',         component: ProductOrdersListViewComponent },    
+
+    { path: 'barbers',               component: BarberViewComponent },    
     { path: 'barbers/:salonId/profile/:barberId',           component: BarberProfileViewComponent },
-    { path: 'salons/:salonId',               component: SalonEditComponent },
-];
+];    
