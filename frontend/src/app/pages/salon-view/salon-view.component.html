@@ -99,7 +99,7 @@
           </div>
           <div class="col-md-12">
             <div class="form-group">
-              <label>Chọn buổi</label>
+              <label>Chọn giờ</label>
 
               <select input type="text" class="form-control"
                 (change)="selectBookingTimeOnChange($event.target.options.selectedIndex)">
@@ -119,7 +119,7 @@
             (change)="selectBarberOnChange($event.target.options.selectedIndex)">
             <option value="">Tùy chọn </option>
             <option *ngFor="let b of barbers">
-              <p style="text-align:left;">[ {{b.username}} ] {{b.lastname}} {{b.firstname}}</p>
+              <p style="text-align:left;">{{b.lastname}} {{b.firstname}}</p>
             </option>
           </select>
 

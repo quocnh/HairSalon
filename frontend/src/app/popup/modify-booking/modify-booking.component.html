@@ -63,7 +63,7 @@
                             <select input type="text" class="form-control"
                                 (change)="selectBarberOnChange($event.target.options.selectedIndex)">
                                 <option [selected]="b._id == booking._barberId" *ngFor="let b of barbers">
-                                    <p style="text-align:left;">[ {{b.username}} ] {{b.lastname}} {{b.firstname}}</p>
+                                    <p style="text-align:left;">{{b.lastname}} {{b.firstname}}</p>
                                 </option>
                             </select>
 
