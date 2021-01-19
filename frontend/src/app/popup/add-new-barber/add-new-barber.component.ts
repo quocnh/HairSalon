@@ -120,6 +120,12 @@ export class AddNewBarberComponent implements OnInit {
 
   }
 
+  selectSalonEvent(event){
+    
+    this.chosenSalon = event;    
+    console.log(this.chosenSalon);
+  }
+
   onChangeSearch(event){
     //console.log(event);
   }

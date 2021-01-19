@@ -28,7 +28,7 @@ export class BarberViewComponent implements OnInit {
   salon: Salon = new Salon();
   prefixPath: string;
 
-  keyword = 'username';
+  keyword = 'firstname';
   selectedBarber:any;
   displayedBarbers: Barber[] = [];
 

@@ -14,13 +14,13 @@
                   <div class="form-group">                   
                     
                     <div class="input--style-1">                      
-                      <ng-autocomplete [data]="barbers" [searchKeyword]="keyword" placeHolder="Nhập tên thợ cắt tóc"
+                      <ng-autocomplete [data]="displayedBarbers" [searchKeyword]="keyword" placeHolder="Nhập tên thợ cắt tóc"
                          (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
                          [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" (inputCleared)="handleEmptyInput()">
                       </ng-autocomplete>
 
                       <ng-template #itemTemplate let-item>
-                        <a [innerHTML]="item.username"></a>
+                        <a [innerHTML]='item.firstname'></a>
                       </ng-template>
         
                       <ng-template #notFoundTemplate let-notFound>
