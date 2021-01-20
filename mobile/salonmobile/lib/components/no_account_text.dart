@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:salonmobile/screens/splash/splash_screen.dart';
+import 'package:salonmobile/screens/sign_up/sign_up_screen.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
@@ -18,7 +18,7 @@ class NoAccountText extends StatelessWidget {
           style: TextStyle(fontSize: getProportionateScreenWidth(16)),
         ),
         GestureDetector(
-          onTap: () => Navigator.pushNamed(context, SplashScreen.routeName),
+          onTap: () => Navigator.pushNamed(context, SignUpScreen.routeName),
           child: Text(
             "Đăng ký",
             style: TextStyle(
