@@ -66,14 +66,8 @@
 
       </div>
     </div>
-    <div class="card card-chart">
-      <div class="card-header">
-        <h5 class="card-title">Bình luận</h5>
-      </div>
-      <div class="card-body">
-        <p class="card-category">Hiển thị bình luận</p>
-      </div>
-    </div>
+ 
+    
   </div>
 
   <div class="col-md-4">
@@ -216,4 +210,23 @@
     </div>
   </div>
 
+</div>
+
+<div style="width: 100%; height: 200px; text-align:center;margin:0; padding:0;">
+  <ng-image-slider #nav
+    [images]="imageObject"
+    [infinite]="false"
+    [autoSlide]="1"
+    [imageSize]="{width: '20%', height: 200}"
+    slideImage="1"></ng-image-slider>
+</div>
+
+
+<div class="card card-chart">
+  <div class="card-header">
+    <h5 class="card-title">Bình luận</h5>
+  </div>
+  <div class="card-body">
+    <p class="card-category">Hiển thị bình luận</p>
+  </div>
 </div>

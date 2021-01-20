@@ -27,6 +27,7 @@ export class SalonViewComponent implements OnInit {
   selectServices: Array<Service> = [];
   total: number;
   strPhotos: any = new Array(10);
+  strCustomerPhotos: any = new Array();
   time = { hour: 13, minute: 30 };
   meridian = true;
   barbers: Array<Barber> = [];
@@ -35,6 +36,17 @@ export class SalonViewComponent implements OnInit {
   isLoggedIn = false;
   user: any;
   bookingTime = GlobalConstants.BookingTime;
+  // imageObject = [{
+  //   image: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/5.jpg',
+  //   thumbImage: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/5.jpg',
+  //   title: 'Hummingbirds are amazing creatures'
+  // }];
+  imageObject: any = new Array();
+  // object = {
+  //   image: '',
+  //   thumbImage: '',
+  //   title: '',
+  // }
 
   constructor(
     private route: ActivatedRoute,
@@ -79,6 +91,7 @@ export class SalonViewComponent implements OnInit {
             this.strPhotos[i] = environment.dbAddress + '/' + this.salon.photos[i];
           }
         }
+        this.getCustomerPhotos();
         // console.log(this.salon._barberId);
         for (let i = 0; i < this.salon._barberId.length; i++) {
           this.salonUtilService.getOneBarber(this.salon._barberId[i]).subscribe(
@@ -189,5 +202,22 @@ export class SalonViewComponent implements OnInit {
   close(): void {
     // close lightbox programmatically
     this._lightbox.close();
+  }
+
+  getCustomerPhotos(){
+    for (let i = 0; i < this.salon.customerPhotos.length; i++) {
+      if ((this.salon.customerPhotos[i] !== '') && (this.salon.customerPhotos[i] !== 'null')) {
+        this.strCustomerPhotos[i] = environment.dbAddress + '/' + this.salon.customerPhotos[i];
+        // console.log(this.object);
+        
+        this.imageObject.push({
+          image: this.strCustomerPhotos[i],
+          thumbImage: this.strCustomerPhotos[i],
+          // title: i,
+        });
+        // console.log(this.imageObject);
+      }
+    }
+    
   }
 }

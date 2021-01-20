@@ -69,6 +69,7 @@ import { RegisterListBecomeSalonOwnerComponent } from './pages/register-list-bec
 import { RegisterListBecomeDistributorComponent } from './pages/register-list-become-distributor/register-list-become-distributor.component';
 import { BarbersSalonListComponent } from './pages/barbers-salon-list/barbers-salon-list.component';
 import { AddNewBarberComponent } from './popup/add-new-barber/add-new-barber.component';
+import { NgImageSliderModule } from 'ng-image-slider';
 
 @NgModule({
   declarations: [
@@ -121,7 +122,7 @@ import { AddNewBarberComponent } from './popup/add-new-barber/add-new-barber.com
     ConfirmComponent,
     RegisterListBecomeSalonOwnerComponent,
     RegisterListBecomeDistributorComponent,
-    BarbersSalonListComponent,
+    BarbersSalonListComponent,    
   ],
   imports: [
     BrowserAnimationsModule,
@@ -141,6 +142,7 @@ import { AddNewBarberComponent } from './popup/add-new-barber/add-new-barber.com
     ReactiveFormsModule,
     DateTimePickerModule,
     AutocompleteLibModule,
+    NgImageSliderModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent],

@@ -147,7 +147,34 @@ export class SalonUtilsService {
     }
 
     return this.webService.patch( `salons/${salonId}`, fd);
-  }  
+  }
+
+  updateSalonCustomerPhotos(salon: Salon, files: File[]) {
+    let key;
+    const salonId: String  = salon._id;
+    const fd = new FormData();
+
+    for (let i = 0; i < files.length; i++) {
+      if (files[i]) {
+        fd.append('customerPhotos[]', files[i]);       
+      }
+    }
+
+    // tslint:disable-next-line: forin
+    for (key in salon) {      
+      if (key !== 'photos') {
+        fd.append(key, salon[key]);
+      }
+    }
+    for (let i = 0; i < salon.photos.length; i++) {
+      fd.append('photos[]', salon.photos[i]);
+    }
+    // for (let i = 0; i < salon.customerPhotos.length; i++) {
+    //   fd.append('customerPhotos[]', salon.customerPhotos[i]);
+    // }
+    
+    return this.webService.patch( `salons/${salonId}/addCustomerPhotos`, fd);
+  }
 
   // -- add new service for Salon
   addSalonService(salonId: String, service: Service) {

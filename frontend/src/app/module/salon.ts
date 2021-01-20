@@ -19,4 +19,5 @@ export default class Salon {
     numRate: number;
     photos: string[];
     _barberId: string[];
+    customerPhotos: string[];
 }

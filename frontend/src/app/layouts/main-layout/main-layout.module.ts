@@ -8,6 +8,7 @@ import { MainPageComponent } from '../../pages/main-page/main-page.component';
 import { SalonViewComponent } from '../../pages/salon-view/salon-view.component';
 import { LightboxModule } from 'ngx-lightbox';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { NgImageSliderModule } from 'ng-image-slider';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
     FormsModule,
     NgbModule,
     LightboxModule,
-    AutocompleteLibModule
+    AutocompleteLibModule,
+    NgImageSliderModule
   ],
   declarations: [
     // MainPageComponent,

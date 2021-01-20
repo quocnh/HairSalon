@@ -25,6 +25,7 @@ export class SalonEditComponent implements OnInit {
   deletedList: any = new Array(10);
   // selectedDetailSalonFiles:any = new Array(5);
   strPhotos: any = new Array(10);
+  strCustomerPhotos:any = new Array();
   // strDetailSalonPhotos:any = new Array(10);
   modifiedAddress: string;
 
@@ -91,6 +92,8 @@ export class SalonEditComponent implements OnInit {
       (salons: Salon) => {
         this.salon = Object.assign({}, salons[0]);
         this.salonDb = Object.assign({}, salons[0]);
+        this.strCustomerPhotos = [];
+        this.strPhotos = [];
         for (let i = 0; i < this.cities.length; i++){
           if (this.cities[i].name === this.salon.city){
             this.districts = this.cities[i].district;
@@ -101,6 +104,11 @@ export class SalonEditComponent implements OnInit {
         for (let i = 0; i < this.salon.photos.length; i++) {
           if ((this.salon.photos[i] !== '') && (this.salon.photos[i] !== 'null')) {
             this.strPhotos[i] = environment.dbAddress + '/' + this.salon.photos[i];
+          }
+        }
+        for (let i = 0; i < this.salon.customerPhotos.length; i++) {
+          if ((this.salon.customerPhotos[i] !== '') && (this.salon.customerPhotos[i] !== 'null')) {
+            this.strCustomerPhotos.push(environment.dbAddress + '/' + this.salon.customerPhotos[i]);
           }
         }
         console.log(this.salon);
@@ -199,9 +207,16 @@ export class SalonEditComponent implements OnInit {
               (salon: Salon) => {
                 this.salon = salon;
                 this.salonDb = salon;
+                this.strCustomerPhotos = [];
+                this.strPhotos = [];
                 for (let i = 0; i < this.salon.photos.length; i++) {
                   if ((this.salon.photos[i] !== '') && (this.salon.photos[i] !== 'null')) {
                     this.strPhotos[i] = environment.dbAddress + '/' + this.salon.photos[i];
+                  }
+                }
+                for (let i = 0; i < this.salon.customerPhotos.length; i++) {
+                  if ((this.salon.customerPhotos[i] !== '') && (this.salon.customerPhotos[i] !== 'null')) {
+                    this.strCustomerPhotos.push(environment.dbAddress + '/' + this.salon.customerPhotos[i]);
                   }
                 }
               }
@@ -215,9 +230,16 @@ export class SalonEditComponent implements OnInit {
           (salon: Salon) => {
             this.salon = salon;
             this.salonDb = salon;
+            this.strCustomerPhotos = [];
+            this.strPhotos = [];
             for (let i = 0; i < this.salon.photos.length; i++) {
               if ((this.salon.photos[i] !== '') && (this.salon.photos[i] !== 'null')) {
                 this.strPhotos[i] = environment.dbAddress + '/' + this.salon.photos[i];
+              }
+            }
+            for (let i = 0; i < this.salon.customerPhotos.length; i++) {
+              if ((this.salon.customerPhotos[i] !== '') && (this.salon.customerPhotos[i] !== 'null')) {
+                this.strCustomerPhotos.push(environment.dbAddress + '/' + this.salon.customerPhotos[i]);
               }
             }
           }
@@ -272,6 +294,25 @@ export class SalonEditComponent implements OnInit {
     //this.product.photos[idx] = 'null';
     this.deletedList[idx] = 1;
     this.flagUpdate = true;
+  }
+
+  onFileSelectedCustomerPhotos(event){
+    
+    this.selectedFiles[0] = event.target.files[0];
+    console.log(this.selectedFiles[0]);
+    this.salonUtilService.updateSalonCustomerPhotos(this.salon, this.selectedFiles).subscribe(
+      (salon: Salon) => {
+        this.salon = salon;
+        this.salonDb = salon;
+        this.strCustomerPhotos=[];
+        for (let i = 0; i < this.salon.customerPhotos.length; i++) {
+          if ((this.salon.customerPhotos[i] !== '') && (this.salon.customerPhotos[i] !== 'null')) {
+            this.strCustomerPhotos.push(environment.dbAddress + '/' + this.salon.customerPhotos[i]);
+          }
+        }
+      }
+    );
+    this.selectedFiles = [];
   }
 
 }

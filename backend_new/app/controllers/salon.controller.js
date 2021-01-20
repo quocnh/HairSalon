@@ -270,6 +270,39 @@ salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
 
 });
 
+
+salonRouter.patch('/:salonId/addCustomerPhotos', upload.array('customerPhotos[]', 10), (req, res) => {
+    var fs = require('fs');
+    var strPhotoPath = Array();
+
+    //for (i = 0; i < req.body.customerPhotos.length; i++) {
+    //    strPhotoPath.push(req.body.customerPhotos[i]);
+    //}
+    console.log(req.body.customerPhotos);
+    
+
+    if (req.files[0].path) {
+        strPhotoPath.push(req.files[0].path);
+        //console.log(i + ': ' + index);
+        // console.log(req.body.photos[index]);            
+    }  
+
+    console.log(strPhotoPath);
+    Salon.findOneAndUpdate({ '_id': req.params.salonId },
+        {
+            $push:
+            {
+                customerPhotos: strPhotoPath
+            },
+        },
+        { new: true })
+        .then(salon => {
+            res.send(salon);
+        })
+        .catch((error) => console.log(error));   
+
+});
+
 salonRouter.patch('/:salonId/addService', (req, res) => {
     
 
