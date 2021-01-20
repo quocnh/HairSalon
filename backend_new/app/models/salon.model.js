@@ -91,6 +91,10 @@ const SalonSchema = new mongoose.Schema({
     photos: [{
         type: String,
         require: [false, 'salon images']
+    }],
+    customerPhotos: [{
+        type: String,
+        require: [false, 'customer Photos']
     }]
 });
 
