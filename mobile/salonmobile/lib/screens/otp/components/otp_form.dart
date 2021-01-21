@@ -113,7 +113,7 @@ class _OtpFormState extends State<OtpForm> {
                     }
                     if (value.length == 1) {
                       pin4FocusNode.unfocus();
-                      // Then you need to check is the code is correct or not
+                      // Then we need to check is the code is correct or not
                     }
                   },
                 ),
