@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:salonmobile/components/custom_surfix_icon.dart';
 import 'package:salonmobile/components/default_button.dart';
 import 'package:salonmobile/components/form_error.dart';
-import 'package:salonmobile/screens/splash/splash_screen.dart';
+import 'package:salonmobile/screens/otp/otp_screen.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
@@ -52,7 +52,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
             text: "continue",
             press: () {
               if (_formKey.currentState.validate()) {
-                Navigator.pushNamed(context, SplashScreen.routeName);
+                Navigator.pushNamed(context, OtpScreen.routeName);
               }
             },
           ),
