@@ -271,25 +271,20 @@
     <div class="card card-chart">
       <div class="card-header">
         <h5 class="card-title">Hình ảnh khác</h5>
+        <button type="submit" class="btn btn-primary btn-round" (click)="customerPhotos.click()">Thêm hình ảnh</button>
+
+        <input #customerPhotos type="file" (change)="onFileSelectedCustomerPhotos($event)" style="display:none;" />
       </div>
       <div class="card-body">
+
         <div class="row">
-          <!-- <div class=" button btn-round" (click)="otherPhotos.click()" style="padding: 2px; margin:0"> -->
-            <div>
-            <button type="submit" class="btn btn-primary btn-round" (click)="customerPhotos.click()">Thêm hình ảnh</button>
-            
-            <input #customerPhotos type="file" (change)="onFileSelectedCustomerPhotos($event)"
-              style="display:none;" />
+          <div class="col-md-3 img-container" *ngFor="let s of strCustomerPhotos; let i = index">
+
+            <img src={{s}} style="width:20%">
+            <button class="btn btn-sm btn-info btn-round" (click)="deleteCustomerPhoto(i)"> Xóa </button>
+
           </div>
         </div>
-        <div class="row">
-        <div *ngFor="let s of strCustomerPhotos; let i = index">
-
-            <img src={{s}} style="width:20%"> 
-            <button class="btn btn-sm btn-info btn-round" (click)="deletePhoto(i)"> Xóa </button>
-
-        </div>
-      </div>
       </div>
     </div>
   </div>

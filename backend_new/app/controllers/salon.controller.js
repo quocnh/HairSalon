@@ -299,9 +299,40 @@ salonRouter.patch('/:salonId/addCustomerPhotos', upload.array('customerPhotos[]'
         .then(salon => {
             res.send(salon);
         })
+        .catch((error) => console.log(error));
+
+});
+
+salonRouter.patch('/:salonId/deleteCustomerPhotos',upload.array('customerPhotos[]', 10), (req, res) => {
+    var fs = require('fs');
+    var strPhotoPath = req.body.customerPhoto;
+    // console.log(strPhotoPath);
+    ////delete old file avatar
+    fs.exists(strPhotoPath, function (exists) {
+        if (exists) {
+            fs.unlink(strPhotoPath, (err) => {
+                if (err) throw err;
+                console.log(strPhotoPath + ' was deleted.');
+            });
+        }
+    });
+
+    Salon.findOneAndUpdate({ '_id': req.params.salonId },
+        {
+            $pull:
+            {
+                customerPhotos: strPhotoPath
+            },
+        },
+        { new: true })
+        .then(salon => {
+            res.send(salon);
+        })
         .catch((error) => console.log(error));   
 
 });
+
+
 
 salonRouter.patch('/:salonId/addService', (req, res) => {
     
