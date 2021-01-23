@@ -176,6 +176,14 @@ export class SalonUtilsService {
     return this.webService.patch( `salons/${salonId}/addCustomerPhotos`, fd);
   }
 
+  deleteCustomerPhotos(salonId: String, customerPhoto: string) {  
+    console.log(customerPhoto);  
+    const fd = new FormData();
+    fd.append('customerPhoto', customerPhoto);
+    console.log(fd);
+    return this.webService.patch( `salons/${salonId}/deleteCustomerPhotos`, fd);
+  }
+
   // -- add new service for Salon
   addSalonService(salonId: String, service: Service) {
     console.log('update service : ' + service.name + ' ' + service.price);

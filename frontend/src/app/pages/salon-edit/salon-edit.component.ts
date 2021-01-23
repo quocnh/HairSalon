@@ -315,4 +315,22 @@ export class SalonEditComponent implements OnInit {
     this.selectedFiles = [];
   }
 
+  deleteCustomerPhoto(idx){
+    console.log(this.salon.customerPhotos[idx]);
+
+
+    this.salonUtilService.deleteCustomerPhotos(this.salon._id, this.salon.customerPhotos[idx]).subscribe(
+      (salon: Salon) => {
+        this.salon = salon;
+        this.salonDb = salon;
+        this.strCustomerPhotos=[];
+        for (let i = 0; i < this.salon.customerPhotos.length; i++) {
+          if ((this.salon.customerPhotos[i] !== '') && (this.salon.customerPhotos[i] !== 'null')) {
+            this.strCustomerPhotos.push(environment.dbAddress + '/' + this.salon.customerPhotos[i]);
+          }
+        }
+      }
+    );
+  }
+
 }
