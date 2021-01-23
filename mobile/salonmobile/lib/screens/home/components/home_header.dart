@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:salonmobile/screens/home/components/icon_btn_with_counter.dart';
 import 'package:salonmobile/screens/home/components/search_field.dart';
-import 'package:salonmobile/screens/splash/splash_screen.dart';
+import 'package:salonmobile/screens/otp/otp_screen.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
 class HomeHeader extends StatelessWidget {
@@ -20,7 +20,7 @@ class HomeHeader extends StatelessWidget {
           SearchField(),
           IconBtnWithCounter(
             svgSrc: "assets/icons/Cart Icon.svg",
-            press: () => Navigator.pushNamed(context, SplashScreen.routeName),
+            press: () => Navigator.pushNamed(context, OtpScreen.routeName),
             // press: () => Navigator.pushNamed(context, CartScreen.routeName),
           ),
           IconBtnWithCounter(
