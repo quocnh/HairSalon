@@ -4,6 +4,7 @@ import 'package:salonmobile/screens/home/home_screen.dart';
 import 'package:salonmobile/screens/otp/otp_screen.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/enums.dart';
+import 'package:salonmobile/utils/show_toast.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   const CustomBottomNavBar({
@@ -49,7 +50,7 @@ class CustomBottomNavBar extends StatelessWidget {
               ),
               IconButton(
                 icon: SvgPicture.asset("assets/icons/Heart Icon.svg"),
-                onPressed: () {},
+                onPressed: () => showToast(context, text: 'Added to favorite'),
               ),
               IconButton(
                 icon: SvgPicture.asset("assets/icons/Chat bubble Icon.svg"),

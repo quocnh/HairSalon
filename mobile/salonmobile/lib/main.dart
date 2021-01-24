@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:salonmobile/routes.dart';
+import 'package:salonmobile/screens/home/home_screen.dart';
 import 'package:salonmobile/screens/otp/otp_screen.dart';
 import 'package:salonmobile/screens/splash/splash_screen.dart';
 import 'package:salonmobile/utils/app_localizations.dart';
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
       // home: SplashScreen(),
       // use routeName so that we dont need to remember the name
       initialRoute: SplashScreen.routeName,
-      // initialRoute: OtpScreen.routeName,
+      // initialRoute: HomeScreen.routeName,
       routes: routes,
     );
   }
