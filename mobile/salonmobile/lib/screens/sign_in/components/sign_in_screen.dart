@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:salonmobile/components/custom_surfix_icon.dart';
 import 'package:salonmobile/components/default_button.dart';
 import 'package:salonmobile/components/form_error.dart';
+import 'package:salonmobile/helper/keyboard.dart';
 import 'package:salonmobile/screens/forgot_password/forgot_password_screen.dart';
+import 'package:salonmobile/screens/home/home_screen.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
@@ -42,7 +44,7 @@ class _SignFormState extends State<SignForm> {
           SizedBox(height: getProportionateScreenHeight(30)),
           buildPasswordFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
-          FormError(errors: errors),
+          // FormError(errors: errors),
           Row(
             children: [
               Checkbox(
@@ -66,11 +68,16 @@ class _SignFormState extends State<SignForm> {
               )
             ],
           ),
+          FormError(errors: errors),
+          SizedBox(height: getProportionateScreenHeight(20)),
           DefaultButton(
             text: "Tiếp tục",
             press: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
+                // if all are valid then go to success screen
+                KeyboardUtil.hideKeyboard(context);
+                Navigator.pushNamed(context, HomeScreen.routeName);
               }
             },
           ),
