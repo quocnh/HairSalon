@@ -6,6 +6,8 @@ import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/enums.dart';
 import 'package:salonmobile/utils/show_toast.dart';
 
+import 'package:fluttertoast/fluttertoast.dart';
+
 class CustomBottomNavBar extends StatelessWidget {
   const CustomBottomNavBar({
     Key key,
@@ -54,7 +56,14 @@ class CustomBottomNavBar extends StatelessWidget {
               ),
               IconButton(
                 icon: SvgPicture.asset("assets/icons/Chat bubble Icon.svg"),
-                onPressed: () {},
+                onPressed: () => Fluttertoast.showToast(
+                    msg: "This is Center Short Toast",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.red[200],
+                    textColor: Colors.white,
+                    fontSize: 16.0),
               ),
               IconButton(
                 icon: SvgPicture.asset(
