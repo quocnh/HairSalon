@@ -18,6 +18,7 @@ class CustomBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentRoute = ModalRoute.of(context).settings.name;
     final Color inActiveIconColor = Color(0xFFB6B6B6);
     return Container(
       padding: EdgeInsets.symmetric(vertical: 14),
@@ -47,8 +48,14 @@ class CustomBottomNavBar extends StatelessWidget {
                       ? kPrimaryColor
                       : inActiveIconColor,
                 ),
-                onPressed: () =>
-                    Navigator.popAndPushNamed(context, HomeScreen.routeName),
+                onPressed: () {
+                  if (currentRoute != null &&
+                      currentRoute != HomeScreen.routeName) {
+                    Navigator.of(context).pushNamed(HomeScreen.routeName);
+                  }
+                },
+                // onPressed: () =>
+                // Navigator.pushNamed(context, HomeScreen.routeName),
               ),
               IconButton(
                 icon: SvgPicture.asset("assets/icons/Heart Icon.svg"),
@@ -61,7 +68,7 @@ class CustomBottomNavBar extends StatelessWidget {
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.CENTER,
                     timeInSecForIosWeb: 1,
-                    backgroundColor: Colors.red[200],
+                    backgroundColor: Colors.red,
                     textColor: Colors.white,
                     fontSize: 16.0),
               ),
