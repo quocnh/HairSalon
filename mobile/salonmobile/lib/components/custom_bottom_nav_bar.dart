@@ -5,6 +5,7 @@ import 'package:salonmobile/screens/otp/otp_screen.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/enums.dart';
 import 'package:salonmobile/utils/show_toast.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   const CustomBottomNavBar({
