@@ -49,6 +49,7 @@ class CustomBottomNavBar extends StatelessWidget {
                       : inActiveIconColor,
                 ),
                 onPressed: () {
+                  print(currentRoute);
                   if (currentRoute != null &&
                       currentRoute != HomeScreen.routeName) {
                     Navigator.of(context).pushNamed(HomeScreen.routeName);
@@ -77,16 +78,20 @@ class CustomBottomNavBar extends StatelessWidget {
                     fontSize: 16.0),
               ),
               IconButton(
-                icon: SvgPicture.asset(
-                  "assets/icons/User Icon.svg",
-                  color: MenuState.profile == selectedMenu
-                      ? kPrimaryColor
-                      : inActiveIconColor,
-                ),
-                onPressed: () =>
-                    Navigator.pushNamed(context, ProfileScreen.routeName),
-                // Navigator.pushNamed(context, OtpScreen.routeName),
-              ),
+                  icon: SvgPicture.asset(
+                    "assets/icons/User Icon.svg",
+                    color: MenuState.profile == selectedMenu
+                        ? kPrimaryColor
+                        : inActiveIconColor,
+                  ),
+                  onPressed: () {
+                    print(currentRoute);
+                    // Navigator.of(context)
+                    //     .popAndPushNamed(ProfileScreen.routeName);
+                    if (currentRoute != ProfileScreen.routeName) {
+                      Navigator.of(context).pushNamed(ProfileScreen.routeName);
+                    }
+                  }),
             ],
           )),
     );
