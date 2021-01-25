@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:salonmobile/screens/complete_profile/complete_profile_screen.dart';
+import 'package:salonmobile/screens/detail_product/detail_product_screen.dart';
 import 'package:salonmobile/screens/forgot_password/forgot_password_screen.dart';
 import 'package:salonmobile/screens/home/home_screen.dart';
 import 'package:salonmobile/screens/otp/otp_screen.dart';
@@ -15,5 +16,6 @@ final Map<String, WidgetBuilder> routes = {
   SignUpScreen.routeName: (context) => SignUpScreen(),
   CompleteProfileScreen.routeName: (context) => CompleteProfileScreen(),
   OtpScreen.routeName: (context) => OtpScreen(),
-  HomeScreen.routeName: (context) => HomeScreen()
+  HomeScreen.routeName: (context) => HomeScreen(),
+  DetailProductScreen.routeName: (context) => DetailProductScreen(),
 };

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:salonmobile/models/Product.dart';
+import 'package:salonmobile/screens/detail_product/detail_product_screen.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
@@ -22,11 +23,11 @@ class ProductCard extends StatelessWidget {
       child: SizedBox(
         width: getProportionateScreenWidth(width),
         child: GestureDetector(
-          // onTap: () => Navigator.pushNamed(
-          //   context,
-          //   DetailsScreen.routeName,
-          //   arguments: ProductDetailsArguments(product: product),
-          // ),
+          onTap: () => Navigator.pushNamed(
+            context,
+            DetailProductScreen.routeName,
+            arguments: ProductDetailsArguments(product: product),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
