@@ -28,7 +28,7 @@ export const AdminLayoutRoutes: Routes = [
 
     { path: '',      component: SalonsListViewComponent },
     // { path: 'dashboard',      component: DashboardComponent },
-    // { path: 'profile',           component: UserComponent },
+    // { path: 'profile2',           component: UserComponent },
     // { path: 'table',          component: TableComponent },
     // { path: 'typography',     component: TypographyComponent },
     // { path: 'icons',          component: IconsComponent },

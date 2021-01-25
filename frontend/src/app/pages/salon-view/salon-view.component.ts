@@ -11,6 +11,9 @@ import { environment } from 'environments/environment';
 import { TokenStorageService } from 'app/_services/token-storage.service';
 import { GlobalConstants } from 'app/module/global-constants';
 import { ConfirmComponent } from 'app/popup/confirm/confirm.component';
+import Comment from '../../module/comment';
+import Customer from 'app/module/customer';
+import User from 'app/module/user';
 
 @Component({
   selector: 'app-salon-view',
@@ -32,6 +35,8 @@ export class SalonViewComponent implements OnInit {
   meridian = true;
   barbers: Array<Barber> = [];
   booking: Booking = new Booking();
+  newComment: Comment = new Comment();
+  comments: Comment[] = new Array();
 
   isLoggedIn = false;
   user: any;
@@ -73,6 +78,7 @@ export class SalonViewComponent implements OnInit {
       this.salonId = params.salonId;
       if (this.salonId) {
         this.getSalonInfo(this.salonId);
+        this.getAllComment(this.salonId);
       }
     });
     this.modelDob = {
@@ -102,6 +108,52 @@ export class SalonViewComponent implements OnInit {
         }
         console.log(this.salon);
       });
+  }
+
+  getAllComment(salonId) {
+    this.comments = [];
+    this.salonUtilService.getComments(salonId).subscribe(
+      (comments: any) => {
+        for(var i = 0; i < comments.length; i++) {
+          //console.log(comments[i].userId);
+          
+          // this.comments.push(tmpComment);
+          // var idx = i;
+          this.createComment(comments[i].userId, comments[i]).then(data => {
+            
+            // console.log(idx + ':' + data);
+            this.comments.push(data);
+            
+          });
+        }
+        console.log(comments);
+      });
+  }
+
+  async createComment(userId: string, comment:any): Promise<Comment> {
+    let retCustomer = new Customer;
+    await this.salonUtilService.getOneCustomerFromUserId(userId)
+    .toPromise()
+    .then(
+    (customer: Customer[]) => {        
+      if (customer.length > 0) {
+        return customer[0];  
+      }
+      return new Customer;
+    }).then(data => retCustomer = data);
+
+    let tmpComment = new Comment();
+    tmpComment.salon = new Salon();
+    tmpComment.user = new User();
+    tmpComment.user.username = retCustomer.username;
+    tmpComment.salon._id = comment.salonId;
+    tmpComment.user._id = comment.userId;
+    tmpComment.content = comment.content;
+    tmpComment.avatar = '../../assets/img/default-avatar.png';
+    tmpComment.createdDate = comment.createdDate;
+
+    console.log(tmpComment);
+    return tmpComment;
   }
 
   reserveService() {
@@ -220,4 +272,31 @@ export class SalonViewComponent implements OnInit {
     }
     
   }
+
+  addNewComment(){
+    console.log(this.newComment.content);
+
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+    if (this.isLoggedIn) {
+      this.user = this.tokenStorageService.getUser();
+      console.log(this.user);
+    } else {
+      // Not login yet
+      return;
+    }
+
+    this.newComment.salon = new Salon();
+    this.newComment.user = new User();
+    this.newComment.salon._id = this.salonId;
+    this.newComment.user._id = this.user.id;    
+    this.salonUtilService.addNewComment(this.newComment).subscribe(
+      (comemnt: Comment) => {
+        console.log(comemnt);
+        this.getAllComment(this.salonId);
+        this.newComment.content = '';
+      });
+  }
+
+
+  
 }

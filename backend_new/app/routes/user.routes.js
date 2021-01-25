@@ -19,6 +19,7 @@ const barberRoutes = require('../controllers/barber.controller');
 const bookingRoutes = require('../controllers/booking.controller');
 const productRoutes = require('../controllers/product.controller');
 const productOrderRoutes = require('../controllers/productOrder.controller');
+const commentRoutes = require('../controllers/comment.controller');
 //const passport = require("passport");
 
 //require("./utils/passport")(passport);
@@ -54,6 +55,12 @@ module.exports = function (app) {
         [authJwt.verifyToken, authJwt.isDistributor],
         controller.distributorBoard
     );
+
+    app.get(
+        "/api/user/getUser/:userId",
+        [],
+        controller.getUser
+    );
        
     // app.post("/api/salon-owner/new-obj", becomeSalonOwnerController.createObj);
         
@@ -65,6 +72,7 @@ module.exports = function (app) {
     app.use('/bookings',        bookingRoutes);
     app.use('/products',        productRoutes);
     app.use('/productOrder',    productOrderRoutes);
+    app.use('/comments',        commentRoutes);
 
 
     app.use(express.json());

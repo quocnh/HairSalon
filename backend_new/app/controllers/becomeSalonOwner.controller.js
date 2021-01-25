@@ -6,7 +6,7 @@ const Role = db.role;
 const SalonOwner = db.salonOwner;
 
 exports.createObj = (req, res) => {
-    console.log("TEST1: ", req.body._userId);
+    console.log("TEST1: ", req.body);
     const becomeSalonOwner = new BecomeSalonOwner({
         _userId: req.body._userId,
         username: req.body.username,

@@ -4,7 +4,7 @@
 // – /api/test/user for loggedin users (any role)
 // – /api/test/mod for moderator users
 // – /api/test/admin for admin users
-
+const User = require('../models/user.model');
 
 exports.allAccess = (req, res) => {
     res.status(200).send("Public Content.");
@@ -24,4 +24,11 @@ exports.salonOwnerBoard = (req, res) => {
 
 exports.distributorBoard = (req, res) => {
     res.status(200).send("Distributor Content.");
+};
+
+exports.getUser = (req, res) => {
+    // console.log(req.params.userId);
+    User.find({ _id: req.params.userId })
+        .then(user => res.send(user))
+        .catch((error) => console.log(error));
 };

@@ -11,7 +11,7 @@ import Product from './module/product';
 import productOrder from './module/productOrder';
 import SalonOwner from './module/salonOwner';
 import Distributor from './module/distributor';
-import becomeSalonOwner from './module/becomeSalonOwner';
+import Comment from './module/comment';
 @Injectable({
   providedIn: 'root'
 })
@@ -463,6 +463,11 @@ export class SalonUtilsService {
     return this.webService.post(`api/users/register-customer`, fd);
   }
 
+  getUser(userId : string) {
+    // console.log(userId);
+    return this.webService.get(`api/user/getUser/${userId}`);
+  }
+
   // -- Product Order >>>>>  
   createNewProductOrder(pOrder: productOrder) {
     const fd = new FormData();
@@ -501,5 +506,19 @@ export class SalonUtilsService {
   //   // console.log('totalPrice : ' + becomeSalonOwnerObj.totalPrice);
   //   return this.webService.post( `productOrder`, fd);
   // }
+
+  // Comment 
+  addNewComment(newComment:Comment) {
+    const fd = new FormData();
+    fd.append('salonId', newComment.salon._id);
+    fd.append('userId', newComment.user._id);
+    fd.append('content', newComment.content);
+
+    return this.webService.post( `comments`, fd);
+  }
+
+  getComments(salonId: string) {
+    return this.webService.get(`comments/salon/${salonId}`);
+  }
 
 }
