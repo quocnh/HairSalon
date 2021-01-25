@@ -57,6 +57,10 @@ class CustomBottomNavBar extends StatelessWidget {
                 // onPressed: () =>
                 // Navigator.pushNamed(context, HomeScreen.routeName),
               ),
+              // IconButton(
+              //   icon: SvgPicture.asset("assets/icons/Location point.svg"),
+              //   onPressed: () => showToast(context, text: 'Added to favorite'),
+              // ),
               IconButton(
                 icon: SvgPicture.asset("assets/icons/Heart Icon.svg"),
                 onPressed: () => showToast(context, text: 'Added to favorite'),
