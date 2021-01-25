@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:salonmobile/screens/home/home_screen.dart';
-import 'package:salonmobile/screens/otp/otp_screen.dart';
+import 'package:salonmobile/screens/profile/profile_screen.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/enums.dart';
 import 'package:salonmobile/utils/show_toast.dart';
@@ -84,8 +84,8 @@ class CustomBottomNavBar extends StatelessWidget {
                       : inActiveIconColor,
                 ),
                 onPressed: () =>
-                    // Navigator.pushNamed(context, ProfileScreen.routeName),
-                    Navigator.pushNamed(context, OtpScreen.routeName),
+                    Navigator.pushNamed(context, ProfileScreen.routeName),
+                // Navigator.pushNamed(context, OtpScreen.routeName),
               ),
             ],
           )),

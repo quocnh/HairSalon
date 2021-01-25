@@ -4,6 +4,7 @@ import 'package:salonmobile/screens/detail_product/detail_product_screen.dart';
 import 'package:salonmobile/screens/forgot_password/forgot_password_screen.dart';
 import 'package:salonmobile/screens/home/home_screen.dart';
 import 'package:salonmobile/screens/otp/otp_screen.dart';
+import 'package:salonmobile/screens/profile/profile_screen.dart';
 import 'package:salonmobile/screens/sign_in/sign_in_screen.dart';
 import 'package:salonmobile/screens/sign_up/sign_up_screen.dart';
 import 'package:salonmobile/screens/splash/splash_screen.dart';
@@ -18,4 +19,5 @@ final Map<String, WidgetBuilder> routes = {
   OtpScreen.routeName: (context) => OtpScreen(),
   HomeScreen.routeName: (context) => HomeScreen(),
   DetailProductScreen.routeName: (context) => DetailProductScreen(),
+  ProfileScreen.routeName: (context) => ProfileScreen(),
 };
