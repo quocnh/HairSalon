@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { SalonUtilsService } from '../../salon-utils.service';
-import Customer from '../../module/customer';
 import { HttpClient } from '@angular/common/http';
 import { NgbDateStruct, NgbDateParserFormatter, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'environments/environment';
@@ -18,17 +17,10 @@ import { TokenStorageService } from 'app/_services/token-storage.service';
 
 export class UserComponent implements OnInit {
     userId: string;
-    // customerDb: Customer = new Customer();
-    // customer: Customer = new Customer();
     userDb: User = new User();
     user: User = new User();
 
     strAvatar: any;
-    // genders = [
-    //     {value: 'Nam'},
-    //     {value: 'Nữ'},
-    //     {value: 'Khác'}
-    // ];
     genders = GlobalConstants.Genders;
 
     selectedFile: File = null;

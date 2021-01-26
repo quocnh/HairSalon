@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import Customer from 'app/module/customer';
-import { SalonUtilsService } from 'app/salon-utils.service';
 import { BecomeDistributorService } from 'app/_services/become-distributor.service';
 import { BecomeSalonOwnerService } from 'app/_services/become-salon-owner.service';
 import { TokenStorageService } from 'app/_services/token-storage.service';

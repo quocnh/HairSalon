@@ -153,8 +153,6 @@ export class SalonOwnerProfileComponent implements OnInit {
             }
         );
 
-    } else {
-        // console.log('Giong' + JSON.stringify(this.customerDb) + '---' + JSON.stringify(this.customer));
     }
   }
 

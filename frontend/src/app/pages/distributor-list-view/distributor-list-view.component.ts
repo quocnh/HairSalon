@@ -66,7 +66,6 @@ export class DistributorListViewComponent implements OnInit {
   // --- Autocomplete Code -------------------------
 
   createNewDistributor() {
-    // TODO: Implement create new customer form popup
     const ref = this.modalService.open(AddNewDistributorComponent);
 
     ref.result.then((result) => {

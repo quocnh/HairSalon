@@ -89,8 +89,6 @@ export class ProductDetailEditComponent implements OnInit {
             () => // refresh page
             this.refreshProductProfile(this.productId)
         );
-    } else {
-        // console.log('Giong' + JSON.stringify(this.customerDb) + '---' + JSON.stringify(this.customer));
     }
     this.deletedList.fill(0);
   }

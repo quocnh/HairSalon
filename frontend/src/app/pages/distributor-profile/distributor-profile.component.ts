@@ -115,8 +115,6 @@ export class DistributorProfileComponent implements OnInit {
             (distributor:Distributor) => this.refreshProfile(distributor._id)
         );
 
-    } else {
-        // console.log('Giong' + JSON.stringify(this.customerDb) + '---' + JSON.stringify(this.customer));
     }
   }
 
