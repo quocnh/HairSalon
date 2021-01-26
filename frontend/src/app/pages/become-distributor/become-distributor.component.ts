@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import Customer from 'app/module/customer';
-import Distributor from 'app/module/distributor';
 import User from 'app/module/user';
 import { SalonUtilsService } from 'app/salon-utils.service';
 import { BecomeDistributorService } from 'app/_services/become-distributor.service';

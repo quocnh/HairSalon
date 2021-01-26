@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import Customer from '../../module/customer';
+import User from '../../module/user';
 import Barber from '../../module/barber';
 import Salon from '../../module/salon';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
@@ -17,7 +17,7 @@ import { TokenStorageService } from 'app/_services/token-storage.service';
 export class AddNewCustomerComponent implements OnInit {
   @Input() 
   public objectName;
-  public customer: Customer = new Customer();
+  public customer: User = new User();
   public barber: Barber = new Barber();
 
   salons: Salon[];
@@ -100,7 +100,7 @@ export class AddNewCustomerComponent implements OnInit {
 
   addNewObject() {
     if (this.objectName === 'customer') {
-      this.customer.dob = this.ngbDateParserFormatter.format(this.modelDob);
+      this.customer.dob = new Date(this.modelDob.year, this.modelDob.month-1, this.modelDob.day, 0, 0, 0, 0);
       this.customer.username = this.username;
       this.customer.firstname = this.firstname;
       this.customer.lastname = this.lastname;

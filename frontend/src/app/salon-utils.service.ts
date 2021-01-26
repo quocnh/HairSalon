@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { WebService } from './web.service';
-import Customer from './module/customer';
+// import Customer from './module/customer';
 import User from './module/user';
 import Salon from './module/salon';
 import Barber from './module/barber';
@@ -199,7 +199,7 @@ export class SalonUtilsService {
     console.log('update service at ' + index + ': ' + service.name + ' ' + service.price);
     return this.webService.patch( `salons/${salonId}/updateService/${index}`, service);
   }
-
+/*
   // Customer
   getCustomers() {
     return this.webService.get(`customers`);
@@ -245,7 +245,7 @@ export class SalonUtilsService {
   deleteCustomers(customerId: string) {
     return this.webService.delete(`customers/${customerId}`);
   }
-
+*/
   // barber
   getBarbers() {
     return this.webService.get(`barbers`);
@@ -466,6 +466,21 @@ export class SalonUtilsService {
   getUser(userId : string) {
     // console.log(userId);
     return this.webService.get(`api/user/getUser/${userId}`);
+  }
+
+  deleteUser(userId : string) {
+    // console.log(userId);
+    return this.webService.get(`api/user/deleteUser/${userId}`);
+  }
+
+  getAllUser() {
+    // console.log(userId);
+    return this.webService.get(`api/user/getAllUser`);
+  }
+
+  getAllCustomer() {
+    // console.log(userId);
+    return this.webService.get(`api/user/getAllCustomer`);
   }
 
   updateUserProfile(userId: string, user: User, file: File) {

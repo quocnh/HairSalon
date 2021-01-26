@@ -5,7 +5,9 @@
 // – /api/test/mod for moderator users
 // – /api/test/admin for admin users
 const { user } = require('../models');
-const User = require('../models/user.model');
+const db = require("../models");
+const User = db.user;
+const Role = db.role;
 const multer = require('multer');
 var express = require('express');
 var userRouter = express.Router();
@@ -65,6 +67,41 @@ exports.distributorBoard = (req, res) => {
 userRouter.get('/getUser/:userId', (req, res) => {
     // // console.log(req.params.userId);
     User.find({ _id: req.params.userId })
+        .then(user => res.send(user))
+        .catch((error) => console.log(error));
+});
+
+userRouter.get('/getAllUser', (req, res) => {
+    // // console.log(req.params.userId);
+    User.find({})
+        .then(users => res.send(users))
+        .catch((error) => console.log(error));
+});
+
+userRouter.get('/getAllCustomer', (req, res) => {
+    // // console.log(req.params.userId);
+    Role.find(
+        {
+            name: 'user'
+        },
+        (err, roles) => {
+            if (err) {
+                res.status(500).send({ message: err });
+                return;
+            }
+
+            userRoles = roles.map(role => role._id);
+            // console.log(userRoles);
+
+            User.find({roles : [userRoles]})
+            .then(users => res.send(users))
+            .catch((error) => console.log(error));
+        });
+    
+});
+
+userRouter.delete('/deleteUser/:userId', (req, res) => {
+    Customer.findByIdAndDelete(req.params.userId)
         .then(user => res.send(user))
         .catch((error) => console.log(error));
 });
