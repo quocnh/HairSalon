@@ -13,10 +13,10 @@
               <input #fileInput type="file" (change)="onFileSelected($event)" style="display:none;" />
             </button>
 
-            <h5 class="title">{{ customerDb.firstname }} {{ customerDb.lastname }}</h5>
+            <h5 class="title">{{ userDb.firstname }} {{ userDb.lastname }}</h5>
           </a>
           <p class="description">
-            @{{ customerDb.username }}
+            @{{ userDb.username }}
           </p>
         </div>
       </div>
@@ -59,14 +59,14 @@
             <div class="col-md-4 pr-1">
               <div class="form-group">
                 <label>Username</label>
-                <input type="text" class="form-control" disabled="" placeholder="username" value="{{ customer.username }}">
+                <input type="text" class="form-control" disabled="" placeholder="username" value="{{ user.username }}">
               </div>
             </div>
             
             <div class="col-md-8 pl-1">
               <div class="form-group">
                 <label for="exampleInputEmail1">Email</label>
-                <input type="email" class="form-control" placeholder="Email" value="{{ customer.email }}" [(ngModel)]="customer.email" [ngModelOptions]="{standalone: true}">
+                <input type="email" class="form-control" placeholder="Email" value="{{ user.email }}" [(ngModel)]="user.email" [ngModelOptions]="{standalone: true}">
               </div>
             </div>
           </div>
@@ -74,13 +74,13 @@
             <div class="col-md-6 pr-1">
               <div class="form-group">
                 <label>Họ</label>
-                <input type="text" class="form-control" placeholder="Last Name" value="{{ customer.lastname }}" [(ngModel)]="customer.lastname" [ngModelOptions]="{standalone: true}">
+                <input type="text" class="form-control" placeholder="Last Name" value="{{ user.lastname }}" [(ngModel)]="user.lastname" [ngModelOptions]="{standalone: true}">
               </div>
             </div>
             <div class="col-md-6 px-1">
               <div class="form-group">
                 <label>Tên</label>
-                <input type="text" class="form-control" placeholder="First Name" value= "{{ customer.firstname }}" [(ngModel)]="customer.firstname" [ngModelOptions]="{standalone: true}">
+                <input type="text" class="form-control" placeholder="First Name" value= "{{ user.firstname }}" [(ngModel)]="user.firstname" [ngModelOptions]="{standalone: true}">
               </div>
             </div>
             
@@ -90,7 +90,7 @@
               <div class="form-group">
                 <label>Ngày sinh</label>
 
-                  <input class="form-control" placeholder="{{ customer.dob | date: 'dd/MM/yyyy'}}" name="dp" [(ngModel)]="modelDob" value="{{ customer.dob | date: 'dd/MM/yyyy'}}" ngbDatepicker
+                  <input class="form-control" placeholder="{{ user.dob | date: 'dd/MM/yyyy'}}" name="dp" [(ngModel)]="modelDob" value="{{ user.dob | date: 'dd/MM/yyyy'}}" ngbDatepicker
                     [footerTemplate]="footerTemplate" 
                     #d="ngbDatepicker" 
                     [minDate]="{year: 1920, month: 1, day: 1}" [maxDate]="today"
@@ -107,15 +107,15 @@
             <div class="col-md-5 px-1">
               <div class="form-group">
                 <label for="exampleInputEmail1">Số điện thoại</label>
-                <input type="email" class="form-control" placeholder="Phone number" value="{{customer.phone}}" [(ngModel)]="customer.phone" name="phone">
+                <input type="email" class="form-control" placeholder="Phone number" value="{{user.phone}}" [(ngModel)]="user.phone" name="phone">
               </div>
             </div>
             <div class="col-md-2 pl-1">
               <div class="form-group">
                 <label>Giới Tính </label>
-                <select input type="text" class="form-control"  [(ngModel)]="customer.gender" [ngModelOptions]="{standalone: true}">
-                  <option [selected]="customer.gender == 'customer.gender' " *ngFor="let gender of genders">
-                    {{gender.value}}
+                <select input type="text" class="form-control"  [(ngModel)]="user.gender" [ngModelOptions]="{standalone: true}">
+                  <option [selected]="user.gender == 'user.gender' " *ngFor="let gender of genders">
+                    {{gender}}
                   </option>
                 </select>
               </div>
@@ -125,7 +125,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label>Địa chỉ</label>
-                <input type="text" class="form-control" placeholder="Home Address" value="{{ customer.address }}" [(ngModel)]="customer.address" [ngModelOptions]="{standalone: true}">
+                <input type="text" class="form-control" placeholder="Home Address" value="{{ user.address }}" [(ngModel)]="user.address" [ngModelOptions]="{standalone: true}">
               </div>
             </div>
           </div>
@@ -134,10 +134,10 @@
               <div class="form-group">
                 <label class="label">Thành phố</label>
                 <div class="input--style-1">
-                  <ng-autocomplete [data]="cities" [searchKeyword]="keyword" [initialValue]="customer.city" placeHolder="Thành Phố"
+                  <ng-autocomplete [data]="cities" [searchKeyword]="keyword" [initialValue]="user.city" placeHolder="Thành Phố"
                     (selected)='selectCityEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
                     [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" 
-                    (inputCleared)="handleCityEmptyInput()" [(ngModel)]="customer.city" [ngModelOptions]="{standalone: true}">
+                    (inputCleared)="handleCityEmptyInput()" [(ngModel)]="user.city" [ngModelOptions]="{standalone: true}">
             
                   </ng-autocomplete>
             
@@ -155,10 +155,10 @@
               <div class="form-group">
                 <label class="label">Quận</label>
                 <div class="input--style-1">
-                  <ng-autocomplete [data]="districts" [searchKeyword]="keyword" [initialValue]="customer.district" placeHolder="Quận"
+                  <ng-autocomplete [data]="districts" [searchKeyword]="keyword" [initialValue]="user.district" placeHolder="Quận"
                     (selected)='selectDistrictEvent($event)' (inputChanged)='onChangeSearch($event)'
                     (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
-                    (inputCleared)="handleDistrictEmptyInput()" [(ngModel)]="customer.district" [ngModelOptions]="{standalone: true}">
+                    (inputCleared)="handleDistrictEmptyInput()" [(ngModel)]="user.district" [ngModelOptions]="{standalone: true}">
                   </ng-autocomplete>
             
                   <ng-template #itemTemplate let-item>
@@ -176,7 +176,7 @@
           
           <div class="row">
             <div class="update ml-auto mr-auto">
-              <button type="submit" class="btn btn-primary btn-round" (click)="updateCustomerProfile()">Cập nhật</button>
+              <button type="submit" class="btn btn-primary btn-round" (click)="updateUserProfile()">Cập nhật</button>
             </div>
           </div>
         </form>

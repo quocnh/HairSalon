@@ -106,7 +106,7 @@ export class SalonViewComponent implements OnInit {
               // console.log(this.barbers);
             });
         }
-        console.log(this.salon);
+        // console.log(this.salon);
       });
   }
 
@@ -116,43 +116,45 @@ export class SalonViewComponent implements OnInit {
       (comments: any) => {
         for(var i = 0; i < comments.length; i++) {
           //console.log(comments[i].userId);
-          
-          // this.comments.push(tmpComment);
-          // var idx = i;
           this.createComment(comments[i].userId, comments[i]).then(data => {
-            
             // console.log(idx + ':' + data);
             this.comments.push(data);
             
           });
         }
-        console.log(comments);
+        // console.log(comments);
       });
   }
 
   async createComment(userId: string, comment:any): Promise<Comment> {
-    let retCustomer = new Customer;
-    await this.salonUtilService.getOneCustomerFromUserId(userId)
+    let retUser = new User;
+    await this.salonUtilService.getUser(userId)
     .toPromise()
     .then(
-    (customer: Customer[]) => {        
-      if (customer.length > 0) {
-        return customer[0];  
+    (user: User[]) => {        
+      if (user.length > 0) {
+        return user[0];  
       }
-      return new Customer;
-    }).then(data => retCustomer = data);
+      return new User;
+    }).then(data => retUser = data);
 
     let tmpComment = new Comment();
     tmpComment.salon = new Salon();
     tmpComment.user = new User();
-    tmpComment.user.username = retCustomer.username;
+    tmpComment.user.username = retUser.username;
     tmpComment.salon._id = comment.salonId;
     tmpComment.user._id = comment.userId;
     tmpComment.content = comment.content;
-    tmpComment.avatar = '../../assets/img/default-avatar.png';
+    if ((retUser.avatar !== null) && (retUser.avatar !== undefined)) {
+      tmpComment.avatar = environment.dbAddress + '/' + retUser.avatar;
+    }
+    else {
+      tmpComment.avatar = '../../assets/img/default-avatar.png';
+    }
+    
     tmpComment.createdDate = comment.createdDate;
 
-    console.log(tmpComment);
+    // console.log(tmpComment);
     return tmpComment;
   }
 

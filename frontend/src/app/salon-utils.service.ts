@@ -468,6 +468,22 @@ export class SalonUtilsService {
     return this.webService.get(`api/user/getUser/${userId}`);
   }
 
+  updateUserProfile(userId: string, user: User, file: File) {
+    const fd = new FormData();
+    let key;
+    if (file) {
+      fd.append('avatar', file, file.name);
+      console.log('update Customer : ' + userId + file.name);
+    }
+    // console.log(user);
+
+    // tslint:disable-next-line: forin
+    for (key in user) {
+      fd.append(key, user[key]);
+    }
+    return this.webService.patch( `api/user/update/${userId}`, fd);
+  }
+
   // -- Product Order >>>>>  
   createNewProductOrder(pOrder: productOrder) {
     const fd = new FormData();
