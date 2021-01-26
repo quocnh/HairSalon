@@ -22,7 +22,8 @@ import { BarbersSalonListComponent } from 'app/pages/barbers-salon-list/barbers-
 export const ManagerLayoutRoutes: Routes = [
 
     { path: '',      component: SalonsListViewComponent },
-    { path: 'profile',           component: SalonOwnerProfileComponent },    
+    // { path: 'profile',           component: SalonOwnerProfileComponent },    
+    { path: 'profile',                      component: UserComponent },
     { path: 'salons',               component: SalonsListViewComponent },
     { path: 'distributors',         component: DistributorListViewComponent },
     { path: 'distributors/:distributorId/products/:productId',         component: ProductDetailViewComponent },

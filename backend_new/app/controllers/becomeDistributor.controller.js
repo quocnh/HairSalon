@@ -64,11 +64,11 @@ exports.accept = (req, res) => {
                 // Create salon owner DB
                 const distributor = new Distributor({
                     _userId: user._id,
-                    name: req.body.username,
-                    email: req.body.email,
-                    phone: req.body.phone,
-                    firstname: req.body.firstname,
-                    lastname: req.body.lastname,        
+                    // name: req.body.username,
+                    // email: req.body.email,
+                    // phone: req.body.phone,
+                    // firstname: req.body.firstname,
+                    // lastname: req.body.lastname,        
                 });
                 distributor.save((err, distributor) => {
                     console.log(distributor);

@@ -121,7 +121,11 @@ export class NavbarComponent implements OnInit {
     this.tokenStorageService.signOut();
     this.homePath = this.baseUrl;
     this.router.navigate(['/']);
-    //window.location.reload();
+
+    if (this.router.url === '/home'){
+      window.location.reload();
+    }
+    
   }
 
   // call signin modal function

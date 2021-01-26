@@ -64,11 +64,11 @@ exports.accept = (req, res) => {
                 // Create salon owner DB
                 const salonOwner = new SalonOwner({
                     _userId: user._id,
-                    name: req.body.username,
-                    email: req.body.email,
-                    phone: req.body.phone,
-                    firstname: req.body.firstname,
-                    lastname: req.body.lastname,        
+                    // name: req.body.username,
+                    // email: req.body.email,
+                    // phone: req.body.phone,
+                    // firstname: req.body.firstname,
+                    // lastname: req.body.lastname,        
                 });
                 salonOwner.save((err, salonOwner) => {
                     console.log(salonOwner);

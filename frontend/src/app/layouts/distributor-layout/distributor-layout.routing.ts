@@ -11,7 +11,8 @@ import { DistributorProfileComponent } from 'app/pages/distributor-profile/distr
 
 export const DistributorLayoutRoutes: Routes = [
     
-    { path: 'profile',           component: DistributorProfileComponent },    
+    // { path: 'profile',           component: DistributorProfileComponent },    
+    { path: 'profile',                      component: UserComponent },
     { path: 'products',               component: ProductsListViewComponent },
     { path: 'products/:productId',               component: ProductDetailEditComponent },
     { path: 'orders',         component: ProductOrdersListViewComponent },
