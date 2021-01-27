@@ -21,6 +21,7 @@ export class ProductOrdersListViewComponent implements OnInit {
   pOrders_procesing:  productOrder[] = [];
   pOrders_delivering:  productOrder[] = [];
   pOrders_complete:  productOrder[] = [];
+  pOrders_cancel:  productOrder[] = [];
   dbAddress: string;
   prefixPath: string;
 
@@ -112,7 +113,10 @@ export class ProductOrdersListViewComponent implements OnInit {
   }
   // --- Autocomplete Code -------------------------
   refreshOrderProductsList() {
-    
+    this.pOrders_procesing = [];
+    this.pOrders_delivering = [];
+    this.pOrders_complete = [];
+    this.pOrders_cancel = [];
     this.salonUtilService.getProductOrderFromDistributorId(this.distributorId).subscribe(
       (pOrders: productOrder[]) => {
         this.pOrders = pOrders;
@@ -139,8 +143,10 @@ export class ProductOrdersListViewComponent implements OnInit {
             this.pOrders_procesing.push(this.pOrders[i]);
           } else  if (this.pOrders[i].status === GlobalConstants.OrderStatus[1]) {
             this.pOrders_delivering.push(this.pOrders[i]);
-          } else {
+          } else if (this.pOrders[i].status === GlobalConstants.OrderStatus[2]) {
             this.pOrders_complete.push(this.pOrders[i]);
+          } else {
+            this.pOrders_cancel.push(this.pOrders[i]);
           }
         }
       }
@@ -149,6 +155,8 @@ export class ProductOrdersListViewComponent implements OnInit {
 
   updateOrder(pOrder: productOrder) {
     //console.log(pOrder.status);
-    this.salonUtilService.updateOrder(pOrder).subscribe();    
+    this.salonUtilService.updateOrder(pOrder).subscribe(
+      () => this.refreshOrderProductsList()
+    );    
   }
 }

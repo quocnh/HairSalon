@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { GlobalConstants } from 'app/module/global-constants';
 import { BecomeSalonOwnerService } from 'app/_services/become-salon-owner.service';
 import { TokenStorageService } from 'app/_services/token-storage.service';
 import { environment } from 'environments/environment';
@@ -21,7 +22,9 @@ export class RegisterListBecomeSalonOwnerComponent implements OnInit {
   isSalonOwner = false;
   pOrders:any; //QUOC need to fix it
 
-  becomeSalonOwnerList: any;
+  becomeSalonOwnerList_waiting: any = new Array();
+  becomeSalonOwnerList_accept: any = new Array();
+  becomeSalonOwnerList_reject: any = new Array();
   form: any = {};
 
   constructor(
@@ -56,10 +59,22 @@ export class RegisterListBecomeSalonOwnerComponent implements OnInit {
     }    
   }
   refreshBecomeSalonOwnerList(){
+    this.becomeSalonOwnerList_waiting = [];
+    this.becomeSalonOwnerList_accept = [];
+    this.becomeSalonOwnerList_reject = [];
+
     this.becomeSalonOwnerService.getAllBecomeSalonOwner().subscribe(
       data => {
-        console.log(data);
-        this.becomeSalonOwnerList = data;
+        // console.log(data);
+        for (var i = 0; i < data.length; i++){
+          if (data[i].status == GlobalConstants.ApplicationRequestStatus[0]) {
+            this.becomeSalonOwnerList_waiting.push(data[i]);
+          } else if (data[i].status == GlobalConstants.ApplicationRequestStatus[1]) {
+            this.becomeSalonOwnerList_accept.push(data[i]);
+          } else {
+            this.becomeSalonOwnerList_reject.push(data[i]);
+          }
+        }        
       },
       err => {
       }
