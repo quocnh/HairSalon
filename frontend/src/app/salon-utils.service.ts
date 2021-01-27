@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 import { WebService } from './web.service';
 // import Customer from './module/customer';
-import User from './module/user';
 import Salon from './module/salon';
 import Barber from './module/barber';
 import Service from './module/service';
 import Booking from './module/booking';
-import { ProductOrdersListViewComponent } from './pages/product-orders-list-view/product-orders-list-view.component';
 import Product from './module/product';
 import productOrder from './module/productOrder';
 import SalonOwner from './module/salonOwner';
 import Distributor from './module/distributor';
 import Comment from './module/comment';
+import User from './module/userAccount';
 @Injectable({
   providedIn: 'root'
 })

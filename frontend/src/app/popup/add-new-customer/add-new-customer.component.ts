@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import User from '../../module/user';
 import Barber from '../../module/barber';
 import Salon from '../../module/salon';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
@@ -8,6 +7,7 @@ import { SalonUtilsService } from '../../salon-utils.service';
 import { SearchService } from 'app/_services/search.service';
 import { GlobalConstants } from 'app/module/global-constants';
 import { TokenStorageService } from 'app/_services/token-storage.service';
+import User from 'app/module/userAccount';
 
 @Component({
   selector: 'app-add-new-customer',

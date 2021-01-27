@@ -12,7 +12,7 @@ import { TokenStorageService } from 'app/_services/token-storage.service';
 import { GlobalConstants } from 'app/module/global-constants';
 import { ConfirmComponent } from 'app/popup/confirm/confirm.component';
 import Comment from '../../module/comment';
-import User from 'app/module/user';
+import User from 'app/module/userAccount';
 
 @Component({
   selector: 'app-salon-view',

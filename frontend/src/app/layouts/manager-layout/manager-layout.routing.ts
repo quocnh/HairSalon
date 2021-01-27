@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
-import { UserComponent } from '../../pages/user/user.component';
+import { UserProfileComponent } from '../../pages/userProfile/userProfile.component';
 import { SalonViewComponent } from '../../pages/salon-view/salon-view.component';
 import { CustomersListComponent } from '../../pages/customers-list/customers-list.component';
 import { DistributorListViewComponent } from '../../pages/distributor-list-view/distributor-list-view.component';
@@ -23,7 +23,7 @@ export const ManagerLayoutRoutes: Routes = [
 
     { path: '',      component: SalonsListViewComponent },
     // { path: 'profile',           component: SalonOwnerProfileComponent },    
-    { path: 'profile',                      component: UserComponent },
+    { path: 'profile',                      component: UserProfileComponent },
     { path: 'salons',               component: SalonsListViewComponent },
     { path: 'distributors',         component: DistributorListViewComponent },
     { path: 'distributors/:distributorId/products/:productId',         component: ProductDetailViewComponent },

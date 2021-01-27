@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import User from 'app/module/user';
+import User from 'app/module/userAccount';
 import { SalonUtilsService } from 'app/salon-utils.service';
 import { BecomeDistributorService } from 'app/_services/become-distributor.service';
 import { TokenStorageService } from 'app/_services/token-storage.service';

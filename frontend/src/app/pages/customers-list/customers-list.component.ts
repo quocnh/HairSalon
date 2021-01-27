@@ -1,11 +1,11 @@
 import { SalonUtilsService } from '../../salon-utils.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import User from '../../module/user';
 import { AddNewCustomerComponent } from '../../popup/add-new-customer/add-new-customer.component';
 import { DeleteCustomerComponent } from '../../popup/delete-customer/delete-customer.component';
 import { environment } from 'environments/environment';
 import { Router } from '@angular/router';
+import User from 'app/module/userAccount';
 
 @Component({
   selector: 'app-customers-list',

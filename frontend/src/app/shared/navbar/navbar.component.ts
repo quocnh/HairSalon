@@ -6,12 +6,12 @@ import { Location } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RegisterComponent } from '../../popup/register/register.component';
 import { LoginComponent } from '../../popup/login/login.component';
-import User from '../../module/user';
 import { SalonUtilsService } from '../../salon-utils.service';
 import { TokenStorageService } from '../../_services/token-storage.service';
 import { environment } from 'environments/environment';
 import { SearchService } from 'app/_services/search.service';
 import { MessageService } from 'app/_services/message.service';
+import User from 'app/module/userAccount';
 
 
 @Component({
@@ -134,7 +134,11 @@ export class NavbarComponent implements OnInit {
     const ref = this.modalService.open(LoginComponent);
     ref.result.then((result) => {
       this.router.navigate(['/']);
-      // window.location.reload();      
+
+      if (this.router.url === '/home'){
+        window.location.reload();
+      }
+          
     },
       (cancel) => {
         console.log('cancel click');

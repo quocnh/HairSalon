@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
-import { UserComponent } from '../../pages/user/user.component';
+import { UserProfileComponent } from '../../pages/userProfile/userProfile.component';
 import { TableComponent } from '../../pages/table/table.component';
 import { TypographyComponent } from '../../pages/typography/typography.component';
 import { IconsComponent } from '../../pages/icons/icons.component';
@@ -28,7 +28,7 @@ export const AdminLayoutRoutes: Routes = [
 
     { path: '',      component: SalonsListViewComponent },
     // { path: 'dashboard',      component: DashboardComponent },
-    // { path: 'profile2',           component: UserComponent },
+    // { path: 'profile2',           component: UserProfileComponent },
     // { path: 'table',          component: TableComponent },
     // { path: 'typography',     component: TypographyComponent },
     // { path: 'icons',          component: IconsComponent },
@@ -36,7 +36,7 @@ export const AdminLayoutRoutes: Routes = [
 
     { path: 'become-salonowner-request',  component: RegisterListBecomeSalonOwnerComponent },
     { path: 'become-distributor-request',  component: RegisterListBecomeDistributorComponent },
-    { path: 'profile',               component: UserComponent },
+    { path: 'profile',               component: UserProfileComponent },
 
     { path: 'salonOwners',      component: SalonOwnersListComponent },
     { path: 'salonOwners/:salonOwnerId',      component: SalonOwnerProfileComponent },
@@ -44,7 +44,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'salonOwners/:salonOwnerId/salons/:salonId',       component: SalonEditComponent },
 
     { path: 'customers',        component: CustomersListComponent },
-    { path: 'customers/:userId/profile',           component: UserComponent },
+    { path: 'customers/:userId/profile',           component: UserProfileComponent },
 
     { path: 'salons',               component: SalonsListViewComponent },    
     { path: 'salons/:salonId',               component: SalonEditComponent },

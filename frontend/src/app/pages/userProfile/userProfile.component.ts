@@ -6,16 +6,16 @@ import { NgbDateStruct, NgbDateParserFormatter, NgbCalendar } from '@ng-bootstra
 import { environment } from 'environments/environment';
 import { SearchService } from 'app/_services/search.service';
 import { GlobalConstants } from 'app/module/global-constants';
-import User from 'app/module/user';
+import User from 'app/module/userAccount';
 import { TokenStorageService } from 'app/_services/token-storage.service';
 
 @Component({
     selector: 'app-user-profile',
     moduleId: module.id,
-    templateUrl: 'user.component.html'
+    templateUrl: 'userProfile.component.html'
 })
 
-export class UserComponent implements OnInit {
+export class UserProfileComponent implements OnInit {
     userId: string;
     userDb: User = new User();
     user: User = new User();

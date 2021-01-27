@@ -1,5 +1,6 @@
 import Salon from './salon';
-import User from './user';
+import User from './userAccount';
+
 
 export default class Comment {
     _id: string;
