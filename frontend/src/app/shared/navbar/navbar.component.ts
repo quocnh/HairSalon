@@ -195,9 +195,9 @@ export class NavbarComponent implements OnInit {
     }, 500);
 
     html.classList.add('nav-open');
-    if (window.innerWidth < 991) {
-      mainPanel.style.position = 'fixed';
-    }
+    // if (window.innerWidth < 991) {
+    //   mainPanel.style.position = 'fixed';
+    // }
     this.sidebarVisible = true;
   };
   // tslint:disable-next-line: member-ordering
@@ -217,12 +217,12 @@ export class NavbarComponent implements OnInit {
   collapse() {
     this.isCollapsed = !this.isCollapsed;
     const navbar = document.getElementsByTagName('nav')[0];
-    console.log(navbar);
+    // console.log(navbar);
     if (!this.isCollapsed) {
-      navbar.classList.remove('navbar-transparent');
+      // navbar.classList.remove('navbar-transparent');
       navbar.classList.add('bg-white');
     } else {
-      navbar.classList.add('navbar-transparent');
+      // navbar.classList.add('navbar-transparent');
       navbar.classList.remove('bg-white');
     }
 
