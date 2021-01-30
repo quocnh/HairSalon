@@ -6,6 +6,7 @@ import { AddNewDistributorComponent } from '../../popup/add-new-distributor/add-
 import { DeleteDistributorComponent } from '../../popup/delete-distributor/delete-distributor.component';
 import { Router } from '@angular/router';
 import { TokenStorageService } from 'app/_services/token-storage.service';
+import User from 'app/module/userAccount';
 
 @Component({
   selector: 'app-distributor-list-view',
@@ -13,7 +14,7 @@ import { TokenStorageService } from 'app/_services/token-storage.service';
   templateUrl: './distributor-list-view.component.html'
 })
 export class DistributorListViewComponent implements OnInit {
-  distributors: Distributor[];
+  distributors: User[] = new Array();
   name: string;
   public deletedDistributor: Distributor;
   prefixPath: string;
@@ -23,7 +24,7 @@ export class DistributorListViewComponent implements OnInit {
 
   keyword = 'name';
   selectedDistributor:any;
-  displayedDistributors: Distributor[] = [];
+  displayedDistributors: User[] = new Array();
 
   constructor(
     private salonUtilService: SalonUtilsService,
@@ -105,8 +106,15 @@ export class DistributorListViewComponent implements OnInit {
     this.salonUtilService.getDistributors()
       .subscribe((distributors: Distributor[]) => 
       {
-        this.distributors = distributors;
-        this.displayedDistributors = distributors;
+        
+        for (var i = 0; i < distributors.length; i++) {
+          this.salonUtilService.getUser(distributors[i]._userId)
+          .subscribe((user: User[]) => {
+            this.distributors.push(user[0]);
+            this.displayedDistributors.push(user[0]);
+          })
+        }
+        
       });
   }
 
