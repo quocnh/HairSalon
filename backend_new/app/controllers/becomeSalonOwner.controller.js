@@ -6,7 +6,7 @@ const Role = db.role;
 const SalonOwner = db.salonOwner;
 
 exports.createObj = (req, res) => {
-    console.log("TEST1: ", req.body._userId);
+    console.log("TEST1: ", req.body);
     const becomeSalonOwner = new BecomeSalonOwner({
         _userId: req.body._userId,
         username: req.body.username,
@@ -64,11 +64,11 @@ exports.accept = (req, res) => {
                 // Create salon owner DB
                 const salonOwner = new SalonOwner({
                     _userId: user._id,
-                    name: req.body.username,
-                    email: req.body.email,
-                    phone: req.body.phone,
-                    firstname: req.body.firstname,
-                    lastname: req.body.lastname,        
+                    // name: req.body.username,
+                    // email: req.body.email,
+                    // phone: req.body.phone,
+                    // firstname: req.body.firstname,
+                    // lastname: req.body.lastname,        
                 });
                 salonOwner.save((err, salonOwner) => {
                     console.log(salonOwner);

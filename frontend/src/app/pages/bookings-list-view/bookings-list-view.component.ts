@@ -3,8 +3,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Barber from 'app/module/barber';
 import Booking from 'app/module/booking';
-import Customer from 'app/module/customer';
 import Salon from 'app/module/salon';
+import User from 'app/module/userAccount';
 import { ModifyBookingComponent } from 'app/popup/modify-booking/modify-booking.component';
 import { SalonUtilsService } from 'app/salon-utils.service';
 import { DeleteAnyComponent } from '../../popup/delete-any/delete-any.component';
@@ -19,7 +19,7 @@ export class BookingsListViewComponent implements OnInit {
   salonId: string;
   bookingList: Booking[];
   salon: Salon = new Salon();
-  customerList: Customer[] = [];
+  customerList: User[] = [];
   barberList: Barber[] = [];
   customer_username: string;
   modal_index: number;
@@ -57,7 +57,7 @@ export class BookingsListViewComponent implements OnInit {
         this.bookingList = bookings;        
         for (var i = 0; i < bookings.length; i++) {
           const idx = i;   
-          this.customerList[idx] = new Customer;
+          this.customerList[idx] = new User;
           this.barberList[idx] = new Barber;
           //console.log(bookings[idx]);
           if (this.bookingList[idx]._userId) {  
@@ -76,13 +76,13 @@ export class BookingsListViewComponent implements OnInit {
       });
   }
 
-  async getCustomerInfo(_userId: string, index:number): Promise<Customer> {
-    let customer:Customer;
-    await this.salonUtilService.getOneCustomerFromUserId(_userId)
+  async getCustomerInfo(_userId: string, index:number): Promise<User> {
+    let customer:User = new User();
+    await this.salonUtilService.getUser(_userId)
     .toPromise()
     .then(
-      (customers: Customer[]) => {        
-        return Object.assign({}, customers[0]);
+      (users: User[]) => {        
+        return Object.assign({}, users[0]);
       }).then(data => {
         customer = data;
         this.customerList[index] = data;

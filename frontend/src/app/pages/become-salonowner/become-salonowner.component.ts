@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import Customer from 'app/module/customer';
+import User from 'app/module/userAccount';
 import { SalonUtilsService } from 'app/salon-utils.service';
 import { TokenStorageService } from 'app/_services/token-storage.service';
 import { BecomeSalonOwnerService } from '../../_services/become-salon-owner.service';
@@ -11,14 +11,15 @@ import { BecomeSalonOwnerService } from '../../_services/become-salon-owner.serv
 })
 export class BecomeSalonownerComponent implements OnInit {
   form: any = {};
-  customer: Customer;
+  // customer: Customer;
+  user:User = new User();
 
   isLoggedIn = false;
   showAdminBoard = false;
   showSalonOwnerBoard = false;
   showDistributorBoard = false;
   username: string;
-  user: any;
+  currentUser: any;
   isAdmin = false;
   isSalonOwner = false;
 
@@ -37,31 +38,34 @@ export class BecomeSalonownerComponent implements OnInit {
     // 1. Get userId
     this.isLoggedIn = !!this.tokenStorageService.getToken();
     if (this.isLoggedIn) {      
-      this.user = this.tokenStorageService.getUser();
-      console.log('LOGGED IN:' +  this.user.roles);
+      this.currentUser = this.tokenStorageService.getUser();
+      console.log('LOGGED IN:' +  this.currentUser.roles);
       //this.isModifiedEnable = this.user.roles.includes('ROLE_DISTRIBUTOR') || this.user.roles.includes('ROLE_ADMIN');
-      this.isAdmin = this.user.roles.includes('ROLE_ADMIN');
-      this.isSalonOwner = this.user.roles.includes('ROLE_SALON_OWNER');
+      this.isAdmin = this.currentUser.roles.includes('ROLE_ADMIN');
+      this.isSalonOwner = this.currentUser.roles.includes('ROLE_SALON_OWNER');
     } else {
       // Not login yet
-      return;
+      this.router.navigate(['home']);
     }
 
+    if (this.isSalonOwner) {
+      this.router.navigate(['home']);
+    }
     console.log('USER ID:');
-    console.log(this.user.id);
+    console.log(this.currentUser.id);
     // 2. Get Customer info
-    this.salonUtilService.getOneCustomerFromUserId(this.user.id).subscribe(
-      (customers: Customer[]) => {        
-        this.customer = Object.assign({}, customers[0]);
-        this.form.userId = this.user.id;
-        this.form.username = this.customer.username;
-        this.form.firstname = this.customer.firstname;
-        this.form.lastname = this.customer.lastname;
-        this.form.phone = this.customer.phone;
-        this.form.email = this.customer.email;
-        this.form.city = this.customer.city;
-        this.form.district = this.customer.district;
-        this.form.address = this.customer.address;
+    this.salonUtilService.getUser(this.currentUser.id).subscribe(
+      (users: User[]) => {        
+        this.user = Object.assign({}, users[0]);
+        this.form.userId = this.user._id;
+        this.form.username = this.user.username;
+        this.form.firstname = this.user.firstname;
+        this.form.lastname = this.user.lastname;
+        this.form.phone = this.user.phone;
+        this.form.email = this.user.email;
+        this.form.city = this.user.city;
+        this.form.district = this.user.district;
+        this.form.address = this.user.address;
       }
     );
   }  

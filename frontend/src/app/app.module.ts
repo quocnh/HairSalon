@@ -51,7 +51,7 @@ import { BecomeDistributorComponent } from './pages/become-distributor/become-di
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { SalonsListViewComponent } from './pages/salons-list-view/salons-list-view.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { UserComponent } from './pages/user/user.component';
+import { UserProfileComponent } from './pages/userProfile/userProfile.component';
 import { BarberProfileViewComponent } from './pages/barber-profile-view/barber-profile-view.component';
 import { BarberViewComponent } from './pages/barber-view/barber-view.component';
 import { CustomersListComponent } from './pages/customers-list/customers-list.component';
@@ -106,7 +106,7 @@ import { NgImageSliderModule } from 'ng-image-slider';
     BecomeDistributorComponent,    
     SalonsListViewComponent,
     DashboardComponent,
-    UserComponent,
+    UserProfileComponent,
     BarberProfileViewComponent,
     BarberViewComponent,
     CustomersListComponent,

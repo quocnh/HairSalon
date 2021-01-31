@@ -1,19 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-absolute fixed-top bg-transparent">
-  <div class="logo">
-    <a href="{{baseUrl}}/home" class="simple-text logo-mini">
-      <div class="logo-image-small">
-        <img src="assets/img/angular2-logo.png">
-
-      </div>
-
-    </a>
-
-    <a href="{{baseUrl}}/home" class="simple-text">G-Salon</a>
-
-    <!-- <a href="{{baseUrl}}/home" class="simple-text">
-      Hair-Salon
-    </a>     -->
-  </div>
+  
   <div class="container-fluid">
     <div class="navbar-wrapper">
       <div class="navbar-toggle">
@@ -23,26 +9,35 @@
           <span class="navbar-toggler-bar bar3"></span>
         </button>
       </div>
+      
+      <div class="logo">
+        <a href="{{baseUrl}}/home" class="simple-text logo-mini">
+          <div class="logo-image-small">
+            <img src="assets/img/angular2-logo.png">
+    
+          </div>
+        </a>
+    
+        <a href="{{baseUrl}}/home" class="simple-text ">{{getTitle()}}</a>
+    
+        <!-- <a href="{{baseUrl}}/home" class="simple-text">
+          Hair-Salon
+        </a>     -->
+      </div>
+      
+      
       <!-- <a class="navbar-brand" href="#">{{getTitle()}}</a> -->
     </div>
-    <button class="navbar-toggler" type="button" (click)="collapse()" [attr.aria-expanded]="!isCollapsed"
-      aria-controls="collapseExample">
-      <span class="navbar-toggler-bar navbar-kebab"></span>
-      <span class="navbar-toggler-bar navbar-kebab"></span>
-      <span class="navbar-toggler-bar navbar-kebab"></span>
-    </button>
+    <div [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+      <button class="navbar-toggler" type="button" (click)="collapse()" >
+        <span class="navbar-toggler-bar navbar-kebab"></span>
+        <span class="navbar-toggler-bar navbar-kebab"></span>
+        <span class="navbar-toggler-bar navbar-kebab"></span>
+      </button>
+    </div>
+    
     <div class="collapse navbar-collapse justify-content-end" id="collapseExample" [ngbCollapse]="isCollapsed">
-      <!-- <form>
-        <div class="input-group no-border">
-          <input type="text" value="" class="form-control" placeholder="Search...">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <i class="nc-icon nc-zoom-split"></i>
-            </div>
-          </div>
-        </div>
-      </form> -->
-      <ul class="navbar-nav mr-auto" routerLinkActive="active" style="opacity: 1;">
+      <ul class="navbar-nav ml-auto" routerLinkActive="active" style="opacity: 1;">
 
         <li class="nav-item" *ngIf="showAdminBoard">
           <a href="{{baseUrl}}/admin/salonOwners" class="nav-link">Trang quản lý</a>
@@ -53,15 +48,11 @@
         <li class="nav-item" *ngIf="showSalonOwnerBoard">
           <a href="{{baseUrl}}/manager/profile" class="nav-link">Trang quản lý</a>
         </li>
-        <!-- <li class="nav-item">
-          <a href="/user" class="nav-link" *ngIf="isLoggedIn" routerLink="user">User</a>
-        </li> -->
       </ul>
 
-      <div class="navbar-nav mr-auto" *ngIf="isSearchVisible">
+      <div class="navbar-nav ml-auto" *ngIf="isSearchVisible">
         <div class="col-md-4">
           <div class="form-group">
-            <!-- <label class="search-label">Thành phố</label> -->
             <div class="input--style-1">
               <ng-autocomplete [data]="cities" [searchKeyword]="keyword" [initialValue]="initialCity"
                 placeHolder="Thành Phố" (selected)='selectCityEvent($event)' (inputChanged)='onChangeSearch($event)'
@@ -82,7 +73,6 @@
         </div>
         <div class="col-md-4">
           <div class="form-group">
-            <!-- <label class="search-label">Quận</label> -->
             <div class="input--style-1">
               <ng-autocomplete [data]="districts" [searchKeyword]="keyword" [initialValue]="initialDistrict"
                 placeHolder="Quận" (selected)='selectDistrictEvent($event)' (inputChanged)='onChangeSearch($event)'
@@ -155,5 +145,6 @@
         </li> -->
       </ul>
     </div>
+    
   </div>
 </nav>

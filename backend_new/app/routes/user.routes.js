@@ -19,6 +19,8 @@ const barberRoutes = require('../controllers/barber.controller');
 const bookingRoutes = require('../controllers/booking.controller');
 const productRoutes = require('../controllers/product.controller');
 const productOrderRoutes = require('../controllers/productOrder.controller');
+const commentRoutes = require('../controllers/comment.controller');
+const userRoutes = require('../controllers/user.controller');
 //const passport = require("passport");
 
 //require("./utils/passport")(passport);
@@ -33,27 +35,41 @@ module.exports = function (app) {
         next();
     });
 
-    app.get("/api/test/all", controller.allAccess);
+    // app.get("/api/test/all", controller.allAccess);
 
-    app.get("/api/test/user", [authJwt.verifyToken], controller.userBoard);
+    // app.get("/api/test/user", [authJwt.verifyToken], controller.userBoard);
 
-    app.get(
-        "/api/test/salon_owner",
-        [authJwt.verifyToken, authJwt.isSalonOwner],
-        controller.salonOwnerBoard
-    );
+    // app.get(
+    //     "/api/test/salon_owner",
+    //     [authJwt.verifyToken, authJwt.isSalonOwner],
+    //     controller.salonOwnerBoard
+    // );
 
-    app.get(
-        "/api/test/admin",
-        [authJwt.verifyToken, authJwt.isAdmin],
-        controller.adminBoard
-    );
+    // app.get(
+    //     "/api/test/admin",
+    //     [authJwt.verifyToken, authJwt.isAdmin],
+    //     controller.adminBoard
+    // );
 
-    app.get(
-        "/api/test/distributor",
-        [authJwt.verifyToken, authJwt.isDistributor],
-        controller.distributorBoard
-    );
+    // app.get(
+    //     "/api/test/distributor",
+    //     [authJwt.verifyToken, authJwt.isDistributor],
+    //     controller.distributorBoard
+    // );
+
+    // app.get(
+    //     "/api/user/getUser/:userId",
+    //     [],
+    //     controller.getUser
+    // );
+
+    // app.patch(
+    //     "api/user/update/:userId", 
+    //     [authJwt.verifyToken],        
+    //     controller.updateUser
+    // );
+    app.use('/api/user',        userRoutes);
+    
        
     // app.post("/api/salon-owner/new-obj", becomeSalonOwnerController.createObj);
         
@@ -65,6 +81,7 @@ module.exports = function (app) {
     app.use('/bookings',        bookingRoutes);
     app.use('/products',        productRoutes);
     app.use('/productOrder',    productOrderRoutes);
+    app.use('/comments',        commentRoutes);
 
 
     app.use(express.json());

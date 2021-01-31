@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 import { WebService } from './web.service';
-import Customer from './module/customer';
-import User from './module/user';
+// import Customer from './module/customer';
 import Salon from './module/salon';
 import Barber from './module/barber';
 import Service from './module/service';
 import Booking from './module/booking';
-import { ProductOrdersListViewComponent } from './pages/product-orders-list-view/product-orders-list-view.component';
 import Product from './module/product';
 import productOrder from './module/productOrder';
 import SalonOwner from './module/salonOwner';
 import Distributor from './module/distributor';
-import becomeSalonOwner from './module/becomeSalonOwner';
+import Comment from './module/comment';
+import User from './module/userAccount';
 @Injectable({
   providedIn: 'root'
 })
@@ -35,6 +34,10 @@ export class SalonUtilsService {
 
   deleteSalonOwner(ownerId: string) {
     return this.webService.delete(`salonOwners/${ownerId}`);
+  }
+
+  deleteSalonOwnerFromUserId(userId: string) {
+    return this.webService.delete(`salonOwners/userId/${userId}`);
   }
 
   updateSalonOwner(salonOwner: SalonOwner, file: File) {
@@ -199,7 +202,7 @@ export class SalonUtilsService {
     console.log('update service at ' + index + ': ' + service.name + ' ' + service.price);
     return this.webService.patch( `salons/${salonId}/updateService/${index}`, service);
   }
-
+/*
   // Customer
   getCustomers() {
     return this.webService.get(`customers`);
@@ -245,7 +248,7 @@ export class SalonUtilsService {
   deleteCustomers(customerId: string) {
     return this.webService.delete(`customers/${customerId}`);
   }
-
+*/
   // barber
   getBarbers() {
     return this.webService.get(`barbers`);
@@ -313,6 +316,9 @@ export class SalonUtilsService {
 
   deleteDistributors(distributorId: string) {
     return this.webService.delete(`distributors/${distributorId}`);
+  }
+  deleteDistributorsFromUserId(userId: string) {
+    return this.webService.delete(`distributors/userId/${userId}`);
   }
 
   updateDistrbibutor(distributor: Distributor, file: File) {
@@ -463,6 +469,42 @@ export class SalonUtilsService {
     return this.webService.post(`api/users/register-customer`, fd);
   }
 
+  getUser(userId : string) {
+    // console.log(userId);
+    return this.webService.get(`api/user/getUser/${userId}`);
+  }
+
+  deleteUser(userId : string) {
+    // console.log(userId);
+    return this.webService.get(`api/user/deleteUser/${userId}`);
+  }
+
+  getAllUser() {
+    // console.log(userId);
+    return this.webService.get(`api/user/getAllUser`);
+  }
+
+  getAllCustomer() {
+    // console.log(userId);
+    return this.webService.get(`api/user/getAllCustomer`);
+  }
+
+  updateUserProfile(userId: string, user: User, file: File) {
+    const fd = new FormData();
+    let key;
+    if (file) {
+      fd.append('avatar', file, file.name);
+      console.log('update Customer : ' + userId + file.name);
+    }
+    // console.log(user);
+
+    // tslint:disable-next-line: forin
+    for (key in user) {
+      fd.append(key, user[key]);
+    }
+    return this.webService.patch( `api/user/update/${userId}`, fd);
+  }
+
   // -- Product Order >>>>>  
   createNewProductOrder(pOrder: productOrder) {
     const fd = new FormData();
@@ -501,5 +543,19 @@ export class SalonUtilsService {
   //   // console.log('totalPrice : ' + becomeSalonOwnerObj.totalPrice);
   //   return this.webService.post( `productOrder`, fd);
   // }
+
+  // Comment 
+  addNewComment(newComment:Comment) {
+    const fd = new FormData();
+    fd.append('salonId', newComment.salon._id);
+    fd.append('userId', newComment.user._id);
+    fd.append('content', newComment.content);
+
+    return this.webService.post( `comments`, fd);
+  }
+
+  getComments(salonId: string) {
+    return this.webService.get(`comments/salon/${salonId}`);
+  }
 
 }

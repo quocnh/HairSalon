@@ -50,15 +50,15 @@
               <th>
                 Sản phẩm
               </th>
-              <th>
+              <th *ngIf="isModifiedEnable">
                 Đơn hàng
               </th>
-              <th class="text-right" *ngIf="isModifiedEnable">
+              <!-- <th class="text-right" *ngIf="isModifiedEnable">
                 <button class="btn btn-sm btn-success btn-round btn-icon " (click)="createNewDistributor()">
                   <a data-toggle="tooltip" data-placement="top" title="Thêm mới"> <i
                       class="nc-icon nc-simple-add"></i></a>
                 </button>
-              </th>
+              </th> -->
 
             </thead>
             <tbody>
@@ -66,7 +66,7 @@
               <tr *ngFor="let distributor of displayedDistributors">
 
                 <td>
-                  <a href="{{prefixPath}}/{{distributor._id}}/profile">{{ distributor.name }}</a>
+                  <a href="{{prefixPath}}/{{distributor._id}}/profile">{{ distributor.lastname }} {{ distributor.firstname }}</a>
                 </td>
                 <td>
                   {{ distributor.phone }}
@@ -77,7 +77,7 @@
                 <td>
                   <a href="{{prefixPath}}/{{distributor._id}}/products">Tất cả sản phẩm</a>
                 </td>
-                <td>
+                <td *ngIf="isModifiedEnable">
                   <a href="{{prefixPath}}/{{distributor._id}}/productOrders">Đơn hàng</a>
                 </td>
 

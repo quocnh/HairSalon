@@ -37,6 +37,16 @@ export class AddNewProductComponent implements OnInit {
         this.product._distributorName = distributor[0].name;
         if (this.product.name) {
           console.log(this.product);
+
+          if(!this.product.discount){
+            this.product.discount = 0;
+          }
+          if(!this.product.price){
+            this.product.price = 0;
+          }
+          if(!this.product.quantity){
+            this.product.quantity = 0;
+          }
                
           this.salonUtilService.createProduct(this.product, this.selectedFile).subscribe(
             () => this.modal.close(this.product)

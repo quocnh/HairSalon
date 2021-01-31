@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import Customer from '../../module/customer';
 import Barber from '../../module/barber';
 import Salon from '../../module/salon';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';

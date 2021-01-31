@@ -2,9 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { NgbCalendar, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import Salon from 'app/module/salon';
 import SalonOwner from 'app/module/salonOwner';
-import User from 'app/module/user';
+import User from 'app/module/userAccount';
 import { SalonUtilsService } from 'app/salon-utils.service';
 import { SearchService } from 'app/_services/search.service';
 import { TokenStorageService } from 'app/_services/token-storage.service';
@@ -16,8 +15,8 @@ import { environment } from 'environments/environment';
   styleUrls: ['./salon-owner-profile.component.css']
 })
 export class SalonOwnerProfileComponent implements OnInit {
-  salonOwner:SalonOwner = new SalonOwner();
-  salonOwnerDb:SalonOwner = new SalonOwner();
+  salonOwner:User = new User();
+  salonOwnerDb:User = new User();
   userId: string;
   strAvatar: any;
   genders = [
@@ -139,12 +138,12 @@ export class SalonOwnerProfileComponent implements OnInit {
           this.salonOwner.district = this.selectedDistrict.name;
         }
         // update user profile
-        this.salonUtilService.updateSalonOwner(this.salonOwner, this.selectedFile).subscribe(
+        this.salonUtilService.updateUserProfile(this.salonOwner._id, this.salonOwner, this.selectedFile).subscribe(
             // refresh page
-            (owner:SalonOwner) => {
-              //this.refreshProfile(owner._id);
-              this.salonOwner = owner;
-              this.salonOwnerDb = owner;
+            (user:User) => {
+
+              this.salonOwner = user;
+              this.salonOwnerDb = user;
               this.initialCity = this.salonOwner.city;
               this.initialDistrict = this.salonOwner.district;
               if (this.salonOwner.avatar) {
@@ -153,18 +152,16 @@ export class SalonOwnerProfileComponent implements OnInit {
             }
         );
 
-    } else {
-        // console.log('Giong' + JSON.stringify(this.customerDb) + '---' + JSON.stringify(this.customer));
     }
   }
 
   refreshProfile(profileId) {
-    this.salonUtilService.getOneSalonOwner(profileId).subscribe(
-        (salonOwner: SalonOwner) => {
-            this.salonOwner = Object.assign({}, salonOwner[0]);
+    this.salonUtilService.getUser(profileId).subscribe(
+        (user: User) => {
+            this.salonOwner = Object.assign({}, user[0]);
             this.initialCity = this.salonOwner.city;
             this.initialDistrict = this.salonOwner.district;
-            this.salonOwnerDb = Object.assign({}, salonOwner[0]);
+            this.salonOwnerDb = Object.assign({}, user[0]);
             if (this.salonOwner.avatar) {
                 this.strAvatar = environment.dbAddress+ '/' + this.salonOwner.avatar;
             }

@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { UserComponent } from '../../pages/user/user.component';
+import { UserProfileComponent } from '../../pages/userProfile/userProfile.component';
 import { ProductsListViewComponent } from 'app/pages/products-list-view/products-list-view.component';
 import { ProductOrdersListViewComponent } from 'app/pages/product-orders-list-view/product-orders-list-view.component';
 import { ProductDetailViewComponent } from 'app/pages/product-detail-view/product-detail-view.component';
@@ -11,7 +11,8 @@ import { DistributorProfileComponent } from 'app/pages/distributor-profile/distr
 
 export const DistributorLayoutRoutes: Routes = [
     
-    { path: 'profile',           component: DistributorProfileComponent },    
+    // { path: 'profile',           component: DistributorProfileComponent },    
+    { path: 'profile',                      component: UserProfileComponent },
     { path: 'products',               component: ProductsListViewComponent },
     { path: 'products/:productId',               component: ProductDetailEditComponent },
     { path: 'orders',         component: ProductOrdersListViewComponent },

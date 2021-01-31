@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup } from '@angular/forms';
-import { UserService } from '../../module/user.service';
-import User from '../../module/user';
 declare const FB: any;
 import { AuthService } from '../../_services/auth.service';
 import { TokenStorageService } from '../../_services/token-storage.service';

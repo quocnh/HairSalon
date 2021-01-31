@@ -38,10 +38,10 @@
               <table class="table">
                 <thead class=" text-primary">
                   <th>
-                    Tên
+                    Username
                   </th>
                   <th>
-                    Id
+                    Tên
                   </th>
                   <th>
                     Email
@@ -49,11 +49,11 @@
                   <th>
                     Danh sách salon
                   </th>
-                  <th class="text-right">
+                  <!-- <th class="text-right">
                     <button class="btn btn-sm btn-success btn-round btn-icon " (click)= "createNewSalonOwner()">
                       <a data-toggle="tooltip" data-placement="top" title="Thêm mới"> <i class="nc-icon nc-simple-add"></i></a>
                     </button>
-                  </th>
+                  </th> -->
 
                 </thead>
                 <tbody>
@@ -61,13 +61,13 @@
                     <tr *ngFor="let salonOwner of displayedSalonOwners">
                         
                         <td>
-                            <a href="{{prefixPath}}/{{salonOwner._id}}">{{ salonOwner.name }}</a>
+                            <a href="{{prefixPath}}/{{salonOwner._id}}/profile">{{ salonOwner.username }}</a>
                         </td>
                         <td>
-                            id-{{ salonOwner.name }}
+                            {{ salonOwner.lastname }} {{ salonOwner.firstname }}
                         </td>
                         <td>
-                            {{ salonOwner.name }}@email.com
+                            {{ salonOwner.email }}
                         </td>
                         <td>
                           <a href="{{prefixPath}}/{{salonOwner._id}}/salons">Xem tất cả salon</a>
@@ -77,7 +77,7 @@
                               <a data-toggle="tooltip" data-placement="top" title="Xóa"> <i class="fa fa-trash"></i></a>
                             </button>
                             <p class="pull-right"> &#160; </p>
-                            <a href="{{prefixPath}}/{{salonOwner._id}}">
+                            <a href="{{prefixPath}}/{{salonOwner._id}}/profile">
                               <button class="btn btn-sm btn-info btn-round btn-icon pull-right">
                                 <a data-toggle="tooltip" data-placement="top" title="Sửa"><i class="fa fa-pencil"></i></a>
                               </button>

@@ -1,10 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { NgbActiveModal, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import User from '../../module/user';
-
+import { Component, OnInit } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../_services/auth.service';
-
-import { Router } from '@angular/router';
 
 
 @Component({

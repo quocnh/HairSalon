@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { ManagerLayoutRoutes } from './manager-layout.routing';
 
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
-import { UserComponent } from '../../pages/user/user.component';
+import { UserProfileComponent } from '../../pages/userProfile/userProfile.component';
 import { TableComponent } from '../../pages/table/table.component';
 import { TypographyComponent } from '../../pages/typography/typography.component';
 import { IconsComponent } from '../../pages/icons/icons.component';
@@ -39,7 +39,7 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
     // DistributorListViewComponent,
     // BarberViewComponent,
     // DashboardComponent,
-    // UserComponent,
+    // UserProfileComponent,
     // TableComponent,
     // TypographyComponent,
     // IconsComponent,

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import Customer from 'app/module/customer';
-import { SalonUtilsService } from 'app/salon-utils.service';
+import { GlobalConstants } from 'app/module/global-constants';
 import { BecomeDistributorService } from 'app/_services/become-distributor.service';
 import { BecomeSalonOwnerService } from 'app/_services/become-salon-owner.service';
 import { TokenStorageService } from 'app/_services/token-storage.service';
@@ -23,7 +22,9 @@ export class RegisterListBecomeDistributorComponent implements OnInit {
   isAdmin = false;
   isSalonOwner = false;  
 
-  becomeDistributorList: any;
+  becomeDistributorList_waiting :any = new Array();
+  becomeDistributorList_accept :any = new Array();
+  becomeDistributorList_reject :any = new Array();
   form: any = {};
 
   constructor(
@@ -59,10 +60,21 @@ export class RegisterListBecomeDistributorComponent implements OnInit {
   }
 
   refreshBecomeDistributorList(){
+    this.becomeDistributorList_waiting = [];
+    this.becomeDistributorList_accept = [];
+    this.becomeDistributorList_reject = [];
+
     this.becomeDistributorService.getAllBecomeDistributor().subscribe(
       data => {
-        console.log(data);
-        this.becomeDistributorList = data;
+        for (var i = 0; i < data.length; i++){
+          if (data[i].status == GlobalConstants.ApplicationRequestStatus[0]) {
+            this.becomeDistributorList_waiting.push(data[i]);
+          } else if (data[i].status == GlobalConstants.ApplicationRequestStatus[1]) {
+            this.becomeDistributorList_accept.push(data[i]);
+          } else {
+            this.becomeDistributorList_reject.push(data[i]);
+          }
+        }    
       },
       err => {
       }

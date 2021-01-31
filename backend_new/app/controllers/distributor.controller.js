@@ -5,6 +5,9 @@ const Distributor = require('../models/distributor.model');
 var express = require('express');
 var distributorRouter = express.Router();
 const multer = require('multer');
+const BecomeDistributor = require('../models/becomeDistributor.model');
+const Role = require('../models/role.model');
+const User = require('../models/user.model');
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
@@ -79,29 +82,75 @@ distributorRouter.delete('/:distributorId', (req, res) => {
         .catch((error) => console.log(error));
 });
 
-distributorRouter.get('/userId/:userId', (req, res) => {
-    Distributor.find({})
-    .then(distributors => {
-        for(i = 0; i < distributors.length; i++){
-            if (distributors[i]._userId == req.params.userId) {
-                console.log(distributors[i]);
-                res.send(distributors[i]._id);
+distributorRouter.delete('/userId/:userId', (req, res) => {
+    // Remove role distributor
+    Role.find(
+        {
+            name: 'user'
+        },
+        (err, roles) => {
+            if (err) {
+                res.status(500).send({ message: err });
                 return;
-            }            
-        }
+            }
+            console.log(roles);
+            const newRole = roles.map((role) => role._id);
+
+            User.findOneAndUpdate({ '_id': req.params.userId}, 
+            {$set: 
+                { 
+                    roles: newRole,
+                },
+            })
+            .then()
+            .catch((error) => console.log(error));
+        });
+
+    //Delete data in BecomDistributor
+    BecomeDistributor.find({'_userId': req.params.userId})
+    .then(becomeDistributors => {
+        console.log(becomeDistributors[0]._id);
+        BecomeDistributor.findByIdAndDelete(becomeDistributors[0]._id)
+        .then()
+        .catch((error) => console.log(error));
     })
     .catch((error) => console.log(error));
 
-    //TODO: find the reason why the below code is not working
-    /*
-    console.log(req.params.userId);
-    Distributor.find({ _userId: req.params.userId})
-        .then(distributor => {
-            console.log("LARRY: " + distributor);
-            res.send(distributor._id);            
+    //Delete distributor
+    //console.log(req.params.userId);
+    Distributor.find({'_userId': req.params.userId})
+        .then(distributors => {
+            console.log(distributors[0]._id);
+            Distributor.findByIdAndDelete(distributors[0]._id)
+            .then(distributor => res.send(distributor))
+            .catch((error) => console.log(error));
         })
         .catch((error) => console.log(error));
-    */
+    
+});
+
+distributorRouter.get('/userId/:userId', (req, res) => {
+    // Distributor.find({})
+    // .then(distributors => {
+    //     for(i = 0; i < distributors.length; i++){
+    //         if (distributors[i]._userId == req.params.userId) {
+    //             console.log(distributors[i]);
+    //             res.send(distributors[i]._id);
+    //             return;
+    //         }            
+    //     }
+    // })
+    // .catch((error) => console.log(error));
+
+    //TODO: find the reason why the below code is not working
+    
+    console.log(req.params.userId);
+    Distributor.find({ _userId: req.params.userId})
+        .then(distributors => {
+            res.send(distributors[0]._id);            
+        })
+        .catch((error) => console.log(error));
+    
 });
 
 

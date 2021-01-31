@@ -85,12 +85,19 @@ export class ProductDetailEditComponent implements OnInit {
     if ((JSON.stringify(this.productDb) !== JSON.stringify(this.product)) || (this.selectedFiles !== null) || (this.isUpdateProduct)) {        
         // update user profile
         this.isUpdateProduct = false;
+        if(!this.product.discount){
+          this.product.discount = 0;
+        }
+        if(!this.product.price){
+          this.product.price = 0;
+        }
+        if(!this.product.quantity){
+          this.product.quantity = 0;
+        }
         this.salonUtilService.updateProduct(this.product, this.selectedFiles, this.deletedList).subscribe(
             () => // refresh page
             this.refreshProductProfile(this.productId)
         );
-    } else {
-        // console.log('Giong' + JSON.stringify(this.customerDb) + '---' + JSON.stringify(this.customer));
     }
     this.deletedList.fill(0);
   }

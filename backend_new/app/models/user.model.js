@@ -10,15 +10,58 @@ const mongoose = require("mongoose");
 const User = mongoose.model(
   "User",
   new mongoose.Schema({
-    username: String,
-    email: String,
+    username: String,    
     password: String,
     roles: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Role"
       }
-    ]
+    ],
+    firstname: { 
+      type: String,
+      required: [false, 'firstname']
+    },
+
+    lastname: { 
+        type: String,
+        required: [false, 'lastname']
+    },
+    
+    phone: {
+        type: String,
+        required: [false, 'Phone number must be provided']
+    },
+    email: {
+        type: String,
+        lowercase: false,
+        required: [false, "can't be blank"], 
+        match: [/\S+@\S+\.\S+/, 'is invalid']
+    },
+    dob: { 
+        type: Date,
+        required: [false, 'Date of birth must be provided']
+    },
+    gender: { 
+        type: String , 
+        required: [false, 'Gender must be provided']
+    },
+    district: { 
+        type: String,
+        required: [false, 'district']
+    },
+    city: { 
+        type: String,
+        required: [false, 'city']
+    },
+    address: { 
+        type: String,
+        required: [false, 'address']
+    },
+    avatar: {
+        type: String,
+        require: [false, 'profile avatar']
+    }
   })
 );
 

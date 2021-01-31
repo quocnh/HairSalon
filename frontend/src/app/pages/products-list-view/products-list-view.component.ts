@@ -4,7 +4,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Distributor from 'app/module/distributor';
 import { GlobalConstants } from 'app/module/global-constants';
 import Product from 'app/module/product';
-import User from 'app/module/user';
 import { AddNewProductComponent } from 'app/popup/add-new-product/add-new-product.component';
 import { SalonUtilsService } from 'app/salon-utils.service';
 import { TokenStorageService } from 'app/_services/token-storage.service';

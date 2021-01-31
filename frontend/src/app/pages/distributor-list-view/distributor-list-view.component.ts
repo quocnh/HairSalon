@@ -6,6 +6,7 @@ import { AddNewDistributorComponent } from '../../popup/add-new-distributor/add-
 import { DeleteDistributorComponent } from '../../popup/delete-distributor/delete-distributor.component';
 import { Router } from '@angular/router';
 import { TokenStorageService } from 'app/_services/token-storage.service';
+import User from 'app/module/userAccount';
 
 @Component({
   selector: 'app-distributor-list-view',
@@ -13,9 +14,9 @@ import { TokenStorageService } from 'app/_services/token-storage.service';
   templateUrl: './distributor-list-view.component.html'
 })
 export class DistributorListViewComponent implements OnInit {
-  distributors: Distributor[];
+  distributors: User[] = new Array();
   name: string;
-  public deletedDistributor: Distributor;
+  public deletedDistributor: User;
   prefixPath: string;
   isLoggedIn = false;
   user: any;
@@ -23,7 +24,7 @@ export class DistributorListViewComponent implements OnInit {
 
   keyword = 'name';
   selectedDistributor:any;
-  displayedDistributors: Distributor[] = [];
+  displayedDistributors: User[] = new Array();
 
   constructor(
     private salonUtilService: SalonUtilsService,
@@ -66,7 +67,6 @@ export class DistributorListViewComponent implements OnInit {
   // --- Autocomplete Code -------------------------
 
   createNewDistributor() {
-    // TODO: Implement create new customer form popup
     const ref = this.modalService.open(AddNewDistributorComponent);
 
     ref.result.then((result) => {
@@ -83,18 +83,20 @@ export class DistributorListViewComponent implements OnInit {
     })
   }
 
-  deleteDistributor(distributorId: string) {
+  deleteDistributor(userId: string) {
     // TODO: Implement create new salon owner form popup
 
-    this.salonUtilService.getOneDistributor(distributorId)
-      .subscribe((distributors: Distributor[]) =>  {
-        this.deletedDistributor = distributors[0];
-        console.log('Delete owner ' + this.deletedDistributor.name);
+    this.salonUtilService.getUser(userId)
+      .subscribe((user: User[]) =>  {
+        this.deletedDistributor = user[0];
+        console.log('Delete owner ' + this.deletedDistributor.username);
         const ref = this.modalService.open(DeleteDistributorComponent);
         ref.componentInstance.deletedDistributor = this.deletedDistributor;
         ref.result.then((yes) => {
-          this.salonUtilService.deleteDistributors(distributorId).subscribe();
-          this.refreshDistributorList();
+          this.salonUtilService.deleteDistributorsFromUserId(this.deletedDistributor._id).subscribe(
+            ()=>this.refreshDistributorList()
+          );
+          
         },
         (cancel) => {
           console.log('cancel click');
@@ -103,11 +105,20 @@ export class DistributorListViewComponent implements OnInit {
   }
 
   refreshDistributorList() {
+    this.distributors=[];
+    this.displayedDistributors=[];
     this.salonUtilService.getDistributors()
       .subscribe((distributors: Distributor[]) => 
       {
-        this.distributors = distributors;
-        this.displayedDistributors = distributors;
+        
+        for (var i = 0; i < distributors.length; i++) {
+          this.salonUtilService.getUser(distributors[i]._userId)
+          .subscribe((user: User[]) => {
+            this.distributors.push(user[0]);
+            this.displayedDistributors.push(user[0]);
+          })
+        }
+        
       });
   }
 

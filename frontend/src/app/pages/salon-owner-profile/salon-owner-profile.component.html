@@ -1,162 +1,161 @@
 <div class="row">
-    <div class="col-md-4">
-      <div class="card card-user">
-        
-        <div class="image">
-          <img src="assets/img/damir-bosnjak.jpg" alt="..." >
-        </div>
-        <div class="card-body">
-          <div class="author">
-            <a>
-              <img class="avatar border-gray" src={{strAvatar}} >
-              <button class="btn btn-sm btn-info btn-round btn-icon fa fa-pencil" (click)="fileInput.click()" *ngIf="isModifiedEnable">
-                <input #fileInput type="file" (change)="onFileSelected($event)" style="display:none;" />
-              </button>
-  
-              <h5 class="title">{{ salonOwnerDb.name }}</h5>
-            </a>
-            <p class="description" *ngIf="isSalonOwner">
-              @{{ user.username }}
-            </p>
-          </div>
-        </div>        
+  <div class="col-md-4">
+    <div class="card card-user">
+      
+      <div class="image">
+        <img src="assets/img/damir-bosnjak.jpg" alt="..." >
       </div>
-  
-    </div>
-    <div class="col-md-8">
-      <div class="card card-user" *ngIf="isModifiedEnable; else ViewOnly">
-        <div class="card-header">
-          <h5 class="card-title">Thông tin</h5>
-        </div>
-        <div class="card-body">
-          <form>
-            <div class="row">
-                <div class="col-md-6 pr-1">
-                  <div class="form-group">
-                    <label>Họ</label>
-                    <input type="text" class="form-control" placeholder="Last Name" value="{{ salonOwner.lastname }}" [(ngModel)]="salonOwner.lastname" [ngModelOptions]="{standalone: true}">
-                  </div>
-                </div>
-                <div class="col-md-6 px-1">
-                  <div class="form-group">
-                    <label>Tên</label>
-                    <input type="text" class="form-control" placeholder="First Name" value= "{{ salonOwner.firstname }}" [(ngModel)]="salonOwner.firstname" [ngModelOptions]="{standalone: true}">
-                  </div>
-                </div>
-                
-              </div>
-            <div class="row">
-                <div class="col-md-4 pr-1">
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Số điện thoại</label>
-                      <input type="email" class="form-control" placeholder="Phone number" value="{{salonOwner.phone}}" [(ngModel)]="salonOwner.phone" name="phone">
-                    </div>
-                </div>
-              
-                <div class="col-md-8 px-1">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Email</label>
-                        <input type="email" class="form-control" placeholder="Email" value="{{ salonOwner.email }}" [(ngModel)]="salonOwner.email" [ngModelOptions]="{standalone: true}">
-                    </div>
-                </div>
-            </div>       
+      <div class="card-body">
+        <div class="author">
+          <a>
+            <img class="avatar border-gray" src={{strAvatar}} >
+            <button class="btn btn-sm btn-info btn-round btn-icon fa fa-pencil" (click)="fileInput.click()" *ngIf="isModifiedEnable">
+              <input #fileInput type="file" (change)="onFileSelected($event)" style="display:none;" />
+            </button>
 
-            <div class="row">
-              <div class="col-md-12">
+            <h5 class="title">{{ salonOwnerDb.firstname }} {{ salonOwnerDb.lastname }}</h5>
+          </a>
+          <p class="description">
+            @{{ salonOwnerDb.username }}
+          </p>
+        </div>
+      </div>        
+    </div>
+
+  </div>
+  <div class="col-md-8">
+    <div class="card card-user" *ngIf="isModifiedEnable; else ViewOnly">
+      <div class="card-header">
+        <h5 class="card-title">Thông tin</h5>
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="row">
+              <div class="col-md-6 pr-1">
                 <div class="form-group">
-                  <label>Địa chỉ</label>
-                  <input type="text" class="form-control" placeholder="Home Address" value="{{ salonOwner.address }}" [(ngModel)]="salonOwner.address" [ngModelOptions]="{standalone: true}">
+                  <label>Họ</label>
+                  <input type="text" class="form-control" placeholder="Last Name" value="{{ salonOwner.lastname }}" [(ngModel)]="salonOwner.lastname" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+              <div class="col-md-6 px-1">
+                <div class="form-group">
+                  <label>Tên</label>
+                  <input type="text" class="form-control" placeholder="First Name" value= "{{ salonOwner.firstname }}" [(ngModel)]="salonOwner.firstname" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+              
+            </div>
+          <div class="row">
+              <div class="col-md-4 pr-1">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Số điện thoại</label>
+                    <input type="email" class="form-control" placeholder="Phone number" value="{{salonOwner.phone}}" [(ngModel)]="salonOwner.phone" name="phone">
+                  </div>
+              </div>
+            
+              <div class="col-md-8 px-1">
+                  <div class="form-group">
+                      <label for="exampleInputEmail1">Email</label>
+                      <input type="email" class="form-control" placeholder="Email" value="{{ salonOwner.email }}" [(ngModel)]="salonOwner.email" [ngModelOptions]="{standalone: true}">
+                  </div>
+              </div>
+          </div>       
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Địa chỉ</label>
+                <input type="text" class="form-control" placeholder="Home Address" value="{{ salonOwner.address }}" [(ngModel)]="salonOwner.address" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="label">Thành phố</label>
+                <div class="input--style-1">
+                  <ng-autocomplete [data]="cities" [searchKeyword]="keyword" [initialValue]="salonOwner.city"
+                    placeHolder="Thành Phố" (selected)='selectCityEvent($event)' (inputChanged)='onChangeSearch($event)'
+                    (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+                    (inputCleared)="handleCityEmptyInput()" [(ngModel)]="salonOwner.city" [ngModelOptions]="{standalone: true}">
+                  </ng-autocomplete>
+            
+                  <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.name"></a>
+                  </ng-template>
+            
+                  <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                  </ng-template>
                 </div>
               </div>
             </div>
-            <div class="row">              
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="label">Thành phố</label>
-                  <div class="input--style-1">
-                    <ng-autocomplete [data]="cities" [searchKeyword]="keyword" [initialValue]="salonOwner.city" placeHolder="Thành Phố"
-                      (selected)='selectCityEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
-                      [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" 
-                      (inputCleared)="handleCityEmptyInput()" [(ngModel)]="salonOwner.city" [ngModelOptions]="{standalone: true}">
-              
-                    </ng-autocomplete>
-              
-                    <ng-template #itemTemplate let-item>
-                      <a [innerHTML]="item.name"></a>
-                    </ng-template>
-              
-                    <ng-template #notFoundTemplate let-notFound>
-                      <div [innerHTML]="notFound"></div>
-                    </ng-template>
-                  </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="label">Quận</label>
+                <div class="input--style-1">
+                  <ng-autocomplete [data]="districts" [searchKeyword]="keyword" [initialValue]="salonOwner.district" placeHolder="Quận"
+                    (selected)='selectDistrictEvent($event)' (inputChanged)='onChangeSearch($event)'
+                    (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+                    (inputCleared)="handleDistrictEmptyInput()" [(ngModel)]="salonOwner.district" [ngModelOptions]="{standalone: true}">
+                  </ng-autocomplete>
+            
+                  <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.name"></a>
+                  </ng-template>
+            
+                  <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                  </ng-template>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="label">Quận</label>
-                  <div class="input--style-1">
-                    <ng-autocomplete [data]="districts" [searchKeyword]="keyword" [initialValue]="salonOwner.district" placeHolder="Quận"
-                      (selected)='selectDistrictEvent($event)' (inputChanged)='onChangeSearch($event)'
-                      (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
-                      (inputCleared)="handleDistrictEmptyInput()" [(ngModel)]="salonOwner.district" [ngModelOptions]="{standalone: true}">
-                    </ng-autocomplete>
-              
-                    <ng-template #itemTemplate let-item>
-                      <a [innerHTML]="item.name"></a>
-                    </ng-template>
-              
-                    <ng-template #notFoundTemplate let-notFound>
-                      <div [innerHTML]="notFound"></div>
-                    </ng-template>
-                  </div>
-                </div>
-              </div>
-              
             </div>
             
-            <div class="row">
-              <div class="update ml-auto mr-auto">
-                <button type="submit" class="btn btn-primary btn-round" (click)="updateProfile()">Cập nhật</button>
-              </div>
+          </div>
+          
+          <div class="row">
+            <div class="update ml-auto mr-auto">
+              <button type="submit" class="btn btn-primary btn-round" (click)="updateProfile()">Cập nhật</button>
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </div>
-
-    <ng-template #ViewOnly>
-        <div class="card card-user">
-            <div class="card-header">
-              <h5 class="card-title">Thông tin chủ Salon</h5>
-            </div>
-            <div class="card-body">
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <h5 class="card-description text-left"><b>Họ Tên: {{ salonOwner.lastname }} {{ salonOwner.firstname }}</b></h5> 
-                    </div>                    
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h5 class="card-description text-left"><b>Số điện thoại: {{ salonOwner.phone }}</b></h5>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h5 class="card-description text-left"><b>Email: {{ salonOwner.email }}</b></h5>
-                    </div>
-                </div>    
-                <div class="row">
-                  <div class="col-md-12"> 
-                    <h5 class="card-description text-left"><b>Địa chỉ: {{ salonOwner.address }}</b></h5>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12">  
-                    <h5 class="card-description text-left"><b>Quận {{ salonOwner.district }}, Thành phố {{ salonOwner.city }}</b></h5>
-                  </div>                  
-                </div>              
-            </div>
-        </div>
-    </ng-template>
   </div>
+
+  <ng-template #ViewOnly>
+      <div class="card card-user">
+          <div class="card-header">
+            <h5 class="card-title">Thông tin chủ salon</h5>
+          </div>
+          <div class="card-body">
+
+              <div class="row">
+                  <div class="col-md-12">
+                      <h5 class="card-description text-left"><b>Họ Tên: {{ salonOwner.lastname }} {{ salonOwner.firstname }}</b></h5> 
+                  </div>                    
+              </div>
+              <div class="row">
+                  <div class="col-md-12">
+                      <h5 class="card-description text-left"><b>Số điện thoại: {{ salonOwner.phone }}</b></h5>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-12">
+                      <h5 class="card-description text-left"><b>Email: {{ salonOwner.email }}</b></h5>
+                  </div>
+              </div>    
+              <div class="row">
+                <div class="col-md-12"> 
+                  <h5 class="card-description text-left"><b>Địa chỉ: {{ salonOwner.address }}</b></h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">  
+                  <h5 class="card-description text-left"><b>Quận {{ salonOwner.district }}, Thành phố {{ salonOwner.city }}</b></h5>
+                </div>                  
+              </div>              
+          </div>
+      </div>
+  </ng-template>
+</div>

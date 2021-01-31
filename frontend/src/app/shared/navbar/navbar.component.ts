@@ -6,12 +6,12 @@ import { Location } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RegisterComponent } from '../../popup/register/register.component';
 import { LoginComponent } from '../../popup/login/login.component';
-import User from '../../module/user';
 import { SalonUtilsService } from '../../salon-utils.service';
 import { TokenStorageService } from '../../_services/token-storage.service';
 import { environment } from 'environments/environment';
 import { SearchService } from 'app/_services/search.service';
 import { MessageService } from 'app/_services/message.service';
+import User from 'app/module/userAccount';
 
 
 @Component({
@@ -121,7 +121,11 @@ export class NavbarComponent implements OnInit {
     this.tokenStorageService.signOut();
     this.homePath = this.baseUrl;
     this.router.navigate(['/']);
-    //window.location.reload();
+
+    if (this.router.url === '/home'){
+      window.location.reload();
+    }
+    
   }
 
   // call signin modal function
@@ -130,7 +134,11 @@ export class NavbarComponent implements OnInit {
     const ref = this.modalService.open(LoginComponent);
     ref.result.then((result) => {
       this.router.navigate(['/']);
-      // window.location.reload();      
+
+      if (this.router.url === '/home'){
+        window.location.reload();
+      }
+          
     },
       (cancel) => {
         console.log('cancel click');
@@ -187,9 +195,9 @@ export class NavbarComponent implements OnInit {
     }, 500);
 
     html.classList.add('nav-open');
-    if (window.innerWidth < 991) {
-      mainPanel.style.position = 'fixed';
-    }
+    // if (window.innerWidth < 991) {
+    //   mainPanel.style.position = 'fixed';
+    // }
     this.sidebarVisible = true;
   };
   // tslint:disable-next-line: member-ordering
@@ -209,12 +217,14 @@ export class NavbarComponent implements OnInit {
   collapse() {
     this.isCollapsed = !this.isCollapsed;
     const navbar = document.getElementsByTagName('nav')[0];
+
+    
     console.log(navbar);
     if (!this.isCollapsed) {
-      navbar.classList.remove('navbar-transparent');
+      // navbar.classList.remove('navbar-transparent');
       navbar.classList.add('bg-white');
     } else {
-      navbar.classList.add('navbar-transparent');
+      // navbar.classList.add('navbar-transparent');
       navbar.classList.remove('bg-white');
     }
 

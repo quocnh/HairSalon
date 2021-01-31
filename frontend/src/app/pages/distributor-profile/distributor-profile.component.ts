@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { NgbCalendar, NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import Distributor from 'app/module/distributor';
+import User from 'app/module/userAccount';
 import { SalonUtilsService } from 'app/salon-utils.service';
 import { SearchService } from 'app/_services/search.service';
 import { TokenStorageService } from 'app/_services/token-storage.service';
@@ -14,8 +15,8 @@ import { environment } from 'environments/environment';
   styleUrls: ['./distributor-profile.component.css']
 })
 export class DistributorProfileComponent implements OnInit {
-  distributor:Distributor = new Distributor();
-  distributorDb:Distributor = new Distributor();
+  distributor:User = new User();
+  distributorDb:User = new User();
   userId: string;
   strAvatar: any;
   genders = [
@@ -110,21 +111,19 @@ export class DistributorProfileComponent implements OnInit {
           this.distributor.district = this.selectedDistrict.name;
         }
         // update user profile
-        this.salonUtilService.updateDistrbibutor(this.distributor, this.selectedFile).subscribe(
+        this.salonUtilService.updateUserProfile(this.distributor._id, this.distributor, this.selectedFile).subscribe(
             // refresh page
             (distributor:Distributor) => this.refreshProfile(distributor._id)
         );
 
-    } else {
-        // console.log('Giong' + JSON.stringify(this.customerDb) + '---' + JSON.stringify(this.customer));
     }
   }
 
   refreshProfile(profileId) {
-    this.salonUtilService.getOneDistributor(profileId).subscribe(
-        (distributor: Distributor) => {
-            this.distributor = Object.assign({}, distributor[0]);
-            this.distributorDb = Object.assign({}, distributor[0]);
+    this.salonUtilService.getUser(profileId).subscribe(
+        (user: User) => {
+            this.distributor = Object.assign({}, user[0]);
+            this.distributorDb = Object.assign({}, user[0]);
             if (this.distributor.avatar) {
                 this.strAvatar = environment.dbAddress+ '/' + this.distributor.avatar;
             }
