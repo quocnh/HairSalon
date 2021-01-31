@@ -101,7 +101,8 @@ userRouter.get('/getAllCustomer', (req, res) => {
 });
 
 userRouter.delete('/deleteUser/:userId', (req, res) => {
-    Customer.findByIdAndDelete(req.params.userId)
+    console.log(req.params.userId);
+    User.findByIdAndDelete(req.params.userId)
         .then(user => res.send(user))
         .catch((error) => console.log(error));
 });

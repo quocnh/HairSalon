@@ -97,8 +97,10 @@ export class CustomersListComponent implements OnInit {
         const ref = this.modalService.open(DeleteCustomerComponent);
         ref.componentInstance.itemName = this.deletedCustomer.username;
         ref.result.then((yes) => {
-          this.salonUtilService.deleteUser(customerId).subscribe();
-          this.refreshCustomerList();
+          this.salonUtilService.deleteUser(customerId).subscribe(
+            ()=> this.refreshCustomerList()
+          );
+          
         },
         (cancel) => {
           console.log('cancel click');
@@ -107,6 +109,8 @@ export class CustomersListComponent implements OnInit {
   }
 
   refreshCustomerList() {
+    this.customers = [];
+    this.displayedCustomers = [];
     this.salonUtilService.getAllCustomer()
       .subscribe((customers: User[]) => 
       {

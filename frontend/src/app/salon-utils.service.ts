@@ -476,7 +476,7 @@ export class SalonUtilsService {
 
   deleteUser(userId : string) {
     // console.log(userId);
-    return this.webService.get(`api/user/deleteUser/${userId}`);
+    return this.webService.delete(`api/user/deleteUser/${userId}`);
   }
 
   getAllUser() {
