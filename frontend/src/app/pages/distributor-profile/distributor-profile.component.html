@@ -13,7 +13,7 @@
                 <input #fileInput type="file" (change)="onFileSelected($event)" style="display:none;" />
               </button>
   
-              <h5 class="title">{{ distributorDb.name }}</h5>
+              <h5 class="title">{{ distributorDb.firstname }} {{ distributorDb.lastname }}</h5>
             </a>
             <p class="description">
               @{{ distributorDb.username }}
