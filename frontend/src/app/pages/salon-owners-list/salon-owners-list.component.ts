@@ -7,6 +7,7 @@ import { AddNewSalonOwnerComponent } from '../../popup/add-new-salon-owner/add-n
 import { DeleteSalonOwnerComponent } from '../../popup/delete-salon-owner/delete-salon-owner.component';
 import { environment } from 'environments/environment';
 import { Router } from '@angular/router';
+import User from 'app/module/userAccount';
 
 @Component({
   selector: 'app-salon-owners-list',
@@ -16,16 +17,16 @@ import { Router } from '@angular/router';
 
 export class SalonOwnersListComponent implements OnInit {
 
-  salonOwners: SalonOwner[] = [];  
+  salonOwners: User[] = new Array();  
   addedSalonOwner: SalonOwner ;
-  salonOwner: SalonOwner;
+  salonOwner: User;
   name: string;
-  public deletedSalonOwner: SalonOwner;
+  public deletedSalonOwner: User;
   prefixPath: string;
 
   keyword = 'name';
   selectedSalonOwner:any;
-  displayedSalonOwners: SalonOwner[] = [];
+  displayedSalonOwners: User[] = new Array();
 
   constructor(
     private salonUtilService: SalonUtilsService,
@@ -76,18 +77,20 @@ export class SalonOwnersListComponent implements OnInit {
     })
   }
 
-  deleteSalonOwner(ownerId: string) {
+  deleteSalonOwner(userId: string) {
     // TODO: Implement create new salon owner form popup
 
-    this.salonUtilService.getOneSalonOwner(ownerId)
-      .subscribe((salonOwners: SalonOwner[]) =>  {
-        this.deletedSalonOwner = salonOwners[0];
-        console.log('Delete owner ' + this.deletedSalonOwner.name);
+    this.salonUtilService.getUser(userId)
+      .subscribe((user: User[]) =>  {
+        this.deletedSalonOwner = user[0];
+        console.log('Delete owner ' + this.deletedSalonOwner.username);
         const ref = this.modalService.open(DeleteSalonOwnerComponent);
         ref.componentInstance.deletedSalonOwner = this.deletedSalonOwner;
         ref.result.then((yes) => {
-          this.salonUtilService.deleteSalonOwner(ownerId).subscribe();
-          this.refreshSalonOwnersList();
+          this.salonUtilService.deleteSalonOwnerFromUserId(userId).subscribe(
+            ()=>this.refreshSalonOwnersList()
+          );
+          
         },
         (cancel) => {
           console.log('cancel click');
@@ -96,10 +99,17 @@ export class SalonOwnersListComponent implements OnInit {
   }
 
   refreshSalonOwnersList() {
+    this.salonOwners =[];
+    this.displayedSalonOwners=[];
     this.salonUtilService.getSalonOwners()
       .subscribe((salonOwners: SalonOwner[]) => {
-        this.salonOwners = salonOwners;
-        this.displayedSalonOwners = this.salonOwners;
+        for (var i = 0; i < salonOwners.length; i++) {
+          this.salonUtilService.getUser(salonOwners[i]._userId)
+          .subscribe((user: User[]) => {
+            this.salonOwners.push(user[0]);
+            this.displayedSalonOwners.push(user[0]);
+          })
+        }
       });
   }
 

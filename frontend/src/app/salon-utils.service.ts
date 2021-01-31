@@ -36,6 +36,10 @@ export class SalonUtilsService {
     return this.webService.delete(`salonOwners/${ownerId}`);
   }
 
+  deleteSalonOwnerFromUserId(userId: string) {
+    return this.webService.delete(`salonOwners/userId/${userId}`);
+  }
+
   updateSalonOwner(salonOwner: SalonOwner, file: File) {
     const fd = new FormData();
     let key;
@@ -312,6 +316,9 @@ export class SalonUtilsService {
 
   deleteDistributors(distributorId: string) {
     return this.webService.delete(`distributors/${distributorId}`);
+  }
+  deleteDistributorsFromUserId(userId: string) {
+    return this.webService.delete(`distributors/userId/${userId}`);
   }
 
   updateDistrbibutor(distributor: Distributor, file: File) {

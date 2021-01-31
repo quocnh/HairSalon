@@ -39,7 +39,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'profile',               component: UserProfileComponent },
 
     { path: 'salonOwners',      component: SalonOwnersListComponent },
-    { path: 'salonOwners/:salonOwnerId',      component: SalonOwnerProfileComponent },
+    { path: 'salonOwners/:salonOwnerId/profile',      component: SalonOwnerProfileComponent },
     { path: 'salonOwners/:salonOwnerId/salons',       component: SalonsListViewComponent },
     { path: 'salonOwners/:salonOwnerId/salons/:salonId',       component: SalonEditComponent },
 
