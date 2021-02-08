@@ -32,7 +32,7 @@ export const AdminLayoutRoutes: Routes = [
     // { path: 'table',          component: TableComponent },
     // { path: 'typography',     component: TypographyComponent },
     // { path: 'icons',          component: IconsComponent },
-    // { path: 'maps',           component: MapsComponent },
+    { path: 'maps',           component: MapsComponent },
 
     { path: 'become-salonowner-request',  component: RegisterListBecomeSalonOwnerComponent },
     { path: 'become-distributor-request',  component: RegisterListBecomeDistributorComponent },
