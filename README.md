@@ -70,6 +70,8 @@ cd frondent > npm install --save ngx-lightbox
 ```python
 cd frondent > npm i angular-ng-autocomplete
 ```
+7. Install google map
+npm install --save-dev @types/googlemaps
 
 ##################
 ### how to run ###

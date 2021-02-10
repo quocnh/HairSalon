@@ -1,3 +1,35 @@
+
+
+
+<div class="row">
+  <div class="col-md-6" style="padding: 1px; margin:0">
+    <div class=" btn-image" (click)="fileInput.click()" style="padding: 2px; margin:0">
+      <img src={{strPhotos[0]}} style="width:100%">
+      <input #fileInput type="file" (change)="onFileSelected($event)" style="display:none;" />
+    </div>
+  </div>
+  <div class="col-md-3" style="padding: 1px; margin:0">
+    <div class=" btn-image " (click)="fileInput1.click()" style="padding: 2px; margin:0">
+      <img src={{strPhotos[1]}} style="object-fit: fill; width:100%">
+      <input #fileInput1 type="file" (change)="onSmallPhotoFileSelected($event, 1)" style="display:none;" />
+    </div>
+    <div class=" btn-image " (click)="fileInput2.click()" style="padding: 2px; margin:0">
+      <img src={{strPhotos[2]}} style="object-fit: fill; width:100%">
+      <input #fileInput2 type="file" (change)="onSmallPhotoFileSelected($event, 2)" style="display:none;" />
+    </div>
+  </div>
+  <div class="col-md-3" style="padding: 1px; margin:0">
+    <div class=" btn-image " (click)="fileInput3.click()" style="padding: 2px; margin:0">
+      <img src={{strPhotos[3]}} style="object-fit: fill; width:100%">
+      <input #fileInput3 type="file" (change)="onSmallPhotoFileSelected($event, 3)" style="display:none;" />
+    </div>
+    <div class=" btn-image " (click)="fileInput4.click()" style="padding: 2px; margin:0">
+      <img src={{strPhotos[4]}} style="object-fit: fill; width:100%">
+      <input #fileInput4 type="file" (change)="onSmallPhotoFileSelected($event, 4)" style="display:none;" />
+    </div>
+  </div>
+</div>
+
 <div class="row">
   <div class="col-md-12">
     <div class="card card-chart">
@@ -12,11 +44,7 @@
           <input type="text" class="form-control card-title" placeholder="Tên salon" value="{{ salon.name }}"
             [(ngModel)]="salon.name" [ngModelOptions]="{standalone: true}">
         </p>
-        <p class="card-category">
-          <label class="label">Địa chỉ</label>
-          <input type="text" class="form-control" placeholder="Địa chỉ" value="{{ salon.address }}"
-            [(ngModel)]="salon.address" [ngModelOptions]="{standalone: true}">
-        </p>
+        
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
@@ -60,43 +88,40 @@
                 </ng-template>
               </div>
             </div>
+          </div>          
+        </div>
+        <p class="card-category">
+          <label class="label">Địa chỉ</label>
+          <input type="text" class="form-control" placeholder="Địa chỉ" value="{{ salon.address }}"
+            [(ngModel)]="salon.address" [ngModelOptions]="{standalone: true}">
+        </p>
+        <div class="row">
+          <div class="col-md-3">
+            <p class="card-category">
+              <label class="label">Longitude</label>
+              <input type="text" class="form-control" placeholder="Longitude" value="{{ salon.longitude }}"
+                [(ngModel)]="salon.longitude" [ngModelOptions]="{standalone: true}">
+            </p>
           </div>
-
+          <div class="col-md-3">
+            <p class="card-category">
+              <label class="label">Latitude</label>
+              <input type="text" class="form-control" placeholder="Latitude" value="{{ salon.latitude }}"
+                [(ngModel)]="salon.latitude" [ngModelOptions]="{standalone: true}">
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
-</div>
-
-
-<div class="row">
-  <div class="col-md-6" style="padding: 1px; margin:0">
-    <div class=" btn-image" (click)="fileInput.click()" style="padding: 2px; margin:0">
-      <img src={{strPhotos[0]}} style="width:100%">
-      <input #fileInput type="file" (change)="onFileSelected($event)" style="display:none;" />
+  <div class="col-md-12">
+    <div class="card ">
+      <div class="map">
+        <div id='map' class="map" style='height: 100%'></div>
+      </div>
     </div>
   </div>
-  <div class="col-md-3" style="padding: 1px; margin:0">
-    <div class=" btn-image " (click)="fileInput1.click()" style="padding: 2px; margin:0">
-      <img src={{strPhotos[1]}} style="object-fit: fill; width:100%">
-      <input #fileInput1 type="file" (change)="onSmallPhotoFileSelected($event, 1)" style="display:none;" />
-    </div>
-    <div class=" btn-image " (click)="fileInput2.click()" style="padding: 2px; margin:0">
-      <img src={{strPhotos[2]}} style="object-fit: fill; width:100%">
-      <input #fileInput2 type="file" (change)="onSmallPhotoFileSelected($event, 2)" style="display:none;" />
-    </div>
-  </div>
-  <div class="col-md-3" style="padding: 1px; margin:0">
-    <div class=" btn-image " (click)="fileInput3.click()" style="padding: 2px; margin:0">
-      <img src={{strPhotos[3]}} style="object-fit: fill; width:100%">
-      <input #fileInput3 type="file" (change)="onSmallPhotoFileSelected($event, 3)" style="display:none;" />
-    </div>
-    <div class=" btn-image " (click)="fileInput4.click()" style="padding: 2px; margin:0">
-      <img src={{strPhotos[4]}} style="object-fit: fill; width:100%">
-      <input #fileInput4 type="file" (change)="onSmallPhotoFileSelected($event, 4)" style="display:none;" />
-    </div>
-  </div>
+
 </div>
 
 <div class="row">
