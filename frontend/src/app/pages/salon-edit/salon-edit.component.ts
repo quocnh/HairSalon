@@ -7,6 +7,7 @@ import Service from '../../module/service';
 import { environment } from 'environments/environment';
 import { SearchService } from 'app/_services/search.service';
 import { newArray } from '@angular/compiler/src/util';
+import GLocation from 'app/module/location';
 // import { HereService } from '../../module/here.service';
 
 declare var google: any;
@@ -166,10 +167,24 @@ export class SalonEditComponent implements OnInit {
     this.marker = new google.maps.Marker({
         position: salonPos,
         title: this.salon.name,
-        map: this.map
+        map: this.map,
+        draggable: true
     });
-  }
 
+    this.marker.addListener('dragend', (evt) => {
+      var location = new GLocation();
+      location.lat = evt.latLng.lat().toFixed(3);
+      location.lng = evt.latLng.lng().toFixed(3);
+      //console.log(evt.latLng.lat().toFixed(3));
+      //console.log(evt.latLng.lng().toFixed(3));   
+      this.salon.latitude = location.lat;
+      this.salon.longitude = location.lng;
+      //console.log(this.salon);
+    });
+    // google.maps.event.addListener(this.marker, 'drag', function(evt){
+    //     console.log("marker is being dragged");
+    // });
+  }
 
   getSalonInfo(salonId) {
     this.salonUtilService.getOneSalon(salonId).subscribe(
