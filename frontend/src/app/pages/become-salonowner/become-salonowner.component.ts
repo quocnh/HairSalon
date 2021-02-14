@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import User from 'app/module/userAccount';
+import { ConfirmComponent } from 'app/popup/confirm/confirm.component';
 import { SalonUtilsService } from 'app/salon-utils.service';
 import { TokenStorageService } from 'app/_services/token-storage.service';
 import { BecomeSalonOwnerService } from '../../_services/become-salon-owner.service';
@@ -28,9 +30,9 @@ export class BecomeSalonownerComponent implements OnInit {
     public becomeSalonOwnerService: BecomeSalonOwnerService,
     private salonUtilService: SalonUtilsService,
     // private route: ActivatedRoute,
-    private router: Router,
-    // private modalService: NgbModal,
-    private tokenStorageService: TokenStorageService
+    private router: Router,    
+    private tokenStorageService: TokenStorageService,
+    private modalService: NgbModal
     ) { }
 
 
@@ -75,12 +77,22 @@ export class BecomeSalonownerComponent implements OnInit {
     this.becomeSalonOwnerService.createBecomeSalonOwner(this.form).subscribe(
       data => {
         console.log(data);
-        this.router.navigate(['home']);
+        const ref = this.modalService.open(ConfirmComponent);
+        ref.componentInstance.confirmInfo = 'Bạn đã yêu cầu trở thành chủ salon. Chúng tôi sẽ xử lý và thông báo kết quả sớm nhất' ;
+        ref.result.then((yes) => {
+          this.router.navigate(['home']);
+        },
+        (cancel) => {
+          console.log('cancel click');
+        })                   
       },
       err => {
         console.log("Already applied !!!");
         this.router.navigate(['home']);
       }
     );
+        
+
+    
   }
 }
