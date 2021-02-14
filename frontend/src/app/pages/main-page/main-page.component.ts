@@ -107,7 +107,7 @@ export class MainPageComponent implements OnInit {
 
     // console.log(this.cities);
     this.prefixPath = environment.baseUrl + '/main';
-    this.initMap();
+    //this.initMap();
     if (!navigator.geolocation) {
       console.log('location is not supported');
     }
@@ -200,6 +200,7 @@ export class MainPageComponent implements OnInit {
       this.loadMap();      
     } else {
       this.buttonMap = 'Mở bản đồ';
+      this.map = '';
     }
   }
 
@@ -328,6 +329,8 @@ export class MainPageComponent implements OnInit {
 
   loadMap() {
     this.initMap();
+    
+
     if ((this.myLatitude != 0) && (this.myLongitude != 0)){
       var myPosition = new google.maps.LatLng(this.myLatitude, this.myLongitude);
 
