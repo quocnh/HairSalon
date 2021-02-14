@@ -66,29 +66,35 @@ export class ProductsListViewComponent implements OnInit {
         console.log(params);
         if (params.distributorId) {
           // For admin controller
-          this.distributorId = params.distributorId;        
-          this.refreshProductsList();
-          return;
+          this.salonUtilService.getDistributorIdFromUserId(params.distributorId).subscribe(
+            (retDistributorId: string) => {
+              this.distributorId = retDistributorId;
+              console.log(this.distributorId);
+              if (this.distributorId) {
+                this.refreshProductsList();
+              } else {
+                console.log("Can't find distributor Id");
+              }            
+            }
+          );
         }
       });
+    } else {
+      console.log('distributorId:');
+      console.log(this.distributorId);
+      // 2. Get distributorId
+      this.salonUtilService.getDistributorIdFromUserId(this.user.id).subscribe(
+        (retDistributorId: string) => {
+          this.distributorId = retDistributorId;
+          console.log(this.distributorId);
+          if (this.distributorId) {
+            this.refreshProductsList();
+          } else {
+            console.log("Can't find distributor Id");
+          }            
+        }
+      );
     }
-
-    console.log('distributorId:');
-    console.log(this.distributorId);
-    // 2. Get distributorId
-    this.salonUtilService.getDistributorIdFromUserId(this.user.id).subscribe(
-      (retDistributorId: string) => {
-        this.distributorId = retDistributorId;
-        console.log(this.distributorId);
-        if (this.distributorId) {
-          this.refreshProductsList();
-        } else {
-          console.log("Can't find distributor Id");
-        }            
-      }
-    );
-    
-       
     this.prefixPath = environment.baseUrl + this.router.url;    
 
     console.log(this.prefixPath);
@@ -100,7 +106,7 @@ export class ProductsListViewComponent implements OnInit {
     this.selectedCategory = event.value;
     this.displayedProducts = [];
     this.salonUtilService.getProductsFromDistributorIdAndCategoty(this.distributorId, this.selectedCategory).subscribe(
-      (retProducts: Product[]) => {        
+      (retProducts: Product[]) => {
         this.displayedProducts = retProducts;
       }
     );
@@ -129,7 +135,7 @@ export class ProductsListViewComponent implements OnInit {
   // --- Autocomplete Code -------------------------
 
   refreshProductsList() {
-    
+    console.log(this.distributorId);
     this.salonUtilService.getProductsFromDistributorId(this.distributorId).subscribe(
       (retProducts: Product[]) => {
         this.products = retProducts;

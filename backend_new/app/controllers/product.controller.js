@@ -44,6 +44,7 @@ productRouter.get('/', (req, res) => {
 
 // Get all products from distributorId
 productRouter.get('/distributor/:distributorId', (req, res) => {
+    console.log(req.params.distributorId);
     Product.find({ _distributorId: req.params.distributorId})
         .then(products => res.send(products))
         .catch((error) => console.log(error));

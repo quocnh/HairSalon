@@ -344,7 +344,7 @@ export class SalonUtilsService {
   }
 
   // get Product list from distributor id
-  getProductsFromDistributorId(distributorId:string) {
+  getProductsFromDistributorId(distributorId:string) {    
     return this.webService.get(`products/distributor/${distributorId}`);
   }
 

@@ -6,6 +6,7 @@ import Distributor from 'app/module/distributor';
 import { GlobalConstants } from 'app/module/global-constants';
 import Product from 'app/module/product';
 import productOrder from 'app/module/productOrder';
+import { ConfirmComponent } from 'app/popup/confirm/confirm.component';
 import { DeleteAnyComponent } from 'app/popup/delete-any/delete-any.component';
 import { SalonUtilsService } from 'app/salon-utils.service';
 import { TokenStorageService } from 'app/_services/token-storage.service';
@@ -105,6 +106,8 @@ export class ProductDetailViewComponent implements OnInit {
                 this.strPhotos[i] = environment.dbAddress + '/' + this.product.photos[i];
               }
             }
+            console.log(this.productDb.discount);
+
             if (this.productDb.discount > 0) {
               this.discount = this.productDb.discount;
             }
@@ -125,7 +128,7 @@ export class ProductDetailViewComponent implements OnInit {
   }
 
   orderProduct() {
-    this.pOrder.status = "processing";
+    this.pOrder.status = GlobalConstants.OrderStatus[0];
     this.pOrder._productId = this.productDb._id;
     this.pOrder._distributorId = this.productDb._distributorId;
     
@@ -150,7 +153,14 @@ export class ProductDetailViewComponent implements OnInit {
         this.pOrder._salonOwnerId = retOwnerId;
         //console.log(this.pOrder);
         this.salonUtilService.createNewProductOrder(this.pOrder).subscribe(
-          (pOrder: productOrder) => {            
+          (pOrder: productOrder) => {
+            const ref = this.modalService.open(ConfirmComponent);
+            ref.componentInstance.confirmInfo = 'Bạn đã đặt hàng ' + this.pOrder.quantity + ' ' + this.product.name + '. Tổng cộng: '+ this.pOrder.totalPrice + '.';
+            ref.result.then((yes) => {              
+            },
+            (cancel) => {
+              console.log('cancel click');
+            })                    
           });
       }
     );
