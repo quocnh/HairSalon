@@ -129,25 +129,24 @@ distributorRouter.delete('/userId/:userId', (req, res) => {
     
 });
 
-distributorRouter.get('/userId/:userId', (req, res) => {
-    // Distributor.find({})
-    // .then(distributors => {
-    //     for(i = 0; i < distributors.length; i++){
-    //         if (distributors[i]._userId == req.params.userId) {
-    //             console.log(distributors[i]);
-    //             res.send(distributors[i]._id);
-    //             return;
-    //         }            
-    //     }
-    // })
-    // .catch((error) => console.log(error));
-
-    //TODO: find the reason why the below code is not working
-    
-    console.log(req.params.userId);
+distributorRouter.get('/userId/:userId', (req, res) => { 
+    //console.log(req.params.userId);
     Distributor.find({ _userId: req.params.userId})
         .then(distributors => {
-            res.send(distributors[0]._id);            
+            res.send(distributors[0]._id);
+        })
+        .catch((error) => console.log(error));
+    
+});
+
+distributorRouter.get('/getUser/:distributorId', (req, res) => {
+   
+    //console.log(req.params.distributorId);
+    Distributor.find({ _id: req.params.distributorId})
+        .then(distributors => {
+            User.find({ _id: distributors[0]._userId })
+                .then(user => res.send(user))
+                .catch((error) => console.log(error));
         })
         .catch((error) => console.log(error));
     

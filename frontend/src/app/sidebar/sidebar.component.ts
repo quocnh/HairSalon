@@ -29,10 +29,11 @@ export const ADMIN_ROUTES: RouteInfo[] = [
 
 export const MANAGER_ROUTES: RouteInfo[] = [    
     { path: 'profile',          title: 'Thông tin cá nhân',      icon: 'nc-icon nc-circle-10',  class: '' },
-    { path: 'salons',              title: 'Danh sách salon',               icon: 'nc-icon nc-shop',   class: '' },
-    { path: 'distributors',        title: 'Nhà phân phối',       icon: 'nc-icon nc-delivery-fast',   class: '' },
+    { path: 'salons',              title: 'Danh sách salon',               icon: 'nc-icon nc-shop',   class: '' },    
     { path: 'barbers',             title: 'Thợ cắt tóc',         icon: 'nc-icon nc-badge',   class: '' },
     { path: 'bookings',             title: 'Lịch hẹn',         icon: 'nc-icon nc-calendar-60',   class: '' },
+    { path: 'distributors',        title: 'Nhà phân phối',       icon: 'nc-icon nc-delivery-fast',   class: '' },
+    { path: 'orders',             title: 'Đơn hàng',         icon: 'nc-icon nc-paper',   class: '' },
 ];
 
 export const DISTRIBUTOR_ROUTES: RouteInfo[] = [    

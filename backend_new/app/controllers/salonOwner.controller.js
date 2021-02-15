@@ -55,6 +55,18 @@ salonOwnerRouter.get('/:salonOwnerId', (req, res) => {
         .catch((error) => console.log(error));
 });
 
+salonOwnerRouter.get('/getUser/:salonOwnerId', (req, res) => { 
+    //console.log(req.params.salonOwnerId);
+    SalonOwner.find({ _id: req.params.salonOwnerId})
+        .then(salonOwners => {
+            User.find({ _id: salonOwners[0]._userId })
+                .then(user => res.send(user))
+                .catch((error) => console.log(error));
+        })
+        .catch((error) => console.log(error));
+    
+});
+
 salonOwnerRouter.patch('/:salonOwnerId', upload.single('avatar'), (req, res) => {
     console.log(req.params.salonOwnerId);
     SalonOwner.findOneAndUpdate({ _id: req.params.salonOwnerId}, 

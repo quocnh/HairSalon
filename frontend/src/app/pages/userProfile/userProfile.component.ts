@@ -43,7 +43,7 @@ export class UserProfileComponent implements OnInit {
     currentUser: any;
     isAdmin = false;
     isSalonOwner = false;
-    isDustributor = false;
+    isDistributor = false;
 
     constructor(
         private salonUtilService: SalonUtilsService,
@@ -64,7 +64,7 @@ export class UserProfileComponent implements OnInit {
             //this.isModifiedEnable = this.user.roles.includes('ROLE_DISTRIBUTOR') || this.user.roles.includes('ROLE_ADMIN');
             this.isAdmin = this.currentUser.roles.includes('ROLE_ADMIN');
             this.isSalonOwner = this.currentUser.roles.includes('ROLE_SALON_OWNER');
-            this.isDustributor = this.currentUser.roles.includes('ROLE_DISTRIBUTOR');
+            this.isDistributor = this.currentUser.roles.includes('ROLE_DISTRIBUTOR');
             this.userId = this.currentUser.id;
         } else {
             // Not login yet
@@ -76,18 +76,25 @@ export class UserProfileComponent implements OnInit {
             this.cities = cities;
         });
 
-        if(this.isAdmin){
-            this.route.params.subscribe((params: Params) => {
+
+        this.route.params.subscribe((params: Params) => {
+            if(params.userId){
                 this.userId = params.userId;
-                if (this.userId) {
-                    this.refreshUserProfile(this.userId);
-                }
-              });
-        } else {
+            } else if (params.distributorId) {
+                this.userId = params.distributorId;
+            } else if (params.salonOwnerId) {
+                this.userId = params.salonOwnerId;                
+            }
+
             if (this.userId) {
                 this.refreshUserProfile(this.userId);
             }
-        }
+            
+            
+        });
+
+        
+
         
 
     }   
