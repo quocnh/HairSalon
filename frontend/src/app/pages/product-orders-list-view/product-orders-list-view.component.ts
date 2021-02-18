@@ -111,6 +111,19 @@ export class ProductOrdersListViewComponent implements OnInit {
 
     //console.log(this.prefixPath);
   }
+
+  page1:number = 1;
+  page2:number = 1;
+  page3:number = 1;
+  page4:number = 1;
+  key:string = 'id';
+  reverse: boolean = false;
+  sort(key) {
+    console.log(key);
+    this.key = key;
+    this.reverse = !this.reverse;
+  }
+
   // --- Autocomplete Code --------------------------
   selectEvent(event){
     console.log(event);

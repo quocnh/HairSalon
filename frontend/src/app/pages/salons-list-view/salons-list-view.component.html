@@ -39,9 +39,9 @@
             <div class="table-responsive">
                 <table class="table">
                 <thead class=" text-primary">
-                    <th>Tên salon</th>
-                    <th>Số điện thoại</th>
-                    <th>Email</th> 
+                    <th (click)="sort('name')">Tên salon&nbsp;<i class="fa fa-sort"></i></th>
+                    <th (click)="sort('phone')">Số điện thoại&nbsp;<i class="fa fa-sort"></i></th>
+                    <th (click)="sort('email')">Email&nbsp;<i class="fa fa-sort"></i></th> 
                     <th>Danh sách thợ cắt tóc</th>
                     <th class="text-right">
                     <button class="btn btn-sm btn-success btn-round btn-icon " (click)= "createNewSalon()">
@@ -51,7 +51,7 @@
                 </thead>
                 <tbody>
                     
-                    <tr *ngFor="let salon of displayedSalons">
+                    <tr *ngFor="let salon of displayedSalons | orderBy: key: reverse | paginate: {itemsPerPage:10,currentPage:page};">
                         
                         <td>
                             <a href="{{prefixPath}}/{{salon._id}}">{{ salon.name }}</a>
@@ -79,11 +79,10 @@
                     </tr>
                     
                 </tbody>
+                <pagination-controls (pageChange) = "page = $event" previousLabel="Previous" nextLabel="Next"></pagination-controls>
                 </table>
             </div>
             </div>
         </div>
         </div>
-</div>   
-    
-
+</div>

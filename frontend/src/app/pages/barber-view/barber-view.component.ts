@@ -37,6 +37,7 @@ export class BarberViewComponent implements OnInit {
   isSalonOwner = false;
   isAdmin = false;
   salonId: string;
+  page:number = 1;
 
   constructor(
     private salonUtilService: SalonUtilsService,
@@ -79,6 +80,14 @@ export class BarberViewComponent implements OnInit {
     
   }
 
+  key:string = 'id';
+  reverse: boolean = false;
+  sort(key) {
+    console.log(key);
+    this.key = key;
+    this.reverse = !this.reverse;
+  }
+  
   // --- Autocomplete Code --------------------------
   selectEvent(event){
     console.log(event);

@@ -29,6 +29,7 @@ export class SalonsListViewComponent implements OnInit {
   user: any;
   isAdmin = false;
   isSalonOwner = false;
+  page:number = 1;
 
   keyword = 'name';
   selectedSalon:any;
@@ -90,6 +91,14 @@ export class SalonsListViewComponent implements OnInit {
         }            
       }
     );
+  }
+
+  key:string = 'id';
+  reverse: boolean = false;
+  sort(key) {
+    console.log(key);
+    this.key = key;
+    this.reverse = !this.reverse;
   }
 
   // --- Autocomplete Code --------------------------
@@ -193,7 +202,7 @@ export class SalonsListViewComponent implements OnInit {
 
   refreshSalonList() {
     this.salonUtilService.getSalonsFromOwnerId(this.ownerId).subscribe((salons: Salon[]) => {
-      console.log(salons);
+      //console.log(salons);
       this.salons = salons;
       this.displayedSalons = salons;
     });
