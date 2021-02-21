@@ -16,10 +16,6 @@ class _MenuPageBuilderScreenState extends State<MenuPageBuilderScreen> {
     OtpScreen(),
     ProfileScreen(),
   ];
-  void _onPageChanged(int index) {}
-  void _onItemTapped(int selectedIndex) {
-    print(selectedIndex);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,5 +43,11 @@ class _MenuPageBuilderScreenState extends State<MenuPageBuilderScreen> {
             ),
           ],
         ));
+  }
+
+  void _onPageChanged(int index) {}
+  void _onItemTapped(int selectedIndex) {
+    print(selectedIndex);
+    _pageController.jumpToPage(selectedIndex);
   }
 }
