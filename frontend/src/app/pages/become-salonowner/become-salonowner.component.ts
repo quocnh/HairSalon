@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import User from 'app/module/userAccount';
 import { ConfirmComponent } from 'app/popup/confirm/confirm.component';
+import { LoginComponent } from 'app/popup/login/login.component';
 import { SalonUtilsService } from 'app/salon-utils.service';
 import { TokenStorageService } from 'app/_services/token-storage.service';
 import { BecomeSalonOwnerService } from '../../_services/become-salon-owner.service';
@@ -47,7 +48,8 @@ export class BecomeSalonownerComponent implements OnInit {
       this.isSalonOwner = this.currentUser.roles.includes('ROLE_SALON_OWNER');
     } else {
       // Not login yet
-      this.router.navigate(['home']);
+      this.login();
+      //this.router.navigate(['home']);
     }
 
     if (this.isSalonOwner) {
@@ -71,6 +73,24 @@ export class BecomeSalonownerComponent implements OnInit {
       }
     );
   }  
+
+  // call signin modal function
+  login() {    
+    const ref = this.modalService.open(LoginComponent);
+    ref.result.then((result) => {
+      window.location.reload();
+          
+    },
+      (cancel) => {
+        this.router.navigate(['/']);
+
+        if (this.router.url === '/home'){
+          window.location.reload();
+        }
+      })
+
+    
+  }
 
   onSubmit() { 
     console.log("test submit form"); 
