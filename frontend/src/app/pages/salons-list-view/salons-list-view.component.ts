@@ -67,30 +67,27 @@ export class SalonsListViewComponent implements OnInit {
           this.ownerId = params.salonOwnerId;
           this.refreshSalonList();
           this.isListAllSalons = false;
-          return;
         } else {
           this.isListAllSalons = true;
           this.refreshAllSalonList();
-          return;
         }
       });
-    }
-
-    console.log('USER ID:');
-    console.log(this.user.id);
-    // 2. Get distributorId
-    this.salonUtilService.getSalonOwnerIdFromUserId(this.user.id).subscribe(
-      (retOwnerId: string) => {
-        this.ownerId = retOwnerId;
-        console.log(this.ownerId);
-        if (this.ownerId) {
-          this.refreshSalonList();
-          this.isListAllSalons = false;
-        } else {
-          console.log("Can't find salon Owner Id");
-        }            
-      }
-    );
+    } else {
+      console.log('USER ID:');
+      console.log(this.user.id);    
+      this.salonUtilService.getSalonOwnerIdFromUserId(this.user.id).subscribe(
+        (retOwnerId: string) => {
+          this.ownerId = retOwnerId;
+          console.log(this.ownerId);
+          if (this.ownerId) {
+            this.refreshSalonList();
+            this.isListAllSalons = false;
+          } else {
+            console.log("Can't find salon Owner Id");
+          }            
+        }
+      );
+    }    
   }
 
   key:string = 'id';

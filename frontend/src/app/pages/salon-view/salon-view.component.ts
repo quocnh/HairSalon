@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import Salon from '../../module/salon';
 import Barber from '../../module/barber';
 import { SalonUtilsService } from '../../salon-utils.service';
@@ -13,6 +13,7 @@ import { GlobalConstants } from 'app/module/global-constants';
 import { ConfirmComponent } from 'app/popup/confirm/confirm.component';
 import Comment from '../../module/comment';
 import User from 'app/module/userAccount';
+import { LoginComponent } from 'app/popup/login/login.component';
 
 @Component({
   selector: 'app-salon-view',
@@ -58,7 +59,8 @@ export class SalonViewComponent implements OnInit {
     private salonUtilService: SalonUtilsService,
     private _lightbox: Lightbox,
     private tokenStorageService: TokenStorageService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -157,6 +159,19 @@ export class SalonViewComponent implements OnInit {
     return tmpComment;
   }
 
+  // call signin modal function
+  login() {    
+    const ref = this.modalService.open(LoginComponent);
+    ref.result.then((result) => {
+      window.location.reload();          
+    },
+      (cancel) => {
+        console.log('Need to login');
+      })
+
+    
+  }
+
   reserveService() {
     console.log('Reserve Service');
 
@@ -165,7 +180,7 @@ export class SalonViewComponent implements OnInit {
       this.user = this.tokenStorageService.getUser();
       console.log(this.user);
     } else {
-      // Not login yet
+      this.login();
       return;
     }
 
