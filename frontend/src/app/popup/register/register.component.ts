@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../_services/auth.service';
 
@@ -17,7 +18,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     public modal: NgbActiveModal,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
 
   ) { }
 
@@ -30,6 +32,11 @@ export class RegisterComponent implements OnInit {
         console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
+        this.router.navigate(['/']);
+
+        if (this.router.url === '/home'){
+          window.location.reload();
+        }
       },
       err => {
         this.errorMessage = err.error.message;

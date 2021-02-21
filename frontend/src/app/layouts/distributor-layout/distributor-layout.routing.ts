@@ -17,5 +17,5 @@ export const DistributorLayoutRoutes: Routes = [
     { path: 'products/:productId',               component: ProductDetailEditComponent },
     { path: 'orders',         component: ProductOrdersListViewComponent },
     { path: 'orders/products/:productId',         component: ProductDetailEditComponent },
-    { path: 'orders/salonOwners/:salonOwnerId',         component: SalonOwnerProfileComponent },
+    { path: 'orders/salonOwners/:salonOwnerId/profile',         component: SalonOwnerProfileComponent },
 ];

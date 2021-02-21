@@ -70,6 +70,9 @@ import { RegisterListBecomeDistributorComponent } from './pages/register-list-be
 import { BarbersSalonListComponent } from './pages/barbers-salon-list/barbers-salon-list.component';
 import { AddNewBarberComponent } from './popup/add-new-barber/add-new-barber.component';
 import { NgImageSliderModule } from 'ng-image-slider';
+import { Ng2OrderModule } from 'ng2-order-pipe';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -142,7 +145,10 @@ import { NgImageSliderModule } from 'ng-image-slider';
     ReactiveFormsModule,
     DateTimePickerModule,
     AutocompleteLibModule,
-    NgImageSliderModule
+    NgImageSliderModule,
+    Ng2OrderModule,
+    Ng2SearchPipeModule,
+    NgxPaginationModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent],

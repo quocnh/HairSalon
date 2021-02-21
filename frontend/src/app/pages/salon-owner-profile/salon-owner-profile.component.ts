@@ -36,7 +36,8 @@ export class SalonOwnerProfileComponent implements OnInit {
   isAdmin = false;
   isSalonOwner = false;
   isModifiedEnable = false;
-  salonOwnerId:string;
+  isDistributor = false;
+  salonOwnerUserId:string;
 
   keyword = 'name';
   initialCity:string='';
@@ -70,34 +71,35 @@ export class SalonOwnerProfileComponent implements OnInit {
       this.isModifiedEnable = this.user.roles.includes('ROLE_SALON_OWNER') || this.user.roles.includes('ROLE_ADMIN');
       this.isAdmin = this.user.roles.includes('ROLE_ADMIN');
       this.isSalonOwner = this.user.roles.includes('ROLE_SALON_OWNER');
+      this.isDistributor = this.user.roles.includes('ROLE_DISTRIBUTOR');
     } else {
       // Not login yet
       return;
     }
     //console.log(this.isSalonOwner);
-    
-    this.route.params.subscribe((params: Params) => {
-      console.log(params);
-      if (params.salonOwnerId) {
-        this.salonOwnerId = params.salonOwnerId;
-        this.refreshProfile(this.salonOwnerId);
-        return;
-      }
-    });
-
-
-    // 2. Get salonOwnerId
-    this.salonUtilService.getSalonOwnerIdFromUserId(this.user.id).subscribe(
-      (retOwnerId: string) => {
-        this.salonOwnerId = retOwnerId;
-        console.log(this.salonOwnerId);
-        if (this.salonOwnerId) {
-          this.refreshProfile(this.salonOwnerId);
-        } else {
-          console.log("Can't find salon Owner Id");
-        }            
-      }
-    );
+    if (this.isSalonOwner) {
+      this.salonUtilService.getSalonOwnerIdFromUserId(this.user.id).subscribe(
+        (retOwnerId: string) => {
+          this.salonOwnerUserId = retOwnerId;
+          console.log(this.salonOwnerUserId);
+          if (this.salonOwnerUserId) {
+            this.refreshProfile(this.salonOwnerUserId);
+          } else {
+            console.log("Can't find salon Owner Id");
+          }            
+        }
+      );
+    } else if (this.isAdmin || this.isDistributor) {
+      this.route.params.subscribe((params: Params) => {
+        console.log(params);
+        if (params.salonOwnerId) {
+          console.log(params.salonOwnerId);
+          this.userId = params.salonOwnerId;
+          this.refreshProfile(this.userId);
+          return;
+        }
+      });
+    }
 
   }
 

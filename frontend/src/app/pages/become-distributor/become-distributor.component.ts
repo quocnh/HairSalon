@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import User from 'app/module/userAccount';
+import { ConfirmComponent } from 'app/popup/confirm/confirm.component';
 import { SalonUtilsService } from 'app/salon-utils.service';
 import { BecomeDistributorService } from 'app/_services/become-distributor.service';
 import { TokenStorageService } from 'app/_services/token-storage.service';
@@ -30,7 +32,7 @@ export class BecomeDistributorComponent implements OnInit {
     private salonUtilService: SalonUtilsService,
     // private route: ActivatedRoute,
     private router: Router,
-    // private modalService: NgbModal,
+    private modalService: NgbModal,
     private tokenStorageService: TokenStorageService
     ) { }
 
@@ -79,7 +81,14 @@ export class BecomeDistributorComponent implements OnInit {
     this.becomeDistributorService.createBecomeDistributor(this.form).subscribe(
       data => {
         console.log(data);
-        this.router.navigate(['home']);
+        const ref = this.modalService.open(ConfirmComponent);
+        ref.componentInstance.confirmInfo = 'Bạn đã yêu cầu trở thành chủ salon. Chúng tôi sẽ xử lý và thông báo kết quả sớm nhất' ;
+        ref.result.then((yes) => {
+          this.router.navigate(['home']);
+        },
+        (cancel) => {
+          console.log('cancel click');
+        })            
       },
       err => {
         console.log("Already applied !!!");

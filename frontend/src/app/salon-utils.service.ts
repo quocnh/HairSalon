@@ -57,6 +57,11 @@ export class SalonUtilsService {
     return this.webService.patch( `salonOwners/${salonOwner._id}`, fd);
   }
 
+  // get distributor name from Id
+  getUserFromSalonOwnerId(ownerId: string) {
+    return this.webService.get(`salonOwners/getUser/${ownerId}`);
+  }
+
   // Salon
   getSalonsFromOwnerId(ownerId: string) {
     console.log('Get Salons from ownerId:' + ownerId);
@@ -343,8 +348,13 @@ export class SalonUtilsService {
     return this.webService.get(`distributors/userId/${userId}`);
   }
 
+  // get distributor name from Id
+  getUserFromDistributorId(distributorId: string) {
+    return this.webService.get(`distributors/getUser/${distributorId}`);
+  }
+
   // get Product list from distributor id
-  getProductsFromDistributorId(distributorId:string) {
+  getProductsFromDistributorId(distributorId:string) {    
     return this.webService.get(`products/distributor/${distributorId}`);
   }
 
@@ -520,6 +530,11 @@ export class SalonUtilsService {
   getProductOrderFromDistributorId(distributorId:string) {
     return this.webService.get(`productOrder/distributor/${distributorId}`);
   }
+
+  getProductOrderFromSalonOwnerId(salonOnwerId:string) {
+    return this.webService.get(`productOrder/salonOwner/${salonOnwerId}`);
+  }
+
   updateOrder(pOrder: productOrder) {
     const fd = new FormData();
     let key;

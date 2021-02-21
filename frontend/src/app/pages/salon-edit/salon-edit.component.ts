@@ -7,7 +7,10 @@ import Service from '../../module/service';
 import { environment } from 'environments/environment';
 import { SearchService } from 'app/_services/search.service';
 import { newArray } from '@angular/compiler/src/util';
+import GLocation from 'app/module/location';
 // import { HereService } from '../../module/here.service';
+
+declare var google: any;
 
 @Component({
   selector: 'app-salon-edit',
@@ -37,6 +40,9 @@ export class SalonEditComponent implements OnInit {
   selectedCity: any;
   selectedDistrict: any;
   flagUpdate = false;
+
+  map:any;
+  marker:any;
 
   constructor(
     private route: ActivatedRoute,
@@ -87,6 +93,99 @@ export class SalonEditComponent implements OnInit {
     })
   }
 
+  initMap() {    
+    var initLat='10.81078';
+    var initLong='106.66806';
+
+    if ((this.salon.latitude !== undefined) && (this.salon.longitude !== undefined)){
+       initLat = this.salon.latitude;
+       initLong = this.salon.longitude;
+     }
+    var myLatlng = new google.maps.LatLng(initLat, initLong);
+    var mapOptions = {
+      zoom: 15,
+      zoomControl: true,
+      zoomControlOptions: {
+        position: google.maps.ControlPosition.RIGHT_BOTTOM,
+      },
+      center: myLatlng,
+      scrollwheel: false, //we disable de scroll over the map, it is a really annoing when you scroll through page
+      styles: [
+        { "featureType": "water", "stylers": [{ "saturation": 43 }, { "lightness": -11 }, { "hue": "#0088ff" }] },
+        { "featureType": "road", "elementType": "geometry.fill", "stylers": [{ "hue": "#ff0000" }, { "saturation": -100 }, { "lightness": 99 }] },
+        { "featureType": "road", "elementType": "geometry.stroke", "stylers": [{ "color": "#808080" }, { "lightness": 54 }] },
+        { "featureType": "road", "elementType": "labels.text.fill", "stylers": [{ "color": "#767676" }] },
+        { "featureType": "road", "elementType": "labels.text.stroke", "stylers": [{ "color": "#ffffff" }] },
+      ]
+
+    }
+    console.log(document.getElementById("map"));
+    this.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    
+    const locationButton = document.createElement("button");
+    locationButton.textContent = "Cập nhật vị trí salon";
+    locationButton.classList.add("custom-map-control-button");
+
+    this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+    const infoWindow = new google.maps.InfoWindow();
+    locationButton.addEventListener("click", () => {
+      // Try HTML5 geolocation.
+      console.log('cap nhat');
+
+      this.marker.setMap(null);
+      // console.log(this.salon.latitude, this.salon.longitude);
+      if (((this.salon.latitude !== undefined) && (this.salon.longitude !== undefined)) &&
+          ((this.salon.latitude !== '') && (this.salon.longitude !== '')) &&
+          ((this.salon.latitude !== null) && (this.salon.longitude !== null)))
+      {
+        this.createSalonMarker();
+      }
+      else {
+        var geocoder = new google.maps.Geocoder();
+        var address = this.salon.address + ' ' + this.salon.district + ' ' + this.salon.city;
+        // Convert address to long-lat
+        geocoder.geocode( { 'address': address}, function(results, status) {
+          if (status == 'OK') {
+            console.log(results[0].geometry.location);
+            
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      }
+    });
+
+  }
+
+  loadMap() {
+    this.initMap();
+    this.createSalonMarker();
+  }
+
+  createSalonMarker(){
+    var salonPos = new google.maps.LatLng(this.salon.latitude, this.salon.longitude);
+    this.marker = new google.maps.Marker({
+        position: salonPos,
+        title: this.salon.name,
+        map: this.map,
+        draggable: true
+    });
+
+    this.marker.addListener('dragend', (evt) => {
+      var location = new GLocation();
+      location.lat = evt.latLng.lat().toFixed(3);
+      location.lng = evt.latLng.lng().toFixed(3);
+      //console.log(evt.latLng.lat().toFixed(3));
+      //console.log(evt.latLng.lng().toFixed(3));   
+      this.salon.latitude = location.lat;
+      this.salon.longitude = location.lng;
+      //console.log(this.salon);
+    });
+    // google.maps.event.addListener(this.marker, 'drag', function(evt){
+    //     console.log("marker is being dragged");
+    // });
+  }
+
   getSalonInfo(salonId) {
     this.salonUtilService.getOneSalon(salonId).subscribe(
       (salons: Salon) => {
@@ -111,6 +210,7 @@ export class SalonEditComponent implements OnInit {
             this.strCustomerPhotos.push(environment.dbAddress + '/' + this.salon.customerPhotos[i]);
           }
         }
+        this.loadMap();
         console.log(this.salon);
       });
   }

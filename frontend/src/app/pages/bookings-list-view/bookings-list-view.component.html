@@ -9,18 +9,16 @@
             <div class="table-responsive">
               <table class="table">
                 <thead class=" text-primary">
-                  <th>Stt</th>
                   <th>Khách hàng</th>                  
-                  <th>Ngày đặt</th>
-                  <th>Thời gian</th>
+                  <th (click)="sort('bookingDate')">Ngày đặt&nbsp;<i class="fa fa-sort"></i></th>
+                  <th (click)="sort('bookingTime')">Thời gian&nbsp;<i class="fa fa-sort"></i></th>
                   <th>Yêu cầu thợ</th>
-                  <th>Trạng thái</th>
+                  <th (click)="sort('status')">Trạng thái&nbsp;<i class="fa fa-sort"></i></th>
                   <th>&nbsp;</th>
                 </thead>
                 <tbody>
                     
-                    <tr *ngFor="let book of bookingList; let i = index">
-                         <td>{{i+1}}</td>
+                    <tr *ngFor="let book of bookingList | orderBy: key: reverse | paginate: {itemsPerPage:10,currentPage:page}; let i = index">
                         <td>{{ customerList[i].username }}</td>                       
                         <td>{{ book.bookingDate | date: 'dd/MM/yyyy'}}</td>
                         <td>{{ book.bookingTime}}</td>
@@ -39,6 +37,7 @@
                     </tr>
                   
                 </tbody>
+                <pagination-controls (pageChange) = "page = $event" previousLabel="Previous" nextLabel="Next"></pagination-controls>
               </table>
             </div>
           </div>

@@ -39,7 +39,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'profile',               component: UserProfileComponent },
 
     { path: 'salonOwners',      component: SalonOwnersListComponent },
-    { path: 'salonOwners/:salonOwnerId/profile',      component: SalonOwnerProfileComponent },
+    { path: 'salonOwners/:salonOwnerId/profile',      component: UserProfileComponent },
     { path: 'salonOwners/:salonOwnerId/salons',       component: SalonsListViewComponent },
     { path: 'salonOwners/:salonOwnerId/salons/:salonId',       component: SalonEditComponent },
 
@@ -51,7 +51,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'salons/barbers/:salonId',               component: BarberViewComponent },
 
     { path: 'distributors',         component: DistributorListViewComponent },    
-    { path: 'distributors/:distributorId/profile',         component: DistributorProfileComponent },
+    { path: 'distributors/:distributorId/profile',         component: UserProfileComponent },
     { path: 'distributors/:distributorId/products',         component: ProductsListViewComponent },
     { path: 'distributors/:distributorId/products/:productId',         component: ProductDetailEditComponent },
     { path: 'distributors/:distributorId/productOrders',         component: ProductOrdersListViewComponent },    

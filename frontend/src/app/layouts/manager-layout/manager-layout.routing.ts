@@ -17,6 +17,8 @@ import { SalonOwnerProfileComponent } from 'app/pages/salon-owner-profile/salon-
 import { DistributorProfileComponent } from 'app/pages/distributor-profile/distributor-profile.component';
 import { BookingViewComponent } from 'app/pages/booking-view/booking-view.component';
 import { BarbersSalonListComponent } from 'app/pages/barbers-salon-list/barbers-salon-list.component';
+import { ProductOrdersListViewComponent } from 'app/pages/product-orders-list-view/product-orders-list-view.component';
+import { ProductDetailEditComponent } from 'app/pages/product-detail-edit/product-detail-edit.component';
 
 
 export const ManagerLayoutRoutes: Routes = [
@@ -25,16 +27,22 @@ export const ManagerLayoutRoutes: Routes = [
     // { path: 'profile',           component: SalonOwnerProfileComponent },    
     { path: 'profile',                      component: UserProfileComponent },
     { path: 'salons',               component: SalonsListViewComponent },
+    { path: 'salons/:salonId',               component: SalonEditComponent },
+
     { path: 'distributors',         component: DistributorListViewComponent },
     { path: 'distributors/:distributorId/products/:productId',         component: ProductDetailViewComponent },
     { path: 'distributors/:distributorId/products',         component: ProductsListViewComponent },
     { path: 'distributors/:distributorId/profile',           component: DistributorProfileComponent },
+    
     { path: 'barbers',               component: BarbersSalonListComponent },
     { path: 'barbers/:salonId',               component: BarberViewComponent },
-    { path: 'bookings',               component: BookingsSalonListComponent },
     { path: 'barbers/:salonId/profile/:barberId',           component: BarberProfileViewComponent },
-    { path: 'salons/:salonId',               component: SalonEditComponent },
+
+    { path: 'bookings',               component: BookingsSalonListComponent },
     { path: 'bookings/:salonId',               component: BookingsListViewComponent },
     { path: 'bookings/:salonId/:bookingId',               component: BookingViewComponent },
-   
+
+    { path: 'orders',         component: ProductOrdersListViewComponent },
+    { path: 'orders/products/:productId',         component: ProductDetailViewComponent },
+    { path: 'orders/distributors/:distributorId/profile',         component: DistributorProfileComponent },
 ];

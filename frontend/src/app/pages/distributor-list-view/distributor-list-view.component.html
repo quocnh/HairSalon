@@ -38,14 +38,14 @@
         <div class="table-responsive">
           <table class="table">
             <thead class=" text-primary">
-              <th>
-                Tên
+              <th (click)="sort('firstname')">
+                Tên&nbsp;<i class="fa fa-sort"></i>
               </th>
-              <th>
-                Số điện thoại
+              <th (click)="sort('phone')">
+                Số điện thoại&nbsp;<i class="fa fa-sort"></i>
               </th>
-              <th>
-                Email
+              <th (click)="sort('email')">
+                Email&nbsp;<i class="fa fa-sort"></i>
               </th>
               <th>
                 Sản phẩm
@@ -63,7 +63,7 @@
             </thead>
             <tbody>
 
-              <tr *ngFor="let distributor of displayedDistributors">
+              <tr *ngFor="let distributor of displayedDistributors | orderBy: key: reverse | paginate: {itemsPerPage:10,currentPage:page};">
 
                 <td>
                   <a href="{{prefixPath}}/{{distributor._id}}/profile">{{ distributor.lastname }} {{ distributor.firstname }}</a>
@@ -97,6 +97,7 @@
               </tr>
 
             </tbody>
+            <pagination-controls (pageChange) = "page = $event" previousLabel="Previous" nextLabel="Next"></pagination-controls>
           </table>
         </div>
       </div>

@@ -43,6 +43,15 @@ export class BookingsListViewComponent implements OnInit {
     });
 
   }
+  
+  page:number = 1;
+  key:string = 'id';
+  reverse: boolean = false;
+  sort(key) {
+    console.log(key);
+    this.key = key;
+    this.reverse = !this.reverse;
+  }
 
   getSalonInfo(salonId) {
     this.salonUtilService.getOneSalon(salonId).subscribe(

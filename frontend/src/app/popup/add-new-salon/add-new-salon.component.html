@@ -38,7 +38,7 @@
 
             <div class="row">
                 <div class="col-md-6 pr-1">
-                  <div class="form-group">
+                  <div class="form-group" *ngIf="isAdmin; else notAdminView">
                     <label>Chủ Salon(*)</label>
                     <select input type="text" class="form-control"  [(ngModel)]="chosenSalonOwner" [ngModelOptions]="{standalone: true}">
                       <option *ngFor="let salonOwner of salonOwners" [ngValue]="salonOwner">
@@ -46,6 +46,12 @@
                       </option>
                     </select>
                   </div>
+                  <ng-template #notAdminView>
+                    <div class="form-group" >
+                      <label>Chủ Salon(*)</label>
+                      <input type="text" class="form-control" disabled="" placeholder="username" value="{{ user.username }}">
+                    </div>
+                  </ng-template>
                 </div>
                 <div class="col-md-6 pl-1">
                     <div class="form-group">
@@ -103,11 +109,10 @@
                   <div class="col-md-12">
                     <div class="form-group">
                       <label>Địa chỉ</label>
-                      <input type="text" class="form-control" [(ngModel)]="salon.address" [ngModelOptions]="{standalone: true}" placeholder="1 Điện Biên Phủ">
+                      <input type="text" class="form-control" [(ngModel)]="salon.address" [ngModelOptions]="{standalone: true}" placeholder="">
                     </div>
                   </div>
-                </div>
-
+              </div>
             
             <div class="row">
               <div class="update ml-auto mr-auto">

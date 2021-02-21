@@ -177,16 +177,25 @@
 
       <div class="card-footer ">
         <hr>
-        <div class="stats" >
+        <div class="stats" *ngIf="discount > 0; else totalPriceNoDiscount">
           <div class="row">
             <p class="card-category text-left">Tổng cộng :&nbsp;<b><s>{{pOrder.quantity*productDb.price|
                   currency:'VND'}}</s></b></p>
           </div>
-          <div class="row" style="color:red" *ngIf="discount > 0">
+          <div class="row" style="color:red" >
             <img src="../../../assets/img/sale.png" width="40" height="40">{{discount}}%&nbsp;
             <b>{{pOrder.quantity*productDb.price*((100-discount)/100)| currency:'VND'}}</b>
           </div>
         </div>
+
+        <ng-template #totalPriceNoDiscount>
+          <div class="stats">
+            <div class="row">
+              <p class="card-category text-left">Tổng cộng :&nbsp;<b>{{pOrder.quantity*productDb.price|
+                    currency:'VND'}}</b></p>
+            </div>            
+          </div>
+        </ng-template>
 
         <div class="btn btn-booking card card-btn" (click)="orderProduct()">
           Đặt hàng

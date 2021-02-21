@@ -70,6 +70,14 @@ cd frondent > npm install --save ngx-lightbox
 ```python
 cd frondent > npm i angular-ng-autocomplete
 ```
+7. Install google map
+npm install --save-dev @types/googlemaps
+
+8. Install sort/paging for table
+https://www.youtube.com/watch?v=YnAn7cePiMI
+npm install ngx-pagination
+npm install ng2-order-pipe
+npm install ng2-order-pipe
 
 ##################
 ### how to run ###

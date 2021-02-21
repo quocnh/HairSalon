@@ -36,6 +36,7 @@ export class DistributorProfileComponent implements OnInit {
   isAdmin = false;
   isDistributor = false;
   isModifiedEnable = false;
+  isSalonOwner = false;
   distributorId:string;
   keyword = 'name';
   initialCity:string='';
@@ -43,7 +44,7 @@ export class DistributorProfileComponent implements OnInit {
   cities:any[];
   districts:any[];
   selectedCity:any;
-  selectedDistrict:any;
+  selectedDistrict:any;  
 
   constructor(
       private salonUtilService: SalonUtilsService,
@@ -59,7 +60,7 @@ export class DistributorProfileComponent implements OnInit {
     this.strAvatar = 'assets/img/default-avatar.png';
     this.searchService.getCities().then(cities => {
       this.cities = cities;
-      console.log(this.cities);
+      //console.log(this.cities);
     });
 
     // 1. Get userId
@@ -70,35 +71,36 @@ export class DistributorProfileComponent implements OnInit {
       this.isModifiedEnable = this.user.roles.includes('ROLE_DISTRIBUTOR') || this.user.roles.includes('ROLE_ADMIN');
       this.isAdmin = this.user.roles.includes('ROLE_ADMIN');
       this.isDistributor = this.user.roles.includes('ROLE_DISTRIBUTOR');
+      this.isSalonOwner = this.user.roles.includes('ROLE_SALON_OWNER');
     } else {
       // Not login yet
       return;
     }
-    //console.log(this.isSalonOwner);
+
+    if (this.isDistributor) {
+      this.salonUtilService.getDistributorIdFromUserId(this.user.id).subscribe(
+        (retId: string) => {
+          this.distributorId = retId;
+          console.log(this.distributorId);
+          if (this.distributorId) {
+            this.refreshProfile(this.distributorId);
+          } else {
+            console.log("Can't find distributor Id");
+          }            
+        }
+      );
+    } else if (this.isAdmin || this.isSalonOwner) {
+      this.route.params.subscribe((params: Params) => {
+        console.log(params);
+        if (params.distributorId) {
+          console.log(params.distributorId);
+          this.userId = params.distributorId;
+          this.refreshProfile(this.userId);
+          return;
+        }
+      });
+    }
     
-    this.route.params.subscribe((params: Params) => {
-      console.log(params);
-      if (params.distributorId) {
-        this.distributorId = params.distributorId;
-        this.refreshProfile(this.distributorId);
-        return;
-      }
-    });
-
-
-    // 2. Get salonOwnerId
-    this.salonUtilService.getDistributorIdFromUserId(this.user.id).subscribe(
-      (retId: string) => {
-        this.distributorId = retId;
-        console.log(this.distributorId);
-        if (this.distributorId) {
-          this.refreshProfile(this.distributorId);
-        } else {
-          console.log("Can't find distributor Id");
-        }            
-      }
-    );
-
   }
 
   updateProfile() {

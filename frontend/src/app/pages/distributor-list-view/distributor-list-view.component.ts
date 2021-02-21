@@ -47,6 +47,15 @@ export class DistributorListViewComponent implements OnInit {
     this.refreshDistributorList();
   }
 
+  page:number = 1;
+  key:string = 'id';
+  reverse: boolean = false;
+  sort(key) {
+    console.log(key);
+    this.key = key;
+    this.reverse = !this.reverse;
+  }
+
   // --- Autocomplete Code --------------------------
   selectEvent(event){
     console.log(event);
