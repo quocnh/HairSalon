@@ -57,5 +57,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'distributors/:distributorId/productOrders',         component: ProductOrdersListViewComponent },    
 
     { path: 'barbers',               component: BarberViewComponent },    
-    { path: 'barbers/:salonId/profile/:barberId',           component: BarberProfileViewComponent },
+    { path: 'barbers/profile/:barberId',           component: BarberProfileViewComponent },
 ];    
