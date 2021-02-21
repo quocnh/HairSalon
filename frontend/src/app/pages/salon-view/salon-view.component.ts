@@ -212,7 +212,7 @@ export class SalonViewComponent implements OnInit {
       console.log(this.salon.services[sIndex].name);
       console.log(this.salon.services[sIndex].discount);
       if (+this.salon.services[sIndex].discount > 0) {
-        this.total += (+this.salon.services[sIndex].price)*(+this.salon.services[sIndex].discount)/100;
+        this.total += (+this.salon.services[sIndex].price)*(100 - +this.salon.services[sIndex].discount)/100;
       } else {
         this.total += +this.salon.services[sIndex].price;
       }      
