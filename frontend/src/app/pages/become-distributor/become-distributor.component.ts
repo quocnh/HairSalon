@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import User from 'app/module/userAccount';
 import { ConfirmComponent } from 'app/popup/confirm/confirm.component';
+import { LoginComponent } from 'app/popup/login/login.component';
 import { SalonUtilsService } from 'app/salon-utils.service';
 import { BecomeDistributorService } from 'app/_services/become-distributor.service';
 import { TokenStorageService } from 'app/_services/token-storage.service';
@@ -48,7 +49,7 @@ export class BecomeDistributorComponent implements OnInit {
       this.isDistributor = this.currentUser.roles.includes('ROLE_DISTRIBUTOR');
     } else {
       // Not login yet
-      return;
+      this.login();
     }
 
     if (this.isDistributor) {
@@ -71,7 +72,25 @@ export class BecomeDistributorComponent implements OnInit {
         this.form.address = this.user.address;
       }
     );
-  }  
+  }
+
+  // call signin modal function
+  login() {    
+    const ref = this.modalService.open(LoginComponent);
+    ref.result.then((result) => {
+      window.location.reload();
+          
+    },
+      (cancel) => {
+        this.router.navigate(['/']);
+
+        if (this.router.url === '/home'){
+          window.location.reload();
+        }
+      })
+
+    
+  }
 
   onSubmit() { 
     console.log("test submit form"); 

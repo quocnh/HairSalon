@@ -164,13 +164,12 @@ salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
             //console.log(i + ': ' + index);
             // console.log(req.body.photos[index]);
 
-            ////delete old file avatar
             if (req.body.photos[index] !== 'uploads/salonPhotos/default.jpg') {
                 fs.exists(req.body.photos[index], function(exists) {
                     if(exists) {
                         fs.unlink(req.body.photos[index], (err) => {
                             if (err) throw err;
-                            console.log(req.body.photos[index] + ' was deleted.');
+                            console.log(req.body.photos[index] + ' was deleted!');
                         });
                     }
                 });
@@ -189,15 +188,16 @@ salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
             //console.log(req.body.photos[index]);
             strPhotoPath[index] = 'null';
 
-            ////delete old file avatar
-            fs.exists(req.body.photos[index], function (exists) {
-                if (exists) {
-                    fs.unlink(req.body.photos[index], (err) => {
-                        if (err) throw err;
-                        console.log(req.body.photos[index] + ' was deleted.');
-                    });
-                }
-            });
+            if (req.body.photos[index] !== 'uploads/salonPhotos/default.jpg') {
+                fs.exists(req.body.photos[index], function (exists) {
+                    if (exists) {
+                        fs.unlink(req.body.photos[index], (err) => {
+                            if (err) throw err;
+                            console.log(req.body.photos[index] + ' was deleted.');
+                        });
+                    }
+                });
+            }
         }
     }
 

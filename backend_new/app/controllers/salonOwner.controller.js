@@ -184,7 +184,7 @@ salonOwnerRouter.get('/userId/:userId', (req, res) => {
     SalonOwner.find({ _userId: req.params.userId})
         .then(salonOwners => {
             // console.log("LARRY: " + salonOwner);
-            res.send(salonOwners[0]._id);            
+            res.send(salonOwners[0]._id);
         })
         .catch((error) => console.log(error));
     
