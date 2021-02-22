@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:salonmobile/routes.dart';
 import 'package:salonmobile/screens/menu_page_builder/menu_page_builder_screen.dart';
-import 'package:salonmobile/screens/splash/splash_screen.dart';
 import 'package:salonmobile/utils/app_localizations.dart';
 import 'package:salonmobile/utils/theme.dart';
 

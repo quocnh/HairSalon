@@ -16,6 +16,7 @@ class _MenuPageBuilderScreenState extends State<MenuPageBuilderScreen> {
     OtpScreen(),
     ProfileScreen(),
   ];
+  int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -27,27 +28,49 @@ class _MenuPageBuilderScreenState extends State<MenuPageBuilderScreen> {
           physics: NeverScrollableScrollPhysics(),
         ),
         bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
           onTap: _onItemTapped,
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              title: Text("Home"),
-            ),
+                icon: Icon(
+                  Icons.home,
+                  color: _selectedIndex == 0 ? Colors.blue : Colors.grey,
+                ),
+                title: Text(
+                  "Home",
+                  style: TextStyle(
+                      color: _selectedIndex == 0 ? Colors.blue : Colors.grey),
+                )),
             BottomNavigationBarItem(
-              icon: Icon(Icons.history),
-              title: Text("History"),
-            ),
+                icon: Icon(
+                  Icons.history,
+                  color: _selectedIndex == 1 ? Colors.blue : Colors.grey,
+                ),
+                title: Text("History",
+                    style: TextStyle(
+                        color:
+                            _selectedIndex == 1 ? Colors.blue : Colors.grey))),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              title: Text("Account"),
-            ),
+                icon: Icon(
+                  Icons.person,
+                  color: _selectedIndex == 2 ? Colors.blue : Colors.grey,
+                ),
+                title: Text("Profile",
+                    style: TextStyle(
+                        color:
+                            _selectedIndex == 2 ? Colors.blue : Colors.grey))),
           ],
         ));
   }
 
-  void _onPageChanged(int index) {}
+  void _onPageChanged(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   void _onItemTapped(int selectedIndex) {
-    print(selectedIndex);
+    // print(selectedIndex);
     _pageController.jumpToPage(selectedIndex);
   }
 }

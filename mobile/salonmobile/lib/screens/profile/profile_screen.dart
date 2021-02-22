@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:salonmobile/components/custom_bottom_nav_bar.dart';
-import 'package:salonmobile/utils/enums.dart';
 
 import 'components/body.dart';
 
