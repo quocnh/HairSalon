@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:salonmobile/components/default_button.dart';
-import 'package:salonmobile/screens/home/home_screen.dart';
+import 'package:salonmobile/screens/menu_page_builder/menu_page_builder_screen.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
@@ -124,7 +124,8 @@ class _OtpFormState extends State<OtpForm> {
           SizedBox(height: SizeConfig.screenHeight * 0.15),
           DefaultButton(
             text: "Continue",
-            press: () => Navigator.pushNamed(context, HomeScreen.routeName),
+            press: () =>
+                Navigator.pushNamed(context, MenuPageBuilderScreen.routeName),
           )
         ],
       ),
