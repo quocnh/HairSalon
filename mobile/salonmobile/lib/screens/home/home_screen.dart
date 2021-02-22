@@ -8,13 +8,18 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen>
+    with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     SizeConfig().init(context);
     return Scaffold(
       body: Body(),
       // bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.home),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
