@@ -28,7 +28,6 @@ class _MenuPageBuilderScreenState extends State<MenuPageBuilderScreen> {
           physics: NeverScrollableScrollPhysics(),
         ),
         bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
           onTap: _onItemTapped,
           items: [
             BottomNavigationBarItem(
