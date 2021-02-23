@@ -1,19 +1,28 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:salonmobile/components/custom_surfix_icon.dart';
 import 'package:salonmobile/components/default_button.dart';
 import 'package:salonmobile/components/form_error.dart';
+import 'package:salonmobile/models/User.dart';
 import 'package:salonmobile/screens/otp/otp_screen.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
 class CompleteProfileForm extends StatefulWidget {
+  User user;
+  CompleteProfileForm(this.user);
+
   @override
-  _CompleteProfileFormState createState() => _CompleteProfileFormState();
+  _CompleteProfileFormState createState() => _CompleteProfileFormState(user);
 }
 
 class _CompleteProfileFormState extends State<CompleteProfileForm> {
+  User user;
+  _CompleteProfileFormState(this.user);
   final _formKey = GlobalKey<FormState>();
   final List<String> errors = [];
+
   String firstName;
   String lastName;
   String phoneNumber;
@@ -52,7 +61,16 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
             text: "continue",
             press: () {
               if (_formKey.currentState.validate()) {
-                Navigator.pushNamed(context, OtpScreen.routeName);
+                _formKey.currentState.save();
+                var userObj = User(
+                    email: user.email,
+                    password: user.password,
+                    firstname: firstName,
+                    lastname: lastName,
+                    phone: phoneNumber,
+                    address: address);
+                inspect(userObj);
+                // Navigator.pushNamed(context, OtpScreen.routeName);
               }
             },
           ),
