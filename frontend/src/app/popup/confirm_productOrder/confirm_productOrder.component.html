@@ -1,0 +1,23 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title">Thông tin đơn hàng</h4>
+  <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+    (click)="modal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+  <div class="card-body ">
+    <p class="card-category">Tên sản phẩm:&nbsp;<b>{{productName}}</b></p>
+    <p class="card-category">Nhà phân phối:&nbsp;<b>{{distributorName}}</b></p>
+    <p class="card-category">Số lượng:&nbsp;<b>{{productOrder.quantity}}</b></p>
+    <p class="card-category">Hình thức thanh toán:&nbsp;<b>{{productOrder.paymentType}}</b></p>
+    
+    <p class="card-category">Tổng cộng:&nbsp;<b>{{totalPrice | currency:'VND'}}</b></p>
+  </div>  
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Hủy</button>
+  <button type="button" ngbAutofocus class="btn btn-danger" (click)="modal.close('Ok click')">Đồng ý</button>
+</div>

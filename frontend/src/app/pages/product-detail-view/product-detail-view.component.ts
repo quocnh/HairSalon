@@ -6,7 +6,9 @@ import Distributor from 'app/module/distributor';
 import { GlobalConstants } from 'app/module/global-constants';
 import Product from 'app/module/product';
 import productOrder from 'app/module/productOrder';
+import User from 'app/module/userAccount';
 import { ConfirmComponent } from 'app/popup/confirm/confirm.component';
+import { confirmProductOrderComponent } from 'app/popup/confirm_productOrder/confirm_productOrder.component';
 import { DeleteAnyComponent } from 'app/popup/delete-any/delete-any.component';
 import { SalonUtilsService } from 'app/salon-utils.service';
 import { TokenStorageService } from 'app/_services/token-storage.service';
@@ -41,52 +43,52 @@ export class ProductDetailViewComponent implements OnInit {
   discount = 0;
 
   constructor(
-      private salonUtilService: SalonUtilsService,
-      private route: ActivatedRoute,
-      private http: HttpClient,
-      private calendar: NgbCalendar,
-      private ngbDateParserFormatter: NgbDateParserFormatter,
-      private modalService: NgbModal,
-      private router: Router,
-      private tokenStorageService: TokenStorageService
-      ) { }
+    private salonUtilService: SalonUtilsService,
+    private route: ActivatedRoute,
+    private http: HttpClient,
+    private calendar: NgbCalendar,
+    private ngbDateParserFormatter: NgbDateParserFormatter,
+    private modalService: NgbModal,
+    private router: Router,
+    private tokenStorageService: TokenStorageService
+  ) { }
 
   ngOnInit() {
-      //this.strAvatar = 'assets/img/default-avatar.png';     
-      
-      this.initStrPhotos();
-      this.pOrder.quantity = 0;
+    //this.strAvatar = 'assets/img/default-avatar.png';     
 
-      // 1. Get userId
-      this.isLoggedIn = !!this.tokenStorageService.getToken();
-      if (this.isLoggedIn) {      
-        this.user = this.tokenStorageService.getUser();
-        console.log('LOGGED IN:' +  this.user.roles);
-        this.isShownEnable = this.user.roles.includes('ROLE_DISTRIBUTOR') 
-                                || this.user.roles.includes('ROLE_ADMIN') 
-                                || this.user.roles.includes('ROLE_SALON_OWNER');
-      } else {
-        // Not login yet
-        console.log("Please log in as salonOwner or admin");
-        return;
+    this.initStrPhotos();
+    this.pOrder.quantity = 0;
+
+    // 1. Get userId
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+    if (this.isLoggedIn) {
+      this.user = this.tokenStorageService.getUser();
+      console.log('LOGGED IN:' + this.user.roles);
+      this.isShownEnable = this.user.roles.includes('ROLE_DISTRIBUTOR')
+        || this.user.roles.includes('ROLE_ADMIN')
+        || this.user.roles.includes('ROLE_SALON_OWNER');
+    } else {
+      // Not login yet
+      console.log("Please log in as salonOwner or admin");
+      return;
+    }
+    if (!this.isShownEnable) {
+      console.log("Please log in as salonOwner or admin");
+      return;
+    }
+
+    this.route.params.subscribe((params: Params) => {
+      //console.log(params);
+      this.productId = params.productId;
+      if (this.productId) {
+        this.refreshProductProfile(this.productId);
       }
-      if (!this.isShownEnable) {
-        console.log("Please log in as salonOwner or admin");
-        return;
-      }
 
-      this.route.params.subscribe((params: Params) => {
-          console.log(params);
-          this.productId = params.productId;
-          if (this.productId) {
-              this.refreshProductProfile(this.productId);
-          }
-
-      });
+    });
   }
 
-  initStrPhotos(){
-    this.strPhotos[0] = 'assets/img/default-avatar.png';      
+  initStrPhotos() {
+    this.strPhotos[0] = 'assets/img/default-avatar.png';
     this.strPhotos[1] = 'null';
     this.strPhotos[2] = 'null';
     this.strPhotos[3] = 'null';
@@ -95,43 +97,40 @@ export class ProductDetailViewComponent implements OnInit {
   }
 
   refreshProductProfile(productId) {
-    console.log(productId);
+    //console.log(productId);
     this.salonUtilService.getOneProduct(productId).subscribe(
-        (product: Product) => {
-          console.log(product);   
-            this.product = Object.assign({}, product[0]);
-            this.productDb = Object.assign({}, product[0]);            
-            for (let i = 0; i < this.product.photos.length; i++) {
-              if (this.product.photos[i] !== 'null') {
-                this.strPhotos[i] = environment.dbAddress + '/' + this.product.photos[i];
-              }
-            }
-            console.log(this.productDb.discount);
+      (product: Product) => {
+        //console.log(product);   
+        this.product = Object.assign({}, product[0]);
+        this.productDb = Object.assign({}, product[0]);
+        for (let i = 0; i < this.product.photos.length; i++) {
+          if (this.product.photos[i] !== 'null') {
+            this.strPhotos[i] = environment.dbAddress + '/' + this.product.photos[i];
+          }
+        }
+        //console.log(this.productDb.discount);
+        if (this.productDb.discount > 0) {
+          this.discount = this.productDb.discount;
+        }
+        //console.log(this.productDb.price);
 
-            if (this.productDb.discount > 0) {
-              this.discount = this.productDb.discount;
-            }
-
-            
-            console.log(this.productDb.price);
-
-            // get distributor name from distributor Id
-            console.log(this.product._distributorId);
-            if (this.product._distributorId) {
-              this.salonUtilService.getOneDistributor(this.product._distributorId).subscribe(
-                (distributor: Distributor) => {
-                    this.distributorName = distributor[0].name;
-                    console.log(this.distributorName);
-                });
-            }
-        });
+        // get distributor name from distributor Id
+        //console.log(this.product._distributorId);
+        if (this.product._distributorId) {
+          this.salonUtilService.getUserFromDistributorId(this.product._distributorId).subscribe(
+            (distributor: User) => {
+              this.distributorName = distributor[0].firstname + ' ' + distributor[0].lastname;
+              //console.log(this.distributorName);
+            });
+        }
+      });
   }
 
   orderProduct() {
     this.pOrder.status = GlobalConstants.OrderStatus[0];
     this.pOrder._productId = this.productDb._id;
     this.pOrder._distributorId = this.productDb._distributorId;
-    
+
     this.pOrder.paidAmount = 0;
     this.pOrder.discount = this.discount;
 
@@ -143,24 +142,27 @@ export class ProductDetailViewComponent implements OnInit {
 
     console.log(this.discount);
 
-    this.pOrder.totalPrice = this.pOrder.quantity*this.productDb.price*((100-this.discount)/100);
-    
+    this.pOrder.totalPrice = this.pOrder.quantity * this.productDb.price * ((100 - this.discount) / 100);
 
-    this.pOrder.expectedDeliveryDate = new Date(this.modelDob.year, this.modelDob.month-1, this.modelDob.day, 0, 0, 0, 0);
+
+    this.pOrder.expectedDeliveryDate = new Date(this.modelDob.year, this.modelDob.month - 1, this.modelDob.day, 0, 0, 0, 0);
 
     this.salonUtilService.getSalonOwnerIdFromUserId(this.user.id).subscribe(
       (retOwnerId: string) => {
         this.pOrder._salonOwnerId = retOwnerId;
-        //console.log(this.pOrder);
-        this.salonUtilService.createNewProductOrder(this.pOrder).subscribe(
-          (pOrder: productOrder) => {
-            const ref = this.modalService.open(ConfirmComponent);
-            ref.componentInstance.confirmInfo = 'Bạn đã đặt hàng ' + this.pOrder.quantity + ' ' + this.product.name + '. Tổng cộng: '+ this.pOrder.totalPrice + '.';
-            ref.result.then((yes) => {              
-            },
-            (cancel) => {
-              console.log('cancel click');
-            })                    
+        //console.log(this.pOrder);        
+        const ref = this.modalService.open(confirmProductOrderComponent);
+        ref.componentInstance.productOrder = this.pOrder;
+        ref.componentInstance.totalPrice = this.pOrder.totalPrice;
+        ref.componentInstance.distributorName = this.distributorName;
+        ref.componentInstance.productName = this.productDb.name;
+        ref.result.then((yes) => {
+          this.salonUtilService.createNewProductOrder(this.pOrder).subscribe(
+            () => console.log("Successfully order !!!")
+          );
+        },
+          (cancel) => {
+            console.log('cancel click');
           });
       }
     );
