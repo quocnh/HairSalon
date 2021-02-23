@@ -4,7 +4,7 @@ import 'package:salonmobile/components/default_button.dart';
 import 'package:salonmobile/components/form_error.dart';
 import 'package:salonmobile/helper/keyboard.dart';
 import 'package:salonmobile/screens/forgot_password/forgot_password_screen.dart';
-import 'package:salonmobile/screens/home/home_screen.dart';
+import 'package:salonmobile/screens/menu_page_builder/menu_page_builder_screen.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
@@ -80,7 +80,8 @@ class _SignFormState extends State<SignForm> {
                 // go to homescree and remove all previous routes
                 Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => HomeScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => MenuPageBuilderScreen()),
                   (Route<dynamic> route) => false,
                 );
               }

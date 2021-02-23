@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
+const inActiveIconColor = Color(0xFFB6B6B6);
 const kPrimaryColor = Color(0xFFFF7643);
 const kPrimaryLightColor = Color(0xFFFFECDF);
 const kPrimaryGradientColor = LinearGradient(
@@ -25,7 +26,7 @@ const defaultDuration = Duration(milliseconds: 250);
 // Form Error
 final RegExp emailValidatorRegExp =
     RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-const String kEmailNullError = "Vui lòng nhập tên đăng nhập";
+const String kEmailNullError = "Email cannot be null";
 const String kInvalidEmailError = "Please Enter Valid Email";
 const String kPassNullError = "Please Enter your password";
 const String kShortPassError = "Password is too short";
