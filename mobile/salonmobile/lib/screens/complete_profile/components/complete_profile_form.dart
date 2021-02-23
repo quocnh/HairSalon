@@ -71,6 +71,11 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
                     address: address);
                 inspect(userObj);
                 // Navigator.pushNamed(context, OtpScreen.routeName);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => OtpScreen(user: userObj),
+                    ));
               }
             },
           ),

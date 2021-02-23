@@ -13,7 +13,9 @@ class _MenuPageBuilderScreenState extends State<MenuPageBuilderScreen> {
   PageController _pageController = PageController();
   List<Widget> _screens = [
     HomeScreen(),
-    OtpScreen(),
+    OtpScreen(
+      user: null,
+    ),
     ProfileScreen(),
   ];
   int _selectedIndex = 0;

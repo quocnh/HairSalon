@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:salonmobile/models/User.dart';
 import 'package:salonmobile/screens/otp/components/otp_form.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
 class Body extends StatelessWidget {
+  User user;
+  Body(this.user);
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -19,7 +23,9 @@ class Body extends StatelessWidget {
                 "OTP Verification",
                 style: headingStyle,
               ),
-              Text("We sent your code to +1 898 860 ***"),
+              Text("We sent your code to " +
+                  user.phone.substring(0, user.phone.length - 3) +
+                  "***"),
               buildTimer(),
               OtpForm(),
               SizedBox(height: SizeConfig.screenHeight * 0.1),

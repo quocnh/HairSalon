@@ -64,7 +64,13 @@ class _BodyState extends State<Body> {
                         text:
                             AppLocalizations.of(context).translate('continue'),
                         press: () {
-                          Navigator.pushNamed(context, SignInScreen.routeName);
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SignInScreen()),
+                            (Route<dynamic> route) => false,
+                          );
+                          // Navigator.pushNamed(context, SignInScreen.routeName);
                         },
                       ),
                       Spacer(),
