@@ -1,9 +1,14 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:salonmobile/components/custom_surfix_icon.dart';
 import 'package:salonmobile/components/default_button.dart';
 import 'package:salonmobile/components/form_error.dart';
+import 'package:salonmobile/models/User.dart';
 import 'package:salonmobile/screens/complete_profile/complete_profile_screen.dart';
 import 'package:salonmobile/utils/constants.dart';
+import 'package:salonmobile/utils/show_toast.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -13,8 +18,8 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
-  String email;
-  String password;
+  String inputEmail;
+  String inputPassword;
   String conformPassword;
   bool remember = false;
   final List<String> errors = [];
@@ -51,8 +56,16 @@ class _SignUpFormState extends State<SignUpForm> {
             press: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
-                // if all are valid then go to success screen
-                Navigator.pushNamed(context, CompleteProfileScreen.routeName);
+                // if all are valid then go to complete profile screen
+                // pass the input user object to the complete profile screen
+                // Navigator.pushNamed(context, CompleteProfileScreen.routeName);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CompleteProfileScreen(
+                              user: User(
+                                  email: inputEmail, password: inputPassword),
+                            )));
               }
             },
           ),
@@ -69,7 +82,7 @@ class _SignUpFormState extends State<SignUpForm> {
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
-        } else if (value.isNotEmpty && password == conformPassword) {
+        } else if (value.isNotEmpty && inputPassword == conformPassword) {
           removeError(error: kMatchPassError);
         }
         conformPassword = value;
@@ -78,7 +91,7 @@ class _SignUpFormState extends State<SignUpForm> {
         if (value.isEmpty) {
           addError(error: kPassNullError);
           return "";
-        } else if ((password != value)) {
+        } else if ((inputPassword != value)) {
           addError(error: kMatchPassError);
           return "";
         }
@@ -99,14 +112,14 @@ class _SignUpFormState extends State<SignUpForm> {
     return TextFormField(
       keyboardType: TextInputType.number,
       obscureText: true,
-      onSaved: (newValue) => password = newValue,
+      onSaved: (newValue) => inputPassword = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
         } else if (value.length >= 8) {
           removeError(error: kShortPassError);
         }
-        password = value;
+        inputPassword = value;
       },
       validator: (value) {
         if (value.isEmpty) {
@@ -132,7 +145,7 @@ class _SignUpFormState extends State<SignUpForm> {
   TextFormField buildEmailFormField() {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
-      onSaved: (newValue) => email = newValue,
+      onSaved: (newValue) => inputEmail = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kEmailNullError);
