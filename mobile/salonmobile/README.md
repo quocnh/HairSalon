@@ -12,6 +12,9 @@ https://flutter.dev/docs/get-started/install/macos
 - install Dart
 - install Flutter
 ```
-
+3. Setup firebase OTP for android and iOS
+```python
+https://www.youtube.com/watch?v=3NLP-1KX_Vk
+```
 
 
