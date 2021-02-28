@@ -12,7 +12,7 @@
                     <table class="table">
                     <thead class=" text-primary">
                         <th>Nhà phân phối</th>
-                        <th>Tên sản phẩm</th>
+                        <th (click)="sort('productName')">Tên sản phẩm&nbsp;<i class="fa fa-sort"></i></th>
                         <th (click)="sort('quantity')">Số lượng&nbsp;<i class="fa fa-sort"></i></th> 
                         <th (click)="sort('discount')">Giảm giá&nbsp;<i class="fa fa-sort"></i></th>
                         <th (click)="sort('event')">Khuyến mãi&nbsp;<i class="fa fa-sort"></i></th>                        
@@ -28,7 +28,7 @@
                     </thead>
                     <tbody>
                         
-                        <tr *ngFor="let order of pOrders_procesing  | orderBy: key: reverse | paginate: {itemsPerPage:10,currentPage:page1}; let i = index">                        
+                        <tr *ngFor="let order of pOrders  | orderBy: key: reverse | paginate: {itemsPerPage:10,currentPage:page1}; let i = index">                        
                             <td><a href="{{prefixPath}}/distributors/{{distributorUserId[i]}}/profile">{{ distributorName[i] }}</a></td>
                             <td><a href="{{prefixPath}}/products/{{order._productId}}">{{ productName[i] }} </a></td>
                             <td> {{ order.quantity }} </td>
@@ -47,155 +47,8 @@
                 </div>
             </div>
             </div>
-    </div>
+    </div>    
     
-    <div class="row">
-    
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                <h4 class="card-title"> Danh sách đơn hàng đang vận chuyển</h4>
-                </div>
-                <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table">
-                    <thead class=" text-primary">
-                        <th>Nhà phân phối</th>
-                        <th>Tên sản phẩm</th>
-                        <th (click)="sort('quantity')">Số lượng&nbsp;<i class="fa fa-sort"></i></th> 
-                        <th (click)="sort('discount')">Giảm giá&nbsp;<i class="fa fa-sort"></i></th>
-                        <th (click)="sort('event')">Khuyến mãi&nbsp;<i class="fa fa-sort"></i></th>                        
-                        <th (click)="sort('paymentType')">Hình thức thanh toán&nbsp;<i class="fa fa-sort"></i></th>
-                        <th (click)="sort('expectedDeliveryDate')">Ngày giao hàng&nbsp;<i class="fa fa-sort"></i></th>
-                        <th (click)="sort('status')">Trạng thái&nbsp;<i class="fa fa-sort"></i></th>
-                        <th (click)="sort('totalPrice')">Giá&nbsp;<i class="fa fa-sort"></i></th>
-                        <th class="text-right">
-                        <!-- <button class="btn btn-sm btn-success btn-round btn-icon " (click)= "createNewSalon()">
-                            <a data-toggle="tooltip" data-placement="top" title="Thêm mới"> <i class="nc-icon nc-simple-add"></i></a>
-                        </button> -->
-                        </th>
-                    </thead>
-                    <tbody>
-                        
-                        <tr *ngFor="let order of pOrders_delivering  | orderBy: key: reverse | paginate: {itemsPerPage:10,currentPage:page2}; let i = index">                        
-                            <td><a href="{{prefixPath}}/distributors/{{distributorUserId[i]}}/profile">{{ distributorName[i] }}</a></td>
-                            <td><a href="{{prefixPath}}/products/{{order._productId}}">{{ productName[i] }} </a></td>
-                            <td> {{ order.quantity }} </td>
-                            <td> {{ order.discount }} </td>
-                            <td> {{ order.event }} </td>
-                            <td> {{ order.paymentType }} </td>
-                            <td> {{ order.expectedDeliveryDate | date: 'dd/MM/yyyy'}} </td>
-                            <td> {{ order.status }} </td>
-                            <td> {{ order.totalPrice | currency:'VND'}} </td>                            
-                        </tr>
-                        
-                    </tbody>
-                    <pagination-controls (pageChange) = "page2 = $event" previousLabel="Previous" nextLabel="Next"></pagination-controls>
-                    </table>
-                </div>
-                </div>
-            </div>
-            </div>
-    </div>
-    
-    <div class="row">
-    
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                <h4 class="card-title"> Danh sách đơn hàng hoàn thành</h4>
-                </div>
-                <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table">
-                    <thead class=" text-primary">
-                        <th>Nhà phân phối</th>
-                        <th>Tên sản phẩm</th>
-                        <th (click)="sort('quantity')">Số lượng&nbsp;<i class="fa fa-sort"></i></th> 
-                        <th (click)="sort('discount')">Giảm giá&nbsp;<i class="fa fa-sort"></i></th>
-                        <th (click)="sort('event')">Khuyến mãi&nbsp;<i class="fa fa-sort"></i></th>                        
-                        <th (click)="sort('paymentType')">Hình thức thanh toán&nbsp;<i class="fa fa-sort"></i></th>
-                        <th (click)="sort('expectedDeliveryDate')">Ngày giao hàng&nbsp;<i class="fa fa-sort"></i></th>
-                        <th (click)="sort('status')">Trạng thái&nbsp;<i class="fa fa-sort"></i></th>
-                        <th (click)="sort('totalPrice')">Giá&nbsp;<i class="fa fa-sort"></i></th>
-                        <th class="text-right">
-                        <!-- <button class="btn btn-sm btn-success btn-round btn-icon " (click)= "createNewSalon()">
-                            <a data-toggle="tooltip" data-placement="top" title="Thêm mới"> <i class="nc-icon nc-simple-add"></i></a>
-                        </button> -->
-                        </th>
-                    </thead>
-                    <tbody>
-                        
-                        <tr *ngFor="let order of pOrders_complete  | orderBy: key: reverse | paginate: {itemsPerPage:10,currentPage:page3}; let i = index">                        
-                            <td><a href="{{prefixPath}}/distributors/{{distributorUserId[i]}}/profile">{{ distributorName[i] }}</a></td>
-                            <td><a href="{{prefixPath}}/products/{{order._productId}}">{{ productName[i] }} </a></td>
-                            <td> {{ order.quantity }} </td>
-                            <td> {{ order.discount }} </td>
-                            <td> {{ order.event }} </td>
-                            <td> {{ order.paymentType }} </td>
-                            <td> {{ order.expectedDeliveryDate | date: 'dd/MM/yyyy'}} </td>
-                            <td> {{ order.status }} </td>
-                            <td> {{ order.totalPrice | currency:'VND'}} </td>                            
-                        </tr>
-                        
-                    </tbody>
-                    <pagination-controls (pageChange) = "page3 = $event" previousLabel="Previous" nextLabel="Next"></pagination-controls>
-                    </table>
-                </div>
-                </div>
-            </div>
-            </div>
-    </div>
-        
-    
-    <div class="row">
-    
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                <h4 class="card-title"> Danh sách đơn hàng đã hủy</h4>
-                </div>
-                <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table">
-                    <thead class=" text-primary">
-                        <th>Nhà phân phối</th>
-                        <th>Tên sản phẩm</th>
-                        <th (click)="sort('quantity')">Số lượng&nbsp;<i class="fa fa-sort"></i></th> 
-                        <th (click)="sort('discount')">Giảm giá&nbsp;<i class="fa fa-sort"></i></th>
-                        <th (click)="sort('event')">Khuyến mãi&nbsp;<i class="fa fa-sort"></i></th>                        
-                        <th (click)="sort('paymentType')">Hình thức thanh toán&nbsp;<i class="fa fa-sort"></i></th>
-                        <th (click)="sort('expectedDeliveryDate')">Ngày giao hàng&nbsp;<i class="fa fa-sort"></i></th>
-                        <th (click)="sort('status')">Trạng thái&nbsp;<i class="fa fa-sort"></i></th>
-                        <th (click)="sort('totalPrice')">Giá&nbsp;<i class="fa fa-sort"></i></th>
-                        <th class="text-right">
-                        <!-- <button class="btn btn-sm btn-success btn-round btn-icon " (click)= "createNewSalon()">
-                            <a data-toggle="tooltip" data-placement="top" title="Thêm mới"> <i class="nc-icon nc-simple-add"></i></a>
-                        </button> -->
-                        </th>
-                    </thead>
-                    <tbody>
-                        
-                        <tr *ngFor="let order of pOrders_cancel  | orderBy: key: reverse | paginate: {itemsPerPage:10,currentPage:page4}; let i = index">                        
-                            <td><a href="{{prefixPath}}/distributors/{{distributorUserId[i]}}/profile">{{ distributorName[i] }}</a></td>
-                            <td><a href="{{prefixPath}}/products/{{order._productId}}">{{ productName[i] }} </a></td>
-                            <td> {{ order.quantity }} </td>
-                            <td> {{ order.discount }} </td>
-                            <td> {{ order.event }} </td>
-                            <td> {{ order.paymentType }} </td>
-                            <td> {{ order.expectedDeliveryDate | date: 'dd/MM/yyyy'}} </td>
-                            <td> {{ order.status }} </td>
-                            <td> {{ order.totalPrice | currency:'VND'}} </td>                            
-                        </tr>
-                        
-                    </tbody>
-                    <pagination-controls (pageChange) = "page4 = $event" previousLabel="Previous" nextLabel="Next"></pagination-controls>
-                    </table>
-                </div>
-                </div>
-            </div>
-            </div>
-    </div>
 </div>
 <ng-template #distributorView>
     <div class="row">
@@ -226,7 +79,7 @@
                     </thead>
                     <tbody>
                         
-                        <tr *ngFor="let order of pOrders_procesing  | orderBy: key: reverse | paginate: {itemsPerPage:10,currentPage:page1}; let i = index">                        
+                        <tr *ngFor="let order of pOrders_procesing  | orderBy: key: reverse | paginate: {id:'p1', itemsPerPage:10,currentPage:page1}; let i = index">                        
                             <td><a href="{{prefixPath}}/salonOwners/{{salonOwnerUserId[i]}}/profile">{{ salonOwnerName[i] }}</a></td>
                             <td><a href="{{prefixPath}}/products/{{order._productId}}">{{ productName[i] }} </a></td>
                             <td> {{ order.quantity }} </td>
@@ -267,7 +120,7 @@
                         </tr>
                         
                     </tbody>
-                    <pagination-controls (pageChange) = "page1 = $event" previousLabel="Previous" nextLabel="Next"></pagination-controls>
+                    <pagination-controls (pageChange) = "page1 = $event" id="p1" previousLabel="Previous" nextLabel="Next"></pagination-controls>
                     </table>
                 </div>
                 </div>
@@ -303,7 +156,7 @@
                     </thead>
                     <tbody>
                         
-                        <tr *ngFor="let order of pOrders_delivering  | orderBy: key: reverse | paginate: {itemsPerPage:10,currentPage:page2}; let i = index">                        
+                        <tr *ngFor="let order of pOrders_delivering  | orderBy: key: reverse | paginate: {id:'p2', itemsPerPage:10,currentPage:page2}; let i = index">                        
                             <td><a href="{{prefixPath}}/salonOwners/{{order._salonOwnerId}}">{{ salonOwnerName[i] }}</a></td>
                             <td><a href="{{prefixPath}}/products/{{order._productId}}">{{ productName[i] }} </a></td>
                             <td> {{ order.quantity }} </td>
@@ -344,7 +197,7 @@
                         </tr>
                         
                     </tbody>
-                    <pagination-controls (pageChange) = "page2 = $event" previousLabel="Previous" nextLabel="Next"></pagination-controls>
+                    <pagination-controls (pageChange) = "page2 = $event" id="p2" previousLabel="Previous" nextLabel="Next"></pagination-controls>
                     </table>
                 </div>
                 </div>
@@ -380,7 +233,7 @@
                     </thead>
                     <tbody>
                         
-                        <tr *ngFor="let order of pOrders_complete  | orderBy: key: reverse | paginate: {itemsPerPage:10,currentPage:page3}; let i = index">                        
+                        <tr *ngFor="let order of pOrders_complete  | orderBy: key: reverse | paginate: {id:'p3', itemsPerPage:10,currentPage:page3}; let i = index">                        
                             <td><a href="{{prefixPath}}/salonOwners/{{order._salonOwnerId}}">{{ salonOwnerName[i] }}</a></td>
                             <td><a href="{{prefixPath}}/products/{{order._productId}}">{{ productName[i] }} </a></td>
                             <td> {{ order.quantity }} </td>
@@ -421,7 +274,7 @@
                         </tr>
                         
                     </tbody>
-                    <pagination-controls (pageChange) = "page3 = $event" previousLabel="Previous" nextLabel="Next"></pagination-controls>
+                    <pagination-controls (pageChange) = "page3 = $event" id="p3" previousLabel="Previous" nextLabel="Next"></pagination-controls>
                     </table>
                 </div>
                 </div>
@@ -458,7 +311,7 @@
                     </thead>
                     <tbody>
                         
-                        <tr *ngFor="let order of pOrders_cancel  | orderBy: key: reverse | paginate: {itemsPerPage:10,currentPage:page4}; let i = index">                        
+                        <tr *ngFor="let order of pOrders_cancel  | orderBy: key: reverse | paginate: {id:'p4', itemsPerPage:10,currentPage:page4}; let i = index">                        
                             <td><a href="{{prefixPath}}/salonOwners/{{order._salonOwnerId}}">{{ salonOwnerName[i] }}</a></td>
                             <td><a href="{{prefixPath}}/products/{{order._productId}}">{{ productName[i] }} </a></td>
                             <td> {{ order.quantity }} </td>
@@ -499,7 +352,7 @@
                         </tr>
                         
                     </tbody>
-                    <pagination-controls (pageChange) = "page4 = $event" previousLabel="Previous" nextLabel="Next"></pagination-controls>
+                    <pagination-controls (pageChange) = "page4 = $event" id="p4" previousLabel="Previous" nextLabel="Next"></pagination-controls>
                     </table>
                 </div>
                 </div>

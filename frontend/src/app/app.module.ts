@@ -73,6 +73,7 @@ import { NgImageSliderModule } from 'ng-image-slider';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { confirmProductOrderComponent } from './popup/confirm_productOrder/confirm_productOrder.component';
 
 @NgModule({
   declarations: [
@@ -123,6 +124,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MainPageComponent,
     ModifyBookingComponent,
     ConfirmComponent,
+    confirmProductOrderComponent,
     RegisterListBecomeSalonOwnerComponent,
     RegisterListBecomeDistributorComponent,
     BarbersSalonListComponent,    

@@ -79,8 +79,7 @@
               <div class="row">
                 <div class="col-lg-6 ml-auto">
                   <div class="row">
-                    <p class="card-category text-left">Giá ({{productDb.unit}}):&nbsp;&nbsp;&nbsp;<b>{{productDb.price|
-                        currency:'VND'}}</b></p>
+                    <p class="card-category text-left">Giá ({{productDb.unit}}):&nbsp;&nbsp;&nbsp;<b>{{productDb.price| currency:'VND'}}</b></p>
                   </div>
                   <div class="row">
                     <b>&nbsp;</b>
@@ -191,8 +190,7 @@
         <ng-template #totalPriceNoDiscount>
           <div class="stats">
             <div class="row">
-              <p class="card-category text-left">Tổng cộng :&nbsp;<b>{{pOrder.quantity*productDb.price|
-                    currency:'VND'}}</b></p>
+              <p class="card-category text-left">Tổng cộng :&nbsp;<b>{{pOrder.quantity*productDb.price| currency:'VND'}}</b></p>
             </div>            
           </div>
         </ng-template>
