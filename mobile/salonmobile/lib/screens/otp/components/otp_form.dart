@@ -18,6 +18,8 @@ class _OtpFormState extends State<OtpForm> {
   FocusNode pin2FocusNode;
   FocusNode pin3FocusNode;
   FocusNode pin4FocusNode;
+  FocusNode pin5FocusNode;
+  FocusNode pin6FocusNode;
 
   @override
   void initState() {
@@ -26,6 +28,8 @@ class _OtpFormState extends State<OtpForm> {
     pin2FocusNode = FocusNode();
     pin3FocusNode = FocusNode();
     pin4FocusNode = FocusNode();
+    pin5FocusNode = FocusNode();
+    pin6FocusNode = FocusNode();
   }
 
   @override
@@ -35,6 +39,8 @@ class _OtpFormState extends State<OtpForm> {
     pin2FocusNode.dispose();
     pin3FocusNode.dispose();
     pin4FocusNode.dispose();
+    pin5FocusNode.dispose();
+    pin6FocusNode.dispose();
   }
 
   void nextField(String value, FocusNode focusNode) {
@@ -53,7 +59,7 @@ class _OtpFormState extends State<OtpForm> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: getProportionateScreenWidth(60),
+                width: getProportionateScreenWidth(50),
                 child: TextFormField(
                   autofocus: true,
                   focusNode: pin1FocusNode,
@@ -68,7 +74,7 @@ class _OtpFormState extends State<OtpForm> {
                 ),
               ),
               SizedBox(
-                width: getProportionateScreenWidth(60),
+                width: getProportionateScreenWidth(50),
                 child: TextFormField(
                     focusNode: pin2FocusNode,
                     obscureText: true,
@@ -84,7 +90,7 @@ class _OtpFormState extends State<OtpForm> {
                     }),
               ),
               SizedBox(
-                width: getProportionateScreenWidth(60),
+                width: getProportionateScreenWidth(50),
                 child: TextFormField(
                     focusNode: pin3FocusNode,
                     obscureText: true,
@@ -100,9 +106,41 @@ class _OtpFormState extends State<OtpForm> {
                     }),
               ),
               SizedBox(
-                width: getProportionateScreenWidth(60),
+                width: getProportionateScreenWidth(50),
                 child: TextFormField(
-                  focusNode: pin4FocusNode,
+                    focusNode: pin4FocusNode,
+                    obscureText: true,
+                    style: TextStyle(fontSize: 24),
+                    keyboardType: TextInputType.number,
+                    textAlign: TextAlign.center,
+                    decoration: otpInputDecoration,
+                    onChanged: (value) {
+                      if (value.length <= 0) {
+                        FocusScope.of(context).requestFocus(pin3FocusNode);
+                      }
+                      nextField(value, pin5FocusNode);
+                    }),
+              ),
+              SizedBox(
+                width: getProportionateScreenWidth(50),
+                child: TextFormField(
+                    focusNode: pin5FocusNode,
+                    obscureText: true,
+                    style: TextStyle(fontSize: 24),
+                    keyboardType: TextInputType.number,
+                    textAlign: TextAlign.center,
+                    decoration: otpInputDecoration,
+                    onChanged: (value) {
+                      if (value.length <= 0) {
+                        FocusScope.of(context).requestFocus(pin4FocusNode);
+                      }
+                      nextField(value, pin6FocusNode);
+                    }),
+              ),
+              SizedBox(
+                width: getProportionateScreenWidth(50),
+                child: TextFormField(
+                  focusNode: pin6FocusNode,
                   obscureText: true,
                   style: TextStyle(fontSize: 24),
                   keyboardType: TextInputType.number,
@@ -110,10 +148,10 @@ class _OtpFormState extends State<OtpForm> {
                   decoration: otpInputDecoration,
                   onChanged: (value) {
                     if (value.length <= 0) {
-                      FocusScope.of(context).requestFocus(pin3FocusNode);
+                      FocusScope.of(context).requestFocus(pin5FocusNode);
                     }
                     if (value.length == 1) {
-                      pin4FocusNode.unfocus();
+                      pin6FocusNode.unfocus();
                       // Then we need to check is the code is correct or not
                     }
                   },
