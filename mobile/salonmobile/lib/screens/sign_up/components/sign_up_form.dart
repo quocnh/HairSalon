@@ -1,14 +1,10 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:salonmobile/components/custom_surfix_icon.dart';
 import 'package:salonmobile/components/default_button.dart';
 import 'package:salonmobile/components/form_error.dart';
 import 'package:salonmobile/models/User.dart';
 import 'package:salonmobile/screens/complete_profile/complete_profile_screen.dart';
 import 'package:salonmobile/utils/constants.dart';
-import 'package:salonmobile/utils/show_toast.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
 class SignUpForm extends StatefulWidget {
