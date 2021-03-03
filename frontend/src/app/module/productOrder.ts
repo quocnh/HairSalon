@@ -14,4 +14,9 @@ export default class productOrder {
     expectedDeliveryDate: Date;
     paymentType: string;
     status: string; //'status of order (completed/delivery/waiting for payment)'
+
+    //additional
+    productName: string;
+    salonOwnerName: string;
+    distributorName: string;
 }

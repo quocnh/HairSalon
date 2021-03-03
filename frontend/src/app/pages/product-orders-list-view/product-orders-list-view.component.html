@@ -11,7 +11,7 @@
                 <div class="table-responsive">
                     <table class="table">
                     <thead class=" text-primary">
-                        <th>Nhà phân phối</th>
+                        <th (click)="sort('distributorName')">Nhà phân phối&nbsp;<i class="fa fa-sort"></i></th>
                         <th (click)="sort('productName')">Tên sản phẩm&nbsp;<i class="fa fa-sort"></i></th>
                         <th (click)="sort('quantity')">Số lượng&nbsp;<i class="fa fa-sort"></i></th> 
                         <th (click)="sort('discount')">Giảm giá&nbsp;<i class="fa fa-sort"></i></th>
@@ -29,8 +29,8 @@
                     <tbody>
                         
                         <tr *ngFor="let order of pOrders  | orderBy: key: reverse | paginate: {itemsPerPage:10,currentPage:page1}; let i = index">                        
-                            <td><a href="{{prefixPath}}/distributors/{{distributorUserId[i]}}/profile">{{ distributorName[i] }}</a></td>
-                            <td><a href="{{prefixPath}}/products/{{order._productId}}">{{ productName[i] }} </a></td>
+                            <td><a href="{{prefixPath}}/distributors/{{distributorUserId[i]}}/profile">{{ order.distributorName }}</a></td>
+                            <td><a href="{{prefixPath}}/products/{{order._productId}}">{{ order.productName }} </a></td>
                             <td> {{ order.quantity }} </td>
                             <td> {{ order.discount }} </td>
                             <td> {{ order.event }} </td>
@@ -62,8 +62,8 @@
                 <div class="table-responsive">
                     <table class="table">
                     <thead class=" text-primary">
-                        <th>Chủ salon</th>
-                        <th>Tên sản phẩm</th>
+                        <th (click)="sort('salonOwnerName')">Chủ salon&nbsp;<i class="fa fa-sort"></i></th>
+                        <th (click)="sort('productName')">Tên sản phẩm&nbsp;<i class="fa fa-sort"></i></th>
                         <th (click)="sort('quantity')">Số lượng&nbsp;<i class="fa fa-sort"></i></th> 
                         <th (click)="sort('discount')">Giảm giá&nbsp;<i class="fa fa-sort"></i></th>
                         <th (click)="sort('event')">Khuyến mãi&nbsp;<i class="fa fa-sort"></i></th>                        
@@ -80,8 +80,8 @@
                     <tbody>
                         
                         <tr *ngFor="let order of pOrders_procesing  | orderBy: key: reverse | paginate: {id:'p1', itemsPerPage:10,currentPage:page1}; let i = index">                        
-                            <td><a href="{{prefixPath}}/salonOwners/{{salonOwnerUserId[i]}}/profile">{{ salonOwnerName[i] }}</a></td>
-                            <td><a href="{{prefixPath}}/products/{{order._productId}}">{{ productName[i] }} </a></td>
+                            <td><a href="{{prefixPath}}/salonOwners/{{salonOwnerUserId[i]}}/profile">{{ order.salonOwnerName }}</a></td>
+                            <td><a href="{{prefixPath}}/products/{{order._productId}}">{{ order.productName }} </a></td>
                             <td> {{ order.quantity }} </td>
                             <td> {{ order.discount }} </td>
                             <td> {{ order.event }} </td>
