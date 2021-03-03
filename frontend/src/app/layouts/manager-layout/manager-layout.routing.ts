@@ -28,6 +28,8 @@ export const ManagerLayoutRoutes: Routes = [
     { path: 'profile',                      component: UserProfileComponent },
     { path: 'salons',               component: SalonsListViewComponent },
     { path: 'salons/:salonId',               component: SalonEditComponent },
+    { path: 'salons/barbers/:salonId',               component: BarberViewComponent },
+    { path: 'salons/barbers/:salonId/profile/:barberId',           component: BarberProfileViewComponent },
 
     { path: 'distributors',         component: DistributorListViewComponent },
     { path: 'distributors/:distributorId/products/:productId',         component: ProductDetailViewComponent },

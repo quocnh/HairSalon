@@ -111,7 +111,8 @@
             </div>
           </div>
 
-          <div class="form-group">
+
+          <div class="form-group" *ngIf="isAdmin; else salonOwner">
             <label>Salon</label>
             <div class="input--style-1">
               <ng-autocomplete [data]="salons" [searchKeyword]="keyword" (selected)='selectSalonEvent($event)'
@@ -129,6 +130,12 @@
               </ng-template>
             </div>
           </div>
+          <ng-template #salonOwner>
+            <div class="form-group" >
+              <label>Salon(*)</label>
+              <input type="text" class="form-control" disabled="" placeholder="Salon" value="{{ salon.name }}">
+            </div>
+          </ng-template>
 
         <div class="row">
           <div class="update ml-auto mr-auto">

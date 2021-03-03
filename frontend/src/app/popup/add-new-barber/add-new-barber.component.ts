@@ -19,6 +19,7 @@ export class AddNewBarberComponent implements OnInit {
   public barber: Barber = new Barber();
 
   salons: Salon[];
+  salon: Salon = new Salon();
   chosenSalon: Salon;
 
   username: string;
@@ -92,7 +93,7 @@ export class AddNewBarberComponent implements OnInit {
     if (this.isAdmin) {
       this.salonUtilService.getAllSalons().subscribe((salons: Salon[]) => this.salons = salons);
     } else if (this.isSalonOwner) {
-      this.salonUtilService.getOneSalon(this.salonId).subscribe((salons: Salon[]) => this.salons = salons);
+      this.salonUtilService.getOneSalon(this.salonId).subscribe((salons: Salon[]) => this.salon = salons[0]);
     }
 
     
@@ -101,7 +102,13 @@ export class AddNewBarberComponent implements OnInit {
 
   addNewObject() {
 
-    console.log(this.chosenSalon);
+    if(this.isAdmin) {
+      console.log(this.chosenSalon);
+      this.barber._salonId = this.chosenSalon._id;
+    } else if (this.isSalonOwner) {
+      this.barber._salonId = this.salon._id;
+    }
+    
     this.barber.dob = this.ngbDateParserFormatter.format(this.modelDob);
     this.barber.username = this.username;
     this.barber.firstname = this.firstname;
@@ -109,7 +116,7 @@ export class AddNewBarberComponent implements OnInit {
     this.barber.phone = this.phone;
     this.barber.email = this.email;
     this.barber.gender = this.gender;
-    this.barber._salonId = this.chosenSalon._id;
+    
     this.barber.hometown = this.hometown;
     this.barber.idcard = this.idcard;
 
