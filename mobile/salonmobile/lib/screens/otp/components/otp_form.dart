@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:salonmobile/components/default_button.dart';
-import 'package:salonmobile/screens/menu_page_builder/menu_page_builder_screen.dart';
+import 'package:salonmobile/services/global_state.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
+
+final GlobalState store = GlobalState.instance;
 
 class OtpForm extends StatefulWidget {
   const OtpForm({
@@ -20,6 +21,8 @@ class _OtpFormState extends State<OtpForm> {
   FocusNode pin4FocusNode;
   FocusNode pin5FocusNode;
   FocusNode pin6FocusNode;
+
+  TextEditingController code1, code2, code3, code4, code5, code6;
 
   @override
   void initState() {
@@ -70,6 +73,7 @@ class _OtpFormState extends State<OtpForm> {
                   decoration: otpInputDecoration,
                   onChanged: (value) {
                     nextField(value, pin2FocusNode);
+                    store.set("code1", value);
                   },
                 ),
               ),
@@ -87,6 +91,7 @@ class _OtpFormState extends State<OtpForm> {
                         FocusScope.of(context).requestFocus(pin1FocusNode);
                       }
                       nextField(value, pin3FocusNode);
+                      store.set("code2", value);
                     }),
               ),
               SizedBox(
@@ -103,6 +108,7 @@ class _OtpFormState extends State<OtpForm> {
                         FocusScope.of(context).requestFocus(pin2FocusNode);
                       }
                       nextField(value, pin4FocusNode);
+                      store.set("code3", value);
                     }),
               ),
               SizedBox(
@@ -119,6 +125,7 @@ class _OtpFormState extends State<OtpForm> {
                         FocusScope.of(context).requestFocus(pin3FocusNode);
                       }
                       nextField(value, pin5FocusNode);
+                      store.set("code4", value);
                     }),
               ),
               SizedBox(
@@ -135,6 +142,7 @@ class _OtpFormState extends State<OtpForm> {
                         FocusScope.of(context).requestFocus(pin4FocusNode);
                       }
                       nextField(value, pin6FocusNode);
+                      store.set("code5", value);
                     }),
               ),
               SizedBox(
@@ -152,6 +160,7 @@ class _OtpFormState extends State<OtpForm> {
                     }
                     if (value.length == 1) {
                       pin6FocusNode.unfocus();
+                      store.set("code6", value);
                       // Then we need to check is the code is correct or not
                     }
                   },
@@ -159,12 +168,6 @@ class _OtpFormState extends State<OtpForm> {
               ),
             ],
           ),
-          SizedBox(height: SizeConfig.screenHeight * 0.15),
-          DefaultButton(
-            text: "Continue",
-            press: () =>
-                Navigator.pushNamed(context, MenuPageBuilderScreen.routeName),
-          )
         ],
       ),
     );

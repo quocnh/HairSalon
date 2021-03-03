@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:salonmobile/screens/home/home_screen.dart';
-import 'package:salonmobile/screens/otp/otp_screen.dart';
 import 'package:salonmobile/screens/profile/profile_screen.dart';
 
 class MenuPageBuilderScreen extends StatefulWidget {
@@ -13,9 +12,7 @@ class _MenuPageBuilderScreenState extends State<MenuPageBuilderScreen> {
   PageController _pageController = PageController();
   List<Widget> _screens = [
     HomeScreen(),
-    OtpScreen(
-      user: null,
-    ),
+    ProfileScreen(),
     ProfileScreen(),
   ];
   int _selectedIndex = 0;

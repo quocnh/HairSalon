@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:salonmobile/components/default_button.dart';
 import 'package:salonmobile/models/User.dart';
+import 'package:salonmobile/screens/menu_page_builder/menu_page_builder_screen.dart';
 import 'package:salonmobile/screens/otp/components/otp_form.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
@@ -28,6 +31,39 @@ class Body extends StatelessWidget {
                   "***"),
               buildTimer(),
               OtpForm(),
+              SizedBox(height: SizeConfig.screenHeight * 0.1),
+              DefaultButton(
+                text: "Continue",
+                press: () async {
+                  String pin = store.get("code1") +
+                      store.get("code2") +
+                      store.get("code3") +
+                      store.get("code4") +
+                      store.get("code5") +
+                      store.get("code6");
+                  // print(int.parse(pin));
+                  try {
+                    AuthCredential credential = PhoneAuthProvider.getCredential(
+                        verificationId: store.get("verificationCode"),
+                        smsCode: pin);
+
+                    AuthResult result = await FirebaseAuth.instance
+                        .signInWithCredential(credential);
+
+                    FirebaseUser user = result.user;
+                    print("user: " + user.uid);
+
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MenuPageBuilderScreen()),
+                      (Route<dynamic> route) => false,
+                    );
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+              ),
               SizedBox(height: SizeConfig.screenHeight * 0.1),
               GestureDetector(
                 onTap: () {
