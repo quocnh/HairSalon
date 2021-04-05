@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:salonmobile/components/custom_surfix_icon.dart';
 import 'package:salonmobile/components/default_button.dart';
@@ -5,8 +7,11 @@ import 'package:salonmobile/components/form_error.dart';
 import 'package:salonmobile/helper/keyboard.dart';
 import 'package:salonmobile/screens/forgot_password/forgot_password_screen.dart';
 import 'package:salonmobile/screens/menu_page_builder/menu_page_builder_screen.dart';
+import 'package:salonmobile/services/http_service.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
+
+//import 'package:shared_preferences/shared_preferences.dart';
 
 class SignForm extends StatefulWidget {
   @override
@@ -32,6 +37,26 @@ class _SignFormState extends State<SignForm> {
       setState(() {
         errors.remove(error);
       });
+  }
+
+  void signIn(String email, String password) async {
+    HttpService hS = new HttpService();
+
+    var response = await hS.login(email, password);
+
+    if (response != Null) {
+      //Map<String, String> map = response;
+      //var mapInJsonString = json.encode(map);
+      //print(map['accessToken']);
+      //go to homescree and remove all previous routes
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => MenuPageBuilderScreen()),
+        (Route<dynamic> route) => false,
+      );
+    } else {
+      print("Wrong usernamer/password");
+    }
   }
 
   @override
@@ -71,19 +96,22 @@ class _SignFormState extends State<SignForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(20)),
           DefaultButton(
-            text: "Tiếp tục",
+            text: "Đăng nhập",
             press: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
                 // if all are valid then go to success screen
                 KeyboardUtil.hideKeyboard(context);
+                print(email);
+                print(password);
+                signIn(email, password);
                 // go to homescree and remove all previous routes
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => MenuPageBuilderScreen()),
-                  (Route<dynamic> route) => false,
-                );
+                // Navigator.pushAndRemoveUntil(
+                //   context,
+                //   MaterialPageRoute(
+                //       builder: (context) => MenuPageBuilderScreen()),
+                //   (Route<dynamic> route) => false,
+                // );
               }
             },
           ),
@@ -99,19 +127,20 @@ class _SignFormState extends State<SignForm> {
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kEmailNullError);
-        } else if (emailValidatorRegExp.hasMatch(value)) {
-          removeError(error: kInvalidEmailError);
         }
+        // if (emailValidatorRegExp.hasMatch(value)) {
+        //   removeError(error: kInvalidEmailError);
+        // }
         return null;
       },
       validator: (value) {
         if (value.isEmpty) {
           addError(error: kEmailNullError);
           return "";
-        } else if (!emailValidatorRegExp.hasMatch(value)) {
-          addError(error: kInvalidEmailError);
-          return "";
-        }
+        } //else if (!emailValidatorRegExp.hasMatch(value)) {
+        // addError(error: kInvalidEmailError);
+        //return "";
+        //}
         return null;
       },
       decoration: InputDecoration(
@@ -130,7 +159,8 @@ class _SignFormState extends State<SignForm> {
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
-        } else if (value.length >= 8) {
+        }
+        if (value.length >= 3) {
           removeError(error: kShortPassError);
         }
         return null;
@@ -139,7 +169,7 @@ class _SignFormState extends State<SignForm> {
         if (value.isEmpty) {
           addError(error: kPassNullError);
           return "";
-        } else if (value.length < 8) {
+        } else if (value.length < 3) {
           addError(error: kShortPassError);
           return "";
         }

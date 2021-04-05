@@ -9,6 +9,7 @@ class SignInScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).translate('sign_in')),
+        centerTitle: true,
       ),
       body: Body(),
     );
