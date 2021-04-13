@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TokenStorageService } from 'app/_services/token-storage.service';
 import { AuthService } from '../../_services/auth.service';
 
 
@@ -19,12 +20,20 @@ export class RegisterComponent implements OnInit {
   constructor(
     public modal: NgbActiveModal,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private tokenStorage: TokenStorageService
 
   ) { }
 
   ngOnInit(): void {
 
+  }
+  reloadPage(): void {
+    this.router.navigate(['/']);
+
+    if (this.router.url === '/home'){
+      window.location.reload();
+    }
   }
   onSubmit(): void {
     this.authService.register(this.form).subscribe(
@@ -32,11 +41,21 @@ export class RegisterComponent implements OnInit {
         console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
-        this.router.navigate(['/']);
 
-        if (this.router.url === '/home'){
-          window.location.reload();
-        }
+        // automatically log in
+        this.authService.login(this.form).subscribe(
+          data => {
+            this.tokenStorage.saveToken(data.accessToken);
+            this.tokenStorage.saveUser(data);    
+
+            //this.roles = this.tokenStorage.getUser().roles;
+            this.reloadPage();
+          },
+          err => {
+            this.errorMessage = err.error.message;
+          }
+        );
+        
       },
       err => {
         this.errorMessage = err.error.message;
@@ -45,3 +64,5 @@ export class RegisterComponent implements OnInit {
     );
   }
 }
+
+
