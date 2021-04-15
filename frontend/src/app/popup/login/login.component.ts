@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 declare const FB: any;
 import { AuthService } from '../../_services/auth.service';
 import { TokenStorageService } from '../../_services/token-storage.service';
+import { ForgetPasswordComponent } from '../forget-password/forget-password.component';
 
 @Component({
   selector: 'app-login',
@@ -15,11 +16,13 @@ export class LoginComponent implements OnInit {
   isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
+  isForgetPasswordFailed  = false;
 
   constructor(
     public modal: NgbActiveModal,
     // private userService: UserService,
-    private authService: AuthService, private tokenStorage: TokenStorageService
+    private authService: AuthService, private tokenStorage: TokenStorageService,
+    private modalService: NgbModal
   ) {
   }
 
@@ -52,7 +55,6 @@ export class LoginComponent implements OnInit {
      */
   }
   onSubmit(): void {
-    console.log("TEST");
     this.authService.login(this.form).subscribe(
       data => {
         this.tokenStorage.saveToken(data.accessToken);
@@ -72,6 +74,27 @@ export class LoginComponent implements OnInit {
 
   reloadPage(): void {
     window.location.reload();
+  }
+
+  forgetPassword(username:string){
+    if (username === undefined) {
+      this.isForgetPasswordFailed = true;
+    }
+    else {
+      this.isForgetPasswordFailed = false;
+      console.log("forget pass " + username);
+      console.log('call login modal');
+      const ref = this.modalService.open(ForgetPasswordComponent);      
+      ref.componentInstance.username = username;
+      ref.result.then(
+        (result) => {
+          console.log("Update pass for " + username);            
+        },
+        (cancel) => {
+          console.log('cancel click');
+        })
+    }
+    
   }
 
   
