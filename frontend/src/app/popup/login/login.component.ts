@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   roles: string[] = [];
   isForgetPasswordFailed  = false;
+  isPasswordChanged = false;
 
   constructor(
     public modal: NgbActiveModal,
@@ -81,16 +82,16 @@ export class LoginComponent implements OnInit {
       this.isForgetPasswordFailed = true;
     }
     else {
-      this.isForgetPasswordFailed = false;
-      console.log("forget pass " + username);
-      console.log('call login modal');
+      this.isForgetPasswordFailed = false;      
       const ref = this.modalService.open(ForgetPasswordComponent);      
       ref.componentInstance.username = username;
       ref.result.then(
         (result) => {
-          console.log("Update pass for " + username);            
+          console.log("Update pass for " + username);
+          this.isPasswordChanged = true;            
         },
         (cancel) => {
+          this.isPasswordChanged = false;
           console.log('cancel click');
         })
     }

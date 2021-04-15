@@ -213,8 +213,6 @@ exports.signin = (req, res) => {
 };
 
 exports.changePassword = (req, res) => {
-    console.log(req.body.username);
-    console.log(req.body.password);
     User.findOneAndUpdate({
         username: req.body.username
     },

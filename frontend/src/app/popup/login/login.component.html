@@ -53,6 +53,9 @@ password: required, minLength=6 -->
     <div class="alert alert-success" *ngIf="isLoggedIn">
         Đã đăng nhập bằng tài khoản {{ roles }}.
     </div>
+    <div class="alert alert-success" *ngIf="isPasswordChanged">
+        Thay đổi mật khẩu thành công
+    </div>
 
     <!-- <div>
         <button class="btn btn-primary fb-btn" (click)="fbLogin()">

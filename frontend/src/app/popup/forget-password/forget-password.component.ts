@@ -34,17 +34,19 @@ export class ForgetPasswordComponent implements OnInit {
       this.authService.changePassword(this.form).subscribe(
         data => { 
           this.isPasswordChanged = true;
+          this.modal.close();
         },
         err => {
           this.errorMessage = err.error.message;
           this.isPasswordChanged = false;
+          this.modal.close();    
         }
       );
     }
 
     
 
-    //this.modal.close();    
+    
   }
   
   

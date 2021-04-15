@@ -16,7 +16,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(credentials): Observable<any> {
-    console.log("Singin info from form: " + credentials.username + "," + credentials.password);
+    //console.log("Singin info from form: " + credentials.username + "," + credentials.password);
     return this.http.post(AUTH_API + 'signin', {
       username: credentials.username,
       password: credentials.password
@@ -24,7 +24,7 @@ export class AuthService {
   }
 
   changePassword(credentials): Observable<any> {
-    console.log("Change password: " + credentials.username + "," + credentials.password);
+    //console.log("Change password: " + credentials.username + "," + credentials.password);
     return this.http.post(AUTH_API + 'changePassword', {
       username: credentials.username,
       password: credentials.password
@@ -32,7 +32,7 @@ export class AuthService {
   }
 
   register(user): Observable<any> {
-    console.log("Singup info from form: " + user.username + "," + user.password);
+    //console.log("Singup info from form: " + user.username + "," + user.password);
     return this.http.post(AUTH_API + 'signup', {
       username: user.username,
       email: user.email,
