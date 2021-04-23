@@ -34,16 +34,19 @@ password: required, minLength=6 -->
         <div class="form-group">
             <button class="btn btn-primary btn-block">
                 Đăng nhập
-            </button>          
+            </button>
         </div>
-        <div class="form-group pull-right">
-            <a href="javascript:void(0);" (click)="forgetPassword(form.username) "> Quên mật khẩu</a>
+        <div class="form-group text-right">
+            <a href="javascript:void(0);" (click)="forgetPassword(form.username) "> Quên mật khẩu</a>         
+            
         </div>
-        <div class="alert alert-danger" role="alert" *ngIf="isForgetPasswordFailed">
-            Nhập tên đăng nhập để khôi phục mật khẩu.
-        </div>
+        
+        
             
         <div class="form-group">
+            <div class="alert alert-danger" role="alert" *ngIf="isForgetPasswordFailed">
+                Nhập tên đăng nhập để khôi phục mật khẩu.
+            </div>
             <div class="alert alert-danger" role="alert" *ngIf="f.submitted && isLoginFailed">
                 Đăng nhập lỗi {{ errorMessage }}
             </div>

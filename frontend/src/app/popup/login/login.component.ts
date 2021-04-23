@@ -56,6 +56,7 @@ export class LoginComponent implements OnInit {
      */
   }
   onSubmit(): void {
+    this.isForgetPasswordFailed = false;
     this.authService.login(this.form).subscribe(
       data => {
         this.tokenStorage.saveToken(data.accessToken);
