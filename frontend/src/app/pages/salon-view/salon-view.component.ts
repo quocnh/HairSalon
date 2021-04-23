@@ -290,14 +290,20 @@ export class SalonViewComponent implements OnInit {
   }
 
   addNewComment(){
-    console.log(this.newComment.content);
+    //console.log(this.newComment.content);
 
     this.isLoggedIn = !!this.tokenStorageService.getToken();
     if (this.isLoggedIn) {
       this.user = this.tokenStorageService.getUser();
       console.log(this.user);
     } else {
-      // Not login yet
+      const ref = this.modalService.open(LoginComponent);
+      ref.result.then((result) => {
+        window.location.reload();            
+      },
+        (cancel) => {
+          console.log('cancel click');
+        })
       return;
     }
 
