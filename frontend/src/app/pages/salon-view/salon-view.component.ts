@@ -31,6 +31,7 @@ export class SalonViewComponent implements OnInit {
   total: number;
   strPhotos: any = new Array(10);
   strCustomerPhotos: any = new Array();
+  customerPhotoLength = 0;
   time = { hour: 13, minute: 30 };
   meridian = true;
   barbers: Array<Barber> = [];
@@ -273,6 +274,7 @@ export class SalonViewComponent implements OnInit {
   }
 
   getCustomerPhotos(){
+    this.customerPhotoLength = this.salon.customerPhotos.length;
     for (let i = 0; i < this.salon.customerPhotos.length; i++) {
       if ((this.salon.customerPhotos[i] !== '') && (this.salon.customerPhotos[i] !== 'null')) {
         this.strCustomerPhotos[i] = environment.dbAddress + '/' + this.salon.customerPhotos[i];
