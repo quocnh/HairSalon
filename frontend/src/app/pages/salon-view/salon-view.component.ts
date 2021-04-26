@@ -14,6 +14,7 @@ import { ConfirmComponent } from 'app/popup/confirm/confirm.component';
 import Comment from '../../module/comment';
 import User from 'app/module/userAccount';
 import { LoginComponent } from 'app/popup/login/login.component';
+import { SelectBarberComponent } from 'app/popup/select-barber/select-barber.component';
 
 @Component({
   selector: 'app-salon-view',
@@ -38,6 +39,7 @@ export class SalonViewComponent implements OnInit {
   booking: Booking = new Booking();
   newComment: Comment = new Comment();
   comments: Comment[] = new Array();
+  selectedBaber: Barber = new Barber;
 
   isLoggedIn = false;
   user: any;
@@ -319,6 +321,21 @@ export class SalonViewComponent implements OnInit {
         this.getAllComment(this.salonId);
         this.newComment.content = '';
       });
+  }
+
+  selectBarber(){
+    const ref = this.modalService.open(SelectBarberComponent);
+    ref.componentInstance.salonId = this.salonId;
+    ref.result.then((result) => {
+      if (result) {
+        //console.log("Result from login modal: ", result);
+        this.selectedBaber = result;
+        this.booking._barberId = this.selectedBaber._id;
+      }
+      },
+      (cancel) => {
+        console.log('cancel click');
+      })
   }
 
 

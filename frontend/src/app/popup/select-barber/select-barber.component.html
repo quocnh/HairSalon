@@ -1,0 +1,32 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Chọn thợ cắt tóc</h4>
+    <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+        (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body">
+
+    <table class="table">
+        <tbody>
+            
+            <tr *ngFor="let b of barbers | orderBy: key: reverse | paginate: {itemsPerPage:10,currentPage:page}; let i = index" [ngClass]="{'data-selected': selectedBarber === b}">
+                <th (click)="getBarber(b)"><img class="avatar border-gray" 
+                    src={{b.avatar}} 
+                    style="width: 56px;height: 56px;overflow: hidden;border-radius: 50%;margin-bottom: 20px;"> {{b.firstname}} {{b.lastname}}
+                </th>
+                
+            </tr>
+          
+        </tbody>
+        <pagination-controls (pageChange) = "page = $event" previousLabel="Previous" nextLabel="Next"></pagination-controls>
+      </table>           
+</div>
+
+
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
+    <button type="button" ngbAutofocus class="btn btn-danger" (click)="selectBarber()">Ok</button>
+</div>
