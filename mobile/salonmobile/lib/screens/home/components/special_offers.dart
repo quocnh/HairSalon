@@ -29,7 +29,9 @@ class SpecialOffers extends StatelessWidget {
                 image: "assets/images/Image Banner 2.png",
                 category: "Cắt tóc",
                 numOfBrands: 18,
-                press: () {},
+                press: () {
+                  print('Phan HUu TUng');
+                },
               ),
               SpecialOfferCard(
                 image: "assets/images/Image Banner 3.png",

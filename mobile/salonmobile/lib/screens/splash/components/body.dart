@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:salonmobile/components/default_button.dart';
+import 'package:salonmobile/screens/menu_page_builder/menu_page_builder_screen.dart';
 
 import 'package:salonmobile/screens/sign_in/sign_in_screen.dart';
 import 'package:salonmobile/screens/splash/components/splash_content.dart';
@@ -64,10 +65,16 @@ class _BodyState extends State<Body> {
                         text:
                             AppLocalizations.of(context).translate('continue'),
                         press: () {
+                          // Navigator.pushAndRemoveUntil(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => SignInScreen()),
+                          //       (Route<dynamic> route) => false,
+                          // );
                           Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => SignInScreen()),
+                                builder: (context) => MenuPageBuilderScreen()),
                             (Route<dynamic> route) => false,
                           );
                           // Navigator.pushNamed(context, SignInScreen.routeName);
