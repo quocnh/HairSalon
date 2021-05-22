@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:salonmobile/models/Product.dart';
+import 'package:salonmobile/screens/list_store/list_store_screen.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
 import 'section_title.dart';
@@ -30,7 +32,12 @@ class SpecialOffers extends StatelessWidget {
                 category: "Cắt tóc",
                 numOfBrands: 18,
                 press: () {
-                  print('Phan HUu TUng');
+                  print(demoProducts[0].start);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ListStoreScreen(
+                              )));
                 },
               ),
               SpecialOfferCard(
