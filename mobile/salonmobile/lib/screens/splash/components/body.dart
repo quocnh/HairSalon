@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:salonmobile/components/default_button.dart';
 import 'package:salonmobile/screens/menu_page_builder/menu_page_builder_screen.dart';
-
-import 'package:salonmobile/screens/sign_in/sign_in_screen.dart';
 import 'package:salonmobile/screens/splash/components/splash_content.dart';
 import 'package:salonmobile/utils/app_localizations.dart';
 import 'package:salonmobile/utils/constants.dart';

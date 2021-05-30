@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:salonmobile/screens/list_store/components/aa.dart';
 import 'package:salonmobile/screens/list_store/components/body.dart';
-
+import 'package:salonmobile/screens/list_store/components/list_tets.dart';
 
 
 class ListStoreScreen extends StatelessWidget {
@@ -8,10 +9,6 @@ class ListStoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Danh sách cửa hàng'),
-        centerTitle: true,
-      ),
       body: Body(),
     );
   }

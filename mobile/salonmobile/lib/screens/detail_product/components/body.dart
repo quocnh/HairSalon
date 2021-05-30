@@ -5,8 +5,8 @@ import 'package:salonmobile/utils/size_config.dart';
 
 import 'color_dots.dart';
 import 'product_description.dart';
-import 'top_rounded_container.dart';
 import 'product_images.dart';
+import 'top_rounded_container.dart';
 
 class Body extends StatelessWidget {
   final Product product;

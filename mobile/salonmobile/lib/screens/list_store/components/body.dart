@@ -1,31 +1,52 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:salonmobile/components/product_card.dart';
 import 'package:salonmobile/models/Product.dart';
+import 'package:salonmobile/screens/list_store/components/list_store.dart';
+import 'package:salonmobile/screens/list_store/components/list_tets.dart';
+import 'package:salonmobile/screens/list_store/components/map.dart';
+import 'package:salonmobile/screens/list_store/components/search_map.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
+class Body extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _Body();
+  }
+}
 
-class Body extends StatelessWidget{
-
-
-
+class _Body extends State<Body> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return ListView.builder(
-      itemCount: demoProducts.length,
-      itemBuilder: (context,i){
-        return ListTile(
-          leading: Image.asset('${demoProducts[i].images[0]}',width: getProportionateScreenWidth(60),),
-          title: Text('${demoProducts[i].title}'),
-          subtitle: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              for (var i = 0; i < 3; ++i)
-                Icon(Icons.star, color: Colors.yellow[800]) 
-            ],
+    return SafeArea(
+      child: Stack(
+        children: [
+          Map(),
+          Positioned(
+              left: 0,
+              top: 0,
+              right: 0,
+              child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: getProportionateScreenHeight(40),
+                      horizontal: getProportionateScreenWidth(40)),
+                  child: SearchMap())),
+          DraggableScrollableSheet(
+            builder: (context, scrollController) {
+              return SingleChildScrollView(
+                controller: scrollController,
+                scrollDirection: Axis.vertical,
+                child: ListTest(),
+              );
+            },
+            initialChildSize: 0.55,
+            minChildSize: 0.1,
+            maxChildSize: 0.85,
           )
-        );
-      },
+        ],
+      ),
     );
   }
 }
