@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:salonmobile/screens/home/components/categories.dart';
 import 'package:salonmobile/screens/home/components/discount_banner.dart';
 import 'package:salonmobile/screens/home/components/home_header.dart';
-import 'package:salonmobile/screens/home/components/popular_product.dart';
+import 'package:salonmobile/screens/home/components/salon_list.dart';
 import 'package:salonmobile/screens/home/components/special_offers.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
@@ -20,7 +20,7 @@ class Body extends StatelessWidget {
             Categories(),
             SpecialOffers(),
             SizedBox(height: getProportionateScreenWidth(30)),
-            PopularProducts(),
+            SalonList(),
             SizedBox(height: getProportionateScreenWidth(30)),
           ],
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:salonmobile/components/default_button.dart';
 import 'package:salonmobile/models/Product.dart';
+import 'package:salonmobile/services/salon_utils_service.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
 import 'color_dots.dart';
@@ -13,8 +14,16 @@ class Body extends StatelessWidget {
 
   const Body({Key key, @required this.product}) : super(key: key);
 
+  void getSalons() async {
+    SalonUtilsService sus = new SalonUtilsService();
+    var salonLists = await sus.getAllSalons();
+    print("Hello");
+    print(salonLists);
+  }
+
   @override
   Widget build(BuildContext context) {
+    //getSalons();
     return ListView(
       children: [
         ProductImages(product: product),
