@@ -1,0 +1,19 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "dart",
+			"command": "dart",
+			"args": [
+				"pub",
+				"upgrade"
+			],
+			"problemMatcher": [],
+			"label": "dart: dart pub upgrade",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+	]
+}

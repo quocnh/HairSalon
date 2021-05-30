@@ -32,12 +32,12 @@ class SpecialOffers extends StatelessWidget {
                 category: "Cắt tóc",
                 numOfBrands: 18,
                 press: () {
-                  print(demoProducts[0].start);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ListStoreScreen(
-                              )));
+                  print(demoProducts.length);
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => ListStoreScreen(
+                  //             )));
                 },
               ),
               SpecialOfferCard(

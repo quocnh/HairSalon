@@ -38,6 +38,7 @@ const upload = multer({
 });
 
 salonRouter.get('/', (req, res) => {
+    console.log('Get all salons');
     Salon.find({})
         .then(salons => res.send(salons))
         .catch((error) => console.log(error));
