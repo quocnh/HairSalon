@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:salonmobile/screens/home/home_screen.dart';
+import 'package:salonmobile/screens/list_store/list_store_screen.dart';
 import 'package:salonmobile/screens/profile/profile_screen.dart';
 
 class MenuPageBuilderScreen extends StatefulWidget {
@@ -12,6 +13,7 @@ class _MenuPageBuilderScreenState extends State<MenuPageBuilderScreen> {
   PageController _pageController = PageController();
   List<Widget> _screens = [
     HomeScreen(),
+    ListStoreScreen(),
     ProfileScreen(),
     ProfileScreen(),
   ];
@@ -41,22 +43,32 @@ class _MenuPageBuilderScreenState extends State<MenuPageBuilderScreen> {
                 )),
             BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.history,
+                  Icons.search_sharp,
                   color: _selectedIndex == 1 ? Colors.blue : Colors.grey,
+                ),
+                title: Text(
+                  "Search",
+                  style: TextStyle(
+                      color: _selectedIndex == 1 ? Colors.blue : Colors.grey),
+                )),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.history,
+                  color: _selectedIndex == 2 ? Colors.blue : Colors.grey,
                 ),
                 title: Text("History",
                     style: TextStyle(
                         color:
-                            _selectedIndex == 1 ? Colors.blue : Colors.grey))),
+                            _selectedIndex == 2 ? Colors.blue : Colors.grey))),
             BottomNavigationBarItem(
                 icon: Icon(
                   Icons.person,
-                  color: _selectedIndex == 2 ? Colors.blue : Colors.grey,
+                  color: _selectedIndex == 3 ? Colors.blue : Colors.grey,
                 ),
                 title: Text("Profile",
                     style: TextStyle(
                         color:
-                            _selectedIndex == 2 ? Colors.blue : Colors.grey))),
+                            _selectedIndex == 3 ? Colors.blue : Colors.grey))),
           ],
         ));
   }

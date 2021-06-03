@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Hair Salon',
+      title: 'Katok',
       theme: theme(),
       // List all of the app's supported locales here
       supportedLocales: [

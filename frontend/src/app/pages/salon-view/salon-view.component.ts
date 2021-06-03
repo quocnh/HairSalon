@@ -14,6 +14,7 @@ import { ConfirmComponent } from 'app/popup/confirm/confirm.component';
 import Comment from '../../module/comment';
 import User from 'app/module/userAccount';
 import { LoginComponent } from 'app/popup/login/login.component';
+import { SelectBarberComponent } from 'app/popup/select-barber/select-barber.component';
 
 @Component({
   selector: 'app-salon-view',
@@ -31,12 +32,14 @@ export class SalonViewComponent implements OnInit {
   total: number;
   strPhotos: any = new Array(10);
   strCustomerPhotos: any = new Array();
+  customerPhotoLength = 0;
   time = { hour: 13, minute: 30 };
   meridian = true;
   barbers: Array<Barber> = [];
   booking: Booking = new Booking();
   newComment: Comment = new Comment();
   comments: Comment[] = new Array();
+  selectedBaber: Barber = new Barber;
 
   isLoggedIn = false;
   user: any;
@@ -273,6 +276,7 @@ export class SalonViewComponent implements OnInit {
   }
 
   getCustomerPhotos(){
+    this.customerPhotoLength = this.salon.customerPhotos.length;
     for (let i = 0; i < this.salon.customerPhotos.length; i++) {
       if ((this.salon.customerPhotos[i] !== '') && (this.salon.customerPhotos[i] !== 'null')) {
         this.strCustomerPhotos[i] = environment.dbAddress + '/' + this.salon.customerPhotos[i];
@@ -290,14 +294,20 @@ export class SalonViewComponent implements OnInit {
   }
 
   addNewComment(){
-    console.log(this.newComment.content);
+    //console.log(this.newComment.content);
 
     this.isLoggedIn = !!this.tokenStorageService.getToken();
     if (this.isLoggedIn) {
       this.user = this.tokenStorageService.getUser();
       console.log(this.user);
     } else {
-      // Not login yet
+      const ref = this.modalService.open(LoginComponent);
+      ref.result.then((result) => {
+        window.location.reload();            
+      },
+        (cancel) => {
+          console.log('cancel click');
+        })
       return;
     }
 
@@ -311,6 +321,21 @@ export class SalonViewComponent implements OnInit {
         this.getAllComment(this.salonId);
         this.newComment.content = '';
       });
+  }
+
+  selectBarber(){
+    const ref = this.modalService.open(SelectBarberComponent);
+    ref.componentInstance.salonId = this.salonId;
+    ref.result.then((result) => {
+      if (result) {
+        //console.log("Result from login modal: ", result);
+        this.selectedBaber = result;
+        this.booking._barberId = this.selectedBaber._id;
+      }
+      },
+      (cancel) => {
+        console.log('cancel click');
+      })
   }
 
 

@@ -105,22 +105,11 @@
 
             </div>
           </div>
-        </div>
-
-        <label>Chọn thợ</label>
-        <div class="form-group">
-          <select input type="text" class="form-control"
-            (change)="selectBarberOnChange($event.target.options.selectedIndex)">
-            <option value="">Tùy chọn </option>
-            <option *ngFor="let b of barbers">
-              <p style="text-align:left;">{{b.lastname}} {{b.firstname}}</p>
-            </option>
-          </select>
-
-        </div>
+        </div>        
 
       </div>
       <div class="card-body ">
+
         <label>Chọn dịch vụ</label>
         <div class="form-group">
           <select input type="text" class="form-control"
@@ -138,9 +127,27 @@
 
             </option>
           </select>
-
         </div>
 
+        <div class="form-group">
+          <div class="btn btn-simple" (click)="selectBarber()">
+            Chọn thợ
+          </div>
+          <div>
+            <label>{{selectedBaber.firstname}} {{selectedBaber.lastname}}</label>
+          </div>
+        </div>
+        
+        <!-- <div class="form-group">
+          <select input type="text" class="form-control"
+            (change)="selectBarberOnChange($event.target.options.selectedIndex)">
+            <option value="">Tùy chọn </option>
+            <option *ngFor="let b of barbers">
+              <p style="text-align:left;">{{b.lastname}} {{b.firstname}}</p>
+            </option>
+          </select>
+
+        </div> -->
 
       </div>
       <div class="card-footer ">
@@ -212,13 +219,14 @@
 
 </div>
 
-<div style="width: 100%; height: 200px; text-align:center;margin:0; padding:0;">
+<div style="width: 100%; height: 200px; text-align:center;margin:0; padding:0;" *ngIf="customerPhotoLength > 0">
   <ng-image-slider #nav
     [images]="imageObject"
     [infinite]="false"
     [autoSlide]="1"
     [imageSize]="{width: '12%', height: 200}"
-    slideImage="1"></ng-image-slider>
+    slideImage="1">
+  </ng-image-slider>
 </div>
 
 

@@ -175,7 +175,7 @@ export class NavbarComponent implements OnInit {
         return this.listTitles[item].title;
       }
     }
-    return 'G-Salon';
+    return 'Katok';
   }
   // tslint:disable-next-line: member-ordering
   sidebarToggle() {

@@ -211,3 +211,15 @@ exports.signin = (req, res) => {
             });
         });
 };
+
+exports.changePassword = (req, res) => {
+    User.findOneAndUpdate({
+        username: req.body.username
+    },
+    {$set: 
+        { 
+            password: bcrypt.hashSync(req.body.password, 8)
+        }
+    }).then(user => res.status(200).send(user))
+    .catch((error) => res.status(404).send(error));
+};

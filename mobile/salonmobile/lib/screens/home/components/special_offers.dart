@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:salonmobile/models/Product.dart';
+import 'package:salonmobile/screens/list_store/list_store_screen.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
 import 'section_title.dart';
@@ -29,7 +31,14 @@ class SpecialOffers extends StatelessWidget {
                 image: "assets/images/Image Banner 2.png",
                 category: "Cắt tóc",
                 numOfBrands: 18,
-                press: () {},
+                press: () {
+                  print(demoProducts.length);
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => ListStoreScreen(
+                  //             )));
+                },
               ),
               SpecialOfferCard(
                 image: "assets/images/Image Banner 3.png",

@@ -74,6 +74,8 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { confirmProductOrderComponent } from './popup/confirm_productOrder/confirm_productOrder.component';
+import { ForgetPasswordComponent } from './popup/forget-password/forget-password.component';
+import { SelectBarberComponent } from './popup/select-barber/select-barber.component';
 
 @NgModule({
   declarations: [
@@ -92,6 +94,8 @@ import { confirmProductOrderComponent } from './popup/confirm_productOrder/confi
     HomeLayoutComponent,
     BookingViewComponent,
     LoginComponent,
+    ForgetPasswordComponent,
+    SelectBarberComponent,
     RegisterComponent,
     SalonEditComponent,
     ManagerLayoutComponent,
@@ -150,7 +154,7 @@ import { confirmProductOrderComponent } from './popup/confirm_productOrder/confi
     NgImageSliderModule,
     Ng2OrderModule,
     Ng2SearchPipeModule,
-    NgxPaginationModule
+    NgxPaginationModule,
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent],

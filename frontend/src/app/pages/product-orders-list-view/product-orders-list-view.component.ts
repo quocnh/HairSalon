@@ -126,7 +126,7 @@ export class ProductOrdersListViewComponent implements OnInit {
 
   // --- Autocomplete Code --------------------------
   selectEvent(event){
-    console.log(event);
+    //console.log(event);
     this.selectedStatus = event.value;
     
   }
@@ -157,14 +157,15 @@ export class ProductOrdersListViewComponent implements OnInit {
             //   });
             this.salonUtilService.getUserFromSalonOwnerId(this.pOrders[i]._salonOwnerId).subscribe(
               (users: User[]) => {
-                console.log(users[0]);
+                //console.log(users[0]);
                 this.salonOwnerName[i] = users[0].firstname + ' ' + users[0].lastname;
+                this.pOrders[i].salonOwnerName = this.salonOwnerName[i];
                 this.salonOwnerUserId[i] = users[0]._id;
               });
-            this.salonUtilService.getOneProduct(this.pOrders[i]._productId).subscribe(
-              (product: Product[]) => {
-                this.productName[i] = product[0].name;
-              });
+
+              this.getProductName(this.pOrders[i]._productId).then(data => {             
+                this.pOrders[i].productName = data;
+              }); 
   
             if ((!this.pOrders[i].event) || (this.pOrders[i].event=='null')) {
               this.pOrders[i].event = '-';
@@ -199,12 +200,14 @@ export class ProductOrdersListViewComponent implements OnInit {
                     (users: User[]) => {
                       //console.log(users[0]);
                       this.distributorName[i] = users[0].firstname + ' ' + users[0].lastname;
+                      this.pOrders[i].distributorName = this.distributorName[i];
                       this.distributorUserId[i] = users[0]._id;
-                    });                  
-                  this.salonUtilService.getOneProduct(this.pOrders[i]._productId).subscribe(
-                    (product: Product[]) => {
-                      this.productName[i] = product[0].name;
                     });
+                  
+                  this.getProductName(this.pOrders[i]._productId).then(data => {                   
+                    this.pOrders[i].productName = data;
+                  });                  
+
         
                   if ((!this.pOrders[i].event) || (this.pOrders[i].event=='null')) {
                     this.pOrders[i].event = '-';
@@ -231,11 +234,25 @@ export class ProductOrdersListViewComponent implements OnInit {
           }            
         }
       );
-
       
     }
     
   }
+
+  async getProductName(productId: string): Promise<string> {
+    let pName = 'undefined';
+    await this.salonUtilService.getOneProduct(productId)
+    .toPromise()
+    .then(
+      (products: Product[]) => {        
+        if (products.length > 0) {
+          return products[0].name;  
+        }
+        return '';
+      }).then(data => pName = data);
+    return pName;
+  }
+
 
   updateOrder(pOrder: productOrder) {
     //console.log(pOrder.status);

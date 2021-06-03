@@ -1,0 +1,8 @@
+{
+    "editor.hideCursorInOverviewRuler": true,
+    "editor.overviewRulerBorder": false,
+    "editor.wordWrapColumn": 150,
+    "editor.rulers": [
+    
+    ]
+}

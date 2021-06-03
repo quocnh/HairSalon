@@ -29,6 +29,7 @@ module.exports = function (app) {
     );
 
     app.post("/api/auth/signin", authController.signin);
+    app.post("/api/auth/changePassword", authController.changePassword);
 
     
 };
