@@ -68,6 +68,7 @@ class Body extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   // OTP code resend
+                  // phoneVeryfication();
                 },
                 child: Text(
                   "Resend OTP Code",
