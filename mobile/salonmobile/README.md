@@ -18,5 +18,9 @@ https://flutter.dev/docs/get-started/install/macos
 ```python
 https://www.youtube.com/watch?v=3NLP-1KX_Vk
 ```
-
+4. Add google map api for Android and iOS
+```python
+https://stackoverflow.com/questions/37633766/no-such-module-googlemaps-found-however-it-is-installed
+https://developers.google.com/maps/documentation/ios-sdk/get-api-key
+```
 
