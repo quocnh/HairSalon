@@ -3,6 +3,15 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
+
 class HttpService {
   static const String ROOT_URL = 'https://awinst.com:3000';
   static const String HERE_URL =
@@ -36,6 +45,7 @@ class HttpService {
     String url = ROOT_URL + '/' + params;
     print(url);
     // HttpClient client = new HttpClient();
+    HttpOverrides.global = new MyHttpOverrides();
     var client = http.Client();
 
     // client.badCertificateCallback =
