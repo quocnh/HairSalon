@@ -122,7 +122,9 @@ class _ListStore extends State<ListStore>{
                           options: CarouselOptions(
                             onPageChanged: (index, reason){
                               setState(() {
-                                _current = index;
+                                /// dùng listview build ra nhưng item dùng cái carouselSlider thì mỗi item phải có 1 biến check riêng
+                                  _current = index;
+                                /// dùng listview build ra nhưng item dùng cái carouselSlider thì mỗi item phải có 1 biến check riêng
                               });
                             },
                           )),
