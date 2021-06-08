@@ -14,13 +14,6 @@ class Body extends StatelessWidget {
 
   const Body({Key key, @required this.product}) : super(key: key);
 
-  void getSalons() async {
-    SalonUtilsService sus = new SalonUtilsService();
-    var salonLists = await sus.getAllSalons();
-    print("Hello");
-    print(salonLists);
-  }
-
   @override
   Widget build(BuildContext context) {
     //getSalons();

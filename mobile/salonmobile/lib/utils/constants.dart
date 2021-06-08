@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
+
 const inActiveIconColor = Color(0xFFB6B6B6);
 const kPrimaryColor = Color(0xFFFF7643);
 const kPrimaryLightColor = Color(0xFFFFECDF);

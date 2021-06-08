@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:salonmobile/components/product_card.dart';
 import 'package:salonmobile/models/Product.dart';
 import 'package:salonmobile/screens/home/components/section_title.dart';
+import 'package:salonmobile/screens/otp/components/otp_form.dart';
 import 'package:salonmobile/utils/size_config.dart';
 import 'package:salonmobile/services/salon_utils_service.dart';
 
@@ -11,10 +12,10 @@ class SalonList extends StatelessWidget {
 
   void getSalons() async {
     var salonLists = await this.sus.getAllSalons();
-    print("Hello");
+    print("Hellooooo");
+    store.set('listSalons', salonLists);
     print(salonLists);
   }
-
   @override
   Widget build(BuildContext context) {
     getSalons();
