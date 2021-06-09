@@ -14,9 +14,14 @@ class Body extends StatelessWidget {
 
   const Body({Key key, @required this.product}) : super(key: key);
 
+  void getSalonFromId(String salonId) async {
+    SalonUtilsService sus = new SalonUtilsService();
+    var salon = await sus.getSalonFromId(salonId);
+    print(salon);
+  }
+
   @override
   Widget build(BuildContext context) {
-    //getSalons();
     return ListView(
       children: [
         ProductImages(product: product),

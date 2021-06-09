@@ -41,7 +41,7 @@ class HttpService {
     }
   }
 
-  getAllSalons(String params) async {
+  sget(String params) async {
     String url = ROOT_URL + '/' + params;
     print(url);
     // HttpClient client = new HttpClient();
