@@ -5,12 +5,10 @@ import 'package:salonmobile/screens/home/components/section_title.dart';
 import 'package:salonmobile/screens/otp/components/otp_form.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
-
 // ignore: must_be_immutable
-class SalonList extends StatelessWidget {
+class SalonNearMe extends StatelessWidget {
   List<Salon> listSalons = store.get('listSalons');
-  
-  
+
   @override
   Widget build(BuildContext context) {
     // var length = (listSalons.length > 5) ? 5: listSalons.length;
@@ -19,7 +17,7 @@ class SalonList extends StatelessWidget {
         Padding(
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-          child: SectionTitle(title: "Salon", press: () {}),
+          child: SectionTitle(title: "Salons Near Me", press: () {}),
         ),
         SizedBox(height: getProportionateScreenWidth(20)),
         SingleChildScrollView(
@@ -27,11 +25,11 @@ class SalonList extends StatelessWidget {
           child: Row(
             children: [
               ...List.generate(
-                (listSalons.length > 5) ? 5 : listSalons.length,
+                (listSalons.length > 3) ? 3 : listSalons.length,
                 (index) {
-                   return SalonCard(salons: listSalons[index]);
-                  // if (demoProducts[index].isPopular)                 
-                  //   return ProductCard(product: demoProducts[index]);                   
+                  return SalonCard(salons: listSalons[index]);
+                  // if (demoProducts[index].isPopular)
+                  //   return ProductCard(product: demoProducts[index]);
                   // return SizedBox
                   //     .shrink(); // here by default width and height is 0
                 },

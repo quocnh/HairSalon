@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:salonmobile/screens/home/components/categories.dart';
 import 'package:salonmobile/screens/home/components/discount_banner.dart';
 import 'package:salonmobile/screens/home/components/home_header.dart';
-import 'package:salonmobile/screens/home/components/salon_list.dart';
+import 'package:salonmobile/screens/home/components/salon_near_me.dart';
 import 'package:salonmobile/screens/home/components/special_offers.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
 class Body extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
-    
     return SafeArea(
       child: SingleChildScrollView(
         child: Column(
@@ -20,9 +18,9 @@ class Body extends StatelessWidget {
             SizedBox(height: getProportionateScreenWidth(10)),
             DiscountBanner(),
             Categories(),
-            SpecialOffers(),
+            SalonByCity(),
             SizedBox(height: getProportionateScreenWidth(30)),
-            SalonList(),
+            SalonNearMe(),
             SizedBox(height: getProportionateScreenWidth(30)),
           ],
         ),
