@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:salonmobile/models/Product.dart';
 import 'package:salonmobile/models/Salon.dart';
 import 'package:salonmobile/screens/otp/components/otp_form.dart';
 import 'package:salonmobile/utils/size_config.dart';

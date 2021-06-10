@@ -1,45 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:salonmobile/models/Salon.dart';
+import 'package:salonmobile/screens/detail_salon/detail_salon_screen.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
 class SalonCard extends StatelessWidget {
-  SalonCard({
+  const SalonCard({
     Key key,
+    this.width = 140,
     this.aspectRetio = 1.02,
-    this.salons,
+    @required this.salon,
   }) : super(key: key);
 
-  final double aspectRetio;
-  final Salon salons;
-  final URL_IMAGE = 'https://awinst.com:3000/app/';
+  final double width, aspectRetio;
+  final Salon salon;
+
   @override
   Widget build(BuildContext context) {
+    final URLIMAGE = 'https://awinst.com:3000/app/';
+    final String imageCard = URLIMAGE + salon.photos[0].toString();
+    print(imageCard);
     return Padding(
       padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
-      child: Container(
-        width: getProportionateScreenWidth(210),
+      child: SizedBox(
+        width: getProportionateScreenWidth(width),
         child: GestureDetector(
-          // onTap: () => Navigator.pushNamed(
-          //   context,
-          //   DetailProductScreen.routeName,
-          //   arguments: ProductDetailsArguments(product: salons),
-          // ),
+          onTap: () => Navigator.pushNamed(
+            context,
+            DetailSalonScreen.routeName,
+            arguments: SalonDetailsArguments(salon: salon),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: getProportionateScreenWidth(200),
-                height: getProportionateScreenHeight(150),
-                child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    child: Image.network(URL_IMAGE + salons.photos[0],
-                        fit: BoxFit.cover)),
+              AspectRatio(
+                aspectRatio: 1.02,
+                child: Container(
+                  padding: EdgeInsets.all(getProportionateScreenWidth(20)),
+                  decoration: BoxDecoration(
+                    color: kSecondaryColor.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Hero(
+                    tag: salon.id.toString(),
+                    child: Image.asset(imageCard),
+                  ),
+                ),
               ),
               const SizedBox(height: 10),
               Text(
-                salons.name,
+                salon.name,
                 style: TextStyle(color: Colors.black),
                 maxLines: 2,
               ),
@@ -47,7 +58,7 @@ class SalonCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "\$12.01",
+                    "\$${salon.rating}",
                     style: TextStyle(
                       fontSize: getProportionateScreenWidth(18),
                       fontWeight: FontWeight.w600,
@@ -62,11 +73,17 @@ class SalonCard extends StatelessWidget {
                       height: getProportionateScreenWidth(28),
                       width: getProportionateScreenWidth(28),
                       decoration: BoxDecoration(
-                        color: kPrimaryColor.withOpacity(0.15),
+                        color: salon.isFavourite
+                            ? kPrimaryColor.withOpacity(0.15)
+                            : kSecondaryColor.withOpacity(0.1),
                         shape: BoxShape.circle,
                       ),
-                      child: SvgPicture.asset("assets/icons/Heart Icon_2.svg",
-                          color: Color(0xFFFF4848)),
+                      child: SvgPicture.asset(
+                        "assets/icons/Heart Icon_2.svg",
+                        color: salon.isFavourite
+                            ? Color(0xFFFF4848)
+                            : Color(0xFFDBDEE4),
+                      ),
                     ),
                   ),
                 ],
