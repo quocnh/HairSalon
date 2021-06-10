@@ -119,7 +119,9 @@ class _ListStore extends State<ListStore> {
                     children: [
                       CarouselSlider(
                           items: demoProducts[index].images.map((listImg) {
-                            return Image.asset(listImg, fit: BoxFit.fill);
+                            return ClipRRect(
+                                borderRadius: BorderRadius.all(Radius.circular(20)),
+                                child: Image.asset(listImg, fit: BoxFit.cover));
                           }).toList(),
                           options: CarouselOptions(
                             onPageChanged: (index, reason) {

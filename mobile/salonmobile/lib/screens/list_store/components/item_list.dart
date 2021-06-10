@@ -122,7 +122,13 @@ class _ItemList extends State<ItemList>{
                     children: [
                       CarouselSlider(
                           items: listSalons[index].photos.map((listImg) {
-                            return Image.network(URL_IMAGE + listImg, fit: BoxFit.cover);
+                            return Container(
+                                  width: getProportionateScreenWidth(300),
+                                  height: getProportionateScreenHeight(200),
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                                      child: Image.network(URL_IMAGE + listImg, fit: BoxFit.cover)),
+                            );
                           }).toList(),
                           options: CarouselOptions(
                             onPageChanged: (index, reason) {
@@ -134,6 +140,9 @@ class _ItemList extends State<ItemList>{
                             },
                             enlargeCenterPage: true
                           )),
+                      SizedBox(
+                        height: getProportionateScreenHeight(20),
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: map<Widget>(listSalons[index].photos,

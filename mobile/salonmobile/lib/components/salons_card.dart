@@ -7,49 +7,42 @@ import 'package:salonmobile/screens/otp/components/otp_form.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
-class ProductCard extends StatelessWidget {
-   ProductCard({
+class SalonCard extends StatelessWidget {
+  SalonCard({
     Key key,
-    this.width = 140,
     this.aspectRetio = 1.02,
-    @required this.product,
+    this.salons,
   }) : super(key: key);
 
-  final double width, aspectRetio;
-  final Product product;
-List<Salon> listSalons = store.get('listSalons');
+  final double aspectRetio;
+  final Salon salons;
+  final URL_IMAGE = 'https://awinst.com:3000/app/';
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
-      child: SizedBox(
-        width: getProportionateScreenWidth(width),
+      child: Container(
+        width: getProportionateScreenWidth(210),
         child: GestureDetector(
-          onTap: () => Navigator.pushNamed(
-            context,
-            DetailProductScreen.routeName,
-            arguments: ProductDetailsArguments(product: product),
-          ),
+          // onTap: () => Navigator.pushNamed(
+          //   context,
+          //   DetailProductScreen.routeName,
+          //   arguments: ProductDetailsArguments(product: salons),
+          // ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              AspectRatio(
-                aspectRatio: getProportionateScreenWidth(500)/getProportionateScreenHeight(400),
-                child: Container(
-                  padding: EdgeInsets.all(getProportionateScreenWidth(20)),
-                  decoration: BoxDecoration(
-                    color: kSecondaryColor.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Hero(
-                    tag: product.id.toString(),
-                    child: Image.asset(product.images[0]),
-                  ),
-                ),
+              Container(
+                width: getProportionateScreenWidth(200),
+                height: getProportionateScreenHeight(150),
+                child: ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    child: Image.network(URL_IMAGE + salons.photos[0],
+                        fit: BoxFit.cover)),
               ),
               const SizedBox(height: 10),
               Text(
-                product.title,
+                salons.name,
                 style: TextStyle(color: Colors.black),
                 maxLines: 2,
               ),
@@ -57,7 +50,7 @@ List<Salon> listSalons = store.get('listSalons');
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "\$${product.price}",
+                    "\$12.01",
                     style: TextStyle(
                       fontSize: getProportionateScreenWidth(18),
                       fontWeight: FontWeight.w600,
@@ -72,17 +65,11 @@ List<Salon> listSalons = store.get('listSalons');
                       height: getProportionateScreenWidth(28),
                       width: getProportionateScreenWidth(28),
                       decoration: BoxDecoration(
-                        color: product.isFavourite
-                            ? kPrimaryColor.withOpacity(0.15)
-                            : kSecondaryColor.withOpacity(0.1),
+                        color: kPrimaryColor.withOpacity(0.15),
                         shape: BoxShape.circle,
                       ),
-                      child: SvgPicture.asset(
-                        "assets/icons/Heart Icon_2.svg",
-                        color: product.isFavourite
-                            ? Color(0xFFFF4848)
-                            : Color(0xFFDBDEE4),
-                      ),
+                      child: SvgPicture.asset("assets/icons/Heart Icon_2.svg",
+                          color: Color(0xFFFF4848)),
                     ),
                   ),
                 ],

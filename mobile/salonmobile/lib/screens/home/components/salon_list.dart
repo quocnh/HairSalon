@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:salonmobile/components/product_card.dart';
+import 'package:salonmobile/components/salons_card.dart';
 import 'package:salonmobile/models/Product.dart';
+import 'package:salonmobile/models/Salon.dart';
 import 'package:salonmobile/screens/home/components/section_title.dart';
 import 'package:salonmobile/screens/otp/components/otp_form.dart';
 import 'package:salonmobile/utils/size_config.dart';
@@ -8,17 +10,12 @@ import 'package:salonmobile/services/salon_utils_service.dart';
 
 // ignore: must_be_immutable
 class SalonList extends StatelessWidget {
-  SalonUtilsService sus = new SalonUtilsService();
-
-  void getSalons() async {
-    var salonLists = await this.sus.getAllSalons();
-    print("Hellooooo");
-    store.set('listSalons', salonLists);
-    print(salonLists);
-  }
+  List<Salon> listSalons = store.get('listSalons');
+  
+  
   @override
   Widget build(BuildContext context) {
-    getSalons();
+    // var length = (listSalons.length > 5) ? 5: listSalons.length;
     return Column(
       children: [
         Padding(
@@ -32,13 +29,13 @@ class SalonList extends StatelessWidget {
           child: Row(
             children: [
               ...List.generate(
-                demoProducts.length,
+                (listSalons.length > 5) ? 5 : listSalons.length,
                 (index) {
-                  if (demoProducts[index].isPopular)
-                    return ProductCard(product: demoProducts[index]);
-
-                  return SizedBox
-                      .shrink(); // here by default width and height is 0
+                   return SalonCard(salons: listSalons[index]);
+                  // if (demoProducts[index].isPopular)                 
+                  //   return ProductCard(product: demoProducts[index]);                   
+                  // return SizedBox
+                  //     .shrink(); // here by default width and height is 0
                 },
               ),
               SizedBox(width: getProportionateScreenWidth(20)),
