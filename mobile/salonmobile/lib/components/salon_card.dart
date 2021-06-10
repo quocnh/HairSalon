@@ -37,22 +37,25 @@ class SalonCard extends StatelessWidget {
               AspectRatio(
                 aspectRatio: 1.02,
                 child: Container(
-                  padding: EdgeInsets.all(getProportionateScreenWidth(20)),
+                  padding: EdgeInsets.all(getProportionateScreenWidth(4)),
                   decoration: BoxDecoration(
                     color: kSecondaryColor.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Hero(
                     tag: salon.id.toString(),
-                    child: Image.asset(imageCard),
+                    child: Image.network(imageCard, fit: BoxFit.cover),
                   ),
                 ),
               ),
               const SizedBox(height: 10),
               Text(
                 salon.name,
-                style: TextStyle(color: Colors.black),
-                maxLines: 2,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: getProportionateScreenWidth(16),
+                  ),                
+                maxLines: 1,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
