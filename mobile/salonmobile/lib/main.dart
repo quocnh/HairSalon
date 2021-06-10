@@ -5,7 +5,7 @@ import 'package:salonmobile/screens/splash/splash_screen.dart';
 import 'package:salonmobile/utils/app_localizations.dart';
 import 'package:salonmobile/utils/theme.dart';
 
-void main() {
+void main() async {
   runApp(MyApp());
 }
 

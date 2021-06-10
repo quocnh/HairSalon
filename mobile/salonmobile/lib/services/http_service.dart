@@ -41,7 +41,7 @@ class HttpService {
     }
   }
 
-  getAllSalons(String params) async {
+  sget(String params) async {
     String url = ROOT_URL + '/' + params;
     print(url);
     // HttpClient client = new HttpClient();
@@ -60,9 +60,8 @@ class HttpService {
     var response = await client.get(Uri.parse(url));
     if (response.statusCode == 200) {
       // String reply = await response.transform(utf8.decoder).join();
-      var jsonString = response.body;
+      List jsonString = json.decode(response.body);
       // var jsonMap = json.decode(jsonString);
-      print(jsonString);
       return jsonString;
     } else {
       return Null;

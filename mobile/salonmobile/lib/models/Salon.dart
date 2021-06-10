@@ -1,40 +1,31 @@
-import 'package:flutter/material.dart';
-import 'package:salonmobile/models/Service.dart';
-import 'package:salonmobile/models/Location.dart';
-
 class Salon {
   final String id;
   final String name;
-  final String salonOwnerId;
-  final List<String> barberId;
-  final String phone;
-  final String email;
-  final Location location;
-
-  final String info;
-  final int priceFrom;
-  final int priceTo;
-  final int rate;
-  final int numRate;
+  final String address;
+  final String latitude;
+  final String longitude;
+  final int rating;
+  final bool isFavourite;
   final List<String> photos;
-  final List<String> customerPhotos;
-  final List<Service> services;
 
-  Salon({
-    @required this.id,
-    @required this.name,
-    @required this.salonOwnerId,
-    this.barberId,
-    @required this.phone,
-    this.email,
-    @required this.location,
-    this.info,
-    this.priceFrom = 0,
-    this.priceTo = 0,
-    this.rate = 0,
-    this.numRate = 0,
-    this.photos,
-    this.customerPhotos,
-    this.services,
-  });
+  Salon(
+      {this.id,
+      this.name,
+      this.address,
+      this.latitude,
+      this.longitude,
+      this.rating,
+      this.isFavourite,
+      this.photos});
+  factory Salon.fromJson(Map<String, dynamic> json) {
+    return Salon(
+        id: json['id'],
+        name: json['name'],
+        address: json['address'],
+        latitude: json['latitude'],
+        longitude: json['longitude'],
+        rating: json['rate'],
+        isFavourite: true,
+        photos: json['photos'].cast<String>());
+  }
 }
