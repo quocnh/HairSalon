@@ -7,8 +7,10 @@ import 'package:salonmobile/screens/home/components/special_offers.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
 class Body extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
+    
     return SafeArea(
       child: SingleChildScrollView(
         child: Column(

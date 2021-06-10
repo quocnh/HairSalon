@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:salonmobile/components/product_card.dart';
-import 'package:salonmobile/models/Product.dart';
 import 'package:salonmobile/screens/list_store/components/item_list.dart';
-import 'package:salonmobile/screens/list_store/components/list_store.dart';
 import 'package:salonmobile/screens/list_store/components/map.dart';
 import 'package:salonmobile/screens/list_store/components/search_map.dart';
 import 'package:salonmobile/utils/size_config.dart';

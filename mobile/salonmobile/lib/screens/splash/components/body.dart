@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:salonmobile/components/default_button.dart';
 import 'package:salonmobile/screens/menu_page_builder/menu_page_builder_screen.dart';
+import 'package:salonmobile/screens/otp/components/otp_form.dart';
 import 'package:salonmobile/screens/sign_in/sign_in_screen.dart';
 import 'package:salonmobile/screens/splash/components/splash_content.dart';
+import 'package:salonmobile/services/salon_utils_service.dart';
 import 'package:salonmobile/utils/app_localizations.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
@@ -19,9 +21,16 @@ class _BodyState extends State<Body> {
     {"text": "pageview_2", "image": "assets/images/splash_2.png"},
     {"text": "pageview_3", "image": "assets/images/splash_3.png"},
   ];
-
+  SalonUtilsService sus = new SalonUtilsService();
+  void getSalons() async {
+    var salonLists = await this.sus.getAllSalons();
+    print("Hellooooo");
+    store.set('listSalons', salonLists);
+    print(salonLists);
+  }
   @override
   Widget build(BuildContext context) {
+    getSalons();
     return SafeArea(
       child: SizedBox(
         width: double.infinity,

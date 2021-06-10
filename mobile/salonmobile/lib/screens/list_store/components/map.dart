@@ -3,10 +3,8 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:salonmobile/models/Product.dart';
 import 'package:salonmobile/models/Salon.dart';
 import 'package:salonmobile/screens/otp/components/otp_form.dart';
-import 'package:salonmobile/services/salon_utils_service.dart';
 
 class Map extends StatefulWidget {
   @override

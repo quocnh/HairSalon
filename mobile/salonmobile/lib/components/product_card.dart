@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:salonmobile/models/Product.dart';
+import 'package:salonmobile/models/Salon.dart';
 import 'package:salonmobile/screens/detail_product/detail_product_screen.dart';
+import 'package:salonmobile/screens/otp/components/otp_form.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({
+   ProductCard({
     Key key,
     this.width = 140,
     this.aspectRetio = 1.02,
@@ -15,7 +17,7 @@ class ProductCard extends StatelessWidget {
 
   final double width, aspectRetio;
   final Product product;
-
+List<Salon> listSalons = store.get('listSalons');
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -32,7 +34,7 @@ class ProductCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AspectRatio(
-                aspectRatio: 1.02,
+                aspectRatio: getProportionateScreenWidth(500)/getProportionateScreenHeight(400),
                 child: Container(
                   padding: EdgeInsets.all(getProportionateScreenWidth(20)),
                   decoration: BoxDecoration(

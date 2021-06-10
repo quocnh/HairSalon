@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:salonmobile/models/Product.dart';
-import 'package:salonmobile/screens/list_store/list_store_screen.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
 import 'section_title.dart';
