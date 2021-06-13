@@ -2,18 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:salonmobile/components/salons_card.dart';
 import 'package:salonmobile/models/Salon.dart';
 import 'package:salonmobile/screens/home/components/section_title.dart';
+import 'package:salonmobile/screens/otp/components/otp_form.dart';
 import 'package:salonmobile/services/salon_utils_service.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
-class SalonList extends StatefulWidget{
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return _SalonList();
-  }
-}
+
 // ignore: must_be_immutable
-class _SalonList extends State<SalonList> {
+class SalonNearMe extends StatelessWidget {
+  List<Salon> listSalons = store.get('listSalons');
+
   @override
   Widget build(BuildContext context) {
     // var length = (listSalons.length > 5) ? 5: listSalons.length;
@@ -22,7 +19,7 @@ class _SalonList extends State<SalonList> {
         Padding(
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-          child: SectionTitle(title: "Salon", press: () {}),
+          child: SectionTitle(title: "Salons Near Me", press: () {}),
         ),
         SizedBox(height: getProportionateScreenWidth(20)),
         FutureBuilder<List<Salon>>(
@@ -36,9 +33,9 @@ class _SalonList extends State<SalonList> {
           child: Row(
             children: [
               ...List.generate(
-                (snapshot.data.length > 5) ? 5 : snapshot.data.length,
+                (listSalons.length > 5) ? 5 : listSalons.length,
                 (index) {
-                   return SalonsCard(salons: snapshot.data[index]);
+                   return SalonsCard(salons: listSalons[index]);
                   // if (demoProducts[index].isPopular)                 
                   //   return ProductCard(product: demoProducts[index]);                   
                   // return SizedBox

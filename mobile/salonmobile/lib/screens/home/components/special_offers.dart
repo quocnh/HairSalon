@@ -4,8 +4,8 @@ import 'package:salonmobile/utils/size_config.dart';
 
 import 'section_title.dart';
 
-class SpecialOffers extends StatelessWidget {
-  const SpecialOffers({
+class SalonByCity extends StatelessWidget {
+  const SalonByCity({
     Key key,
   }) : super(key: key);
 
@@ -17,7 +17,7 @@ class SpecialOffers extends StatelessWidget {
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: SectionTitle(
-            title: "Special for you",
+            title: "Explore",
             press: () {},
           ),
         ),
@@ -26,9 +26,9 @@ class SpecialOffers extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              SpecialOfferCard(
+              SalonByCityCard(
                 image: "assets/images/Image Banner 2.png",
-                category: "Cắt tóc",
+                category: "Hồ Chí Minh",
                 numOfBrands: 18,
                 press: () {
                   print(demoProducts.length);
@@ -39,9 +39,9 @@ class SpecialOffers extends StatelessWidget {
                   //             )));
                 },
               ),
-              SpecialOfferCard(
+              SalonByCityCard(
                 image: "assets/images/Image Banner 3.png",
-                category: "Uốn tóc",
+                category: "Đà Nẵng",
                 numOfBrands: 24,
                 press: () {},
               ),
@@ -54,8 +54,8 @@ class SpecialOffers extends StatelessWidget {
   }
 }
 
-class SpecialOfferCard extends StatelessWidget {
-  const SpecialOfferCard({
+class SalonByCityCard extends StatelessWidget {
+  const SalonByCityCard({
     Key key,
     @required this.category,
     @required this.image,

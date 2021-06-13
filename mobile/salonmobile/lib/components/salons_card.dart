@@ -50,8 +50,11 @@ class SalonsCard extends StatelessWidget {
               const SizedBox(height: 10),
               Text(
                 salons.name,
-                style: TextStyle(color: Colors.black),
-                maxLines: 2,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: getProportionateScreenWidth(16),
+                  ),                
+                maxLines: 1,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
