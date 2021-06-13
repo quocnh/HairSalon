@@ -43,7 +43,6 @@ class HttpService {
 
   sget(String params) async {
     String url = ROOT_URL + '/' + params;
-    print(url);
     // HttpClient client = new HttpClient();
     HttpOverrides.global = new MyHttpOverrides();
     var client = http.Client();

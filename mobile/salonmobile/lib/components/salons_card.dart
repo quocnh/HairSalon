@@ -1,11 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:salonmobile/models/Salon.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
-class SalonCard extends StatelessWidget {
-  SalonCard({
+class SalonsCard extends StatelessWidget {
+  SalonsCard({
     Key key,
     this.aspectRetio = 1.02,
     this.salons,
@@ -14,6 +16,10 @@ class SalonCard extends StatelessWidget {
   final double aspectRetio;
   final Salon salons;
   final URL_IMAGE = 'https://awinst.com:3000/app/';
+  final cacheManager = CacheManager(Config(
+    'customCache',
+    stalePeriod: Duration(days: 1),
+  ));
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -34,8 +40,12 @@ class SalonCard extends StatelessWidget {
                 height: getProportionateScreenHeight(150),
                 child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(20)),
-                    child: Image.network(URL_IMAGE + salons.photos[0],
-                        fit: BoxFit.cover)),
+                    child: CachedNetworkImage(
+                        cacheManager: cacheManager,
+                        imageUrl: URL_IMAGE + salons.photos[0],
+                        fit: BoxFit.fill,
+                        placeholder: _loader,
+                        errorWidget: _error)),
               ),
               const SizedBox(height: 10),
               Text(
@@ -77,4 +87,11 @@ class SalonCard extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget _loader(BuildContext context, String url) {
+  return Center(child: CircularProgressIndicator());
+}
+Widget _error(BuildContext context, String url, dynamic error) {
+  return Center(child: Text('ERROR'));
 }

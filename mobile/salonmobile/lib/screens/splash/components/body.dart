@@ -24,9 +24,8 @@ class _BodyState extends State<Body> {
   SalonUtilsService sus = new SalonUtilsService();
   void getSalons() async {
     var salonLists = await this.sus.getAllSalons();
-    print("Hellooooo");
+    print("Hello Splash");
     store.set('listSalons', salonLists);
-    print(salonLists);
   }
   @override
   Widget build(BuildContext context) {
