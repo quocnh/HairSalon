@@ -21,6 +21,8 @@ class _BodyState extends State<Body> {
     {"text": "pageview_2", "image": "assets/images/splash_2.png"},
     {"text": "pageview_3", "image": "assets/images/splash_3.png"},
   ];
+
+  //TODO: call this function everytime load new screens
   SalonUtilsService sus = new SalonUtilsService();
   void getSalons() async {
     var salonLists = await this.sus.getAllSalons();
@@ -28,6 +30,7 @@ class _BodyState extends State<Body> {
     store.set('listSalons', salonLists);
     print(salonLists);
   }
+
   @override
   Widget build(BuildContext context) {
     getSalons();

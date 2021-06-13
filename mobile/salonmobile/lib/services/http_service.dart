@@ -64,7 +64,7 @@ class HttpService {
       // var jsonMap = json.decode(jsonString);
       return jsonString;
     } else {
-      return Null;
+      throw Exception('Failed to load the API');
     }
   }
 }
