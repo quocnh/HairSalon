@@ -23,4 +23,10 @@ https://www.youtube.com/watch?v=3NLP-1KX_Vk
 https://stackoverflow.com/questions/37633766/no-such-module-googlemaps-found-however-it-is-installed
 https://developers.google.com/maps/documentation/ios-sdk/get-api-key
 ```
+## Troubleshooting if VS does not show up real ios devices
+```python
+Run flutter devices 
+and confirm your device show up
+Run flutter daemon -v
+```
 

@@ -5,7 +5,6 @@ class SalonUtilsService {
   Future<List<Salon>> getAllSalons() async {
     HttpService hS = new HttpService();
     List response = await hS.sget('salons');
-    print('Get all Salons');
     return response.map((json) => new Salon.fromJson(json)).toList();
   }
   getSalonFromId(String salonId) async {
