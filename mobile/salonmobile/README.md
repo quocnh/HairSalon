@@ -25,7 +25,8 @@ https://developers.google.com/maps/documentation/ios-sdk/get-api-key
 ```
 ## Troubleshooting if VS does not show up real ios devices
 ```python
-Run flutter devices and confirm your device show up
+Run flutter devices 
+and confirm your device show up
 Run flutter daemon -v
 ```
 
