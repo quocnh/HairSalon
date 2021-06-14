@@ -9,7 +9,7 @@ import 'package:salonmobile/utils/size_config.dart';
 
 // ignore: must_be_immutable
 class SalonNearMe extends StatelessWidget {
-  List<Salon> listSalons = store.get('listSalons');
+  
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +33,9 @@ class SalonNearMe extends StatelessWidget {
           child: Row(
             children: [
               ...List.generate(
-                (listSalons.length > 5) ? 5 : listSalons.length,
+                (snapshot.data.length > 5) ? 5 : snapshot.data.length,
                 (index) {
-                   return SalonsCard(salons: listSalons[index]);
+                   return SalonsCard(salons: snapshot.data[index]);
                   // if (demoProducts[index].isPopular)                 
                   //   return ProductCard(product: demoProducts[index]);                   
                   // return SizedBox

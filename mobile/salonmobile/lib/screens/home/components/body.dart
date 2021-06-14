@@ -3,7 +3,7 @@ import 'package:salonmobile/screens/home/components/categories.dart';
 import 'package:salonmobile/screens/home/components/discount_banner.dart';
 import 'package:salonmobile/screens/home/components/home_header.dart';
 import 'package:salonmobile/screens/home/components/salon_near_me.dart';
-import 'package:salonmobile/screens/home/components/special_offers.dart';
+import 'package:salonmobile/screens/home/components/salon_by_city.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
 class Body extends StatelessWidget {

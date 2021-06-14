@@ -30,18 +30,7 @@ class _Body extends State<Body> {
                       vertical: getProportionateScreenHeight(40),
                       horizontal: getProportionateScreenWidth(40)),
                   child: SearchMap())),
-          DraggableScrollableSheet(
-            builder: (context, scrollController) {
-              return SingleChildScrollView(
-                controller: scrollController,
-                scrollDirection: Axis.vertical,
-                child: ItemList(),
-              );
-            },
-            initialChildSize: 0.55,
-            minChildSize: 0.1,
-            maxChildSize: 0.85,
-          )
+          ItemList()
         ],
       ),
     );
