@@ -13,7 +13,7 @@ class Body extends StatefulWidget {
   }
 }
 
-class _Body extends State<Body> {
+class _Body extends State<Body> with AutomaticKeepAliveClientMixin{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -35,4 +35,7 @@ class _Body extends State<Body> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
