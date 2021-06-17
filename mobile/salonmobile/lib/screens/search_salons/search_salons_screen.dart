@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:salonmobile/screens/list_store/components/body.dart';
+import 'package:salonmobile/screens/search_salons/components/body.dart';
 
 
 class SearchSalonsScreen extends StatelessWidget {
