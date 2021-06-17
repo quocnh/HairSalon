@@ -47,7 +47,7 @@ class _ItemList extends State<ItemList> {
                                   fontWeight: FontWeight.bold,
                                   fontSize: SizeConfig.screenWidth * 0.05,
                                   color: Colors.grey))),
-                      padding: EdgeInsets.only(bottom: getProportionateScreenHeight(10))),
+                      padding: EdgeInsets.only(bottom: getProportionateScreenHeight(0))),
                   Padding(
                     child: Center(
                         child: Row(
@@ -72,7 +72,7 @@ class _ItemList extends State<ItemList> {
                           ],
                         )),
                     padding:
-                    EdgeInsets.only(bottom: getProportionateScreenHeight(10)),
+                    EdgeInsets.only(bottom: getProportionateScreenHeight(15)),
                   ),
                   // Container(
                   //   width: getProportionateScreenWidth(325),
