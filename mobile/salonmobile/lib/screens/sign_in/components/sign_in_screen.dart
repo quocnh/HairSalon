@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:salonmobile/components/custom_surfix_icon.dart';
 import 'package:salonmobile/components/default_button.dart';
 import 'package:salonmobile/components/form_error.dart';
@@ -8,10 +9,9 @@ import 'package:salonmobile/screens/forgot_password/forgot_password_screen.dart'
 import 'package:salonmobile/screens/menu_page_builder/menu_page_builder_screen.dart';
 import 'package:salonmobile/services/http_service.dart';
 import 'package:salonmobile/utils/constants.dart';
+import 'package:salonmobile/utils/loading.dart';
 import 'package:salonmobile/utils/size_config.dart';
-
-//import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 class SignForm extends StatefulWidget {
   @override
   _SignFormState createState() => _SignFormState();
@@ -23,6 +23,7 @@ class _SignFormState extends State<SignForm> {
   String password;
   bool remember = false;
   final List<String> errors = [];
+  bool _isLoading = false;
 
   void addError({String error}) {
     if (!errors.contains(error))
@@ -39,28 +40,37 @@ class _SignFormState extends State<SignForm> {
   }
 
   void signIn(String email, String password) async {
+
     HttpService hS = new HttpService();
 
     var response = await hS.login(email, password);
 
-    if (response != Null) {
-      //Map<String, String> map = response;
-      //var mapInJsonString = json.encode(map);
-      //print(map['accessToken']);
-      //go to homescree and remove all previous routes
+    if (response == true) {
+      //go to homescreens and remove all previous routes
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => MenuPageBuilderScreen()),
         (Route<dynamic> route) => false,
       );
     } else {
+      setState(() {
+        _isLoading = false;
+      });
+      Fluttertoast.showToast(
+          msg: "Incorrect Username or Password",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
       print("Wrong usernamer/password");
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Form(
+    return _isLoading ? Loading() : Form(
       key: _formKey,
       child: Column(
         children: [
@@ -103,6 +113,9 @@ class _SignFormState extends State<SignForm> {
                 KeyboardUtil.hideKeyboard(context);
                 print(email);
                 print(password);
+
+                setState(()=>_isLoading = true);
+
                 signIn(email, password);
                 // go to homescree and remove all previous routes
                 // Navigator.pushAndRemoveUntil(

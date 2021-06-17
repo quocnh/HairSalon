@@ -18,6 +18,7 @@ class HttpService {
       'https://cors-anywhere.herokuapp.com/https://geocode.search.hereapi.com/v1/geocode?q=';
   static const String HERE_KEY = 'MdY-VgF6O64ulC_vNxa4bmEvIhrkkH85NIjw4ESTFs8';
 
+  // LOGIN API
   login(String username, String password) async {
     String url = ROOT_URL + '/api' + '/auth/signin';
     print(url);
@@ -35,12 +36,12 @@ class HttpService {
     if (response.statusCode == 200) {
       String reply = await response.transform(utf8.decoder).join();
       print(reply);
-      return reply;
+      return true;
     } else {
-      return Null;
+      return null;
     }
   }
-
+  // GET
   sget(String params) async {
     String url = ROOT_URL + '/' + params;
     HttpOverrides.global = new MyHttpOverrides();
@@ -54,4 +55,6 @@ class HttpService {
       throw Exception('Failed to load the API');
     }
   }
+  // POST
+
 }
