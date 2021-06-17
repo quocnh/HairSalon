@@ -72,16 +72,16 @@ class _ItemList extends State<ItemList> {
                           ],
                         )),
                     padding:
-                    EdgeInsets.only(bottom: getProportionateScreenHeight(20)),
+                    EdgeInsets.only(bottom: getProportionateScreenHeight(10)),
                   ),
-                  Container(
-                    width: getProportionateScreenWidth(325),
-                    decoration: BoxDecoration(
-                        border: Border(
-                            bottom:
-                            BorderSide(width: 2, color: Colors.grey[300]))),
-                  ),
-                  SizedBox(height: getProportionateScreenHeight(20)),
+                  // Container(
+                  //   width: getProportionateScreenWidth(325),
+                  //   decoration: BoxDecoration(
+                  //       border: Border(
+                  //           bottom:
+                  //           BorderSide(width: 2, color: Colors.grey[300]))),
+                  // ),
+                  // SizedBox(height: getProportionateScreenHeight(20)),
                   // Container(
                   //   padding: EdgeInsets.only(
                   //       top: getProportionateScreenHeight(20),
