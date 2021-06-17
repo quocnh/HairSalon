@@ -18,6 +18,7 @@ class HttpService {
       'https://cors-anywhere.herokuapp.com/https://geocode.search.hereapi.com/v1/geocode?q=';
   static const String HERE_KEY = 'MdY-VgF6O64ulC_vNxa4bmEvIhrkkH85NIjw4ESTFs8';
 
+  // LOGIN API
   login(String username, String password) async {
     String url = ROOT_URL + '/api' + '/auth/signin';
     print(url);
@@ -35,30 +36,18 @@ class HttpService {
     if (response.statusCode == 200) {
       String reply = await response.transform(utf8.decoder).join();
       print(reply);
-      return reply;
+      return true;
     } else {
-      return Null;
+      return null;
     }
   }
-
+  // GET
   sget(String params) async {
     String url = ROOT_URL + '/' + params;
-    // HttpClient client = new HttpClient();
     HttpOverrides.global = new MyHttpOverrides();
     var client = http.Client();
-
-    // client.badCertificateCallback =
-    //     ((X509Certificate cert, String host, int port) => true);
-
-    //Map map = {"username": username, "password": password};
-
-    // HttpClientRequest request = await client.getUrl(Uri.parse(url));
-    //request.headers.set('content-type', 'application/json');
-    //request.add(utf8.encode(json.encode(map)));
-    // HttpClientResponse response = await request.close();
     var response = await client.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      // String reply = await response.transform(utf8.decoder).join();
       List jsonString = json.decode(response.body);
       // var jsonMap = json.decode(jsonString);
       return jsonString;
@@ -66,4 +55,6 @@ class HttpService {
       throw Exception('Failed to load the API');
     }
   }
+  // POST
+
 }

@@ -45,7 +45,8 @@ class SalonsCard extends StatelessWidget {
                         imageUrl: URL_IMAGE + salons.photos[0],
                         fit: BoxFit.fill,
                         placeholder: _loader,
-                        errorWidget: _error)),
+                        errorWidget: _error)
+                ),
               ),
               const SizedBox(height: 10),
               Text(

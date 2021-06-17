@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:salonmobile/screens/home/home_screen.dart';
-import 'package:salonmobile/screens/list_store/list_store_screen.dart';
 import 'package:salonmobile/screens/profile/profile_screen.dart';
+import 'package:salonmobile/screens/search_salons/search_salons_screen.dart';
 
 class MenuPageBuilderScreen extends StatefulWidget {
   static String routeName = "/menu_screen";
@@ -13,7 +13,7 @@ class _MenuPageBuilderScreenState extends State<MenuPageBuilderScreen> {
   PageController _pageController = PageController();
   List<Widget> _screens = [
     HomeScreen(),
-    ListStoreScreen(),
+    SearchSalonsScreen(),
     ProfileScreen(),
     ProfileScreen(),
   ];

@@ -27,9 +27,9 @@ class Body extends StatelessWidget {
     print(strSalon);
 
     //parse received string to Salon structure
-    List<dynamic> l_salon = jsonDecode(strSalon);
-    print("-----");
-    print(l_salon[0]['photos'][0]);
+    // List<dynamic> l_salon = jsonDecode(strSalon);
+    // print("-----");
+    // print(l_salon[0]['photos'][0]);
     //salon.photos = l_salon[0]['photos'];
   }
 
