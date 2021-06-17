@@ -18,7 +18,7 @@ class Body extends StatelessWidget {
             SizedBox(height: getProportionateScreenWidth(20)),
             DiscountBanner(),
             // Categories(),
-            SizedBox(height: getProportionateScreenWidth(20)),
+            SizedBox(height: getProportionateScreenWidth(15)),
             SalonByCity(),
             SizedBox(height: getProportionateScreenWidth(30)),
             SalonNearMe(),
