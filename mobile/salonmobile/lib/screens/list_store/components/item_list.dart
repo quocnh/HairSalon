@@ -47,8 +47,7 @@ class _ItemList extends State<ItemList> {
                                   fontWeight: FontWeight.bold,
                                   fontSize: SizeConfig.screenWidth * 0.05,
                                   color: Colors.grey))),
-                      padding: EdgeInsets.only(
-                          bottom: getProportionateScreenHeight(10))),
+                      padding: EdgeInsets.only(bottom: getProportionateScreenHeight(10))),
                   Padding(
                     child: Center(
                         child: Row(
@@ -57,7 +56,7 @@ class _ItemList extends State<ItemList> {
                             SizedBox(
                               width: getProportionateScreenWidth(50),
                             ),
-                            Text('Hơn 5000 cửa hàng',
+                            Text('Danh sách cửa hàng',
                                 style: TextStyle(
                                     fontWeight: FontWeight.w700,
                                     color: Colors.black,
@@ -82,43 +81,44 @@ class _ItemList extends State<ItemList> {
                             bottom:
                             BorderSide(width: 2, color: Colors.grey[300]))),
                   ),
-                  Container(
-                    padding: EdgeInsets.only(
-                        top: getProportionateScreenHeight(20),
-                        bottom: getProportionateScreenHeight(35)),
-                    width: SizeConfig.screenWidth * 0.9,
-                    color: Colors.white,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          child: RichText(
-                            text: TextSpan(children: [
-                              TextSpan(
-                                text: 'Hơn 122.000 khách đã làm tại Katok',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: SizeConfig.screenWidth * 0.04,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              TextSpan(
-                                text: '. Trung bình họ xếp hạng ở mức 4.7/5 sao.',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: SizeConfig.screenWidth * 0.04),
-                              ),
-                            ]),
-                          ),
-                          width: SizeConfig.screenWidth * 0.7,
-                        ),
-                        Icon(
-                          Icons.star,
-                          color: Colors.yellow,
-                          size: SizeConfig.screenWidth * 0.1,
-                        )
-                      ],
-                    ),
-                  )
+                  SizedBox(height: getProportionateScreenHeight(20)),
+                  // Container(
+                  //   padding: EdgeInsets.only(
+                  //       top: getProportionateScreenHeight(20),
+                  //       bottom: getProportionateScreenHeight(35)),
+                  //   width: SizeConfig.screenWidth * 0.9,
+                  //   color: Colors.white,
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //     children: [
+                  //       Container(
+                  //         child: RichText(
+                  //           text: TextSpan(children: [
+                  //             TextSpan(
+                  //               text: 'Hơn 122.000 khách đã làm tại Katok',
+                  //               style: TextStyle(
+                  //                   color: Colors.black,
+                  //                   fontSize: SizeConfig.screenWidth * 0.04,
+                  //                   fontWeight: FontWeight.bold),
+                  //             ),
+                  //             TextSpan(
+                  //               text: '. Trung bình họ xếp hạng ở mức 4.7/5 sao.',
+                  //               style: TextStyle(
+                  //                   color: Colors.black,
+                  //                   fontSize: SizeConfig.screenWidth * 0.04),
+                  //             ),
+                  //           ]),
+                  //         ),
+                  //         width: SizeConfig.screenWidth * 0.7,
+                  //       ),
+                  //       Icon(
+                  //         Icons.star,
+                  //         color: Colors.yellow,
+                  //         size: SizeConfig.screenWidth * 0.1,
+                  //       )
+                  //     ],
+                  //   ),
+                  // )
                 ],
               )),
           (isCheck == true)
