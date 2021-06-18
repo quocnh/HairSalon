@@ -196,7 +196,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
   TextFormField buildPhoneNumberFormField() {
     return TextFormField(
       keyboardType: TextInputType.phone,
-      onSaved: (newValue) => phoneNumber = '+84$newValue',
+      onSaved: (newValue) => phoneNumber = '+1$newValue',
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPhoneNumberNullError);
