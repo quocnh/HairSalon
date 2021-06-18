@@ -53,6 +53,11 @@ class Body extends StatelessWidget {
                     FirebaseUser user = result.user;
                     print("user: " + user.uid);
 
+                    //create user in customer table
+
+                    // TODO
+                    //
+
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
