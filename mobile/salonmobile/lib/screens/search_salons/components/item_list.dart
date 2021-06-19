@@ -1,18 +1,13 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:salonmobile/components/item_gridview_search_salons_card.dart';
 import 'package:salonmobile/components/item_listview_search_salons_card.dart';
 import 'package:salonmobile/models/Salon.dart';
-import 'package:salonmobile/screens/otp/components/otp_form.dart';
+import 'package:salonmobile/screens/search_salons/components/map.dart';
 import 'package:salonmobile/screens/search_salons/components/search_map.dart';
 import 'package:salonmobile/services/salon_utils_service.dart';
-import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:salonmobile/screens/search_salons/components/map.dart';
 
 class ItemList extends StatefulWidget {
   @override
@@ -107,6 +102,7 @@ class _ItemList extends State<ItemList> {
                 child: GridView.count(
                   shrinkWrap: true,
                   crossAxisCount: 2,
+                  childAspectRatio: getProportionateScreenWidth((100)/getProportionateScreenHeight(110)),
                   children: [
                     ...List.generate(
                       snapshot.data.length,
@@ -131,6 +127,7 @@ class _ItemList extends State<ItemList> {
                         return ItemListViewSearchSalonsCard(
                           image: snapshot.data[index].photos[0],
                           name: snapshot.data[index].name,
+                          address: snapshot.data[index].address,
                         );
                       }))
             ],

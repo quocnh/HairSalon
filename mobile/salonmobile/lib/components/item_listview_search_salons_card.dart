@@ -8,9 +8,11 @@ import 'package:salonmobile/utils/size_config.dart';
 class ItemListViewSearchSalonsCard extends StatelessWidget{
   final String name;
   final String image;
+  final String address;
   ItemListViewSearchSalonsCard({
     this.name,
-    this.image
+    this.image,
+    this.address
   });
   final URL_IMAGE = 'https://awinst.com:3000/app/';
   final cacheManager = CacheManager(Config(
@@ -26,11 +28,12 @@ class ItemListViewSearchSalonsCard extends StatelessWidget{
           left: getProportionateScreenWidth(20),
           bottom: getProportionateScreenHeight(20)),
       color: Colors.white,
-      child: Column(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            width: getProportionateScreenWidth(400),
-            height: getProportionateScreenHeight(180),
+            width: getProportionateScreenWidth(130),
+            height: getProportionateScreenHeight(130),
             child: ClipRRect(
                 borderRadius: BorderRadius.all(
                     Radius.circular(20)),
@@ -43,10 +46,18 @@ class ItemListViewSearchSalonsCard extends StatelessWidget{
             ),
           ),
           Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(name, style: TextStyle(color: Colors.black,fontSize: getProportionateScreenWidth(16))),
+                Text(name,style: TextStyle(color: Colors.black),),
+                Container(width:getProportionateScreenWidth(180),child: Text(address,overflow: TextOverflow.clip,)),
+                Row(
+                  children: [
+                    for(var i=0; i<5; i++)
+                      Icon(Icons.star, color: Colors.yellow)
+                  ],
+                ),
                 Text(
                   "\$12.01",
                   style: TextStyle(
@@ -58,6 +69,7 @@ class ItemListViewSearchSalonsCard extends StatelessWidget{
               ],
             ),
           )
+
         ],
       ),
     );

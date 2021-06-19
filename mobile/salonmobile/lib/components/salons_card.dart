@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:salonmobile/models/Salon.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
@@ -9,11 +8,11 @@ import 'package:salonmobile/utils/size_config.dart';
 class SalonsCard extends StatelessWidget {
   SalonsCard({
     Key key,
-    this.aspectRetio = 1.02,
+
     this.salons,
   }) : super(key: key);
 
-  final double aspectRetio;
+
   final Salon salons;
   final URL_IMAGE = 'https://awinst.com:3000/app/';
   final cacheManager = CacheManager(Config(
@@ -48,39 +47,43 @@ class SalonsCard extends StatelessWidget {
                         errorWidget: _error)
                 ),
               ),
-              const SizedBox(height: 10),
-              Text(
-                salons.name,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: getProportionateScreenWidth(16),
-                  ),                
-                maxLines: 1,
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: getProportionateScreenWidth(160),
+                    child: Text(
+                      salons.name,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: getProportionateScreenWidth(14),
+                      ),
+                      overflow: TextOverflow.clip,
+
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Text(salons.rating.toString()),
+                      IconButton(onPressed: null, icon: Icon(Icons.star,color: Colors.yellow,))
+                    ],
+                  )
+                ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "\$12.01",
-                    style: TextStyle(
-                      fontSize: getProportionateScreenWidth(18),
-                      fontWeight: FontWeight.w600,
-                      color: kPrimaryColor,
-                    ),
-                  ),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(50),
-                    onTap: () {},
-                    child: Container(
-                      padding: EdgeInsets.all(getProportionateScreenWidth(8)),
-                      height: getProportionateScreenWidth(28),
-                      width: getProportionateScreenWidth(28),
-                      decoration: BoxDecoration(
-                        color: kPrimaryColor.withOpacity(0.15),
-                        shape: BoxShape.circle,
+                  Container(
+                    width: getProportionateScreenWidth(200),
+                    child: Text(
+                      salons.address,
+                      style: TextStyle(
+                        fontSize: getProportionateScreenWidth(14),
+                        fontWeight: FontWeight.w600,
+                        color: kPrimaryColor,
                       ),
-                      child: SvgPicture.asset("assets/icons/Heart Icon_2.svg",
-                          color: Color(0xFFFF4848)),
+                      overflow: TextOverflow.clip,
                     ),
                   ),
                 ],

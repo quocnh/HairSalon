@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:salonmobile/components/salons_card.dart';
 import 'package:salonmobile/models/Salon.dart';
 import 'package:salonmobile/screens/home/components/section_title.dart';
-import 'package:salonmobile/screens/otp/components/otp_form.dart';
 import 'package:salonmobile/services/salon_utils_service.dart';
 import 'package:salonmobile/utils/size_config.dart';
 

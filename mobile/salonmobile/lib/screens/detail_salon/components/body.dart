@@ -1,15 +1,13 @@
+
 import 'package:flutter/material.dart';
 import 'package:salonmobile/components/default_button.dart';
 import 'package:salonmobile/models/Salon.dart';
+import 'package:salonmobile/services/global_state.dart';
 import 'package:salonmobile/services/salon_utils_service.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
-import 'color_dots.dart';
-import 'salon_description.dart';
 import 'salon_images.dart';
 import 'top_rounded_container.dart';
-import 'package:salonmobile/services/global_state.dart';
-import 'dart:convert';
 
 GlobalState gSalon = GlobalState.instance;
 

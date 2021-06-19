@@ -11,7 +11,6 @@ import 'package:salonmobile/services/http_service.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/loading.dart';
 import 'package:salonmobile/utils/size_config.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 class SignForm extends StatefulWidget {
   @override
   _SignFormState createState() => _SignFormState();

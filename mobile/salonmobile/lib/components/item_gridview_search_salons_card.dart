@@ -28,7 +28,7 @@ class ItemGridViewSearchSalonsCard extends StatelessWidget{
         children: [
           Container(
             width: getProportionateScreenWidth(160),
-            height: getProportionateScreenHeight(130),
+            height: getProportionateScreenHeight(125),
             child: ClipRRect(
                 borderRadius: BorderRadius.all(
                     Radius.circular(20)),
