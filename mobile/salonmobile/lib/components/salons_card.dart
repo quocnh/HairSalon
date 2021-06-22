@@ -14,7 +14,6 @@ class SalonsCard extends StatelessWidget {
 
 
   final Salon salons;
-  final URL_IMAGE = 'https://awinst.com:3000/app/';
   final cacheManager = CacheManager(Config(
     'customCache',
     stalePeriod: Duration(days: 1),

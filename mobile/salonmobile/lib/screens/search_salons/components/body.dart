@@ -5,6 +5,7 @@ import 'package:salonmobile/screens/search_salons/components/map.dart';
 import 'package:salonmobile/screens/search_salons/components/search_map.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
+
 class Body extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -14,6 +15,7 @@ class Body extends StatefulWidget {
 }
 
 class _Body extends State<Body> with AutomaticKeepAliveClientMixin{
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -30,7 +32,8 @@ class _Body extends State<Body> with AutomaticKeepAliveClientMixin{
                       vertical: getProportionateScreenHeight(40),
                       horizontal: getProportionateScreenWidth(40)),
                   child: SearchMap())),
-          ItemList()
+          ItemList(),
+
         ],
       ),
     );
