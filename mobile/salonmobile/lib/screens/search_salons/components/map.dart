@@ -30,7 +30,7 @@ class _Map extends State<Map> {
   List<Salon> listSalons = store.get('listSalons');
   GoogleMapController _controller;
   final CameraPosition _initialPosition = CameraPosition(
-      target: LatLng(10.815518357444795, 106.70793665499389), zoom: 12);
+      target: LatLng(10.815518357444795, 106.70793665499389), zoom: 11);
   final List<Marker> markers = [];
   String nameSalon = '';
   String addressSalon = '';
@@ -144,24 +144,28 @@ class _Map extends State<Map> {
                           padding: EdgeInsets.symmetric(
                               horizontal: getProportionateScreenWidth(10)),
                           child: Container(
+                            padding: EdgeInsets.only(left: getProportionateScreenWidth(10)),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
                                 color: Colors.white),
                             child: Row(
                               children: [
-                                Container(padding: EdgeInsets.only(left: getProportionateScreenWidth(10)),
-                                  child: ClipOval(
-                                    child: Container(
+                                Container(
                                       width: getProportionateScreenWidth(80),
-                                      height: getProportionateScreenHeight(90),
-                                      child: CachedNetworkImage(
-                                              cacheManager: cacheManager,
-                                              imageUrl: URL_IMAGE + imgSalon,
-                                              fit: BoxFit.fill,
-                                              placeholder: _loader,
-                                              errorWidget: _error),
-                                    )
-                                  ),
+                                      height: getProportionateScreenHeight(80),
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(
+                                          fit: BoxFit.fill,
+                                          image: NetworkImage(URL_IMAGE + imgSalon)
+                                        )
+                                      ),
+                                      // child: CachedNetworkImage(
+                                      //         cacheManager: cacheManager,
+                                      //         imageUrl: URL_IMAGE + imgSalon,
+                                      //         fit: BoxFit.fill,
+                                      //         placeholder: _loader,
+                                      //         errorWidget: _error),
                                 ),
                                 Expanded(
                                   child: Container(
