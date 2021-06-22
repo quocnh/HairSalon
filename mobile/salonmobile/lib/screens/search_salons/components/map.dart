@@ -1,8 +1,10 @@
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:salonmobile/models/Salon.dart';
@@ -10,9 +12,10 @@ import 'package:salonmobile/screens/otp/components/otp_form.dart';
 import 'package:salonmobile/services/salon_utils_service.dart';
 import 'package:salonmobile/utils/size_config.dart';
 import 'package:salonmobile/utils/constants.dart';
+import 'dart:ui' as ui;
 
-const double VISIBLE_POSITION = 180;
-const double INVISIBLE_POSITION = -380;
+ double VISIBLE_POSITION = getProportionateScreenWidth(160);
+ double INVISIBLE_POSITION = -(getProportionateScreenHeight(360));
 
 class Map extends StatefulWidget {
   @override
@@ -27,7 +30,7 @@ class _Map extends State<Map> {
   List<Salon> listSalons = store.get('listSalons');
   GoogleMapController _controller;
   final CameraPosition _initialPosition = CameraPosition(
-      target: LatLng(10.815518357444795, 106.70793665499389), zoom: 10);
+      target: LatLng(10.815518357444795, 106.70793665499389), zoom: 12);
   final List<Marker> markers = [];
   String nameSalon = '';
   String addressSalon = '';
@@ -41,14 +44,17 @@ class _Map extends State<Map> {
 
   }
 
-
+  Future<Uint8List> getBytesFromAsset(String path, int width, int height) async {
+    ByteData data = await rootBundle.load(path);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
+    ui.FrameInfo fi = await codec.getNextFrame();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png)).buffer.asUint8List();
+  }
   void setMarkerAllSalons() async {
-    BitmapDescriptor mapMarker = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(),
-        "assets/images/check.png");
+    final Uint8List markerIcon = await getBytesFromAsset('assets/images/hairdresser.png', getProportionateScreenWidth(80).toInt(), getProportionateScreenHeight(100).toInt());
     for (var i = 0; i < listSalons.length; i++) {
       markers.add(Marker(
-        icon: mapMarker,
+        icon: BitmapDescriptor.fromBytes(markerIcon),
         markerId: MarkerId(i.toString()),
         position: LatLng(double.parse(listSalons[i].latitude),
             double.parse(listSalons[i].longitude)),
@@ -145,14 +151,16 @@ class _Map extends State<Map> {
                               children: [
                                 Container(padding: EdgeInsets.only(left: getProportionateScreenWidth(10)),
                                   child: ClipOval(
-                                    child: CachedNetworkImage(
-                                      width: getProportionateScreenWidth(70),
-                                            height: getProportionateScreenHeight(80),
-                                            cacheManager: cacheManager,
-                                            imageUrl: URL_IMAGE + imgSalon,
-                                            fit: BoxFit.fill,
-                                            placeholder: _loader,
-                                            errorWidget: _error)
+                                    child: Container(
+                                      width: getProportionateScreenWidth(80),
+                                      height: getProportionateScreenHeight(90),
+                                      child: CachedNetworkImage(
+                                              cacheManager: cacheManager,
+                                              imageUrl: URL_IMAGE + imgSalon,
+                                              fit: BoxFit.fill,
+                                              placeholder: _loader,
+                                              errorWidget: _error),
+                                    )
                                   ),
                                 ),
                                 Expanded(
@@ -187,12 +195,12 @@ class _Map extends State<Map> {
                                   ),
                                 ),
                                 Container(
-                                  height: getProportionateScreenHeight(50),
-                                    width:getProportionateScreenWidth(50),
+                                  height: getProportionateScreenHeight(40),
+                                    width:getProportionateScreenWidth(40),
                                     padding: EdgeInsets.only(
                                         right: getProportionateScreenWidth(10)),
                                     child: Image.asset(
-                                      "assets/images/check.png"
+                                      "assets/images/hairdresser.png"
                                     ))
                               ],
                             ),
