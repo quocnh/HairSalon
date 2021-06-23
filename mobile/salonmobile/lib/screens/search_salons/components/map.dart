@@ -14,8 +14,8 @@ import 'package:salonmobile/utils/size_config.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'dart:ui' as ui;
 
- double VISIBLE_POSITION = getProportionateScreenHeight(190);
- double INVISIBLE_POSITION = -(getProportionateScreenHeight(390));
+ double VISIBLE_POSITION = getProportionateScreenHeight(200);
+ double INVISIBLE_POSITION = -(getProportionateScreenHeight(400));
 
 class Map extends StatefulWidget {
   @override
