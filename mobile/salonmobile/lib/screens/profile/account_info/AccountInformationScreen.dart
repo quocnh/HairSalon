@@ -47,19 +47,19 @@ class AccountInformationScreenState
                   color: KatokAppTextColorPrimary,
                   fontWeight: FontWeight.bold,
                   fontSize: 16)),
-          // actions: [
-          //   Padding(
-          //     padding: EdgeInsets.only(right: 10),
-          //     child: Align(
-          //       alignment: Alignment.center,
-          //       child: Text(KatokTxtEdit,
-          //           style: TextStyle(
-          //               color: KatokColorPrimary,
-          //               fontSize: 14,
-          //               fontWeight: FontWeight.bold)),
-          //     ),
-          //   )
-          // ]
+          actions: [
+            Padding(
+              padding: EdgeInsets.only(right: 10),
+              child: Align(
+                alignment: Alignment.center,
+                child: Text(KatokTxtEdit,
+                    style: TextStyle(
+                        color: KatokColorPrimary,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold)),
+              ),
+            )
+          ]
       ),
       body: Container(
         color: KatokGreyColor.withOpacity(0.1),
