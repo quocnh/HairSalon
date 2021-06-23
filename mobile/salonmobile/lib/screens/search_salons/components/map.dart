@@ -14,8 +14,8 @@ import 'package:salonmobile/utils/size_config.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'dart:ui' as ui;
 
- double VISIBLE_POSITION = getProportionateScreenWidth(160);
- double INVISIBLE_POSITION = -(getProportionateScreenHeight(360));
+ double VISIBLE_POSITION = getProportionateScreenHeight(190);
+ double INVISIBLE_POSITION = -(getProportionateScreenHeight(390));
 
 class Map extends StatefulWidget {
   @override
@@ -35,6 +35,10 @@ class _Map extends State<Map> {
   String nameSalon = '';
   String addressSalon = '';
   String imgSalon = '';
+  final cacheManager = CacheManager(Config(
+    'customCache',
+    stalePeriod: Duration(days: 1),
+  ));
 
   @override
   void initState() {
@@ -150,23 +154,40 @@ class _Map extends State<Map> {
                                 color: Colors.white),
                             child: Row(
                               children: [
-                                Container(
-                                      width: getProportionateScreenWidth(80),
-                                      height: getProportionateScreenHeight(80),
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                          fit: BoxFit.fill,
-                                          image: NetworkImage(URL_IMAGE + imgSalon)
-                                        )
-                                      ),
-                                      // child: CachedNetworkImage(
-                                      //         cacheManager: cacheManager,
-                                      //         imageUrl: URL_IMAGE + imgSalon,
-                                      //         fit: BoxFit.fill,
-                                      //         placeholder: _loader,
-                                      //         errorWidget: _error),
-                                ),
+                                CachedNetworkImage(imageUrl: URL_IMAGE + imgSalon,
+                                imageBuilder: (context, imageProvider){
+                                  return Container(
+                                    width: getProportionateScreenWidth(80),
+                                    height: getProportionateScreenHeight(80),
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                        image: imageProvider, fit: BoxFit.fill
+                                      )
+                                    ),
+                                  );
+                                },
+                                  cacheManager: cacheManager,
+                                    placeholder: _loader,
+                                    errorWidget: _error)
+                                // Container(
+                                //       width: getProportionateScreenWidth(80),
+                                //       height: getProportionateScreenHeight(80),
+                                //       decoration: BoxDecoration(
+                                //         shape: BoxShape.circle,
+                                //         image: DecorationImage(
+                                //           fit: BoxFit.fill,
+                                //           image: NetworkImage(URL_IMAGE + imgSalon)
+                                //         )
+                                //       ),
+                                //       // child: CachedNetworkImage(
+                                //       //         cacheManager: cacheManager,
+                                //       //         imageUrl: URL_IMAGE + imgSalon,
+                                //       //         fit: BoxFit.fill,
+                                //       //         placeholder: _loader,
+                                //       //         errorWidget: _error),
+                                // )
+                                ,
                                 Expanded(
                                   child: Container(
                                     padding: EdgeInsets.symmetric(
@@ -222,9 +243,11 @@ class _Map extends State<Map> {
 }
 
 Widget _loader(BuildContext context, String url) {
-  return Center(child: CircularProgressIndicator());
+  return Container(
+      width: getProportionateScreenWidth(80),
+      height: getProportionateScreenHeight(80),
+      child: Center(child: CircularProgressIndicator()));
 }
-
 Widget _error(BuildContext context, String url, dynamic error) {
   return Center(child: Text('ERROR'));
 }
