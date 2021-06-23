@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:salonmobile/screens/profile/account_info/AccountInformationScreen.dart';
 
 import 'profile_menu.dart';
 import 'profile_pic.dart';
@@ -15,7 +16,13 @@ class Body extends StatelessWidget {
           ProfileMenu(
             text: "My Account",
             icon: "assets/icons/User Icon.svg",
-            press: () => {},
+            press: () => {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AccountInformationScreen()),
+              )
+            },
           ),
           ProfileMenu(
             text: "Notifications",
