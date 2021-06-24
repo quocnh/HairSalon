@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:salonmobile/screens/detail_salon/AppointmentScreen.dart';
+import 'package:salonmobile/screens/detail_salon/DetailScreen.dart';
 import 'package:salonmobile/screens/home/home_screen.dart';
 import 'package:salonmobile/screens/profile/profile_screen.dart';
 import 'package:salonmobile/screens/search_salons/search_salons_screen.dart';
@@ -15,7 +16,8 @@ class _MenuPageBuilderScreenState extends State<MenuPageBuilderScreen> {
   List<Widget> _screens = [
     HomeScreen(),
     SearchSalonsScreen(),
-    AppointmentScreen(),
+    // AppointmentScreen(),
+    KatokDetailScreen(),
     ProfileScreen(),
   ];
   int _selectedIndex = 0;
