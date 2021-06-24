@@ -47,7 +47,18 @@ dependencies:
   flutter_spinkit: ^5.0.0
   nb_utils: 4.3.0+4
   sliding_up_panel: ^1.0.2
-
+  mobx: ^1.2.1+2
+  flutter_mobx: ^1.1.0+2
+  html: 0.14.0+3
+#  google_fonts: 1.1.0
+  flutter_statusbarcolor: 0.2.3
+#  clustering_google_maps: 0.1.2
+  flutter_staggered_grid_view: 0.3.2
+  flutter_staggered_animations: 0.1.2
+  google_maps_webservice: ^0.0.19
+#  shared_preferences: ^0.5.12+4
+  geolocator: ^6.1.13
+  geocoder: ^0.2.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

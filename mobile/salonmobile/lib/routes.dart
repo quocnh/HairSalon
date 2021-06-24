@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:salonmobile/screens/complete_profile/complete_profile_screen.dart';
 import 'package:salonmobile/screens/detail_product/detail_product_screen.dart';
-import 'package:salonmobile/screens/detail_salon/detail_salon_screen.dart';
 import 'package:salonmobile/screens/forgot_password/forgot_password_screen.dart';
 import 'package:salonmobile/screens/home/home_screen.dart';
 import 'package:salonmobile/screens/menu_page_builder/menu_page_builder_screen.dart';
@@ -23,7 +22,6 @@ final Map<String, WidgetBuilder> routes = {
   OtpScreen.routeName: (context) => OtpScreen(),
   HomeScreen.routeName: (context) => HomeScreen(),
   DetailProductScreen.routeName: (context) => DetailProductScreen(),
-  DetailSalonScreen.routeName: (context) => DetailSalonScreen(),
   ProfileScreen.routeName: (context) => ProfileScreen(),
   MenuPageBuilderScreen.routeName: (context) => MenuPageBuilderScreen(),
 };
