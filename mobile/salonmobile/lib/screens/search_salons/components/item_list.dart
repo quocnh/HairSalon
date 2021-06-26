@@ -34,7 +34,7 @@ class _ItemList extends State<ItemList> {
     setState(() {
       if(lengthList < listAllSalons.length && listAllSalons.length != 0)
       {
-        lengthList = lengthList + 5;
+        lengthList = lengthList + 6;
         if(lengthList > listAllSalons.length){
           lengthList = listAllSalons.length;
         }
