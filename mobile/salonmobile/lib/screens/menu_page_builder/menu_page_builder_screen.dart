@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:salonmobile/screens/detail_salon/AppointmentScreen.dart';
 import 'package:salonmobile/screens/detail_salon/DetailScreen.dart';
 import 'package:salonmobile/screens/home/home_screen.dart';
 import 'package:salonmobile/screens/profile/profile_screen.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:salonmobile/components/default_button.dart';
+import 'package:salonmobile/screens/menu_page_builder/menu_page_builder_screen.dart';
 import 'package:salonmobile/screens/otp/components/otp_form.dart';
-import 'package:salonmobile/screens/sign_in/sign_in_screen.dart';
 import 'package:salonmobile/screens/splash/components/splash_content.dart';
 import 'package:salonmobile/services/salon_utils_service.dart';
 import 'package:salonmobile/utils/app_localizations.dart';
@@ -74,18 +74,18 @@ class _BodyState extends State<Body> {
                         text:
                             AppLocalizations.of(context).translate('continue'),
                         press: () {
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SignInScreen()),
-                                (Route<dynamic> route) => false,
-                          );
                           // Navigator.pushAndRemoveUntil(
                           //   context,
                           //   MaterialPageRoute(
-                          //       builder: (context) => MenuPageBuilderScreen()),
-                          //   (Route<dynamic> route) => false,
+                          //       builder: (context) => SignInScreen()),
+                          //       (Route<dynamic> route) => false,
                           // );
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MenuPageBuilderScreen()),
+                            (Route<dynamic> route) => false,
+                          );
                           // Navigator.pushNamed(context, SignInScreen.routeName);
                         },
                       ),

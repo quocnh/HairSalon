@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:salonmobile/components/item_gridview_search_salons_card.dart';
 import 'package:salonmobile/components/item_listview_search_salons_card.dart';
 import 'package:salonmobile/models/Salon.dart';
 import 'package:salonmobile/screens/search_salons/components/map.dart';
 import 'package:salonmobile/screens/search_salons/components/search_map.dart';
 import 'package:salonmobile/services/salon_utils_service.dart';
+import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -20,11 +22,46 @@ class ItemList extends StatefulWidget {
 class _ItemList extends State<ItemList> {
   final URL_IMAGE = 'https://awinst.com:3000/app/';
   bool isCheck = true;
+  RefreshController _refreshController = RefreshController(initialRefresh: false);
+  GlobalKey _contentKey = GlobalKey();
+  GlobalKey _refresherKey = GlobalKey();
+  List<Salon> listAllSalons = [];
+  int lengthList = 6;
 
+  _onLoading()  async{
+     await Future.delayed(Duration(seconds: 2));
+    print("On Loading");
+    setState(() {
+      if(lengthList < listAllSalons.length && listAllSalons.length != 0)
+      {
+        lengthList = lengthList + 5;
+        if(lengthList > listAllSalons.length){
+          lengthList = listAllSalons.length;
+        }
+      }
+
+      _refreshController.loadComplete();
+    });
+  }
+  _onRefresh() async {
+    await Future.delayed(Duration(seconds: 2));
+    print("On Refresh");
+    setState(() {
+      lengthList = 6;
+      _refreshController.refreshCompleted();
+    });
+  }
+  void loadAllSalons() async{
+    final results = await SalonUtilsService().getAllSalons();
+    setState(() {
+      listAllSalons = results;
+    });
+  }
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    loadAllSalons();
   }
 
   @override
@@ -32,13 +69,9 @@ class _ItemList extends State<ItemList> {
     BorderRadiusGeometry radius = BorderRadius.only(
         topLeft: Radius.circular(24), topRight: Radius.circular(24));
     // TODO: implement build
-    return FutureBuilder<List<Salon>>(
-        future: SalonUtilsService().getAllSalons(),
-        builder: (context, snapshot) {
-          print('${snapshot.data} + PHT');
-          print('Hello List Salons');
-          if (snapshot.hasData) {
-            return SlidingUpPanel(
+    return 
+           (listAllSalons != []) 
+            ? SlidingUpPanel(
               maxHeight: getProportionateScreenHeight(600),
               minHeight: getProportionateScreenHeight(85),
               backdropEnabled: true,
@@ -101,38 +134,129 @@ class _ItemList extends State<ItemList> {
                       )),
                   (isCheck == false)
                       ? Expanded(
-                          child: GridView.count(
-                            shrinkWrap: true,
-                            crossAxisCount: 2,
-                            childAspectRatio: getProportionateScreenWidth(
-                                (100) / getProportionateScreenHeight(110)),
-                            children: [
-                              ...List.generate(
-                                snapshot.data.length,
-                                (index) {
-                                  return ItemGridViewSearchSalonsCard(
-                                    image: snapshot.data[index].photos[0],
-                                    name: snapshot.data[index].name,
-                                  );
+                          child: RefreshConfiguration.copyAncestor(
+                            enableLoadingWhenFailed: true,
+                            context: context,
+                            child: SmartRefresher(
+                              key: _refresherKey,
+                              controller: _refreshController,
+                              enablePullUp: true,
+                              child: GridView.count(
+                                shrinkWrap: true,
+                                crossAxisCount: 2,
+                                childAspectRatio: getProportionateScreenWidth(
+                                    (100) / getProportionateScreenHeight(110)),
+                                children: [
+                                  ...List.generate(
+                                    (listAllSalons.length > 6) ? lengthList : listAllSalons.length,
+                                    (index) {
+                                      return ItemGridViewSearchSalonsCard(
+                                        image: listAllSalons[index].photos[0],
+                                        name: listAllSalons[index].name,
+                                      );
 
-                                  // return SizedBox.shrink();  here by default width and height is 0
+                                      // return SizedBox.shrink();  here by default width and height is 0
+                                    },
+                                  ),
+                                ],
+                              ),
+                              physics: BouncingScrollPhysics(),
+                              footer: CustomFooter(
+                                loadStyle: LoadStyle.ShowWhenLoading,
+                                builder: (BuildContext context,LoadStatus mode){
+                                  Widget body ;
+                                  if(mode==LoadStatus.idle){
+                                    body =  Text("No more data");
+                                  }
+                                  else if(mode==LoadStatus.loading){
+                                    body =  CupertinoActivityIndicator();
+                                  }
+                                  else if(mode == LoadStatus.failed){
+                                    body = Text("Load Failed! Click retry!");
+                                  }
+                                  else if(mode == LoadStatus.canLoading){
+                                    body = Text("Load more");
+                                  }
+                                  else{
+                                    body = Text("No more data");
+                                  }
+                                  return Container(
+                                    height: getProportionateScreenHeight(55),
+                                    child: Center(child:body),
+                                  );
                                 },
                               ),
-                            ],
+                              onLoading: (){
+                                _onLoading();
+                              },
+                              onRefresh: (){
+                                _onRefresh();
+                              },
+                            ),
+                            headerBuilder: () => WaterDropMaterialHeader(
+                              backgroundColor: kPrimaryColor,
+                            ),
+                            footerTriggerDistance: 30,
                           ),
                         )
                       : Expanded(
-                          child: ListView.builder(
-                              padding: EdgeInsets.zero,
-                              shrinkWrap: true,
-                              itemCount: snapshot.data.length,
-                              itemBuilder: (context, index) {
-                                return ItemListViewSearchSalonsCard(
-                                  image: snapshot.data[index].photos[0],
-                                  name: snapshot.data[index].name,
-                                  address: snapshot.data[index].address,
-                                );
-                              }))
+                          child: RefreshConfiguration.copyAncestor(
+                            enableLoadingWhenFailed: true,
+                            context: context,
+                            child: SmartRefresher(
+                              key: _refresherKey,
+                              controller: _refreshController,
+                              enablePullUp: true,
+                              child: ListView.builder(
+                                key: _contentKey,
+                                  padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
+                                  itemCount: (listAllSalons.length > 6) ? lengthList : listAllSalons.length ,
+                                  itemBuilder: (context, index) {
+                                    return ItemListViewSearchSalonsCard(
+                                      image: listAllSalons[index].photos[0],
+                                      name: listAllSalons[index].name,
+                                      address: listAllSalons[index].address,
+                                    );
+                                  }),
+                              physics: BouncingScrollPhysics(),
+                              footer: CustomFooter(
+                                loadStyle: LoadStyle.ShowWhenLoading,
+                                builder: (BuildContext context,LoadStatus mode){
+                                  Widget body ;
+                                  if(mode==LoadStatus.idle){
+                                    body =  Text("No more data");
+                                  }
+                                  else if(mode==LoadStatus.loading){
+                                    body =  CupertinoActivityIndicator();
+                                  }
+                                  else if(mode == LoadStatus.failed){
+                                    body = Text("Load Failed! Click retry!");
+                                  }
+                                  else if(mode == LoadStatus.canLoading){
+                                    body = Text("Load more");
+                                  }
+                                  else{
+                                    body = Text("No more data");
+                                  }
+                                  return Container(
+                                    height: getProportionateScreenHeight(55),
+                                    child: Center(child:body),
+                                  );
+                                },
+                              ),
+                              onLoading: (){
+                                _onLoading();
+                              },
+                              onRefresh: (){
+                                _onRefresh();
+                              },
+                            ),
+                            headerBuilder: () => WaterDropMaterialHeader(
+                              backgroundColor: kPrimaryColor,
+                            ),
+                            footerTriggerDistance: 30,
+                          ))
                 ],
               ),
               collapsed: Container(
@@ -201,11 +325,13 @@ class _ItemList extends State<ItemList> {
                           child: SearchMap())),
                 ],
               ),
-            );
-          } else if (snapshot.hasError) {
-            return Text('SERVER ERROR');
-          }
-          return Center(child: Center(child: CircularProgressIndicator()));
-        });
+            )
+          
+            : Text('TRỐNG');
+          
+          
+    
   }
+
+
 }

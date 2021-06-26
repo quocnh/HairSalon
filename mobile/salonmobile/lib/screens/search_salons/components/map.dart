@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'dart:typed_data';
+import 'dart:ui' as ui;
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,12 +11,11 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:salonmobile/models/Salon.dart';
 import 'package:salonmobile/screens/otp/components/otp_form.dart';
 import 'package:salonmobile/services/salon_utils_service.dart';
-import 'package:salonmobile/utils/size_config.dart';
 import 'package:salonmobile/utils/constants.dart';
-import 'dart:ui' as ui;
+import 'package:salonmobile/utils/size_config.dart';
 
- double VISIBLE_POSITION = getProportionateScreenHeight(200);
- double INVISIBLE_POSITION = -(getProportionateScreenHeight(400));
+ double VISIBLE_POSITION = getProportionateScreenHeight(550);
+ double INVISIBLE_POSITION = -(getProportionateScreenHeight(550));
 
 class Map extends StatefulWidget {
   @override
