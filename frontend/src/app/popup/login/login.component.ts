@@ -4,6 +4,7 @@ declare const FB: any;
 import { AuthService } from '../../_services/auth.service';
 import { TokenStorageService } from '../../_services/token-storage.service';
 import { ForgetPasswordComponent } from '../forget-password/forget-password.component';
+import { RegisterComponent } from '../register/register.component';
 
 @Component({
   selector: 'app-login',
@@ -97,6 +98,41 @@ export class LoginComponent implements OnInit {
         })
     }
     
+  }
+
+  register() {    
+    console.log('call register modal');
+    
+    const ref = this.modalService.open(RegisterComponent);
+    ref.componentInstance.role = 'customer';    
+    ref.result.then((result) => {
+      // if (result) {
+      //   console.log("Result from login modal: ", result.email + result.password);
+      //   this.userObject.email = result.email;
+      //   this.userObject.password = result.password;
+      //   console.log("xx: " + this.userObject);
+      //   this.salonUtilService.callRegisterAPI(this.userObject).subscribe();
+      // }
+      this.isForgetPasswordFailed = false;
+      this.authService.login(this.form).subscribe(
+        data => {
+          this.tokenStorage.saveToken(data.accessToken);
+          this.tokenStorage.saveUser(data);
+
+          this.isLoginFailed = false;
+          this.isLoggedIn = true;
+          this.roles = this.tokenStorage.getUser().roles;
+          this.reloadPage();
+        },
+        err => {
+          this.errorMessage = err.error.message;
+          this.isLoginFailed = true;
+        }
+      );
+    },
+      (cancel) => {
+        console.log('cancel click');
+      })
   }
 
   
