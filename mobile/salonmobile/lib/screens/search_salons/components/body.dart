@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:salonmobile/screens/search_salons/components/item_list.dart';
 import 'package:salonmobile/screens/search_salons/components/map.dart';
+import 'package:salonmobile/screens/search_salons/components/search.dart';
 import 'package:salonmobile/screens/search_salons/components/search_map.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
@@ -31,7 +32,7 @@ class _Body extends State<Body> with AutomaticKeepAliveClientMixin{
                   padding: EdgeInsets.symmetric(
                       vertical: getProportionateScreenHeight(40),
                       horizontal: getProportionateScreenWidth(40)),
-                  child: SearchMap())),
+                  child: Search())),
           ItemList(),
 
         ],

@@ -8,6 +8,15 @@ class SalonUtilsService {
     List response = await hS.sget('salons');
     return response.map((json) => new Salon.fromJson(json)).toList();
   }
+  Future<List<Salon>> getAllSalonSuggestions(String query) async {
+    HttpService hS = new HttpService();
+    List response = await hS.sget('salons');
+    return response.map((json) => new Salon.fromJson(json)).where((user) {
+      final nameSalon = user.name.toLowerCase();
+      final nameQuery = query.toLowerCase();
+      return nameSalon.contains(nameQuery);
+    }).toList();
+  }
 
   Future<List<Salon>> getSalonsFromCity(String city) async {
     HttpService hS = new HttpService();

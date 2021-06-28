@@ -311,22 +311,21 @@ class _ItemList extends State<ItemList> {
                       ),
                     ],
                   )),
-              body: Stack(
-                children: [
-                  Map(),
-                  Positioned(
-                      left: 0,
-                      top: 0,
-                      right: 0,
-                      child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: getProportionateScreenHeight(40),
-                              horizontal: getProportionateScreenWidth(40)),
-                          child: SearchMap())),
-                ],
-              ),
+              // body: Stack(
+              //   children: [
+              //     Map(),
+              //     Positioned(
+              //         left: 0,
+              //         top: 0,
+              //         right: 0,
+              //         child: Padding(
+              //             padding: EdgeInsets.symmetric(
+              //                 vertical: getProportionateScreenHeight(40),
+              //                 horizontal: getProportionateScreenWidth(40)),
+              //             child: SearchMap())),
+              //   ],
+              // ),
             )
-          
             : Text('TRỐNG');
           
           

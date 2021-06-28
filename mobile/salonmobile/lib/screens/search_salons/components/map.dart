@@ -14,7 +14,7 @@ import 'package:salonmobile/services/salon_utils_service.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
- double VISIBLE_POSITION = getProportionateScreenHeight(550);
+ double VISIBLE_POSITION = getProportionateScreenHeight(250);
  double INVISIBLE_POSITION = -(getProportionateScreenHeight(550));
 
 class Map extends StatefulWidget {
@@ -150,7 +150,7 @@ class _Map extends State<Map> {
                           child: Container(
                             padding: EdgeInsets.only(left: getProportionateScreenWidth(10)),
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
+                                borderRadius: BorderRadius.circular(60),
                                 color: Colors.white),
                             child: Row(
                               children: [
@@ -210,7 +210,7 @@ class _Map extends State<Map> {
                                           "\$12.01",
                                           style: TextStyle(
                                             fontSize:
-                                                getProportionateScreenWidth(16),
+                                                getProportionateScreenWidth(14),
                                             fontWeight: FontWeight.w600,
                                             color: kPrimaryColor,
                                           ),
