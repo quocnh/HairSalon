@@ -31,9 +31,9 @@ export class RegisterComponent implements OnInit {
   reloadPage(): void {
     this.router.navigate(['/']);
 
-    if (this.router.url === '/home'){
-      window.location.reload();
-    }
+    //if (this.router.url === '/home'){
+    window.location.reload();
+    //}
   }
   onSubmit(): void {
     this.authService.register(this.form).subscribe(
