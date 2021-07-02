@@ -10,8 +10,6 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:salonmobile/models/Salon.dart';
-import 'package:salonmobile/screens/otp/components/otp_form.dart';
-import 'package:salonmobile/screens/search_salons/components/search.dart';
 import 'package:salonmobile/services/salon_utils_service.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
@@ -42,13 +40,12 @@ class _Map extends State<Map> {
     'customCache',
     stalePeriod: Duration(days: 1),
   ));
+  String query;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    clearMarker();
-    loadAllSalons();
     setMarkerAllSalons();
   }
 
@@ -59,14 +56,14 @@ class _Map extends State<Map> {
     ui.FrameInfo fi = await codec.getNextFrame();
     return (await fi.image.toByteData(format: ui.ImageByteFormat.png)).buffer.asUint8List();
   }
-  void loadAllSalons() async{
+
+  void setMarkerAllSalons() async {
     final results = await SalonUtilsService().getAllSalons();
     setState(() {
       listSalons = results;
       print(listSalons);
     });
-  }
-  void setMarkerAllSalons() async {
+
     final Uint8List markerIcon = await getBytesFromAsset('assets/images/hairdresser.png', getProportionateScreenWidth(80).toInt(), getProportionateScreenHeight(100).toInt());
     for (var i = 0; i < listSalons.length; i++) {
       setState(() {
@@ -92,6 +89,9 @@ class _Map extends State<Map> {
   }
   void setMarkerSearchSalon(String name, String lat, String long, String address, String photos) async{
     final Uint8List markerIcon = await getBytesFromAsset('assets/images/hairdresser.png', getProportionateScreenWidth(80).toInt(), getProportionateScreenHeight(100).toInt());
+    _controller.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(target: LatLng(double.parse(lat),
+            double.parse(long)), zoom: 11.0)));
     setState(() {
       markers.add(Marker(
         icon: BitmapDescriptor.fromBytes(markerIcon),
@@ -197,10 +197,16 @@ class _Map extends State<Map> {
                               enabledBorder: InputBorder.none,
                               hintText: "Search salons",
                               prefixIcon: Icon(Icons.search))),
-                      suggestionsCallback: SalonUtilsService().getAllSalonSuggestions,
+                      suggestionsCallback: (pattern) async{
+                          query = pattern;
+                        return await SalonUtilsService().getAllSalonSuggestions(pattern);
+                        },
                       itemBuilder: (context, Salon suggestion) {
                         final salons = suggestion;
-                        return ListTile(
+                        return
+                        (query.isEmpty) ?
+                         Container() :
+                         ListTile(
                             // onTap: (){
                             //   print(salons.name);
                             //   clearMarker();

@@ -4,8 +4,6 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:salonmobile/components/item_gridview_search_salons_card.dart';
 import 'package:salonmobile/components/item_listview_search_salons_card.dart';
 import 'package:salonmobile/models/Salon.dart';
-import 'package:salonmobile/screens/search_salons/components/map.dart';
-import 'package:salonmobile/screens/search_salons/components/search_map.dart';
 import 'package:salonmobile/services/salon_utils_service.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
