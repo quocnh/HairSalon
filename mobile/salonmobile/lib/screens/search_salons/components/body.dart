@@ -24,15 +24,15 @@ class _Body extends State<Body> with AutomaticKeepAliveClientMixin{
       child: Stack(
         children: [
           Map(),
-          Positioned(
-              left: 0,
-              top: 0,
-              right: 0,
-              child: Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: getProportionateScreenHeight(40),
-                      horizontal: getProportionateScreenWidth(40)),
-                  child: Search())),
+          // Positioned(
+          //     left: 0,
+          //     top: 0,
+          //     right: 0,
+          //     child: Padding(
+          //         padding: EdgeInsets.symmetric(
+          //             vertical: getProportionateScreenHeight(40),
+          //             horizontal: getProportionateScreenWidth(40)),
+          //         child: Search())),
           ItemList(),
 
         ],

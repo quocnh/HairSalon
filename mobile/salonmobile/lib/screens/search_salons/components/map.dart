@@ -7,9 +7,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:salonmobile/models/Salon.dart';
 import 'package:salonmobile/screens/otp/components/otp_form.dart';
+import 'package:salonmobile/screens/search_salons/components/search.dart';
 import 'package:salonmobile/services/salon_utils_service.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
@@ -26,8 +28,9 @@ class Map extends StatefulWidget {
 }
 
 class _Map extends State<Map> {
+  final URL_IMAGE = 'https://awinst.com:3000/app/';
   double bottomPosition = INVISIBLE_POSITION;
-  List<Salon> listSalons = store.get('listSalons');
+  List<Salon> listSalons = [];
   GoogleMapController _controller;
   final CameraPosition _initialPosition = CameraPosition(
       target: LatLng(10.815518357444795, 106.70793665499389), zoom: 11);
@@ -44,9 +47,11 @@ class _Map extends State<Map> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    clearMarker();
+    loadAllSalons();
     setMarkerAllSalons();
-
   }
+
 
   Future<Uint8List> getBytesFromAsset(String path, int width, int height) async {
     ByteData data = await rootBundle.load(path);
@@ -54,28 +59,64 @@ class _Map extends State<Map> {
     ui.FrameInfo fi = await codec.getNextFrame();
     return (await fi.image.toByteData(format: ui.ImageByteFormat.png)).buffer.asUint8List();
   }
+  void loadAllSalons() async{
+    final results = await SalonUtilsService().getAllSalons();
+    setState(() {
+      listSalons = results;
+      print(listSalons);
+    });
+  }
   void setMarkerAllSalons() async {
     final Uint8List markerIcon = await getBytesFromAsset('assets/images/hairdresser.png', getProportionateScreenWidth(80).toInt(), getProportionateScreenHeight(100).toInt());
     for (var i = 0; i < listSalons.length; i++) {
-      markers.add(Marker(
-        icon: BitmapDescriptor.fromBytes(markerIcon),
-        markerId: MarkerId(i.toString()),
-        position: LatLng(double.parse(listSalons[i].latitude),
-            double.parse(listSalons[i].longitude)),
-        // infoWindow: InfoWindow(
-        //     title: listSalons[i].name, snippet: listSalons[i].address),
-        onTap: () {
-          setState(() {
-            nameSalon = listSalons[i].name;
-            addressSalon = listSalons[i].address;
-            imgSalon = listSalons[i].photos[0];
-            this.bottomPosition = VISIBLE_POSITION;
-          });
-          print('$i' + 'PHAN HUU TUNG');
-        },
-      ));
+      setState(() {
+        markers.add(Marker(
+          icon: BitmapDescriptor.fromBytes(markerIcon),
+          markerId: MarkerId(i.toString()),
+          position: LatLng(double.parse(listSalons[i].latitude),
+              double.parse(listSalons[i].longitude)),
+          // infoWindow: InfoWindow(
+          //     title: listSalons[i].name, snippet: listSalons[i].address),
+          onTap: () {
+            setState(() {
+              nameSalon = listSalons[i].name;
+              addressSalon = listSalons[i].address;
+              imgSalon = listSalons[i].photos[0];
+              this.bottomPosition = VISIBLE_POSITION;
+            });
+            print('$i' + 'PHAN HUU TUNG');
+          },
+        ));
+      });
     }
   }
+  void setMarkerSearchSalon(String name, String lat, String long, String address, String photos) async{
+    final Uint8List markerIcon = await getBytesFromAsset('assets/images/hairdresser.png', getProportionateScreenWidth(80).toInt(), getProportionateScreenHeight(100).toInt());
+    setState(() {
+      markers.add(Marker(
+        icon: BitmapDescriptor.fromBytes(markerIcon),
+        markerId: MarkerId(name),
+        position: LatLng(double.parse(lat),
+            double.parse(long)),
+        onTap: () {
+          setState(() {
+            nameSalon = name;
+            addressSalon = address;
+            imgSalon = photos;
+            this.bottomPosition = VISIBLE_POSITION;
+          });
+        },
+      ));
+    });
+  }
+  void clearMarker(){
+    setState(() {
+      markers.clear();
+    });
+    print("Clear marker");
+  }
+
+
   void diaLog(BuildContext context) {
     showDialog(
         context: context,
@@ -95,8 +136,6 @@ class _Map extends State<Map> {
           );
         });
   }
-
-
   void addMarker(cordinate) {
     int id = Random().nextInt(100);
     setState(() {
@@ -106,6 +145,7 @@ class _Map extends State<Map> {
           markerId: MarkerId(id.toString())));
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -130,6 +170,73 @@ class _Map extends State<Map> {
             // addMarker(cordinate);
           },
         ),
+        Positioned(
+            left: 0,
+            top: 0,
+            right: 0,
+            child: Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: getProportionateScreenHeight(40),
+                    horizontal: getProportionateScreenWidth(40)),
+                /// search suggestion
+                child: Container(
+                    width: SizeConfig.screenWidth * 0.6,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: TypeAheadField<Salon>(
+                      hideSuggestionsOnKeyboardHide: false,
+                      textFieldConfiguration: TextFieldConfiguration(
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: getProportionateScreenWidth(20),
+                                  vertical: getProportionateScreenWidth(9)),
+                              border: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              hintText: "Search salons",
+                              prefixIcon: Icon(Icons.search))),
+                      suggestionsCallback: SalonUtilsService().getAllSalonSuggestions,
+                      itemBuilder: (context, Salon suggestion) {
+                        final salons = suggestion;
+                        return ListTile(
+                            // onTap: (){
+                            //   print(salons.name);
+                            //   clearMarker();
+                            // },
+                            leading: Container(
+                                width: getProportionateScreenWidth(50),
+                                height: getProportionateScreenHeight(50),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(10)),
+                                  child: CachedNetworkImage(
+                                      cacheManager: cacheManager,
+                                      imageUrl: URL_IMAGE + salons.photos[0],
+                                      fit: BoxFit.cover,
+                                      placeholder: _loader,
+                                      errorWidget: _error),
+                                )
+                            ),
+                            title: Text(salons.name));
+
+                      },
+                      onSuggestionSelected: (Salon suggestion) {
+                        final salons = suggestion;
+                        print(salons.name);
+                        setState(() {
+                          this.bottomPosition = INVISIBLE_POSITION;
+                        });
+                        clearMarker();
+                        setMarkerSearchSalon(salons.name, salons.latitude, salons.longitude, salons.address, salons.photos[0]);
+                        /// tạo function add marker search, gán salons = salons (khởi tạo)
+
+                      },
+                      noItemsFoundBuilder: (context) {
+                        return Center(child: Text("No salons found"));
+                      },
+                    )))),
         AnimatedPositioned(
             duration: Duration(milliseconds: 500),
             curve: Curves.easeInOut,

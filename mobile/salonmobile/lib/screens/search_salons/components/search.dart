@@ -47,6 +47,9 @@ class _Search extends State<Search> {
           itemBuilder: (context, Salon suggestion) {
             final salons = suggestion;
             return ListTile(
+              onTap: (){
+                print(salons.name);
+              },
                 leading: Container(
                   width: getProportionateScreenWidth(50),
                   height: getProportionateScreenHeight(50),
