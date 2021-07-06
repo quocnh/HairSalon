@@ -51,7 +51,7 @@ dependencies:
   flutter_mobx: ^1.1.0+2
   html: 0.14.0+3
   pull_to_refresh: ^2.0.0
-  flutter_typeahead: ^3.0.0-nullsafety.0
+  flutter_typeahead: ^2.0.0
   #  google_fonts: 1.1.0
   flutter_statusbarcolor: 0.2.3
 #  clustering_google_maps: 0.1.2

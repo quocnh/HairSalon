@@ -40,7 +40,8 @@ class _Map extends State<Map> {
     'customCache',
     stalePeriod: Duration(days: 1),
   ));
-  String query;
+  final controllerSuggestion = TextEditingController();
+
 
   @override
   void initState() {
@@ -188,6 +189,15 @@ class _Map extends State<Map> {
                     child: TypeAheadField<Salon>(
                       hideSuggestionsOnKeyboardHide: false,
                       textFieldConfiguration: TextFieldConfiguration(
+                        controller: controllerSuggestion,
+                        onChanged: (query){
+                          if(query.isEmpty){
+                            setState(() {
+                              this.bottomPosition = INVISIBLE_POSITION;
+                            });
+                            setMarkerAllSalons();
+                          }
+                        },
                           decoration: InputDecoration(
                               contentPadding: EdgeInsets.symmetric(
                                   horizontal: getProportionateScreenWidth(20),
@@ -197,20 +207,16 @@ class _Map extends State<Map> {
                               enabledBorder: InputBorder.none,
                               hintText: "Search salons",
                               prefixIcon: Icon(Icons.search))),
-                      suggestionsCallback: (pattern) async{
-                          query = pattern;
-                        return await SalonUtilsService().getAllSalonSuggestions(pattern);
+                      suggestionsCallback: (query) async{
+                        if(query.isEmpty){
+                          return await null;
+                        }else{
+                          return await SalonUtilsService().getAllSalonSuggestions(query);
+                        }
                         },
                       itemBuilder: (context, Salon suggestion) {
                         final salons = suggestion;
-                        return
-                        (query.isEmpty) ?
-                         Container() :
-                         ListTile(
-                            // onTap: (){
-                            //   print(salons.name);
-                            //   clearMarker();
-                            // },
+                        return ListTile(
                             leading: Container(
                                 width: getProportionateScreenWidth(50),
                                 height: getProportionateScreenHeight(50),
@@ -229,6 +235,7 @@ class _Map extends State<Map> {
 
                       },
                       onSuggestionSelected: (Salon suggestion) {
+                        controllerSuggestion.text = suggestion.name;
                         final salons = suggestion;
                         print(salons.name);
                         setState(() {
