@@ -643,7 +643,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
               Container(
                 child: SliverAppBar(
                   leading: IconButton(icon: Icon(Icons.arrow_back,color: white),onPressed: (){
-                    finish(context);
+                    Navigator.pop(context);
                   },),
                   backgroundColor: KatokColorPrimary,
                   pinned: true,

@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:salonmobile/components/item_gridview_search_salons_card.dart';
-import 'package:salonmobile/components/item_listview_search_salons_card.dart';
 import 'package:salonmobile/models/Salon.dart';
+import 'package:salonmobile/screens/detail_salon/DetailScreen.dart';
 import 'package:salonmobile/services/salon_utils_service.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
@@ -197,64 +197,75 @@ class _ItemList extends State<ItemList> {
                             footerTriggerDistance: 30,
                           ),
                         )
-                      : Expanded(
-                          child: RefreshConfiguration.copyAncestor(
-                            enableLoadingWhenFailed: true,
-                            context: context,
-                            child: SmartRefresher(
-                              key: _refresherKey,
-                              controller: _refreshController,
-                              enablePullUp: true,
-                              child: ListView.builder(
-                                key: _contentKey,
-                                  padding: EdgeInsets.zero,
-                                  shrinkWrap: true,
-                                  itemCount: (listAllSalons.length > 6) ? lengthList : listAllSalons.length ,
-                                  itemBuilder: (context, index) {
-                                    return ItemListViewSearchSalonsCard(
-                                      image: listAllSalons[index].photos[0],
-                                      name: listAllSalons[index].name,
-                                      address: listAllSalons[index].address,
-                                    );
-                                  }),
-                              physics: BouncingScrollPhysics(),
-                              footer: CustomFooter(
-                                loadStyle: LoadStyle.ShowWhenLoading,
-                                builder: (BuildContext context,LoadStatus mode){
-                                  Widget body ;
-                                  if(mode==LoadStatus.idle){
-                                    body =  Text("No more data");
-                                  }
-                                  else if(mode==LoadStatus.loading){
-                                    body =  CupertinoActivityIndicator();
-                                  }
-                                  else if(mode == LoadStatus.failed){
-                                    body = Text("Load Failed! Click retry!");
-                                  }
-                                  else if(mode == LoadStatus.canLoading){
-                                    body = Text("Load more");
-                                  }
-                                  else{
-                                    body = Text("No more data");
-                                  }
-                                  return Container(
-                                    height: getProportionateScreenHeight(55),
-                                    child: Center(child:body),
-                                  );
-                                },
-                              ),
-                              onLoading: (){
-                                _onLoading();
-                              },
-                              onRefresh: (){
-                                _onRefresh();
-                              },
-                            ),
-                            headerBuilder: () => WaterDropMaterialHeader(
-                              backgroundColor: kPrimaryColor,
-                            ),
-                            footerTriggerDistance: 30,
-                          ))
+                      : Expanded(child: ListView.builder(
+                    itemCount: 10,
+                      itemBuilder: (context, index){
+                      return ListTile(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => KatokDetailScreen()));
+                        },
+                        title: Text("PHAN HUU TUNG"),
+                      );
+                      }))
+
+                  // Expanded(
+                  //         child: RefreshConfiguration.copyAncestor(
+                  //           enableLoadingWhenFailed: true,
+                  //           context: context,
+                  //           child: SmartRefresher(
+                  //             key: _refresherKey,
+                  //             controller: _refreshController,
+                  //             enablePullUp: true,
+                  //             child: ListView.builder(
+                  //               key: _contentKey,
+                  //                 padding: EdgeInsets.zero,
+                  //                 shrinkWrap: true,
+                  //                 itemCount: (listAllSalons.length > 6) ? lengthList : listAllSalons.length ,
+                  //                 itemBuilder: (context, index) {
+                  //                   return ItemListViewSearchSalonsCard(
+                  //                     image: listAllSalons[index].photos[0],
+                  //                     name: listAllSalons[index].name,
+                  //                     address: listAllSalons[index].address,
+                  //                   );
+                  //                 }),
+                  //             physics: BouncingScrollPhysics(),
+                  //             footer: CustomFooter(
+                  //               loadStyle: LoadStyle.ShowWhenLoading,
+                  //               builder: (BuildContext context,LoadStatus mode){
+                  //                 Widget body ;
+                  //                 if(mode==LoadStatus.idle){
+                  //                   body =  Text("No more data");
+                  //                 }
+                  //                 else if(mode==LoadStatus.loading){
+                  //                   body =  CupertinoActivityIndicator();
+                  //                 }
+                  //                 else if(mode == LoadStatus.failed){
+                  //                   body = Text("Load Failed! Click retry!");
+                  //                 }
+                  //                 else if(mode == LoadStatus.canLoading){
+                  //                   body = Text("Load more");
+                  //                 }
+                  //                 else{
+                  //                   body = Text("No more data");
+                  //                 }
+                  //                 return Container(
+                  //                   height: getProportionateScreenHeight(55),
+                  //                   child: Center(child:body),
+                  //                 );
+                  //               },
+                  //             ),
+                  //             onLoading: (){
+                  //               _onLoading();
+                  //             },
+                  //             onRefresh: (){
+                  //               _onRefresh();
+                  //             },
+                  //           ),
+                  //           headerBuilder: () => WaterDropMaterialHeader(
+                  //             backgroundColor: kPrimaryColor,
+                  //           ),
+                  //           footerTriggerDistance: 30,
+                  //         ))
                 ],
               ),
               collapsed: Container(
