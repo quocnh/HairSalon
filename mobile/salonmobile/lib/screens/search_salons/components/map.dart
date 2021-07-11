@@ -41,6 +41,7 @@ class _Map extends State<Map> {
     stalePeriod: Duration(days: 1),
   ));
   final controllerSuggestion = TextEditingController();
+  List<Salon> listEmpty =[];
 
 
   @override
@@ -209,7 +210,8 @@ class _Map extends State<Map> {
                               prefixIcon: Icon(Icons.search))),
                       suggestionsCallback: (query) async{
                         if(query.isEmpty){
-                          return await null;
+                          // return await null;
+                          return listEmpty;
                         }else{
                           return await SalonUtilsService().getAllSalonSuggestions(query);
                         }

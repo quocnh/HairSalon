@@ -11,6 +11,7 @@ import 'package:salonmobile/utils/KatokConstants.dart';
 import 'package:salonmobile/utils/KatokDataProvider.dart';
 import 'package:salonmobile/utils/KatokImages.dart';
 import 'package:salonmobile/utils/flutter_rating_bar.dart';
+import 'package:salonmobile/utils/size_config.dart';
 
 
 class KatokDetailScreen extends StatefulWidget {
@@ -206,7 +207,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 100,
+              height: getProportionateScreenHeight(110),
               child: ListView.builder(
                 padding: EdgeInsets.all(8),
                 itemCount: categoryList.length,
@@ -409,7 +410,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                       onRatingUpdate: (rating) {
                         print(rating);
                       },
-                      initialRating: 1.5,
+                      initialRating: 2.5,
                       glow: true,
                       glowColor: KatokGreyColor,
                       direction: Axis.horizontal,
