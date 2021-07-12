@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:salonmobile/components/custom_surfix_icon.dart';
@@ -29,6 +30,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
   String phoneNumber;
   String address;
   String _verificationCode;
+  CountryCode countryCode;
 
   void addError({String error}) {
     if (!errors.contains(error))
@@ -183,7 +185,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       },
       decoration: InputDecoration(
         labelText: "Address",
-        hintText: "Enter your phone address",
+        hintText: "Enter your address",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -196,7 +198,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
   TextFormField buildPhoneNumberFormField() {
     return TextFormField(
       keyboardType: TextInputType.phone,
-      onSaved: (newValue) => phoneNumber = '+82$newValue',
+      onSaved: (newValue) => phoneNumber = (countryCode == null ) ?'+84$newValue' :'$countryCode$newValue',
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPhoneNumberNullError);
@@ -211,14 +213,53 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         return null;
       },
       decoration: InputDecoration(
+        prefixIcon: CountryCodePicker(
+          onChanged: (value){
+            setState(() {
+              countryCode = value;
+            });
+            print("$value PHT");
+          },
+          initialSelection: 'VN',
+          favorite: ['+82','+84'],
+          showCountryOnly: false,
+          showOnlyCountryWhenClosed: false,
+        ),
+
         labelText: "Phone Number",
         hintText: "Enter your phone number",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Phone.svg"),
+        //suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Phone.svg"),
       ),
     );
+
+    // return TextFormField(
+    //   keyboardType: TextInputType.phone,
+    //   onSaved: (newValue) => phoneNumber = '+84$newValue',
+    //   onChanged: (value) {
+    //     if (value.isNotEmpty) {
+    //       removeError(error: kPhoneNumberNullError);
+    //     }
+    //     return null;
+    //   },
+    //   validator: (value) {
+    //     if (value.isEmpty) {
+    //       addError(error: kPhoneNumberNullError);
+    //       return "";
+    //     }
+    //     return null;
+    //   },
+    //   decoration: InputDecoration(
+    //     labelText: "Phone Number",
+    //     hintText: "Enter your phone number",
+    //     // If  you are using latest version of flutter then lable text and hint text shown like this
+    //     // if you r using flutter less then 1.20.* then maybe this is not working properly
+    //     floatingLabelBehavior: FloatingLabelBehavior.always,
+    //     suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Phone.svg"),
+    //   ),
+    // );
   }
 
   TextFormField buildLastNameFormField() {
