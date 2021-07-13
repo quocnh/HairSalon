@@ -83,7 +83,8 @@ npm install ng2-order-pipe
 ### how to run ###
 ##################
 1. How to run frontend > cd frontend > npm start
-1.1 dont forget to start mongo server in other shell
+
+## dont forget to start mongo server in other shell
 ```python
 mongod
 ```
