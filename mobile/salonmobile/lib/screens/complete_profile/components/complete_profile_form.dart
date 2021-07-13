@@ -62,7 +62,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
-            text: "continue",
+            text: "Continue",
             press: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
@@ -213,7 +213,24 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         return null;
       },
       decoration: InputDecoration(
-        prefixIcon: CountryCodePicker(
+        // prefixIcon: CountryCodePicker(
+        //   onChanged: (value){
+        //     setState(() {
+        //       countryCode = value;
+        //     });
+        //     print("$value PHT");
+        //   },
+        //   initialSelection: 'VN',
+        //   favorite: ['+82','+84'],
+        //   showCountryOnly: false,
+        //   showOnlyCountryWhenClosed: false,
+        // ),
+        labelText: "Phone Number",
+        hintText: "Enter your phone number",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CountryCodePicker(
           onChanged: (value){
             setState(() {
               countryCode = value;
@@ -224,14 +241,8 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           favorite: ['+82','+84'],
           showCountryOnly: false,
           showOnlyCountryWhenClosed: false,
-        ),
-
-        labelText: "Phone Number",
-        hintText: "Enter your phone number",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        //suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Phone.svg"),
+        )
+        // CustomSurffixIcon(svgIcon: "assets/icons/Phone.svg"),
       ),
     );
 
