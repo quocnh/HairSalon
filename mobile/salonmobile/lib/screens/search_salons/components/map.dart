@@ -36,6 +36,7 @@ class _Map extends State<Map> {
   String nameSalon = '';
   String addressSalon = '';
   String imgSalon = '';
+  bool reloadMarkers = false;
   final cacheManager = CacheManager(Config(
     'customCache',
     stalePeriod: Duration(days: 1),
@@ -76,8 +77,11 @@ class _Map extends State<Map> {
               double.parse(listSalons[i].longitude)),
           // infoWindow: InfoWindow(
           //     title: listSalons[i].name, snippet: listSalons[i].address),
-          onTap: () {
+          onTap: () async{
             setState(() {
+              clearMarker();
+              reloadMarkers = true;
+              setMarkerSearchSalon(listSalons[i].name, listSalons[i].latitude, listSalons[i].longitude, listSalons[i].address, listSalons[i].photos[0]);
               nameSalon = listSalons[i].name;
               addressSalon = listSalons[i].address;
               imgSalon = listSalons[i].photos[0];
@@ -90,7 +94,7 @@ class _Map extends State<Map> {
     }
   }
   void setMarkerSearchSalon(String name, String lat, String long, String address, String photos) async{
-    final Uint8List markerIcon = await getBytesFromAsset('assets/images/hairdresser.png', getProportionateScreenWidth(80).toInt(), getProportionateScreenHeight(100).toInt());
+    final Uint8List markerIcon = await getBytesFromAsset('assets/images/hairdresser.png', getProportionateScreenWidth(120).toInt(), getProportionateScreenHeight(200).toInt());
     _controller.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(target: LatLng(double.parse(lat),
             double.parse(long)), zoom: 11.0)));
@@ -166,7 +170,15 @@ class _Map extends State<Map> {
           markers: Set.from(markers),
           onTap: (cordinate) {
             setState(() {
-              this.bottomPosition = INVISIBLE_POSITION;
+              if(controllerSuggestion.text.isEmpty && reloadMarkers == true){
+                this.bottomPosition = INVISIBLE_POSITION;
+                clearMarker();
+                reloadMarkers = false;
+                setMarkerAllSalons();
+              }else{
+                this.bottomPosition = INVISIBLE_POSITION;
+              }
+              // controllerSuggestion.text = '';
             });
             _controller.animateCamera(CameraUpdate.newLatLng(cordinate));
             // addMarker(cordinate);
@@ -196,6 +208,7 @@ class _Map extends State<Map> {
                             setState(() {
                               this.bottomPosition = INVISIBLE_POSITION;
                             });
+                            clearMarker();
                             setMarkerAllSalons();
                           }
                         },
@@ -210,8 +223,8 @@ class _Map extends State<Map> {
                               prefixIcon: Icon(Icons.search))),
                       suggestionsCallback: (query) async{
                         if(query.isEmpty){
-                          // return await null;
-                          return listEmpty;
+                          return await null;
+                          // return listEmpty;
                         }else{
                           return await SalonUtilsService().getAllSalonSuggestions(query);
                         }
