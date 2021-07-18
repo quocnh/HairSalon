@@ -17,6 +17,15 @@ class SalonUtilsService {
       return nameSalon.contains(nameQuery);
     }).toList();
   }
+  Future<List<Salon>> getSalonsFromCitySuggestions(String city,String query) async {
+    HttpService hS = new HttpService();
+    List response = await hS.sget('salons/city/' + city);
+    return response.map((json) => new Salon.fromJson(json)).where((user) {
+      final nameSalon = user.name.toLowerCase();
+      final nameQuery = query.toLowerCase();
+      return nameSalon.contains(nameQuery);
+    }).toList();
+  }
 
   Future<List<Salon>> getSalonsFromCity(String city) async {
     HttpService hS = new HttpService();

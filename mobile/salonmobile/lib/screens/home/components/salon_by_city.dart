@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:salonmobile/models/Product.dart';
+import 'package:salonmobile/screens/search_salons_of_city/search_salons_screen_of_city.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
 import 'section_title.dart';
@@ -32,6 +33,7 @@ class SalonByCity extends StatelessWidget {
                 numOfBrands: 18,
                 press: () {
                   print(demoProducts.length);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SearchSalonsOfCityScreen(city: "Hồ Chí Minh")));
                   // Navigator.push(
                   //     context,
                   //     MaterialPageRoute(
@@ -41,9 +43,12 @@ class SalonByCity extends StatelessWidget {
               ),
               SalonByCityCard(
                 image: "assets/images/Image Banner 3.png",
-                category: "Đà Nẵng",
+                category: "Hà Nội",
                 numOfBrands: 24,
-                press: () {},
+                press: () {
+                  print(demoProducts.length);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SearchSalonsOfCityScreen(city: "Hà Nội")));
+                },
               ),
               SizedBox(width: getProportionateScreenWidth(20)),
             ],

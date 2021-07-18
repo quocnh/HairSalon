@@ -17,8 +17,7 @@ class _Body extends State<Body> with AutomaticKeepAliveClientMixin{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return SafeArea(
-      child: Stack(
+    return Stack(
         children: [
           Map(),
           // Positioned(
@@ -33,8 +32,7 @@ class _Body extends State<Body> with AutomaticKeepAliveClientMixin{
           ItemList(),
 
         ],
-      ),
-    );
+      );
   }
 
   @override
