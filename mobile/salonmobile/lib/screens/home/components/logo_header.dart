@@ -4,8 +4,8 @@ import 'package:salonmobile/screens/home/components/search_field.dart';
 import 'package:salonmobile/screens/otp/otp_screen.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
-class HomeHeader extends StatelessWidget {
-  const HomeHeader({
+class LogoHeader extends StatelessWidget {
+  const LogoHeader({
     Key key,
   }) : super(key: key);
 
@@ -15,19 +15,9 @@ class HomeHeader extends StatelessWidget {
       padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(10)),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SearchField(),
-          IconBtnWithCounter(
-            svgSrc: "assets/icons/Cart Icon.svg",
-            press: () => Navigator.pushNamed(context, OtpScreen.routeName),
-            // press: () => Navigator.pushNamed(context, CartScreen.routeName),
-          ),
-          IconBtnWithCounter(
-            svgSrc: "assets/icons/Bell.svg",
-            numOfitem: 3,
-            press: () {},
-          ),
+          Image.asset("assets/images/paypal.png", height: 40, width: 140, fit: BoxFit.fill),
         ],
       ),
     );

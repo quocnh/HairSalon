@@ -51,12 +51,13 @@ class SalonsCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    width: getProportionateScreenWidth(160),
+                    width: getProportionateScreenWidth(150),
                     child: Text(
                       salons.name,
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: getProportionateScreenWidth(14),
+                        fontSize: getProportionateScreenWidth(16),
+                        fontWeight: FontWeight.bold,
                       ),
                       overflow: TextOverflow.clip,
 
@@ -82,7 +83,7 @@ class SalonsCard extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                         color: kPrimaryColor,
                       ),
-                      overflow: TextOverflow.clip,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ],

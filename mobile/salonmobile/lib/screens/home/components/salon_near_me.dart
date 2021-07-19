@@ -18,7 +18,7 @@ class SalonNearMe extends StatelessWidget {
         Padding(
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-          child: SectionTitle(title: "Salons Near Me", press: () {}),
+          child: SectionTitle(title: "Explore Salons", press: () {}),
         ),
         SizedBox(height: getProportionateScreenWidth(20)),
         FutureBuilder<List<Salon>>(
