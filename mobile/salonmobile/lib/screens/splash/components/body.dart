@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:salonmobile/components/default_button.dart';
 import 'package:salonmobile/screens/menu_page_builder/menu_page_builder_screen.dart';
 import 'package:salonmobile/screens/otp/components/otp_form.dart';
@@ -9,12 +10,35 @@ import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
 class Body extends StatefulWidget {
+  double latitude;
+  double longitude;
   @override
   _BodyState createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
   int currentPage = 0;
+  var locationMessage = "";
+
+  void getCurrentLocation() async{
+    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    var lastPosition = await Geolocator.getLastKnownPosition();
+    print(lastPosition);
+    setState(() {
+      locationMessage = "${position.latitude}, ${position.longitude}";
+      widget.latitude = position.latitude;
+      widget.longitude = position.longitude;
+      print("PHAN HUU TUNG");
+      print("lat: ${position.latitude}, long: ${position.longitude}");
+      print("${widget.latitude}, ${widget.longitude}");
+    });
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getCurrentLocation();
+  }
   List<Map<String, String>> splashData = [
     {"text": "pageview_1", "image": "assets/images/splash_1.png"},
     {"text": "pageview_2", "image": "assets/images/splash_2.png"},
