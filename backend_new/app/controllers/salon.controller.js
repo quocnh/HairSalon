@@ -376,7 +376,7 @@ salonRouter.patch('/:salonId/delService', (req, res) => {
         service.price = req.body.price;
         service.discount = req.body.discount;
         service.event = req.body.event;
-        console.log(service);
+        //console.log(service);
         Salon.findOneAndUpdate({ '_id': req.params.salonId },
             {
                 $pull:
@@ -402,7 +402,9 @@ salonRouter.patch('/:salonId/updateService/:sIndex', (req, res) => {
         service.price = req.body.price;
         service.discount = req.body.discount;
         service.event = req.body.event;
-        console.log(tid);
+        service.image = req.body.image;
+        service.time = req.body.time;
+        //console.log(tid);
         Salon.findOneAndUpdate({ '_id': req.params.salonId },
             {
                 $set: tid

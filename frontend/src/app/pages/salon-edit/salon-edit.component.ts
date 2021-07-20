@@ -194,7 +194,7 @@ export class SalonEditComponent implements OnInit {
   getSalonInfo(salonId) {
     this.salonUtilService.getOneSalon(salonId).subscribe(
       (salons: Salon) => {
-        this.salon = Object.assign({}, salons[0]);
+        this.loadSalonInfo(Object.assign({}, salons[0]));
         this.salonDb = Object.assign({}, salons[0]);
         this.strCustomerPhotos = [];
         this.strPhotos = [];
@@ -215,12 +215,6 @@ export class SalonEditComponent implements OnInit {
             this.strCustomerPhotos.push(environment.dbAddress + '/' + this.salon.customerPhotos[i]);
           }
         }
-        for (let i = 0; i < this.salon.services.length; i++){
-          //console.log(this.salon.services[i].image);
-          if (this.salon.services[i].image === undefined){
-            this.salon.services[i].image = "../../../assets/img/no_photo_available.png";
-          }
-        }
         this.loadMap();
         //console.log(this.salon);
       });
@@ -230,19 +224,23 @@ export class SalonEditComponent implements OnInit {
     console.log('Show imageSlider');
   }
 
+  loadSalonInfo(salon:Salon){
+    this.salon = salon;
+    for (let i = 0; i < this.salon.services.length; i++){
+      //console.log(this.salon.services[i].image);
+      if (this.salon.services[i].image === undefined){
+        this.salon.services[i].image = "../../../assets/img/no_photo_available.png";
+      }
+    }
+  }
+
   addNewService(service: Service) {
     // TODO
     console.log(service);
 
     this.salonUtilService.addSalonService(this.salon._id, service).subscribe(
       (salon: Salon) => {
-        this.salon = salon;
-        for (let i = 0; i < this.salon.services.length; i++){
-          //console.log(this.salon.services[i].image);
-          if (this.salon.services[i].image === undefined){
-            this.salon.services[i].image = "../../../assets/img/no_photo_available.png";
-          }
-        }
+        this.loadSalonInfo(salon);
         //Initialize default info for addedService
         this.addedService.image = 'assets/img/no_photo_available.png';
         this.addedService.time = 0;
@@ -258,7 +256,7 @@ export class SalonEditComponent implements OnInit {
 
     this.salonUtilService.delSalonService(this.salon._id, service).subscribe(
       (salon: Salon) => {
-        this.salon = salon;
+        this.loadSalonInfo(salon);
         // console.log(this.salon);
       });
   }
@@ -269,7 +267,7 @@ export class SalonEditComponent implements OnInit {
 
     this.salonUtilService.updateSalonService(this.salon._id, service, index).subscribe(
       (salon: Salon) => {
-        this.salon = salon;
+        this.loadSalonInfo(salon);
         // console.log(this.salon);
       });
   }
@@ -297,12 +295,24 @@ export class SalonEditComponent implements OnInit {
   }
 
   onFileSelectedServiceImage(event) {
+    //TODO: limit size 500kb
+
     this.addedServiceImage = event.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(this.addedServiceImage);
     reader.onload = (_event) => {
       this.addedService.image = reader.result.toString();
     }     
+  }
+
+  onFileModifyServiceImage(event, idx) {
+    //TODO: limit size 500kb
+
+    const reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onload = (_event) => {
+      this.salon.services[idx].image = reader.result.toString();
+    }
   }
 
   updateSalonInfo() {
@@ -334,7 +344,7 @@ export class SalonEditComponent implements OnInit {
   
             this.salonUtilService.updateSalon(this.salon, this.selectedFiles, this.deletedList).subscribe(
               (salon: Salon) => {
-                this.salon = salon;
+                this.loadSalonInfo(salon);
                 this.salonDb = salon;
                 this.strCustomerPhotos = [];
                 this.strPhotos = [];
@@ -357,7 +367,7 @@ export class SalonEditComponent implements OnInit {
       } else {
         this.salonUtilService.updateSalon(this.salon, this.selectedFiles, this.deletedList).subscribe(
           (salon: Salon) => {
-            this.salon = salon;
+            this.loadSalonInfo(salon);
             this.salonDb = salon;
             this.strCustomerPhotos = [];
             this.strPhotos = [];
