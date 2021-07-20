@@ -39,10 +39,10 @@ class _Body extends State<Body> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            //SizedBox(height: getProportionateScreenHeight(10)),
-            //LogoHeader(),
-            SizedBox(height: getProportionateScreenHeight(10)),
-            HomeHeader(),
+            // SizedBox(height: getProportionateScreenHeight(10)),
+            // LogoHeader(),
+            // SizedBox(height: getProportionateScreenHeight(10)),
+            // HomeHeader(),
             SizedBox(height: getProportionateScreenWidth(10)),
             DiscountBanner(),
             Categories(),
