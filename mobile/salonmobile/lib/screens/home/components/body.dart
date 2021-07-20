@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:salonmobile/screens/home/components/categories.dart';
 import 'package:salonmobile/screens/home/components/discount_banner.dart';
 import 'package:salonmobile/screens/home/components/home_header.dart';
 import 'package:salonmobile/screens/home/components/salon_by_city.dart';
@@ -38,11 +39,13 @@ class _Body extends State<Body> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: getProportionateScreenHeight(20)),
+            //SizedBox(height: getProportionateScreenHeight(10)),
+            //LogoHeader(),
+            SizedBox(height: getProportionateScreenHeight(5)),
             HomeHeader(),
-            SizedBox(height: getProportionateScreenWidth(20)),
+            SizedBox(height: getProportionateScreenWidth(10)),
             DiscountBanner(),
-            // Categories(),
+            Categories(),
             SizedBox(height: getProportionateScreenWidth(15)),
             SalonByCity(),
             SizedBox(height: getProportionateScreenWidth(30)),
