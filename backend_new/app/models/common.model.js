@@ -6,4 +6,6 @@ const Service = {
     price: Number,
     discount: Number,
     event: String,
+    image: String,
+    time: Number,
 };

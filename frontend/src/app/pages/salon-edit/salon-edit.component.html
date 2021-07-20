@@ -137,29 +137,39 @@
 </div>
 
 <div class="row">
-  <div class="col-md-8">
+  <div class="col-md-12">
     <div class="card card-chart">
       <div class="card-header">
         <h5 class="card-title">Danh sách Dịch vụ</h5>
         <div class="row">
-          <div class="col-md-3">
-            Dịch vụ
+          <div class="col-md-2">
+            Hình ảnh
+          </div>
+          <div class="col-md-2">
+            Tên dịch vụ
           </div>
           <div class="col-md-2">
             Giá
           </div>
-          <div class="col-md-2">
+          <div class="col-md-1">
             Giảm giá(%)
           </div>
-          <div class="col-md-3">
+          <div class="col-md-2">
             Khuyến mãi
           </div>
           <div class="col-md-2">
-            Cập nhật
+            Thời gian (phút)
           </div>
         </div>
         <div class="row" *ngFor="let s of salon.services; let i = index">
-          <div class="col-md-3">
+          <div class="col-md-2">
+            <div class=" btn-image" (click)="detailfileServiceImageInput.click()" style="padding: 2px; margin:0">
+              <img src="{{ s.image }}" style="width:100%">
+              <input #detailfileServiceImageInput type="file" (change)="onFileModifyServiceImage($event, i)"
+                style="display:none;" />
+            </div>
+          </div>
+          <div class="col-md-2">
             <input id="n-{{i}}" type="text" class="form-control card-title" placeholder="dịch vụ" value="{{ s.name }}"
               [(ngModel)]="s.name" [ngModelOptions]="{standalone: true}">
           </div>
@@ -167,12 +177,16 @@
             <input id="p-{{i}}" type="text" class="form-control card-title" placeholder="Giá" value="{{s.price }}"
               [(ngModel)]="s.price" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col-md-2">
+          <div class="col-md-1">
             <input id="d-{{i}}" type="text" class="form-control card-title" value="{{s.discount }}"
               [(ngModel)]="s.discount" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col-md-3">
+          <div class="col-md-2">
             <input id="e-{{i}}" type="text" class="form-control card-title" value="{{s.event }}" [(ngModel)]="s.event"
+              [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col-md-1">
+            <input id="e-{{i}}" type="text" class="form-control card-title" value="{{s.time }}" [(ngModel)]="s.time"
               [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col-md-2">
@@ -188,15 +202,32 @@
 
           </div>
         </div>
-        <hr>
+        <br>
+      </div>
+    </div>
+    <div class="card card-chart">
+      <div class="card-header">
+        
+        <h5 class="card-title">Thêm Dịch vụ mới</h5>
         <div class="row">
-          <div class="col-md-7">
-            <input name="addedServiceName" type="text" class="form-control card-title" placeholder="Thêm dịch vụ"
-              [(ngModel)]="addedService.name" [ngModelOptions]="{standalone: true}">
+          <div class="col-md-1" style="padding: 1px; margin:0">
+            <div class=" btn-image" (click)="detailfileServiceImageInput.click()" style="padding: 2px; margin:0">
+              <img src="{{addedService.image}}" style="width:100%">
+              <input #detailfileServiceImageInput type="file" (change)="onFileSelectedServiceImage($event)"
+                style="display:none;" />
+            </div>
           </div>
           <div class="col-md-3">
-            <input name="addedServicePrice" type="text" class="form-control card-title" placeholder="&#x20AB;0"
+            <input name="addedServiceName" type="text" class="form-control card-title" placeholder="Nhập tên dịch vụ mới"
+              [(ngModel)]="addedService.name" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col-md-2">
+            <input name="addedServicePrice" type="text" class="form-control card-title" placeholder="Giá (&#x20AB;)"
               [(ngModel)]="addedService.price" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="col-md-3">
+            <input name="addedServiceTime" type="text" class="form-control card-title" placeholder="Thời gian (phút)"
+              [(ngModel)]="addedService.time" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col-md-2">
             <button class="btn btn-sm btn-success btn-round btn-icon pull-right" (click)="addNewService(addedService)">
@@ -209,88 +240,89 @@
         <br>
       </div>
     </div>
-  </div>
 
-  <div class="col-md-4">
-    <div class="card card-chart">
-      <div class="card-header">
-        <h5 class="card-title">Thông tin salon</h5>
-      </div>
-      <div class="card-body">
-        <div class="row">
-
-          <div class="col-md-12 pr-1">
-            <p>Chi tiết salon (Upload tối đa 5 hình)</p>
-            <div class="row">
-              <div class="col-md-3" style="padding: 1px; margin:0">
-                <div class=" btn-image" (click)="detailfileInput5.click()" style="padding: 2px; margin:0">
-                  <img src={{strPhotos[5]}} style="width:100%">
-                  <input #detailfileInput5 type="file" (change)="onFileSelectedDetailSalon($event,5)"
-                    style="display:none;" />
-                </div>
-              </div>
-              <div class="col-md-3" style="padding: 1px; margin:0">
-                <button class="btn btn-sm btn-info btn-round" (click)="deletePhoto(5)"> Xóa </button>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-3" style="padding: 1px; margin:0">
-                <div class=" btn-image" (click)="detailfileInput6.click()" style="padding: 2px; margin:0">
-                  <img src={{strPhotos[6]}} style="width:100%">
-                  <input #detailfileInput6 type="file" (change)="onFileSelectedDetailSalon($event,6)"
-                    style="display:none;" />
-                </div>
-              </div>
-              <div class="col-md-3" style="padding: 1px; margin:0">
-                <button class="btn btn-sm btn-info btn-round" (click)="deletePhoto(6)"> Xóa </button>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-3" style="padding: 1px; margin:0">
-                <div class=" btn-image" (click)="detailfileInput7.click()" style="padding: 2px; margin:0">
-                  <img src={{strPhotos[7]}} style="width:100%">
-                  <input #detailfileInput7 type="file" (change)="onFileSelectedDetailSalon($event,7)"
-                    style="display:none;" />
-                </div>
-              </div>
-              <div class="col-md-3" style="padding: 1px; margin:0">
-                <button class="btn btn-sm btn-info btn-round" (click)="deletePhoto(7)"> Xóa </button>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-3" style="padding: 1px; margin:0">
-                <div class=" btn-image" (click)="detailfileInput8.click()" style="padding: 2px; margin:0">
-                  <img src={{strPhotos[8]}} style="width:100%">
-                  <input #detailfileInput8 type="file" (change)="onFileSelectedDetailSalon($event,8)"
-                    style="display:none;" />
-                </div>
-              </div>
-              <div class="col-md-3" style="padding: 1px; margin:0">
-                <button class="btn btn-sm btn-info btn-round" (click)="deletePhoto(8)"> Xóa </button>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-3" style="padding: 1px; margin:0">
-                <div class=" btn-image" (click)="detailfileInput9.click()" style="padding: 2px; margin:0">
-                  <img src={{strPhotos[9]}} style="width:100%">
-                  <input #detailfileInput9 type="file" (change)="onFileSelectedDetailSalon($event,9)"
-                    style="display:none;" />
-                </div>
-              </div>
-              <div class="col-md-3" style="padding: 1px; margin:0">
-                <button class="btn btn-sm btn-info btn-round" (click)="deletePhoto(9)"> Xóa </button>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </div>
-    </div>
   </div>
 
 </div>
+<div class="row">
+  <div class="col-md-12">
+  <div class="card card-chart">
+    <div class="card-header">
+      <h5 class="card-title">Thông tin salon</h5>
+    </div>
+    <div class="card-body">
+      <div class="row">
 
+        <div class="col-md-12 pr-1">
+          <p>Chi tiết salon (Upload tối đa 5 hình)</p>
+          <div class="row">
+            <div class="col-md-3" style="padding: 1px; margin:0">
+              <div class=" btn-image" (click)="detailfileInput5.click()" style="padding: 2px; margin:0">
+                <img src={{strPhotos[5]}} style="width:100%">
+                <input #detailfileInput5 type="file" (change)="onFileSelectedDetailSalon($event,5)"
+                  style="display:none;" />
+              </div>
+            </div>
+            <div class="col-md-3" style="padding: 1px; margin:0">
+              <button class="btn btn-sm btn-info btn-round" (click)="deletePhoto(5)"> Xóa </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3" style="padding: 1px; margin:0">
+              <div class=" btn-image" (click)="detailfileInput6.click()" style="padding: 2px; margin:0">
+                <img src={{strPhotos[6]}} style="width:100%">
+                <input #detailfileInput6 type="file" (change)="onFileSelectedDetailSalon($event,6)"
+                  style="display:none;" />
+              </div>
+            </div>
+            <div class="col-md-3" style="padding: 1px; margin:0">
+              <button class="btn btn-sm btn-info btn-round" (click)="deletePhoto(6)"> Xóa </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3" style="padding: 1px; margin:0">
+              <div class=" btn-image" (click)="detailfileInput7.click()" style="padding: 2px; margin:0">
+                <img src={{strPhotos[7]}} style="width:100%">
+                <input #detailfileInput7 type="file" (change)="onFileSelectedDetailSalon($event,7)"
+                  style="display:none;" />
+              </div>
+            </div>
+            <div class="col-md-3" style="padding: 1px; margin:0">
+              <button class="btn btn-sm btn-info btn-round" (click)="deletePhoto(7)"> Xóa </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3" style="padding: 1px; margin:0">
+              <div class=" btn-image" (click)="detailfileInput8.click()" style="padding: 2px; margin:0">
+                <img src={{strPhotos[8]}} style="width:100%">
+                <input #detailfileInput8 type="file" (change)="onFileSelectedDetailSalon($event,8)"
+                  style="display:none;" />
+              </div>
+            </div>
+            <div class="col-md-3" style="padding: 1px; margin:0">
+              <button class="btn btn-sm btn-info btn-round" (click)="deletePhoto(8)"> Xóa </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3" style="padding: 1px; margin:0">
+              <div class=" btn-image" (click)="detailfileInput9.click()" style="padding: 2px; margin:0">
+                <img src={{strPhotos[9]}} style="width:100%">
+                <input #detailfileInput9 type="file" (change)="onFileSelectedDetailSalon($event,9)"
+                  style="display:none;" />
+              </div>
+            </div>
+            <div class="col-md-3" style="padding: 1px; margin:0">
+              <button class="btn btn-sm btn-info btn-round" (click)="deletePhoto(9)"> Xóa </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 <div class="row">
   <div class="col-md-12">
     <div class="card card-chart">

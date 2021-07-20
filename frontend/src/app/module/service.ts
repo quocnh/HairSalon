@@ -3,4 +3,6 @@ export default class Service {
     price: number;
     discount: number;
     event: string;
+    image: string;
+    time: number;
 }

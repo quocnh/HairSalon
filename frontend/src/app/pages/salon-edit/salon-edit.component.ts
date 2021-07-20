@@ -31,6 +31,7 @@ export class SalonEditComponent implements OnInit {
   strCustomerPhotos:any = new Array();
   // strDetailSalonPhotos:any = new Array(10);
   modifiedAddress: string;
+  addedServiceImage:any;
 
   keyword = 'name';
   initialCity: string = '';
@@ -63,6 +64,10 @@ export class SalonEditComponent implements OnInit {
       this.deletedList[i] = 0;
 
     }
+
+    //Initialize default info for addedService
+    this.addedService.image = 'assets/img/no_photo_available.png';
+    this.addedService.time = 0;
 
     this.searchService.getCities().then(cities => {
       this.cities = cities;
@@ -210,8 +215,14 @@ export class SalonEditComponent implements OnInit {
             this.strCustomerPhotos.push(environment.dbAddress + '/' + this.salon.customerPhotos[i]);
           }
         }
+        for (let i = 0; i < this.salon.services.length; i++){
+          //console.log(this.salon.services[i].image);
+          if (this.salon.services[i].image === undefined){
+            this.salon.services[i].image = "../../../assets/img/no_photo_available.png";
+          }
+        }
         this.loadMap();
-        console.log(this.salon);
+        //console.log(this.salon);
       });
   }
 
@@ -221,15 +232,24 @@ export class SalonEditComponent implements OnInit {
 
   addNewService(service: Service) {
     // TODO
-    // console.log(service);
+    console.log(service);
 
     this.salonUtilService.addSalonService(this.salon._id, service).subscribe(
       (salon: Salon) => {
         this.salon = salon;
+        for (let i = 0; i < this.salon.services.length; i++){
+          //console.log(this.salon.services[i].image);
+          if (this.salon.services[i].image === undefined){
+            this.salon.services[i].image = "../../../assets/img/no_photo_available.png";
+          }
+        }
+        //Initialize default info for addedService
+        this.addedService.image = 'assets/img/no_photo_available.png';
+        this.addedService.time = 0;
         this.addedService.name = null;
         this.addedService.price = null;
         // console.log(this.salon);
-      });
+      });      
   }
 
   deleteService(service: Service) {
@@ -274,6 +294,15 @@ export class SalonEditComponent implements OnInit {
       this.strPhotos[idx] = reader.result;
     }
     console.log(this.selectedFiles[idx]);
+  }
+
+  onFileSelectedServiceImage(event) {
+    this.addedServiceImage = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(this.addedServiceImage);
+    reader.onload = (_event) => {
+      this.addedService.image = reader.result.toString();
+    }     
   }
 
   updateSalonInfo() {

@@ -345,6 +345,8 @@ salonRouter.patch('/:salonId/addService', (req, res) => {
         addedService.price = req.body.price;
         addedService.discount = req.body.discount;
         addedService.event = req.body.event;
+        addedService.image = req.body.image;
+        addedService.time = req.body.time;
         //console.log(addedService);
 
         Salon.findOneAndUpdate({ '_id': req.params.salonId },

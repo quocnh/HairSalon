@@ -16,7 +16,7 @@ var options = {
   key: key,
   cert: cert
 };
-
+app.use(bodyParser({limit: '1mb'}));
 app.use(cors());
 
 // parse requests of content-type - application/json
