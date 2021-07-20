@@ -1,11 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:salonmobile/screens/home/components/discount_banner.dart';
 import 'package:salonmobile/screens/home/components/home_header.dart';
 import 'package:salonmobile/screens/home/components/salon_by_city.dart';
 import 'package:salonmobile/screens/home/components/salon_near_me.dart';
 import 'package:salonmobile/utils/size_config.dart';
-
-class Body extends StatelessWidget {
+class Body extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _Body();
+  }
+}
+class _Body extends State<Body> {
+  var locationMessage = "";
+  double latitude;
+  double longitude;
+  void getCurrentLocation() async{
+    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    var lastPosition = await Geolocator.getLastKnownPosition();
+    print(lastPosition);
+    setState(() {
+      locationMessage = "${position.latitude}, ${position.longitude}";
+      latitude = position.latitude;
+      longitude = position.longitude;
+    });
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getCurrentLocation();
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -20,7 +46,7 @@ class Body extends StatelessWidget {
             SizedBox(height: getProportionateScreenWidth(15)),
             SalonByCity(),
             SizedBox(height: getProportionateScreenWidth(30)),
-            SalonNearMe(),
+            SalonNearMe(latitude: latitude, longitude: longitude),
             SizedBox(height: getProportionateScreenWidth(30)),
           ],
         ),
