@@ -28,10 +28,10 @@ export class SalonEditComponent implements OnInit {
   deletedList: any = new Array(10);
   // selectedDetailSalonFiles:any = new Array(5);
   strPhotos: any = new Array(10);
-  strCustomerPhotos:any = new Array();
+  strCustomerPhotos: any = new Array();
   // strDetailSalonPhotos:any = new Array(10);
   modifiedAddress: string;
-  addedServiceImage:any;
+  addedServiceImage: any;
 
   keyword = 'name';
   initialCity: string = '';
@@ -42,8 +42,8 @@ export class SalonEditComponent implements OnInit {
   selectedDistrict: any;
   flagUpdate = false;
 
-  map:any;
-  marker:any;
+  map: any;
+  marker: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -98,14 +98,14 @@ export class SalonEditComponent implements OnInit {
     })
   }
 
-  initMap() {    
-    var initLat='10.81078';
-    var initLong='106.66806';
+  initMap() {
+    var initLat = '10.81078';
+    var initLong = '106.66806';
 
-    if ((this.salon.latitude !== undefined) && (this.salon.longitude !== undefined)){
-       initLat = this.salon.latitude;
-       initLong = this.salon.longitude;
-     }
+    if ((this.salon.latitude !== undefined) && (this.salon.longitude !== undefined)) {
+      initLat = this.salon.latitude;
+      initLong = this.salon.longitude;
+    }
     var myLatlng = new google.maps.LatLng(initLat, initLong);
     var mapOptions = {
       zoom: 15,
@@ -126,7 +126,7 @@ export class SalonEditComponent implements OnInit {
     }
     console.log(document.getElementById("map"));
     this.map = new google.maps.Map(document.getElementById("map"), mapOptions);
-    
+
     const locationButton = document.createElement("button");
     locationButton.textContent = "Cập nhật vị trí salon";
     locationButton.classList.add("custom-map-control-button");
@@ -140,19 +140,18 @@ export class SalonEditComponent implements OnInit {
       this.marker.setMap(null);
       // console.log(this.salon.latitude, this.salon.longitude);
       if (((this.salon.latitude !== undefined) && (this.salon.longitude !== undefined)) &&
-          ((this.salon.latitude !== '') && (this.salon.longitude !== '')) &&
-          ((this.salon.latitude !== null) && (this.salon.longitude !== null)))
-      {
+        ((this.salon.latitude !== '') && (this.salon.longitude !== '')) &&
+        ((this.salon.latitude !== null) && (this.salon.longitude !== null))) {
         this.createSalonMarker();
       }
       else {
         var geocoder = new google.maps.Geocoder();
         var address = this.salon.address + ' ' + this.salon.district + ' ' + this.salon.city;
         // Convert address to long-lat
-        geocoder.geocode( { 'address': address}, function(results, status) {
+        geocoder.geocode({ 'address': address }, function (results, status) {
           if (status == 'OK') {
             console.log(results[0].geometry.location);
-            
+
           } else {
             alert('Geocode was not successful for the following reason: ' + status);
           }
@@ -167,13 +166,13 @@ export class SalonEditComponent implements OnInit {
     this.createSalonMarker();
   }
 
-  createSalonMarker(){
+  createSalonMarker() {
     var salonPos = new google.maps.LatLng(this.salon.latitude, this.salon.longitude);
     this.marker = new google.maps.Marker({
-        position: salonPos,
-        title: this.salon.name,
-        map: this.map,
-        draggable: true
+      position: salonPos,
+      title: this.salon.name,
+      map: this.map,
+      draggable: true
     });
 
     this.marker.addListener('dragend', (evt) => {
@@ -198,8 +197,8 @@ export class SalonEditComponent implements OnInit {
         this.salonDb = Object.assign({}, salons[0]);
         this.strCustomerPhotos = [];
         this.strPhotos = [];
-        for (let i = 0; i < this.cities.length; i++){
-          if (this.cities[i].name === this.salon.city){
+        for (let i = 0; i < this.cities.length; i++) {
+          if (this.cities[i].name === this.salon.city) {
             this.districts = this.cities[i].district;
             break;
           }
@@ -224,11 +223,11 @@ export class SalonEditComponent implements OnInit {
     console.log('Show imageSlider');
   }
 
-  loadSalonInfo(salon:Salon){
+  loadSalonInfo(salon: Salon) {
     this.salon = salon;
-    for (let i = 0; i < this.salon.services.length; i++){
+    for (let i = 0; i < this.salon.services.length; i++) {
       //console.log(this.salon.services[i].image);
-      if (this.salon.services[i].image === undefined){
+      if (this.salon.services[i].image === undefined) {
         this.salon.services[i].image = "../../../assets/img/no_photo_available.png";
       }
     }
@@ -247,7 +246,7 @@ export class SalonEditComponent implements OnInit {
         this.addedService.name = null;
         this.addedService.price = null;
         // console.log(this.salon);
-      });      
+      });
   }
 
   deleteService(service: Service) {
@@ -263,7 +262,7 @@ export class SalonEditComponent implements OnInit {
 
   updateService(service: Service, index: number) {
     // TODO
-    console.log(service);
+    //console.log(service);
 
     this.salonUtilService.updateSalonService(this.salon._id, service, index).subscribe(
       (salon: Salon) => {
@@ -295,23 +294,83 @@ export class SalonEditComponent implements OnInit {
   }
 
   onFileSelectedServiceImage(event) {
-    //TODO: limit size 500kb
+    var resizedImage;
+    var file = event.target.files[0];
+    // Ensure it's an image
+    if (file.type.match(/image.*/)) {
+      console.log('An image has been loaded');
 
-    this.addedServiceImage = event.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(this.addedServiceImage);
-    reader.onload = (_event) => {
-      this.addedService.image = reader.result.toString();
-    }     
+      // Load the image
+      var reader = new FileReader();
+      reader.onload = (_event) => {
+        var image = new Image();
+        image.src = URL.createObjectURL(file);
+        image.onload = (imageEvent) => {
+          // //TODO: limit size 300x300 ~ 30Kb
+          var canvas = document.createElement('canvas'),
+            max_size = 300,
+            width = image.width,
+            height = image.height;
+          if (width > max_size) {
+            width = max_size;
+          }
+          if (height > max_size) {
+            height = max_size;
+          }
+          canvas.width = width;
+          canvas.height = height;
+          canvas.getContext('2d').drawImage(image, 0, 0, width, height);
+          resizedImage = canvas.toDataURL('image/jpeg');
+
+          this.addedService.image = resizedImage;
+          //console.log(resizedImage);
+        }
+
+      }
+      reader.readAsDataURL(file);
+    }
+  }
+
+  resizeAndLoadImage(target, imageFile) {
+
   }
 
   onFileModifyServiceImage(event, idx) {
-    //TODO: limit size 500kb
 
-    const reader = new FileReader();
-    reader.readAsDataURL(event.target.files[0]);
-    reader.onload = (_event) => {
-      this.salon.services[idx].image = reader.result.toString();
+    var resizedImage;
+    var file = event.target.files[0];
+    // Ensure it's an image
+    if (file.type.match(/image.*/)) {
+      console.log('An image has been loaded');
+
+      // Load the image
+      var reader = new FileReader();
+      reader.onload = (_event) => {
+        var image = new Image();
+        image.src = URL.createObjectURL(file);
+        image.onload = (imageEvent) => {
+          // //TODO: limit size 300x300 ~ 30Kb
+          var canvas = document.createElement('canvas'),
+            max_size = 300,
+            width = image.width,
+            height = image.height;
+          if (width > max_size) {
+            width = max_size;
+          }
+          if (height > max_size) {
+            height = max_size;
+          }
+          canvas.width = width;
+          canvas.height = height;
+          canvas.getContext('2d').drawImage(image, 0, 0, width, height);
+          resizedImage = canvas.toDataURL('image/jpeg');
+
+          this.salon.services[idx].image = resizedImage;
+          //console.log(resizedImage);
+        }
+
+      }
+      reader.readAsDataURL(file);
     }
   }
 
@@ -341,7 +400,7 @@ export class SalonEditComponent implements OnInit {
             console.log(resposne.items[0].position);
             this.salon.longitude = resposne.items[0].position.lng;
             this.salon.latitude = resposne.items[0].position.lat;
-  
+
             this.salonUtilService.updateSalon(this.salon, this.selectedFiles, this.deletedList).subscribe(
               (salon: Salon) => {
                 this.loadSalonInfo(salon);
@@ -385,8 +444,8 @@ export class SalonEditComponent implements OnInit {
         );
         this.selectedFiles = [];
         this.deletedList.fill(0);
-      }     
-      
+      }
+
     }
   }
 
@@ -435,15 +494,15 @@ export class SalonEditComponent implements OnInit {
     this.flagUpdate = true;
   }
 
-  onFileSelectedCustomerPhotos(event){
-    
+  onFileSelectedCustomerPhotos(event) {
+
     this.selectedFiles[0] = event.target.files[0];
     console.log(this.selectedFiles[0]);
     this.salonUtilService.updateSalonCustomerPhotos(this.salon, this.selectedFiles).subscribe(
       (salon: Salon) => {
         this.salon = salon;
         this.salonDb = salon;
-        this.strCustomerPhotos=[];
+        this.strCustomerPhotos = [];
         for (let i = 0; i < this.salon.customerPhotos.length; i++) {
           if ((this.salon.customerPhotos[i] !== '') && (this.salon.customerPhotos[i] !== 'null')) {
             this.strCustomerPhotos.push(environment.dbAddress + '/' + this.salon.customerPhotos[i]);
@@ -454,7 +513,7 @@ export class SalonEditComponent implements OnInit {
     this.selectedFiles = [];
   }
 
-  deleteCustomerPhoto(idx){
+  deleteCustomerPhoto(idx) {
     console.log(this.salon.customerPhotos[idx]);
 
 
@@ -462,7 +521,7 @@ export class SalonEditComponent implements OnInit {
       (salon: Salon) => {
         this.salon = salon;
         this.salonDb = salon;
-        this.strCustomerPhotos=[];
+        this.strCustomerPhotos = [];
         for (let i = 0; i < this.salon.customerPhotos.length; i++) {
           if ((this.salon.customerPhotos[i] !== '') && (this.salon.customerPhotos[i] !== 'null')) {
             this.strCustomerPhotos.push(environment.dbAddress + '/' + this.salon.customerPhotos[i]);
