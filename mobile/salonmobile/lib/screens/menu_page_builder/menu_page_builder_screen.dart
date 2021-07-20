@@ -32,6 +32,7 @@ class _MenuPageBuilderScreenState extends State<MenuPageBuilderScreen> {
         ),
         bottomNavigationBar: BottomNavigationBar(
           onTap: _onItemTapped,
+          type: BottomNavigationBarType.fixed,
           items: [
             BottomNavigationBarItem(
                 icon: Icon(
