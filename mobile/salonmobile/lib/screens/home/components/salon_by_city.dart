@@ -18,7 +18,7 @@ class SalonByCity extends StatelessWidget {
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: SectionTitle(
-            title: "Explore",
+            title: "Explore Salons",
             press: () {},
           ),
         ),
