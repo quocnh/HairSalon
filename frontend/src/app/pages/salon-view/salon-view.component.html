@@ -16,7 +16,8 @@
 <div class="row">
   <div class="col-md-6">
     <div class=" btn-image " (click)="open(0)">
-      <img src={{strPhotos[0]}} style="object-fit: fill; height:408px; width:100%; padding-top: 3px; padding-bottom: 3px; margin: 0">
+      <img src={{strPhotos[0]}}
+        style="object-fit: fill; height:408px; width:100%; padding-top: 3px; padding-bottom: 3px; margin: 0">
 
     </div>
   </div>
@@ -58,7 +59,43 @@
         <h5 class="card-title">Thông tin salon</h5>
         <p class="card-category">{{salon.info}}</p>
       </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6" *ngFor="let item of salon.services">
+        <div class=" btn-primary card card-pricing">
+          <div class="card-body ">
+            <div class="row">
+              <div class="col-4">
+                <div class="icon-big icon-warning">
+                  <img class="productPhoto border-gray" src="{{item.image}}">
+                </div>
+                <div  style="color:red" *ngIf="item.discount > 0">
+                  <img  src="../../../assets/img/sale.png" width="30" height="30" >{{item.discount}}% 
+              </div>
+              </div>
+              <div class="col-8" *ngIf="item.discount > 0; else noDiscount">
+                <h6 class="card-title addressStyle">{{item.name}}</h6>
+                <h6 class="card-category"><s>{{item.price| currency:'VND'}}</s> {{item.price*((100-item.discount)/100)|
+                  currency:'VND'}}</h6>
+                <h6 class="card-category "><i class="nc-icon nc-time-alarm"></i> {{item.time}} ph</h6>
+                <p class="card-category " style="color:red">&nbsp;{{item.event}}</p>
+              </div>
+              <ng-template #noDiscount>
+                <div class="col-8">
+                  <h6 class="card-title addressStyle">{{item.name}}</h6>
+                  <h6 class="card-category">{{item.price| currency:'VND'}}</h6>
+                  <h6 class="card-category "><i class="nc-icon nc-time-alarm"></i> {{item.time}} ph</h6>
+                  <p class="card-category " style="color:red">&nbsp;{{item.event}}</p>
+                </div>
+              </ng-template>
+            </div>
+          </div>
 
+
+        </div>
+      </div>
+    </div>
+    <div class="card card-chart">
       <div class="card-body" *ngFor="let photo of strPhotos; let i = index">
         <div *ngIf="(photo !== '') && (photo !== 'null') && (i >= 5)">
           <img src="{{photo}}">
@@ -66,8 +103,8 @@
 
       </div>
     </div>
- 
-    
+
+
   </div>
 
   <div class="col-md-4">
@@ -105,7 +142,7 @@
 
             </div>
           </div>
-        </div>        
+        </div>
 
       </div>
       <div class="card-body ">
@@ -118,12 +155,14 @@
             <option *ngFor="let s of salon.services; let i = index">
               <p style="text-align:left;">{{s.name}} &emsp;</p>
               <div *ngIf="s.discount > 0; else noDiscount">
-                <span class="text-right" data-type="currency" style="color:red">({{s.price|currency:"&#x20AB;":'symbol':'3.0'}}) -{{s.discount}}%</span>
+                <span class="text-right" data-type="currency"
+                  style="color:red">({{s.price|currency:"&#x20AB;":'symbol':'3.0'}}) -{{s.discount}}%</span>
                 <span class="text-right" data-type="currency" style="color:red">{{s.event}}</span>
               </div>
-              <ng-template #noDiscount>                
-                <span class="text-right" data-type="currency">({{s.price|currency:"&#x20AB;":'symbol':'3.0'}} ) {{s.event}}</span>
-              </ng-template>              
+              <ng-template #noDiscount>
+                <span class="text-right" data-type="currency">({{s.price|currency:"&#x20AB;":'symbol':'3.0'}} )
+                  {{s.event}}</span>
+              </ng-template>
 
             </option>
           </select>
@@ -137,7 +176,7 @@
             <label>{{selectedBaber.firstname}} {{selectedBaber.lastname}}</label>
           </div>
         </div>
-        
+
         <!-- <div class="form-group">
           <select input type="text" class="form-control"
             (change)="selectBarberOnChange($event.target.options.selectedIndex)">
@@ -161,10 +200,10 @@
                   <th>
                     Dịch vụ
                   </th>
-                  <th >
+                  <th>
                     Giá
                   </th>
-                  <th >
+                  <th>
                     Giảm giá (%)
                   </th>
                   <th>
@@ -220,12 +259,8 @@
 </div>
 
 <div style="width: 100%; height: 200px; text-align:center;margin:0; padding:0;" *ngIf="customerPhotoLength > 0">
-  <ng-image-slider #nav
-    [images]="imageObject"
-    [infinite]="false"
-    [autoSlide]="1"
-    [imageSize]="{width: '12%', height: 200}"
-    slideImage="1">
+  <ng-image-slider #nav [images]="imageObject" [infinite]="false" [autoSlide]="1"
+    [imageSize]="{width: '12%', height: 200}" slideImage="1">
   </ng-image-slider>
 </div>
 
@@ -237,9 +272,8 @@
   <div class="card-body">
     <div class="row" *ngFor="let comment of comments; let i = index">
       <div class="col-md-1">
-        <img class="avatar border-gray" 
-             src={{comment.avatar}} 
-             style="width: 56px;height: 56px;overflow: hidden;border-radius: 50%;margin-bottom: 20px;">          
+        <img class="avatar border-gray" src={{comment.avatar}}
+          style="width: 56px;height: 56px;overflow: hidden;border-radius: 50%;margin-bottom: 20px;">
       </div>
       <div class="col-md-10">
         <div class="row" style="font-weight:bold;">
@@ -258,10 +292,10 @@
 
 
 
-  <form name="form">    
-    <textarea style="width: 100%; max-width: 100%;" name="Text1" rows="5" placeholder="Bình luận & Nhận xét"
-           [(ngModel)]="newComment.content" [ngModelOptions]="{standalone: true}"></textarea>
-    <div class="btn btn-booking card-btn" (click)="addNewComment()">
-      Gửi
-    </div>
-  </form>
+<form name="form">
+  <textarea style="width: 100%; max-width: 100%;" name="Text1" rows="5" placeholder="Bình luận & Nhận xét"
+    [(ngModel)]="newComment.content" [ngModelOptions]="{standalone: true}"></textarea>
+  <div class="btn btn-booking card-btn" (click)="addNewComment()">
+    Gửi
+  </div>
+</form>

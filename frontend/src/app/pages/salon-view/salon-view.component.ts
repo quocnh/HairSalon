@@ -20,6 +20,7 @@ import { SelectBarberComponent } from 'app/popup/select-barber/select-barber.com
   selector: 'app-salon-view',
   moduleId: module.id,
   templateUrl: './salon-view.component.html',
+  styleUrls: ['./salon-view.component.css']
 })
 
 export class SalonViewComponent implements OnInit {
