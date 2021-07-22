@@ -207,19 +207,19 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: getProportionateScreenHeight(110),
+              height: getProportionateScreenHeight(120),
               child: ListView.builder(
-                padding: EdgeInsets.all(8),
+                padding: EdgeInsets.all(getProportionateScreenWidth(8)),
                 itemCount: categoryList.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
-                    margin: EdgeInsets.all(8),
+                    margin: EdgeInsets.all(getProportionateScreenWidth(8)),
                     child: Column(
                       children: <Widget>[
-                        SvgPicture.asset(categoryList[index].img, height: 40, width: 40),
-                        8.height,
-                        Text(categoryList[index].categoryName, style: TextStyle(color: KatokAppTextColorSecondary, fontSize: 14))
+                        SvgPicture.asset(categoryList[index].img, height: getProportionateScreenHeight(33), width: getProportionateScreenWidth(33)),
+                        SizedBox(height: getProportionateScreenHeight(8)),
+                        Text(categoryList[index].categoryName, style: TextStyle(color: KatokAppTextColorSecondary, fontSize: getProportionateScreenWidth(13)))
                       ],
                     ),
                   );
@@ -642,6 +642,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
             return <Widget>[
               Container(
                 child: SliverAppBar(
+                  brightness: Brightness.dark,
                   leading: IconButton(icon: Icon(Icons.arrow_back,color: white),onPressed: (){
                     Navigator.pop(context);
                   },),
