@@ -19,6 +19,15 @@ export class SelectBarberComponent implements OnInit {
   salon: Salon = new Salon();
   barbers: Array<Barber> = [];
   selectedBarber: Barber;
+  page:number = 1;
+  key:string = 'id';
+  reverse: boolean = false;
+  sort(key) {
+    console.log(key);
+    this.key = key;
+    this.reverse = !this.reverse;
+  }
+
   constructor(
     private salonUtilService: SalonUtilsService,
     public modal: NgbActiveModal,
