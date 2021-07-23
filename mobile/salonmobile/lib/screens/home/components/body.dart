@@ -35,8 +35,7 @@ class _Body extends State<Body> {
   }
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SingleChildScrollView(
+    return SingleChildScrollView(
         child: Column(
           children: [
             // SizedBox(height: getProportionateScreenHeight(10)),
@@ -53,7 +52,6 @@ class _Body extends State<Body> {
             SizedBox(height: getProportionateScreenWidth(30)),
           ],
         ),
-      ),
-    );
+      );
   }
 }

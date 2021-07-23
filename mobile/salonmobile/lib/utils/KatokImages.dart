@@ -1,3 +1,5 @@
+import 'package:salonmobile/utils/AppConstant.dart';
+
 const KatokHairSalonLogo = "images/hairSalon/bh_hairSalonLogo.png";
 const KatokAppLogo = "images/hairSalon/bh_logo.svg";
 const KatokFacebookIcon = "images/hairSalon/bh_facebookIcon.svg";
@@ -21,6 +23,7 @@ const KatokBarCodeImg = "images/hairSalon/bh_barCodeImg.png";
 const KatokDashedBoardImage1 = "images/hairSalon/bh_dashedBoardImg1.jpg";
 const KatokDashedBoardImage2 = "images/hairSalon/bh_dashedBoardImg2.jpg";
 const KatokDashedBoardImage3 = "images/hairSalon/bh_dashedBoardImg3.jpg";
+const KatokDashedBoardImage4 = "$BaseUrl/images/hairSalon/bh_dashedBoardImg4.jpg";
 const KatokDashedBoardImage6 = "images/hairSalon/bh_dashedBoardImg6.jpg";
 const KatokMakeUp = "images/hairSalon/bh_makeUp.svg";
 const KatokInviteFriends = "images/hairSalon/bh_inviteFriends.jpg";

@@ -5,6 +5,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:salonmobile/models/KatokModel.dart';
+import 'package:salonmobile/screens/detail_salon/PackageOffersScreen.dart';
 import 'package:salonmobile/utils/AppWidget.dart';
 import 'package:salonmobile/utils/KatokColors.dart';
 import 'package:salonmobile/utils/KatokConstants.dart';
@@ -362,7 +363,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
               child: RaisedButton(
                 padding: EdgeInsets.all(12),
                 onPressed: () {
-                  // KatokPackageOffersScreen().launch(context);
+                  KatokPackageOffersScreen().launch(context);
                 },
                 color: KatokColorPrimary,
                 shape: RoundedRectangleBorder(
