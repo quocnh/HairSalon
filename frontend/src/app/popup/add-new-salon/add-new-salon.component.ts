@@ -88,6 +88,10 @@ export class AddNewSalonComponent implements OnInit {
     this.salon.address = this.salon.address + ' ' + this.selectedDistrict.name + ' ' + this.selectedCity.name;    
     console.log(this.salon.address);
 
+    if(this.salon.info == null || this.salon.info == ""){
+      this.salon.info = "Chưa có thông tin";
+    }
+
     this.getLatLng(this.salon.address).then(data=> {
       location = data;
       this.salon.latitude = location.lat;

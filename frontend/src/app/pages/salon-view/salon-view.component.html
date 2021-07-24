@@ -13,6 +13,13 @@
   </div>
 </div>
 
+<form (ngSubmit)="onSubmit(contactForm)" #contactForm="ngForm">
+  <input type="text" placeholder="Name" name="name" ngModel required #name="ngModel">
+  <input type="text" placeholder="Email" email name="email" ngModel required #email="ngModel">
+  <textarea placeholder="Messages" name="messages" ngModel required #messages="ngModel"></textarea>
+  <input type="submit" value="Send">
+</form>
+
 <div class="row">
   <div class="col-md-6">
     <div class=" btn-image " (click)="open(0)">

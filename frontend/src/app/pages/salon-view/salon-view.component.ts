@@ -15,6 +15,8 @@ import Comment from '../../module/comment';
 import User from 'app/module/userAccount';
 import { LoginComponent } from 'app/popup/login/login.component';
 import { SelectBarberComponent } from 'app/popup/select-barber/select-barber.component';
+import { NgForm } from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-salon-view',
@@ -50,7 +52,7 @@ export class SalonViewComponent implements OnInit {
   //   thumbImage: 'https://sanjayv.github.io/ng-image-slider/contents/assets/img/slider/5.jpg',
   //   title: 'Hummingbirds are amazing creatures'
   // }];
-  imageObject: any = new Array();
+  imageObject: any = new Array();  
   // object = {
   //   image: '',
   //   thumbImage: '',
@@ -64,7 +66,8 @@ export class SalonViewComponent implements OnInit {
     private _lightbox: Lightbox,
     private tokenStorageService: TokenStorageService,
     private modalService: NgbModal,
-    private router: Router
+    private router: Router,
+    private http: HttpClient,
   ) { }
 
   ngOnInit(): void {
@@ -337,6 +340,20 @@ export class SalonViewComponent implements OnInit {
       (cancel) => {
         console.log('cancel click');
       })
+  }
+
+  onSubmit(contactForm: NgForm) {
+    if (contactForm.valid) {
+      const email = contactForm.value;
+      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+      this.http.post('https://formspree.io/f/xayadklo',
+        { name: email.name, replyto: email.email, message: email.messages },
+        { 'headers': headers }).subscribe(
+          response => {
+            console.log(response);
+          }
+        );
+    }
   }
 
 
