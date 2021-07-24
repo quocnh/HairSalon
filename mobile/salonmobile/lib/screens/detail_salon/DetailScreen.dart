@@ -18,6 +18,10 @@ import 'package:salonmobile/utils/size_config.dart';
 
 
 class KatokDetailScreen extends StatefulWidget {
+  List<Salon> salonInfoList = [];
+  Salon salonInfo;
+  List<KatokGalleryModel> galleryList = [];
+  KatokDetailScreen({this.salonInfo, this.salonInfoList, this.galleryList});
   static String tag = '/NewSliverCustom';
 
   @override
@@ -28,22 +32,22 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
   int _radioValue1 = 0;
   TabController controller;
 
-  List<KatokGalleryModel> galleryList;
+  //List<KatokGalleryModel> galleryList;
   List<KatokCategoryModel> categoryList;
   List<KatokOfferModel> offerList;
   List<KatokServicesModel> servicesList;
   List<KatokReviewModel> reviewList;
   List<KatokHairStyleModel> hairStyleList;
   List<KatokMakeUpModel> makeupList;
-  List<Salon> salonInfoList;
-  Salon salonInfo;
+  // List<Salon> salonInfoList;
+  // Salon salonInfo;
   final URL_IMAGE = 'https://awinst.com:3000/app/';
 
   @override
   void initState() {
     super.initState();
     // TODO: Tìm cách import cái salonId từ caller vào
-    loadSalonInfo("60543a454584eb5e75d6fcff");
+    // loadSalonInfo("60543a454584eb5e75d6fcff");
 
     categoryList = getCategory();
     offerList = getOfferList();
@@ -53,29 +57,29 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
     makeupList = getMakeupList();
   }
 
-  void loadSalonInfo(String salonId) async{
-    final results = await SalonUtilsService().getSalonFromId(salonId);
-    setState(() {
-      salonInfoList = results;
-      salonInfo = results[0];
-      galleryList = getSalonPhotoList();
-      //print(salonInfo.info);
-    });
-  }
+  // void loadSalonInfo(String salonId) async{
+  //   final results = await SalonUtilsService().getSalonFromId(salonId);
+  //   setState(() {
+  //     salonInfoList = results;
+  //     salonInfo = results[0];
+  //     galleryList = getSalonPhotoList();
+  //     //print(salonInfo.info);
+  //   });
+  // }
 
-  List<KatokGalleryModel> getSalonPhotoList() {
-    List<KatokGalleryModel> galleryList = <KatokGalleryModel>[];
-    if(salonInfo == null) {
-      galleryList = getGalleryList();
-    } else {
-      for(int i = 0; i < salonInfo.photos.length; i++) {
-        String salonPhoto = URL_IMAGE + salonInfo.photos[i];
-        print(salonPhoto);
-        galleryList.add(KatokGalleryModel(img: URL_IMAGE + salonInfo.photos[i]));
-      }
-    }
-    return galleryList;
-  }
+  // List<KatokGalleryModel> getSalonPhotoList() {
+  //   List<KatokGalleryModel> galleryList = <KatokGalleryModel>[];
+  //   if(salonInfo == null) {
+  //     galleryList = getGalleryList();
+  //   } else {
+  //     for(int i = 0; i < salonInfo.photos.length; i++) {
+  //       String salonPhoto = URL_IMAGE + salonInfo.photos[i];
+  //       print(salonPhoto);
+  //       galleryList.add(KatokGalleryModel(img: URL_IMAGE + salonInfo.photos[i]));
+  //     }
+  //   }
+  //   return galleryList;
+  // }
 
   void something(int value) {
     setState(() {
@@ -111,7 +115,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                     ),
                     8.height,
                     //Text(KatokDetailTitle, style: TextStyle(color: KatokAppTextColorSecondary, fontSize: 14)),
-                    Text(salonInfo.info, style: TextStyle(color: KatokAppTextColorSecondary, fontSize: 14)),
+                    Text(widget.salonInfo.info, style: TextStyle(color: KatokAppTextColorSecondary, fontSize: 14)),
                   ],
                 ),
               ),
@@ -210,7 +214,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                     ),
                     8.width,
                     //Text('301 Dorthy walks,chicago,Us.', style: TextStyle(color: KatokColorPrimary, fontSize: 14)),
-                    Text(salonInfo.address, style: TextStyle(color: KatokColorPrimary, fontSize: 14)),
+                    Container(child: Text("${widget.salonInfo.address}, PHAN HUU TUNG", style: TextStyle(color: KatokColorPrimary, fontSize: 14)),width: getProportionateScreenWidth(230)),
                   ],
                 ),
               ),
@@ -223,11 +227,11 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
     Widget galleryWidget() {
       return StaggeredGridView.countBuilder(
         crossAxisCount: 4,
-        itemCount: galleryList.length,
+        itemCount: widget.galleryList.length,
         padding: EdgeInsets.all(16),
         itemBuilder: (BuildContext context, int index) => ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(5)),
-          child: Image.network(galleryList[index].img, fit: BoxFit.cover),
+          child: Image.network(widget.galleryList[index].img, fit: BoxFit.cover),
         ),
         staggeredTileBuilder: (int index) => new StaggeredTile.count(2, index.isEven ? 2 : 3),
         mainAxisSpacing: 16.0,
@@ -691,7 +695,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                       overflow: Overflow.visible,
                       children: [
                         Image.network(
-                          galleryList[0].img,
+                          widget.galleryList[0].img,
                           height: 500,
                           fit: BoxFit.cover,
                         ),
@@ -708,7 +712,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Text(
-                                    salonInfo.name,//'Marguerite Cross',
+                                    widget.salonInfo.name,//'Marguerite Cross',
                                     style: TextStyle(
                                       color: whiteColor,
                                       fontSize: 16,
@@ -719,7 +723,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        salonInfo.rating.toString(),//'4.5',
+                                        widget.salonInfo.rating.toString(),//'4.5',
                                         style: TextStyle(color: whiteColor, fontSize: 16),
                                       ),
                                       IconButton(icon: Icon(Icons.star, color: KatokColorPrimary), onPressed: () {})

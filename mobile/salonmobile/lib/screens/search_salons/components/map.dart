@@ -9,9 +9,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:salonmobile/models/KatokModel.dart';
 import 'package:salonmobile/models/Salon.dart';
 import 'package:salonmobile/screens/detail_salon/DetailScreen.dart';
 import 'package:salonmobile/services/salon_utils_service.dart';
+import 'package:salonmobile/utils/KatokDataProvider.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
@@ -34,6 +36,9 @@ class _Map extends State<Map> {
   final CameraPosition _initialPosition = CameraPosition(
       target: LatLng(10.815518357444795, 106.70793665499389), zoom: 11);
   final List<Marker> markers = [];
+  List<Salon> salonInfoList = [];
+  Salon salonInfo;
+  List<KatokGalleryModel> galleryList = [];
   String nameSalon = '';
   String addressSalon = '';
   String imgSalon = '';
@@ -86,6 +91,7 @@ class _Map extends State<Map> {
               nameSalon = listSalons[i].name;
               addressSalon = listSalons[i].address;
               imgSalon = listSalons[i].photos[0];
+              loadSalonInfo('60390a3c4584eb5e75d6fc71');
               this.bottomPosition = VISIBLE_POSITION;
             });
             print('$i' + 'PHAN HUU TUNG');
@@ -110,6 +116,7 @@ class _Map extends State<Map> {
             nameSalon = name;
             addressSalon = address;
             imgSalon = photos;
+            loadSalonInfo('60390a3c4584eb5e75d6fc71');
             this.bottomPosition = VISIBLE_POSITION;
           });
         },
@@ -151,6 +158,28 @@ class _Map extends State<Map> {
           icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
           markerId: MarkerId(id.toString())));
     });
+  }
+  void loadSalonInfo(String salonId) async{
+    final results = await SalonUtilsService().getSalonFromId(salonId);
+    setState(() {
+      salonInfoList = results;
+      salonInfo = results[0];
+      galleryList = getSalonPhotoList();
+      //print(salonInfo.info);
+    });
+  }
+  List<KatokGalleryModel> getSalonPhotoList() {
+    List<KatokGalleryModel> galleryList = <KatokGalleryModel>[];
+    if(salonInfo == null) {
+      galleryList = getGalleryList();
+    } else {
+      for(int i = 0; i < salonInfo.photos.length; i++) {
+        // String salonPhoto = URL_IMAGE + salonInfo.photos[i];
+        // print(salonPhoto);
+        galleryList.add(KatokGalleryModel(img: URL_IMAGE + salonInfo.photos[i]));
+      }
+    }
+    return galleryList;
   }
 
 
@@ -278,10 +307,12 @@ class _Map extends State<Map> {
                   if (snapshot.hasData) {
                     return InkWell(
                       onTap: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => KatokDetailScreen()),
-                        );
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => KatokDetailScreen(salonInfo: salonInfo, salonInfoList: salonInfoList,galleryList: galleryList)),
+                          );
+
                       },
                       child: Container(
                           padding: EdgeInsets.symmetric(
