@@ -43,6 +43,7 @@ class _Map extends State<Map> {
   List<Salon> salonInfoList = [];
   Salon salonInfo;
   List<KatokGalleryModel> galleryList = [];
+  String idSalon = '';
   String nameSalon = '';
   String addressSalon = '';
   String imgSalon = '';
@@ -97,6 +98,7 @@ class _Map extends State<Map> {
               clearMarker();
               reloadMarkers = true;
               setMarkerSearchSalon(
+                listSalons[i].id,
                   listSalons[i].name,
                   listSalons[i].latitude,
                   listSalons[i].longitude,
@@ -105,7 +107,8 @@ class _Map extends State<Map> {
               nameSalon = listSalons[i].name;
               addressSalon = listSalons[i].address;
               imgSalon = listSalons[i].photos[0];
-              loadSalonInfo('60390a3c4584eb5e75d6fc71');
+              idSalon = listSalons[i].id;
+              loadSalonInfo(idSalon);
               this.bottomPosition = VISIBLE_POSITION;
             });
             print('$i' + 'PHAN HUU TUNG');
@@ -115,7 +118,7 @@ class _Map extends State<Map> {
     }
   }
 
-  void setMarkerSearchSalon(String name, String lat, String long,
+  void setMarkerSearchSalon(String id, String name, String lat, String long,
       String address, String photos) async {
     final Uint8List markerIcon = await getBytesFromAsset(
         'assets/images/hairdresser.png',
@@ -133,7 +136,8 @@ class _Map extends State<Map> {
             nameSalon = name;
             addressSalon = address;
             imgSalon = photos;
-            loadSalonInfo('60390a3c4584eb5e75d6fc71');
+            idSalon = id;
+            loadSalonInfo(idSalon);
             this.bottomPosition = VISIBLE_POSITION;
           });
         },
@@ -304,7 +308,7 @@ class _Map extends State<Map> {
                           this.bottomPosition = INVISIBLE_POSITION;
                         });
                         clearMarker();
-                        setMarkerSearchSalon(salons.name, salons.latitude,
+                        setMarkerSearchSalon(salons.id,salons.name, salons.latitude,
                             salons.longitude, salons.address, salons.photos[0]);
 
                         /// tạo function add marker search, gán salons = salons (khởi tạo)

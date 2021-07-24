@@ -114,8 +114,11 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                       textAlign: TextAlign.center,
                     ),
                     8.height,
-                    //Text(KatokDetailTitle, style: TextStyle(color: KatokAppTextColorSecondary, fontSize: 14)),
-                    Text(widget.salonInfo.info, style: TextStyle(color: KatokAppTextColorSecondary, fontSize: 14)),
+                    Row(
+                      children: [
+                        Text(widget.salonInfo.info, style: TextStyle(color: KatokAppTextColorSecondary, fontSize: 14)),
+                      ],
+                    ),
                   ],
                 ),
               ),

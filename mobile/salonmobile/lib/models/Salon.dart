@@ -22,7 +22,7 @@ class Salon {
         this.photos});
   factory Salon.fromJson(Map<String, dynamic> json) {
     return Salon(
-        id: json['id'],
+        id: json['_id'],
         name: json['name'],
         address: json['address'],
         latitude: json['latitude'],
