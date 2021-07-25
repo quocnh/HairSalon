@@ -155,7 +155,7 @@ List<KatokOfferModel> getOfferList() {
   return offerList;
 }
 
-List<KatokServicesModel> getServicesList() {
+List<KatokServicesModel> getDefaultServicesList() {
   List<KatokServicesModel> servicesList = List<KatokServicesModel>();
   servicesList.add(KatokServicesModel(img: KatokDashedBoardImage3, serviceName: 'hair Style', time: '45 Min', price: 50, radioVal: 1));
   servicesList.add(KatokServicesModel(img: KatokDashedBoardImage1, serviceName: 'Change Hair Color', time: '50 Min', price: 100, radioVal: 2));

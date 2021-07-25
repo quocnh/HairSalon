@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -6,6 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:salonmobile/models/KatokModel.dart';
 import 'package:salonmobile/models/Salon.dart';
+import 'package:salonmobile/models/Service.dart';
 import 'package:salonmobile/screens/detail_salon/PackageOffersScreen.dart';
 import 'package:salonmobile/services/salon_utils_service.dart';
 import 'package:salonmobile/utils/AppWidget.dart';
@@ -46,8 +49,6 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
   @override
   void initState() {
     super.initState();
-    // TODO: Tìm cách import cái salonId từ caller vào
-    // loadSalonInfo("60543a454584eb5e75d6fcff");
 
     categoryList = getCategory();
     offerList = getOfferList();
@@ -57,29 +58,14 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
     makeupList = getMakeupList();
   }
 
-  // void loadSalonInfo(String salonId) async{
-  //   final results = await SalonUtilsService().getSalonFromId(salonId);
-  //   setState(() {
-  //     salonInfoList = results;
-  //     salonInfo = results[0];
-  //     galleryList = getSalonPhotoList();
-  //     //print(salonInfo.info);
-  //   });
-  // }
-
-  // List<KatokGalleryModel> getSalonPhotoList() {
-  //   List<KatokGalleryModel> galleryList = <KatokGalleryModel>[];
-  //   if(salonInfo == null) {
-  //     galleryList = getGalleryList();
-  //   } else {
-  //     for(int i = 0; i < salonInfo.photos.length; i++) {
-  //       String salonPhoto = URL_IMAGE + salonInfo.photos[i];
-  //       print(salonPhoto);
-  //       galleryList.add(KatokGalleryModel(img: URL_IMAGE + salonInfo.photos[i]));
-  //     }
-  //   }
-  //   return galleryList;
-  // }
+  List<KatokServicesModel> getServicesList() {
+    List<KatokServicesModel> servicesList = List<KatokServicesModel>();
+    for(int i = 0; i < widget.salonInfo.services.length; i++) {
+      Service service = widget.salonInfo.services[i];
+      servicesList.add(KatokServicesModel(img: service.image, serviceName: service.name, time: service.time.toString(), price: service.price, radioVal: i));
+    }
+    return servicesList;
+  }
 
   void something(int value) {
     setState(() {
@@ -738,8 +724,8 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Day Salon', style: TextStyle(color: whiteColor, fontSize: 16), textAlign: TextAlign.left),
-                                  //Text(salonInfo.address, style: TextStyle(color: whiteColor, fontSize: 16), textAlign: TextAlign.left),
+                                  //Text('Day Salon', style: TextStyle(color: whiteColor, fontSize: 16), textAlign: TextAlign.left),
+                                  Text("${widget.salonInfo.address}", style: TextStyle(color: whiteColor, fontSize: 16), textAlign: TextAlign.left),
                                   Container(
                                     height: 25,
                                     width: 65,

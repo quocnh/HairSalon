@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'package:salonmobile/models/Service.dart';
+
 class Salon {
   final String id;
   final String name;
@@ -7,6 +10,7 @@ class Salon {
   final String info;
   final int rating;
   final bool isFavourite;
+  final List<Service> services;
   final List<String> photos;
 
   Salon(
@@ -19,6 +23,7 @@ class Salon {
         this.info,
         this.rating,
         this.isFavourite,
+        this.services,
         this.photos});
   factory Salon.fromJson(Map<String, dynamic> json) {
     return Salon(
@@ -30,6 +35,7 @@ class Salon {
         info: json['info'],
         rating: json['rate'],
         isFavourite: true,
+        services: [],
         photos: json['photos'].cast<String>());
   }
 }
