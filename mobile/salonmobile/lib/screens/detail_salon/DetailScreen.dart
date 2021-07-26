@@ -345,7 +345,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
-                        child:base64CacheImageWidget(servicesList[index].img, 80, width: 80, fit: BoxFit.cover),
+                        child:commonCacheImageWidget(servicesList[index].img, 80, width: 80, fit: BoxFit.cover),
                       ),
                       8.width,
                       Column(

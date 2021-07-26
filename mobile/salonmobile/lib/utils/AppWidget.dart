@@ -103,14 +103,11 @@ Widget commonCacheImageWidget(String url, double height,
     } else {
       return Image.network(url, height: height, width: width, fit: fit);
     }
+  } else if (url.validate().contains('base64')){
+    return Image.memory(base64Decode(url.split(',').last), height: height, width: width, fit: fit);
   } else {
     return Image.asset(url, height: height, width: width, fit: fit);
   }
-}
-
-Widget base64CacheImageWidget(String url, double height,
-    {double width, BoxFit fit}) {
-    return Image.memory(base64Decode(url.split(',').last), height: height, width: width, fit: fit);
 }
 
 Widget settingItem(context, String text,
