@@ -97,6 +97,7 @@ class _Map extends State<Map> {
               this.bottomPosition = VISIBLE_POSITION;
             });
             print('$i' + 'PHAN HUU TUNG');
+            print("${listSalons[i].services.length}, PHAN HUU TUNG");
           },
         ));
       });

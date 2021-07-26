@@ -9,14 +9,14 @@ class Service {
   final image;
 
   Service(
-      {@required this.name,
-      @required this.price,
-      this.discount = 0,
-      this.event = "",
-      this.time = 0,
-      this.image =""});
+      {this.name,
+      this.price,
+      this.discount,
+      this.event,
+      this.time,
+      this.image});
 
-  factory Service.fromJson(Map<String, dynamic> json) {
+  factory Service.fromJson(dynamic json) {
     return Service(
         name: json['name'],
         price: json['price'],
