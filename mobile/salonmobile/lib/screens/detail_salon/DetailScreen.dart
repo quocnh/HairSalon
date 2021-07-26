@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
@@ -62,7 +63,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
     List<KatokServicesModel> servicesList = List<KatokServicesModel>();
     for(int i = 0; i < widget.salonInfo.services.length; i++) {
       Service service = widget.salonInfo.services[i];
-      servicesList.add(KatokServicesModel(img: service.image, serviceName: service.name, time: service.time.toString(), price: service.price, radioVal: i));
+      servicesList.add(KatokServicesModel(img: service.image, serviceName: service.name, time: service.time.toString(), price: service.price.toInt(), radioVal: 0));
     }
     return servicesList;
   }
@@ -344,7 +345,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
-                        child:commonCacheImageWidget(servicesList[index].img, 80, width: 80, fit: BoxFit.cover),
+                        child:base64CacheImageWidget(servicesList[index].img, 80, width: 80, fit: BoxFit.cover),
                       ),
                       8.width,
                       Column(

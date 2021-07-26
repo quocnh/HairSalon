@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 
 class Service {
   final String name;
-  final int price;
-  final int discount;
+  final String price;
+  final String discount;
   final String event;
-  final int time;
+  final String time;
   final image;
 
   Service(
       {@required this.name,
       @required this.price,
-      this.discount = 0,
+      this.discount = "0",
       this.event = "",
-      this.time = 0,
+      this.time = "0",
       this.image =""});
 
   factory Service.fromJson(Map<String, dynamic> json) {
@@ -23,6 +23,6 @@ class Service {
         discount: json['discount'],
         event: json['event'],
         time: json['time'],
-        image: json['image'].cast<String>());
+        image: json['image']);
   }
 }

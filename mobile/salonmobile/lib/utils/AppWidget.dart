@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 // import 'package:admob_flutter/admob_flutter.dart';
@@ -105,6 +106,11 @@ Widget commonCacheImageWidget(String url, double height,
   } else {
     return Image.asset(url, height: height, width: width, fit: fit);
   }
+}
+
+Widget base64CacheImageWidget(String url, double height,
+    {double width, BoxFit fit}) {
+    return Image.memory(base64Decode(url.split(',').last), height: height, width: width, fit: fit);
 }
 
 Widget settingItem(context, String text,
