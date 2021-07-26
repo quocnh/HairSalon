@@ -1,37 +1,50 @@
 import 'package:flutter/material.dart';
 
-class Service {
-  final String name;
-  final double price;
-  final int discount;
-  final String event;
-  final int time;
-  final image;
+class Barber {
+  final String id;
+  final String userId;
+  final String salonId;
+  final String salonName;
+  final String userName;
+  final String firstname, lastname;
+  final String phone;
+  final String email;
+  final String dob;
+  final String gender;
+  final String profile;
+  final String avatar;
+  final String hometown;
+  final String idcard;
+  final double rating;
 
-  Service(
-      {@required this.name,
-      @required this.price,
-      this.discount = 0,
-      this.event = "",
-      this.time = 0,
-      this.image =""});
+  Barber(
+      {@required this.id,
+      @required this.salonId,
+        this.userId = "",
+        this.salonName="",
+        this.userName="",
+        this.firstname="", this.lastname="",
+        this.phone="",
+        this.email="",
+        this.dob="",
+        this.gender="",
+        this.profile="",
+        this.avatar="",
+        this.hometown="",
+        this.idcard = "",
+        this.rating = 0});
 
-  factory Service.fromJson(Map<String, dynamic> json) {
-    int tmr = 0, discount = 0;
-    double price = 0;
-    if (json['time'] != null)
-      tmr = int.parse(json['time']);
-    if (json['discount'] != null)
-      discount = int.parse(json['discount']);
-    if (json['price'] != null)
-      price = double.parse(json['price']);
+  factory Barber.fromJson(Map<String, dynamic> json) {
+    double rating = 0;
 
-    return Service(
-        name: json['name'],
-        price: price,
-        discount: discount,
-        event: json['event'],
-        time: tmr,
-        image: json['image']);
+    if (json['rating'] != null)
+      rating = double.parse(json['rating']);
+
+    return Barber(
+        firstname: json['firstname'],
+        lastname: json['lastname'],
+        profile: json['profile'],
+        rating: rating,
+        avatar: json['avatar']);
   }
 }

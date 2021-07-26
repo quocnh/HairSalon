@@ -25,7 +25,8 @@ class KatokDetailScreen extends StatefulWidget {
   List<Salon> salonInfoList = [];
   Salon salonInfo;
   List<KatokGalleryModel> galleryList = [];
-  KatokDetailScreen({this.salonInfo, this.salonInfoList, this.galleryList});
+  List<KatokHairStyleModel> hairStyleList = [];
+  KatokDetailScreen({this.salonInfo, this.salonInfoList, this.galleryList, this.hairStyleList});
   static String tag = '/NewSliverCustom';
 
   @override
@@ -41,7 +42,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
   List<KatokOfferModel> offerList;
   List<KatokServicesModel> servicesList;
   List<KatokReviewModel> reviewList;
-  List<KatokHairStyleModel> hairStyleList;
+  //List<KatokHairStyleModel> hairStyleList;
   List<KatokMakeUpModel> makeupList;
   // List<Salon> salonInfoList;
   // Salon salonInfo;
@@ -55,7 +56,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
     offerList = getOfferList();
     servicesList = getServicesList();
     reviewList = getReviewList();
-    hairStyleList = getHairStyleList();
+    //hairStyleList = getHairStyleList();
     makeupList = getMakeupList();
   }
 
@@ -597,7 +598,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                 height: 180,
                 child: ListView.builder(
                   padding: EdgeInsets.symmetric(vertical: 8),
-                  itemCount: hairStyleList.length,
+                  itemCount: widget.hairStyleList.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
                     return Card(
@@ -609,12 +610,12 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-                            child:commonCacheImageWidget(hairStyleList[index].img, 110, width: 120, fit: BoxFit.cover),
+                            child:commonCacheImageWidget(widget.hairStyleList[index].img, 110, width: 120, fit: BoxFit.cover),
                           ),
                           Padding(
                             padding: EdgeInsets.all(8),
                             child: Text(
-                              hairStyleList[index].name,
+                              widget.hairStyleList[index].name,
                               style: TextStyle(fontSize: 14, color: KatokAppTextColorSecondary),
                             ),
                           ),
@@ -641,7 +642,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-                            child: commonCacheImageWidget(hairStyleList[index].img, 110, width: 120, fit: BoxFit.cover),
+                            child: commonCacheImageWidget(widget.hairStyleList[index].img, 110, width: 120, fit: BoxFit.cover),
                           ),
                           Padding(
                             padding: EdgeInsets.all(8),
