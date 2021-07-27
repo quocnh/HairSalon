@@ -97,7 +97,7 @@ class _Map extends State<Map> {
               this.bottomPosition = VISIBLE_POSITION;
             });
             print('$i' + 'PHAN HUU TUNG');
-            print("${listSalons[i].services.length}, PHAN HUU TUNG");
+            print("${listSalons[i].services[0].name}, PHAN HUU TUNG");
           },
         ));
       });
@@ -194,6 +194,9 @@ class _Map extends State<Map> {
     return Stack(
       children: [
         GoogleMap(
+          myLocationButtonEnabled: true,
+          myLocationEnabled: true,
+          padding: EdgeInsets.only(bottom: 100),
           zoomControlsEnabled: false,
           initialCameraPosition: _initialPosition,
           mapType: MapType.normal,
