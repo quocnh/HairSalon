@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:salonmobile/models/Barber.dart';
 import 'package:salonmobile/models/KatokModel.dart';
 import 'package:salonmobile/models/Salon.dart';
 import 'package:salonmobile/screens/detail_salon/DetailScreen.dart';
@@ -37,6 +38,8 @@ class _Map extends State<Map> {
       target: LatLng(10.815518357444795, 106.70793665499389), zoom: 11);
   final List<Marker> markers = [];
   List<Salon> salonInfoList = [];
+  List<Barber> barberList = [];
+  List<KatokHairStyleModel> hairStyleList = [];
   Salon salonInfo;
   List<KatokGalleryModel> galleryList = [];
   String idSalon = '';
@@ -121,6 +124,8 @@ class _Map extends State<Map> {
             imgSalon = photos;
             idSalon = id;
             loadSalonInfo(idSalon);
+            print("Load babers List ");
+            loadBarberInfo(salonInfo.id);
             print("$idSalon, PHAN HUU TUNG");
             this.bottomPosition = VISIBLE_POSITION;
           });
@@ -173,6 +178,29 @@ class _Map extends State<Map> {
       //print(salonInfo.info);
     });
   }
+  void loadBarberInfo(String salonId) async{
+    final results = await SalonUtilsService().getBarbersFromSalonId(salonId);
+    setState(() {
+      barberList = results;
+      hairStyleList = getBarberList();
+      print(hairStyleList[0].name);
+    });
+  }
+
+  List<KatokHairStyleModel> getBarberList() {
+    List<KatokHairStyleModel> bbList = <KatokHairStyleModel>[];
+    if(salonInfo == null) {
+      bbList = getHairStyleList();
+    } else {
+      for(int i = 0; i < salonInfo.photos.length; i++) {
+        // String salonPhoto = URL_IMAGE + salonInfo.photos[i];
+        // print(salonPhoto);
+        bbList.add(KatokHairStyleModel(img: URL_IMAGE + barberList[i].avatar, name:barberList[i].firstname + barberList[i].lastname));
+      }
+    }
+    return bbList;
+  }
+
   List<KatokGalleryModel> getSalonPhotoList() {
     List<KatokGalleryModel> galleryList = <KatokGalleryModel>[];
     if(salonInfo == null) {
@@ -315,10 +343,9 @@ class _Map extends State<Map> {
                   if (snapshot.hasData) {
                     return InkWell(
                       onTap: (){
-
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => KatokDetailScreen(salonInfo: salonInfo, salonInfoList: salonInfoList,galleryList: galleryList)),
+                            MaterialPageRoute(builder: (context) => KatokDetailScreen(salonInfo: salonInfo, salonInfoList: salonInfoList,galleryList: galleryList, hairStyleList: hairStyleList)),
                           );
 
                       },
