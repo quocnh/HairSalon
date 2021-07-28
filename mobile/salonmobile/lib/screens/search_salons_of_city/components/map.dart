@@ -100,21 +100,15 @@ class _Map extends State<Map> {
             setState(() {
               clearMarker();
               reloadMarkers = true;
-              setMarkerSearchSalon(
-                listSalons[i].id,
-                  listSalons[i].name,
-                  listSalons[i].latitude,
-                  listSalons[i].longitude,
-                  listSalons[i].address,
-                  listSalons[i].photos[0]);
+              setMarkerSearchSalon(listSalons[i].id, listSalons[i].name, listSalons[i].latitude, listSalons[i].longitude, listSalons[i].address, listSalons[i].photos[0]);
               nameSalon = listSalons[i].name;
               addressSalon = listSalons[i].address;
               imgSalon = listSalons[i].photos[0];
               idSalon = listSalons[i].id;
               loadSalonInfo(idSalon);
+              this.bottomPosition = VISIBLE_POSITION;
               print("Load babers List ");
               loadBarberInfo(salonInfo.id);
-              this.bottomPosition = VISIBLE_POSITION;
             });
             print('$i' + 'PHAN HUU TUNG');
           },
@@ -366,7 +360,7 @@ class _Map extends State<Map> {
                           );
 
                       },
-                      child: Container(
+                      child: (imgSalon == "") ? Container() : Container(
                           padding: EdgeInsets.symmetric(
                               horizontal: getProportionateScreenWidth(10)),
                           child: Container(

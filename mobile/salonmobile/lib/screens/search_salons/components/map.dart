@@ -348,7 +348,7 @@ class _Map extends State<Map> {
                           );
 
                       },
-                      child: Container(
+                      child: (imgSalon == "") ? Container() : Container(
                           padding: EdgeInsets.symmetric(
                               horizontal: getProportionateScreenWidth(10)),
                           child: Container(
@@ -359,19 +359,19 @@ class _Map extends State<Map> {
                             child: Row(
                               children: [
                                 CachedNetworkImage(imageUrl: URL_IMAGE + imgSalon,
-                                imageBuilder: (context, imageProvider){
-                                  return Container(
-                                    width: getProportionateScreenWidth(80),
-                                    height: getProportionateScreenHeight(80),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                        image: imageProvider, fit: BoxFit.fill
-                                      )
-                                    ),
-                                  );
-                                },
-                                  cacheManager: cacheManager,
+                                    imageBuilder: (context, imageProvider){
+                                      return Container(
+                                        width: getProportionateScreenWidth(80),
+                                        height: getProportionateScreenHeight(80),
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            image: DecorationImage(
+                                                image: imageProvider, fit: BoxFit.fill
+                                            )
+                                        ),
+                                      );
+                                    },
+                                    cacheManager: cacheManager,
                                     placeholder: _loader,
                                     errorWidget: _error)
                                 // Container(
@@ -396,14 +396,14 @@ class _Map extends State<Map> {
                                   child: Container(
                                     padding: EdgeInsets.symmetric(
                                         horizontal:
-                                            getProportionateScreenWidth(20),
+                                        getProportionateScreenWidth(20),
                                         vertical:
-                                            getProportionateScreenHeight(10)),
+                                        getProportionateScreenHeight(10)),
                                     child: Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
+                                      MainAxisAlignment.spaceAround,
                                       children: [
                                         Text(nameSalon,
                                             style: TextStyle(
@@ -414,7 +414,7 @@ class _Map extends State<Map> {
                                           "\$12.01",
                                           style: TextStyle(
                                             fontSize:
-                                                getProportionateScreenWidth(14),
+                                            getProportionateScreenWidth(14),
                                             fontWeight: FontWeight.w600,
                                             color: kPrimaryColor,
                                           ),
@@ -424,12 +424,12 @@ class _Map extends State<Map> {
                                   ),
                                 ),
                                 Container(
-                                  height: getProportionateScreenHeight(40),
+                                    height: getProportionateScreenHeight(40),
                                     width:getProportionateScreenWidth(40),
                                     padding: EdgeInsets.only(
                                         right: getProportionateScreenWidth(10)),
                                     child: Image.asset(
-                                      "assets/images/hairdresser.png"
+                                        "assets/images/hairdresser.png"
                                     ))
                               ],
                             ),

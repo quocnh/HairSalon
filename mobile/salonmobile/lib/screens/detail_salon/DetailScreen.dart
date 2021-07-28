@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,12 +9,10 @@ import 'package:salonmobile/models/KatokModel.dart';
 import 'package:salonmobile/models/Salon.dart';
 import 'package:salonmobile/models/Service.dart';
 import 'package:salonmobile/screens/detail_salon/PackageOffersScreen.dart';
-import 'package:salonmobile/services/salon_utils_service.dart';
 import 'package:salonmobile/utils/AppWidget.dart';
 import 'package:salonmobile/utils/KatokColors.dart';
 import 'package:salonmobile/utils/KatokConstants.dart';
 import 'package:salonmobile/utils/KatokDataProvider.dart';
-import 'package:salonmobile/utils/KatokImages.dart';
 import 'package:salonmobile/utils/flutter_rating_bar.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
