@@ -17,14 +17,14 @@ class Service {
       this.image = ""});
 
   factory Service.fromJson(Map<String, dynamic> json) {
-    // int tmr = 0, discount = 0;
-    // double price = 0;
-    // if (json['time'] != null)
-    //   tmr = int.parse(json['time']);
-    // if (json['discount'] != null)
-    //   discount = int.parse(json['discount']);
-    // if (json['price'] != null)
-    //   price = double.parse(json['price']);
+    int tmr = 0, discount = 0;
+    double price = 0;
+    if (json['time'] != null)
+      tmr = int.parse(json['time']);
+    if (json['discount'] != null)
+      discount = int.parse(json['discount']);
+    if (json['price'] != null)
+      price = double.parse(json['price']);
 
     return Service(
         name: json['name'],

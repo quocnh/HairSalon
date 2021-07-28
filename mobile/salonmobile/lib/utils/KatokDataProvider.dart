@@ -186,7 +186,7 @@ List<KatokReviewModel> getReviewList() {
   return reviewList;
 }
 
-List<KatokHairStyleModel> getHairStyleList() {
+List<KatokHairStyleModel> getDefaultHairStyleList() {
   List<KatokHairStyleModel> hairStyleList = List<KatokHairStyleModel>();
   hairStyleList.add(KatokHairStyleModel(img: KatokDashedBoardImage3, name: 'Carlos Day'));
   hairStyleList.add(KatokHairStyleModel(img: KatokDashedBoardImage2, name: 'Carlos Sherman'));

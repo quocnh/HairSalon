@@ -143,7 +143,7 @@ class _ItemList extends State<ItemList> {
                                 shrinkWrap: true,
                                 crossAxisCount: 2,
                                 childAspectRatio: getProportionateScreenWidth(
-                                    (100) / getProportionateScreenHeight(110)),
+                                    (100) / getProportionateScreenHeight(115)),
                                 children: [
                                   ...List.generate(
                                     (listAllSalons.length > 6) ? lengthList : listAllSalons.length,

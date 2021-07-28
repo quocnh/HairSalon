@@ -15,7 +15,6 @@ import 'package:salonmobile/models/KatokModel.dart';
 import 'package:salonmobile/models/Salon.dart';
 import 'package:salonmobile/screens/detail_salon/DetailScreen.dart';
 import 'package:salonmobile/services/salon_utils_service.dart';
-import 'package:salonmobile/utils/KatokDataProvider.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
@@ -46,7 +45,6 @@ class _Map extends State<Map> {
   List<KatokHairStyleModel> hairStyleList = [];
   List<Barber> barberList = [];
   Salon salonInfo;
-  List<KatokGalleryModel> galleryList = [];
   String idSalon = '';
   String nameSalon = '';
   String addressSalon = '';
@@ -101,15 +99,21 @@ class _Map extends State<Map> {
             setState(() {
               clearMarker();
               reloadMarkers = true;
-              setMarkerSearchSalon(listSalons[i].id, listSalons[i].name, listSalons[i].latitude, listSalons[i].longitude, listSalons[i].address, listSalons[i].photos[0]);
+              setMarkerSearchSalon(
+                  listSalons[i].id,
+                  listSalons[i].name,
+                  listSalons[i].latitude,
+                  listSalons[i].longitude,
+                  listSalons[i].address,
+                  listSalons[i].photos[0]);
               nameSalon = listSalons[i].name;
               addressSalon = listSalons[i].address;
               imgSalon = listSalons[i].photos[0];
               idSalon = listSalons[i].id;
               loadSalonInfo(idSalon);
               this.bottomPosition = VISIBLE_POSITION;
-              print("Load babers List ");
-              loadBarberInfo(salonInfo.id);
+              //print("Load babers List ");
+              //loadBarberInfo(salonInfo.id);
             });
             print('$i' + 'PHAN HUU TUNG');
           },
@@ -181,52 +185,38 @@ class _Map extends State<Map> {
           markerId: MarkerId(id.toString())));
     });
   }
-  void loadSalonInfo(String salonId) async{
+
+  void loadSalonInfo(String salonId) async {
     final results = await SalonUtilsService().getSalonFromId(salonId);
     setState(() {
       salonInfoList = results;
       salonInfo = results[0];
-      galleryList = getSalonPhotoList();
       //print(salonInfo.info);
     });
   }
 
-  void loadBarberInfo(String salonId) async{
-    final results = await SalonUtilsService().getBarbersFromSalonId(salonId);
-    setState(() {
-      barberList = results;
-      hairStyleList = getBarberList();
-      print("Number of barber list: " + hairStyleList.length.toString());
-    });
-  }
+  // void loadBarberInfo(String salonId) async{
+  //   final results = await SalonUtilsService().getBarbersFromSalonId(salonId);
+  //   setState(() {
+  //     barberList = results;
+  //     hairStyleList = getBarberList();
+  //     print("Number of barber list: " + hairStyleList.length.toString());
+  //   });
+  // }
 
-  List<KatokHairStyleModel> getBarberList() {
-    List<KatokHairStyleModel> bbList = <KatokHairStyleModel>[];
-    if(salonInfo == null) {
-      bbList = getHairStyleList();
-    } else {
-      for(int i = 0; i < barberList.length; i++) {
-        // String salonPhoto = URL_IMAGE + salonInfo.photos[i];
-        // print(salonPhoto);
-        bbList.add(KatokHairStyleModel(img: URL_IMAGE + barberList[i].avatar, name:barberList[i].firstname +" "+ barberList[i].lastname));
-      }
-    }
-    return bbList;
-  }
-
-  List<KatokGalleryModel> getSalonPhotoList() {
-    List<KatokGalleryModel> galleryList = <KatokGalleryModel>[];
-    if(salonInfo == null) {
-      galleryList = getGalleryList();
-    } else {
-      for(int i = 0; i < salonInfo.photos.length; i++) {
-        // String salonPhoto = URL_IMAGE + salonInfo.photos[i];
-        // print(salonPhoto);
-        galleryList.add(KatokGalleryModel(img: URL_IMAGE + salonInfo.photos[i]));
-      }
-    }
-    return galleryList;
-  }
+  // List<KatokHairStyleModel> getBarberList() {
+  //   List<KatokHairStyleModel> bbList = <KatokHairStyleModel>[];
+  //   if(salonInfo == null) {
+  //     bbList = getHairStyleList();
+  //   } else {
+  //     for(int i = 0; i < barberList.length; i++) {
+  //       // String salonPhoto = URL_IMAGE + salonInfo.photos[i];
+  //       // print(salonPhoto);
+  //       bbList.add(KatokHairStyleModel(img: URL_IMAGE + barberList[i].avatar, name:barberList[i].firstname +" "+ barberList[i].lastname));
+  //     }
+  //   }
+  //   return bbList;
+  // }
   void _currentLocation() async {
     LocationData currentLocation;
     var location = new Location();
@@ -283,97 +273,106 @@ class _Map extends State<Map> {
             left: 0,
             top: 0,
             right: 0,
-            child: Stack(children: [
-              Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: getProportionateScreenHeight(60),
-                      horizontal: getProportionateScreenWidth(70)),
+            child: Stack(
+              children: [
+                Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: getProportionateScreenHeight(60),
+                        horizontal: getProportionateScreenWidth(70)),
 
-                  /// search suggestion
-                  child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: TypeAheadField<Salon>(
-                        hideSuggestionsOnKeyboardHide: false,
-                        textFieldConfiguration: TextFieldConfiguration(
-                            controller: controllerSuggestion,
-                            onChanged: (query) {
-                              if (query.isEmpty) {
-                                setState(() {
-                                  this.bottomPosition = INVISIBLE_POSITION;
-                                });
-                                clearMarker();
-                                setMarkerAllSalons();
-                              }
-                            },
-                            decoration: InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: getProportionateScreenWidth(20),
-                                    vertical: getProportionateScreenWidth(9)),
-                                border: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                hintText: "Search salons",
-                                prefixIcon: Icon(Icons.search))),
-                        suggestionsCallback: (query) async {
-                          if (query.isEmpty) {
-                            return await null;
-                            // return listEmpty;
-                          } else {
-                            return await SalonUtilsService()
-                                .getSalonsFromCitySuggestions(widget.city, query);
-                          }
-                        },
-                        itemBuilder: (context, Salon suggestion) {
-                          final salons = suggestion;
-                          return ListTile(
-                              leading: Container(
-                                  width: getProportionateScreenWidth(50),
-                                  height: getProportionateScreenHeight(50),
-                                  child: ClipRRect(
-                                    borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                    child: CachedNetworkImage(
-                                        cacheManager: cacheManager,
-                                        imageUrl: URL_IMAGE + salons.photos[0],
-                                        fit: BoxFit.cover,
-                                        placeholder: _loader,
-                                        errorWidget: _error),
-                                  )),
-                              title: Text(salons.name));
-                        },
-                        onSuggestionSelected: (Salon suggestion) {
-                          controllerSuggestion.text = suggestion.name;
-                          final salons = suggestion;
-                          print(salons.name);
-                          setState(() {
-                            this.bottomPosition = INVISIBLE_POSITION;
-                          });
-                          clearMarker();
-                          setMarkerSearchSalon(salons.id,salons.name, salons.latitude,
-                              salons.longitude, salons.address, salons.photos[0]);
+                    /// search suggestion
+                    child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: TypeAheadField<Salon>(
+                          hideSuggestionsOnKeyboardHide: false,
+                          textFieldConfiguration: TextFieldConfiguration(
+                              controller: controllerSuggestion,
+                              onChanged: (query) {
+                                if (query.isEmpty) {
+                                  setState(() {
+                                    this.bottomPosition = INVISIBLE_POSITION;
+                                  });
+                                  clearMarker();
+                                  setMarkerAllSalons();
+                                }
+                              },
+                              decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(
+                                      horizontal:
+                                          getProportionateScreenWidth(20),
+                                      vertical: getProportionateScreenWidth(9)),
+                                  border: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  hintText: "Search salons",
+                                  prefixIcon: Icon(Icons.search))),
+                          suggestionsCallback: (query) async {
+                            if (query.isEmpty) {
+                              return await null;
+                              // return listEmpty;
+                            } else {
+                              return await SalonUtilsService()
+                                  .getSalonsFromCitySuggestions(
+                                      widget.city, query);
+                            }
+                          },
+                          itemBuilder: (context, Salon suggestion) {
+                            final salons = suggestion;
+                            return ListTile(
+                                leading: Container(
+                                    width: getProportionateScreenWidth(50),
+                                    height: getProportionateScreenHeight(50),
+                                    child: ClipRRect(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10)),
+                                      child: CachedNetworkImage(
+                                          cacheManager: cacheManager,
+                                          imageUrl:
+                                              URL_IMAGE + salons.photos[0],
+                                          fit: BoxFit.cover,
+                                          placeholder: _loader,
+                                          errorWidget: _error),
+                                    )),
+                                title: Text(salons.name));
+                          },
+                          onSuggestionSelected: (Salon suggestion) {
+                            controllerSuggestion.text = suggestion.name;
+                            final salons = suggestion;
+                            print(salons.name);
+                            setState(() {
+                              this.bottomPosition = INVISIBLE_POSITION;
+                            });
+                            clearMarker();
+                            setMarkerSearchSalon(
+                                salons.id,
+                                salons.name,
+                                salons.latitude,
+                                salons.longitude,
+                                salons.address,
+                                salons.photos[0]);
 
-                          /// tạo function add marker search, gán salons = salons (khởi tạo)
-                        },
-                        noItemsFoundBuilder: (context) {
-                          return Center(child: Text("No salons found"));
-                        },
-                      ))),
-              Padding(
-                  padding: EdgeInsets.only(
-                      top: getProportionateScreenHeight(60),
-                      right: getProportionateScreenWidth(20)
-                  ),
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: IconButton(
-                        onPressed: _currentLocation,
-                        icon: Icon(Icons.location_on,size: getProportionateScreenWidth(25))),
-                  ))
-            ],)
-        ),
+                            /// tạo function add marker search, gán salons = salons (khởi tạo)
+                          },
+                          noItemsFoundBuilder: (context) {
+                            return Center(child: Text("No salons found"));
+                          },
+                        ))),
+                Padding(
+                    padding: EdgeInsets.only(
+                        top: getProportionateScreenHeight(60),
+                        right: getProportionateScreenWidth(20)),
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: IconButton(
+                          onPressed: _currentLocation,
+                          icon: Icon(Icons.location_on,
+                              size: getProportionateScreenWidth(25))),
+                    ))
+              ],
+            )),
         AnimatedPositioned(
             duration: Duration(milliseconds: 500),
             curve: Curves.easeInOut,
@@ -386,99 +385,109 @@ class _Map extends State<Map> {
                   if (snapshot.hasData) {
                     return InkWell(
                       onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => KatokDetailScreen(salonInfo: salonInfo, salonInfoList: salonInfoList,galleryList: galleryList, hairStyleList:hairStyleList)),
-                          );
-
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  KatokDetailScreen(salonInfo: salonInfo)),
+                        );
                       },
-                      child: (imgSalon == "") ? Container() : Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: getProportionateScreenWidth(10)),
-                          child: Container(
-                            padding: EdgeInsets.only(
-                                left: getProportionateScreenWidth(10)),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(60),
-                                color: Colors.white),
-                            child: Row(
-                              children: [
-                                CachedNetworkImage(
-                                    imageUrl: URL_IMAGE + imgSalon,
-                                    imageBuilder: (context, imageProvider) {
-                                      return Container(
-                                        width: getProportionateScreenWidth(80),
-                                        height:
-                                            getProportionateScreenHeight(80),
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            image: DecorationImage(
-                                                image: imageProvider,
-                                                fit: BoxFit.fill)),
-                                      );
-                                    },
-                                    cacheManager: cacheManager,
-                                    placeholder: _loader,
-                                    errorWidget: _error)
-                                // Container(
-                                //       width: getProportionateScreenWidth(80),
-                                //       height: getProportionateScreenHeight(80),
-                                //       decoration: BoxDecoration(
-                                //         shape: BoxShape.circle,
-                                //         image: DecorationImage(
-                                //           fit: BoxFit.fill,
-                                //           image: NetworkImage(URL_IMAGE + imgSalon)
-                                //         )
-                                //       ),
-                                //       // child: CachedNetworkImage(
-                                //       //         cacheManager: cacheManager,
-                                //       //         imageUrl: URL_IMAGE + imgSalon,
-                                //       //         fit: BoxFit.fill,
-                                //       //         placeholder: _loader,
-                                //       //         errorWidget: _error),
-                                // )
-                                ,
-                                Expanded(
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal:
-                                            getProportionateScreenWidth(20),
-                                        vertical:
-                                            getProportionateScreenHeight(10)),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(nameSalon,
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold)),
-                                        Text(addressSalon),
-                                        Text(
-                                          "\$12.01",
-                                          style: TextStyle(
-                                            fontSize:
-                                                getProportionateScreenWidth(14),
-                                            fontWeight: FontWeight.w600,
-                                            color: kPrimaryColor,
-                                          ),
+                      child: (imgSalon == "")
+                          ? Container()
+                          : Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: getProportionateScreenWidth(10)),
+                              child: Container(
+                                padding: EdgeInsets.only(
+                                    left: getProportionateScreenWidth(10)),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(60),
+                                    color: Colors.white),
+                                child: Row(
+                                  children: [
+                                    CachedNetworkImage(
+                                        imageUrl: URL_IMAGE + imgSalon,
+                                        imageBuilder: (context, imageProvider) {
+                                          return Container(
+                                            width:
+                                                getProportionateScreenWidth(80),
+                                            height:
+                                                getProportionateScreenHeight(
+                                                    80),
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                image: DecorationImage(
+                                                    image: imageProvider,
+                                                    fit: BoxFit.fill)),
+                                          );
+                                        },
+                                        cacheManager: cacheManager,
+                                        placeholder: _loader,
+                                        errorWidget: _error)
+                                    // Container(
+                                    //       width: getProportionateScreenWidth(80),
+                                    //       height: getProportionateScreenHeight(80),
+                                    //       decoration: BoxDecoration(
+                                    //         shape: BoxShape.circle,
+                                    //         image: DecorationImage(
+                                    //           fit: BoxFit.fill,
+                                    //           image: NetworkImage(URL_IMAGE + imgSalon)
+                                    //         )
+                                    //       ),
+                                    //       // child: CachedNetworkImage(
+                                    //       //         cacheManager: cacheManager,
+                                    //       //         imageUrl: URL_IMAGE + imgSalon,
+                                    //       //         fit: BoxFit.fill,
+                                    //       //         placeholder: _loader,
+                                    //       //         errorWidget: _error),
+                                    // )
+                                    ,
+                                    Expanded(
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal:
+                                                getProportionateScreenWidth(20),
+                                            vertical:
+                                                getProportionateScreenHeight(
+                                                    10)),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Text(nameSalon,
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                            Text(addressSalon),
+                                            Text(
+                                              "\$12.01",
+                                              style: TextStyle(
+                                                fontSize:
+                                                    getProportionateScreenWidth(
+                                                        14),
+                                                fontWeight: FontWeight.w600,
+                                                color: kPrimaryColor,
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
+                                      ),
                                     ),
-                                  ),
+                                    Container(
+                                        height:
+                                            getProportionateScreenHeight(40),
+                                        width: getProportionateScreenWidth(40),
+                                        padding: EdgeInsets.only(
+                                            right: getProportionateScreenWidth(
+                                                10)),
+                                        child: Image.asset(
+                                            "assets/images/hairdresser.png"))
+                                  ],
                                 ),
-                                Container(
-                                    height: getProportionateScreenHeight(40),
-                                    width: getProportionateScreenWidth(40),
-                                    padding: EdgeInsets.only(
-                                        right: getProportionateScreenWidth(10)),
-                                    child: Image.asset(
-                                        "assets/images/hairdresser.png"))
-                              ],
-                            ),
-                          )),
+                              )),
                     );
                   } else if (snapshot.hasError) {
                     return Text('SERVER ERROR');

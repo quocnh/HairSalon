@@ -15,7 +15,6 @@ import 'package:salonmobile/models/KatokModel.dart';
 import 'package:salonmobile/models/Salon.dart';
 import 'package:salonmobile/screens/detail_salon/DetailScreen.dart';
 import 'package:salonmobile/services/salon_utils_service.dart';
-import 'package:salonmobile/utils/KatokDataProvider.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
@@ -42,7 +41,6 @@ class _Map extends State<Map> {
   List<Barber> barberList = [];
   List<KatokHairStyleModel> hairStyleList = [];
   Salon salonInfo;
-  List<KatokGalleryModel> galleryList = [];
   String idSalon = '';
   String nameSalon = '';
   String addressSalon = '';
@@ -139,9 +137,9 @@ class _Map extends State<Map> {
             imgSalon = photos;
             idSalon = id;
             loadSalonInfo(idSalon);
-            print("Load babers List ");
-            loadBarberInfo(salonInfo.id);
-            print("$idSalon, PHAN HUU TUNG");
+            //print("Load babers List ");
+            //loadBarberInfo(salonInfo.id);
+            //print("$idSalon, PHAN HUU TUNG");
             this.bottomPosition = VISIBLE_POSITION;
           });
         },
@@ -191,50 +189,32 @@ class _Map extends State<Map> {
     setState(() {
       salonInfoList = results;
       salonInfo = results[0];
-      galleryList = getSalonPhotoList();
       //print(salonInfo.info);
     });
   }
 
-  void loadBarberInfo(String salonId) async {
-    final results = await SalonUtilsService().getBarbersFromSalonId(salonId);
-    setState(() {
-      barberList = results;
-      hairStyleList = getBarberList();
-      print(hairStyleList[0].name);
-    });
-  }
-
-  List<KatokHairStyleModel> getBarberList() {
-    List<KatokHairStyleModel> bbList = <KatokHairStyleModel>[];
-    if (salonInfo == null) {
-      bbList = getHairStyleList();
-    } else {
-      for (int i = 0; i < salonInfo.photos.length; i++) {
-        // String salonPhoto = URL_IMAGE + salonInfo.photos[i];
-        // print(salonPhoto);
-        bbList.add(KatokHairStyleModel(
-            img: URL_IMAGE + barberList[i].avatar,
-            name: barberList[i].firstname + barberList[i].lastname));
-      }
-    }
-    return bbList;
-  }
-
-  List<KatokGalleryModel> getSalonPhotoList() {
-    List<KatokGalleryModel> galleryList = <KatokGalleryModel>[];
-    if (salonInfo == null) {
-      galleryList = getGalleryList();
-    } else {
-      for (int i = 0; i < salonInfo.photos.length; i++) {
-        // String salonPhoto = URL_IMAGE + salonInfo.photos[i];
-        // print(salonPhoto);
-        galleryList
-            .add(KatokGalleryModel(img: URL_IMAGE + salonInfo.photos[i]));
-      }
-    }
-    return galleryList;
-  }
+  // void loadBarberInfo(String salonId) async{
+  //   final results = await SalonUtilsService().getBarbersFromSalonId(salonId);
+  //   setState(() {
+  //     barberList = results;
+  //     hairStyleList = getBarberList();
+  //     print(hairStyleList[0].name);
+  //   });
+  // }
+  //
+  // List<KatokHairStyleModel> getBarberList() {
+  //   List<KatokHairStyleModel> bbList = <KatokHairStyleModel>[];
+  //   if(salonInfo == null) {
+  //     bbList = getHairStyleList();
+  //   } else {
+  //     for(int i = 0; i < salonInfo.photos.length; i++) {
+  //       // String salonPhoto = URL_IMAGE + salonInfo.photos[i];
+  //       // print(salonPhoto);
+  //       bbList.add(KatokHairStyleModel(img: URL_IMAGE + barberList[i].avatar, name:barberList[i].firstname + barberList[i].lastname));
+  //     }
+  //   }
+  //   return bbList;
+  // }
 
   void _currentLocation() async {
     LocationData currentLocation;
@@ -381,13 +361,13 @@ class _Map extends State<Map> {
                 Padding(
                     padding: EdgeInsets.only(
                         top: getProportionateScreenHeight(40),
-                      right: getProportionateScreenWidth(20)
-                        ),
+                        right: getProportionateScreenWidth(20)),
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: IconButton(
                           onPressed: _currentLocation,
-                          icon: Icon(Icons.location_on,size: getProportionateScreenWidth(25))),
+                          icon: Icon(Icons.location_on,
+                              size: getProportionateScreenWidth(25))),
                     ))
               ],
             )),
@@ -406,11 +386,8 @@ class _Map extends State<Map> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => KatokDetailScreen(
-                                  salonInfo: salonInfo,
-                                  salonInfoList: salonInfoList,
-                                  galleryList: galleryList,
-                                  hairStyleList: hairStyleList)),
+                              builder: (context) =>
+                                  KatokDetailScreen(salonInfo: salonInfo)),
                         );
                       },
                       child: (imgSalon == "")
