@@ -47,7 +47,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
 
     categoryList = getCategory();
     offerList = getOfferList();
-    servicesList = getDefaultServicesList();
+    servicesList = getServicesList();
     reviewList = getReviewList();
     hairStyleList = getDefaultHairStyleList();
     makeupList = getMakeupList();
@@ -58,7 +58,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
     List<KatokServicesModel> sList = List<KatokServicesModel>();
     for(int i = 0; i < widget.salonInfo.services.length; i++) {
       Service service = widget.salonInfo.services[i];
-      sList.add(KatokServicesModel(img: service.image, serviceName: service.name, time: service.time.toString(), price: service.price.toInt(), radioVal: 0));
+      sList.add(KatokServicesModel(img: service.image, serviceName: service.name, time: service.time.toString(), price: service.price.toInt(), radioVal: i+1));
     }
     return sList;
   }
@@ -370,7 +370,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                           Row(
                             children: [
                               Text(
-                                servicesList[index].time,
+                                servicesList[index].time + " Min",
                                 style: TextStyle(color: KatokAppTextColorSecondary, fontSize: 14),
                               ),
                               8.width,
