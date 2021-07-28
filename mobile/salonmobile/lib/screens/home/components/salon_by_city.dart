@@ -28,7 +28,7 @@ class SalonByCity extends StatelessWidget {
           child: Row(
             children: [
               SalonByCityCard(
-                image: "assets/images/Image Banner 2.png",
+                image: "assets/images/hcm2.jpg",
                 category: "Hồ Chí Minh",
                 numOfBrands: 18,
                 press: () {
@@ -42,7 +42,7 @@ class SalonByCity extends StatelessWidget {
                 },
               ),
               SalonByCityCard(
-                image: "assets/images/Image Banner 3.png",
+                image: "assets/images/hanoi.jpg",
                 category: "Hà Nội",
                 numOfBrands: 24,
                 press: () {
@@ -79,7 +79,7 @@ class SalonByCityCard extends StatelessWidget {
       child: GestureDetector(
         onTap: press,
         child: SizedBox(
-          width: getProportionateScreenWidth(242),
+          width: getProportionateScreenWidth(200),
           height: getProportionateScreenWidth(100),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
@@ -87,6 +87,7 @@ class SalonByCityCard extends StatelessWidget {
               children: [
                 Image.asset(
                   image,
+                  width:250,
                   fit: BoxFit.cover,
                 ),
                 Container(
