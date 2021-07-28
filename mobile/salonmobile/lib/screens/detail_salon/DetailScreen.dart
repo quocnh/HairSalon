@@ -18,11 +18,9 @@ import 'package:salonmobile/utils/size_config.dart';
 
 
 class KatokDetailScreen extends StatefulWidget {
-  List<Salon> salonInfoList = [];
   Salon salonInfo;
-  List<KatokGalleryModel> galleryList = [];
-  List<KatokHairStyleModel> hairStyleList = [];
-  KatokDetailScreen({this.salonInfo, this.salonInfoList, this.galleryList, this.hairStyleList});
+
+  KatokDetailScreen({this.salonInfo});
   static String tag = '/NewSliverCustom';
 
   @override
@@ -33,14 +31,13 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
   int _radioValue1 = 0;
   TabController controller;
 
-  //List<KatokGalleryModel> galleryList;
+  List<KatokGalleryModel> galleryList;
   List<KatokCategoryModel> categoryList;
   List<KatokOfferModel> offerList;
   List<KatokServicesModel> servicesList;
   List<KatokReviewModel> reviewList;
-  //List<KatokHairStyleModel> hairStyleList;
+  List<KatokHairStyleModel> hairStyleList;
   List<KatokMakeUpModel> makeupList;
-  // List<Salon> salonInfoList;
   // Salon salonInfo;
   final URL_IMAGE = 'https://awinst.com:3000/app/';
 
@@ -50,19 +47,34 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
 
     categoryList = getCategory();
     offerList = getOfferList();
-    servicesList = getServicesList();
+    servicesList = getDefaultServicesList();
     reviewList = getReviewList();
-    //hairStyleList = getHairStyleList();
+    hairStyleList = getDefaultHairStyleList();
     makeupList = getMakeupList();
+    galleryList = getSalonPhotoList();
   }
 
   List<KatokServicesModel> getServicesList() {
-    List<KatokServicesModel> servicesList = List<KatokServicesModel>();
+    List<KatokServicesModel> sList = List<KatokServicesModel>();
     for(int i = 0; i < widget.salonInfo.services.length; i++) {
       Service service = widget.salonInfo.services[i];
-      servicesList.add(KatokServicesModel(img: service.image, serviceName: service.name, time: service.time.toString(), price: service.price.toInt(), radioVal: 0));
+      sList.add(KatokServicesModel(img: service.image, serviceName: service.name, time: service.time.toString(), price: service.price.toInt(), radioVal: 0));
     }
-    return servicesList;
+    return sList;
+  }
+
+  List<KatokGalleryModel> getSalonPhotoList() {
+    List<KatokGalleryModel> galleryList = <KatokGalleryModel>[];
+    if(widget.salonInfo == null) {
+      galleryList = getGalleryList();
+    } else {
+      for(int i = 0; i < widget.salonInfo.photos.length; i++) {
+        // String salonPhoto = URL_IMAGE + salonInfo.photos[i];
+        // print(salonPhoto);
+        galleryList.add(KatokGalleryModel(img: URL_IMAGE + widget.salonInfo.photos[i]));
+      }
+    }
+    return galleryList;
   }
 
   void something(int value) {
@@ -214,11 +226,11 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
     Widget galleryWidget() {
       return StaggeredGridView.countBuilder(
         crossAxisCount: 4,
-        itemCount: widget.galleryList.length,
+        itemCount: galleryList.length,
         padding: EdgeInsets.all(16),
         itemBuilder: (BuildContext context, int index) => ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(5)),
-          child: Image.network(widget.galleryList[index].img, fit: BoxFit.cover),
+          child: Image.network(galleryList[index].img, fit: BoxFit.cover),
         ),
         staggeredTileBuilder: (int index) => new StaggeredTile.count(2, index.isEven ? 2 : 3),
         mainAxisSpacing: 16.0,
@@ -594,7 +606,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                 height: 180,
                 child: ListView.builder(
                   padding: EdgeInsets.symmetric(vertical: 8),
-                  itemCount: widget.hairStyleList.length,
+                  itemCount: hairStyleList.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
                     return Card(
@@ -606,12 +618,12 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-                            child:commonCacheImageWidget(widget.hairStyleList[index].img, 110, width: 120, fit: BoxFit.cover),
+                            child:commonCacheImageWidget(hairStyleList[index].img, 110, width: 120, fit: BoxFit.cover),
                           ),
                           Padding(
                             padding: EdgeInsets.all(8),
                             child: Text(
-                              widget.hairStyleList[index].name,
+                              hairStyleList[index].name,
                               style: TextStyle(fontSize: 14, color: KatokAppTextColorSecondary),
                             ),
                           ),
@@ -638,7 +650,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-                            child: commonCacheImageWidget(widget.hairStyleList[index].img, 110, width: 120, fit: BoxFit.cover),
+                            child: commonCacheImageWidget(hairStyleList[index].img, 110, width: 120, fit: BoxFit.cover),
                           ),
                           Padding(
                             padding: EdgeInsets.all(8),
@@ -682,7 +694,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                       overflow: Overflow.visible,
                       children: [
                         Image.network(
-                          widget.galleryList[0].img,
+                          galleryList[0].img,
                           height: getProportionateScreenHeight(500),
                           width: double.maxFinite,
                           fit: BoxFit.fill,

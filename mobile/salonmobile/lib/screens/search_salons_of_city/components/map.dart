@@ -45,7 +45,6 @@ class _Map extends State<Map> {
   List<KatokHairStyleModel> hairStyleList = [];
   List<Barber> barberList = [];
   Salon salonInfo;
-  List<KatokGalleryModel> galleryList = [];
   String idSalon = '';
   String nameSalon = '';
   String addressSalon = '';
@@ -107,8 +106,8 @@ class _Map extends State<Map> {
               idSalon = listSalons[i].id;
               loadSalonInfo(idSalon);
               this.bottomPosition = VISIBLE_POSITION;
-              print("Load babers List ");
-              loadBarberInfo(salonInfo.id);
+              //print("Load babers List ");
+              //loadBarberInfo(salonInfo.id);
             });
             print('$i' + 'PHAN HUU TUNG');
           },
@@ -185,47 +184,32 @@ class _Map extends State<Map> {
     setState(() {
       salonInfoList = results;
       salonInfo = results[0];
-      galleryList = getSalonPhotoList();
       //print(salonInfo.info);
     });
   }
 
-  void loadBarberInfo(String salonId) async{
-    final results = await SalonUtilsService().getBarbersFromSalonId(salonId);
-    setState(() {
-      barberList = results;
-      hairStyleList = getBarberList();
-      print("Number of barber list: " + hairStyleList.length.toString());
-    });
-  }
+  // void loadBarberInfo(String salonId) async{
+  //   final results = await SalonUtilsService().getBarbersFromSalonId(salonId);
+  //   setState(() {
+  //     barberList = results;
+  //     hairStyleList = getBarberList();
+  //     print("Number of barber list: " + hairStyleList.length.toString());
+  //   });
+  // }
 
-  List<KatokHairStyleModel> getBarberList() {
-    List<KatokHairStyleModel> bbList = <KatokHairStyleModel>[];
-    if(salonInfo == null) {
-      bbList = getHairStyleList();
-    } else {
-      for(int i = 0; i < barberList.length; i++) {
-        // String salonPhoto = URL_IMAGE + salonInfo.photos[i];
-        // print(salonPhoto);
-        bbList.add(KatokHairStyleModel(img: URL_IMAGE + barberList[i].avatar, name:barberList[i].firstname +" "+ barberList[i].lastname));
-      }
-    }
-    return bbList;
-  }
-
-  List<KatokGalleryModel> getSalonPhotoList() {
-    List<KatokGalleryModel> galleryList = <KatokGalleryModel>[];
-    if(salonInfo == null) {
-      galleryList = getGalleryList();
-    } else {
-      for(int i = 0; i < salonInfo.photos.length; i++) {
-        // String salonPhoto = URL_IMAGE + salonInfo.photos[i];
-        // print(salonPhoto);
-        galleryList.add(KatokGalleryModel(img: URL_IMAGE + salonInfo.photos[i]));
-      }
-    }
-    return galleryList;
-  }
+  // List<KatokHairStyleModel> getBarberList() {
+  //   List<KatokHairStyleModel> bbList = <KatokHairStyleModel>[];
+  //   if(salonInfo == null) {
+  //     bbList = getHairStyleList();
+  //   } else {
+  //     for(int i = 0; i < barberList.length; i++) {
+  //       // String salonPhoto = URL_IMAGE + salonInfo.photos[i];
+  //       // print(salonPhoto);
+  //       bbList.add(KatokHairStyleModel(img: URL_IMAGE + barberList[i].avatar, name:barberList[i].firstname +" "+ barberList[i].lastname));
+  //     }
+  //   }
+  //   return bbList;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -356,7 +340,7 @@ class _Map extends State<Map> {
                       onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => KatokDetailScreen(salonInfo: salonInfo, salonInfoList: salonInfoList,galleryList: galleryList, hairStyleList:hairStyleList)),
+                            MaterialPageRoute(builder: (context) => KatokDetailScreen(salonInfo: salonInfo)),
                           );
 
                       },
