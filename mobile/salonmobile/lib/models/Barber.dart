@@ -41,6 +41,8 @@ class Barber {
       rating = double.parse(json['rating']);
 
     return Barber(
+        id: json['id'],
+        salonId: json['salonId'],
         firstname: json['firstname'],
         lastname: json['lastname'],
         profile: json['profile'],
