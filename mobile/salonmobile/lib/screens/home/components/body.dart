@@ -16,6 +16,7 @@ class _Body extends State<Body> {
   var locationMessage = "";
   double latitude;
   double longitude;
+
   void getCurrentLocation() async{
     Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     var lastPosition = await Geolocator.getLastKnownPosition();
