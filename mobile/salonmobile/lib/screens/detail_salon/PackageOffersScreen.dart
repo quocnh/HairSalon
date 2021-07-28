@@ -31,6 +31,21 @@ class KatokPackageOffersScreenState extends State<KatokPackageOffersScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomSheet: Container(
+        margin: EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+        width: MediaQuery.of(context).size.width,
+        child: RaisedButton(
+          padding: EdgeInsets.all(12),
+          onPressed: () {
+            KatokBookAppointmentScreen().launch(context);
+          },
+          color: KatokColorPrimary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          child: Text(KatokBtnBookAppointment, style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+        ),
+      ),
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         leading: GestureDetector(
@@ -153,21 +168,6 @@ class KatokPackageOffersScreenState extends State<KatokPackageOffersScreen> {
                           ),
                         );
                       }),
-                  Container(
-                    margin: EdgeInsets.only(top: 8),
-                    width: MediaQuery.of(context).size.width,
-                    child: RaisedButton(
-                      padding: EdgeInsets.all(12),
-                      onPressed: () {
-                        KatokBookAppointmentScreen().launch(context);
-                      },
-                      color: KatokColorPrimary,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Text(KatokBtnBookAppointment, style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
-                    ),
-                  ),
                   //16.height,
                 ],
               ),

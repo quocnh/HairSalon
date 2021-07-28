@@ -5,10 +5,12 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:salonmobile/models/Barber.dart';
 import 'package:salonmobile/models/KatokModel.dart';
 import 'package:salonmobile/models/Salon.dart';
 import 'package:salonmobile/models/Service.dart';
 import 'package:salonmobile/screens/detail_salon/PackageOffersScreen.dart';
+import 'package:salonmobile/services/salon_utils_service.dart';
 import 'package:salonmobile/utils/AppWidget.dart';
 import 'package:salonmobile/utils/KatokColors.dart';
 import 'package:salonmobile/utils/KatokConstants.dart';
@@ -38,6 +40,8 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
   List<KatokReviewModel> reviewList;
   List<KatokHairStyleModel> hairStyleList;
   List<KatokMakeUpModel> makeupList;
+  List<Barber> barberList = [];
+
   // Salon salonInfo;
   final URL_IMAGE = 'https://awinst.com:3000/app/';
 
@@ -49,6 +53,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
     offerList = getOfferList();
     servicesList = getServicesList();
     reviewList = getReviewList();
+    //hairStyleList = await loadHairStyleList(widget.salonInfo.id);
     hairStyleList = getDefaultHairStyleList();
     makeupList = getMakeupList();
     galleryList = getSalonPhotoList();
@@ -75,6 +80,29 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
       }
     }
     return galleryList;
+  }
+
+  Future<List<KatokHairStyleModel>> loadHairStyleList(String salonId) async{
+    List<KatokHairStyleModel> hsList = <KatokHairStyleModel>[];
+    final results = await SalonUtilsService().getBarbersFromSalonId(salonId);
+
+    barberList = results;
+    hsList = getHairStyleList();
+    return hsList;
+  }
+
+  List<KatokHairStyleModel> getHairStyleList() {
+    List<KatokHairStyleModel> bbList = <KatokHairStyleModel>[];
+    if(barberList == null) {
+      bbList = getDefaultHairStyleList();
+    } else {
+      for(int i = 0; i < barberList.length; i++) {
+        // String salonPhoto = URL_IMAGE + salonInfo.photos[i];
+        // print(salonPhoto);
+        bbList.add(KatokHairStyleModel(img: URL_IMAGE + barberList[i].avatar, name:barberList[i].firstname + barberList[i].lastname));
+      }
+    }
+    return bbList;
   }
 
   void something(int value) {
@@ -393,21 +421,21 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                 );
               },
             ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              margin: EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 16),
-              child: RaisedButton(
-                padding: EdgeInsets.all(12),
-                onPressed: () {
-                  KatokPackageOffersScreen().launch(context);
-                },
-                color: KatokColorPrimary,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: Text(KatokBtnBookAppointment, style: TextStyle(color: whiteColor, fontSize: 16, fontWeight: FontWeight.bold)),
-              ),
-            ),
+            // Container(
+            //   width: MediaQuery.of(context).size.width,
+            //   margin: EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 16),
+            //   child: RaisedButton(
+            //     padding: EdgeInsets.all(12),
+            //     onPressed: () {
+            //       KatokPackageOffersScreen().launch(context);
+            //     },
+            //     color: KatokColorPrimary,
+            //     shape: RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.circular(10.0),
+            //     ),
+            //     child: Text(KatokBtnBookAppointment, style: TextStyle(color: whiteColor, fontSize: 16, fontWeight: FontWeight.bold)),
+            //   ),
+            // ),
           ],
         ),
       );
@@ -674,6 +702,21 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
     return DefaultTabController(
       length: 5,
       child: Scaffold(
+        bottomSheet: Container(
+          width: MediaQuery.of(context).size.width,
+          margin: EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+          child: RaisedButton(
+            padding: EdgeInsets.all(12),
+            onPressed: () {
+              KatokPackageOffersScreen().launch(context);
+            },
+            color: KatokColorPrimary,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: Text(KatokBtnBookAppointment, style: TextStyle(color: whiteColor, fontSize: 16, fontWeight: FontWeight.bold)),
+          ),
+        ),
         body: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
