@@ -36,17 +36,29 @@ class Barber {
 
   factory Barber.fromJson(Map<String, dynamic> json) {
     double rating = 0;
-
+    String avatar="assets/images/default-avatar.png", firstN="", lastN="", profile="";
     if (json['rating'] != null)
       rating = double.parse(json['rating']);
+    if(json['avatar'] != null){
+      avatar = json['avatar'];
+    }
+    if(json['firstname'] != null){
+      firstN = json['firstname'];
+    }
+    if(json['lastname'] != null){
+      lastN = json['lastname'];
+    }
+    if(json['profile'] != null){
+      profile = json['profile'];
+    }
 
     return Barber(
         id: json['id'],
         salonId: json['salonId'],
-        firstname: json['firstname'],
-        lastname: json['lastname'],
-        profile: json['profile'],
+        firstname: firstN,
+        lastname: lastN,
+        profile: profile,
         rating: rating,
-        avatar: json['avatar']);
+        avatar: avatar);
   }
 }
