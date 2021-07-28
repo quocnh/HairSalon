@@ -239,6 +239,8 @@ class _Map extends State<Map> {
     return Stack(
       children: [
         GoogleMap(
+          myLocationButtonEnabled: true,
+          myLocationEnabled: true,
           zoomControlsEnabled: false,
           initialCameraPosition: _initialPosition,
           mapType: MapType.normal,
