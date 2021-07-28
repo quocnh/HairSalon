@@ -53,6 +53,7 @@ dependencies:
   pull_to_refresh: ^2.0.0
   flutter_typeahead: ^2.0.0
   country_code_picker: ^2.0.2
+  location: ^3.2.4
   #  google_fonts: 1.1.0
   flutter_statusbarcolor: 0.2.3
 #  clustering_google_maps: 0.1.2

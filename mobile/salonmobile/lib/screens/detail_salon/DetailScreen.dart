@@ -737,7 +737,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                                     margin: EdgeInsets.only(right: 16),
                                     child: FlatButton(
                                       onPressed: () {},
-                                      child: Text(KatokBtnOpen, style: TextStyle(color: whiteColor, fontSize: 14)),
+                                      child: Text(KatokBtnOpen, style: TextStyle(color: whiteColor, fontSize: 13)),
                                       color: KatokColorPrimary,
                                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                                     ),

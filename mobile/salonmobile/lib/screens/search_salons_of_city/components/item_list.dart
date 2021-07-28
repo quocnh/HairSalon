@@ -79,7 +79,7 @@ class _ItemList extends State<ItemList> {
               panel: Column(
                 children: [
                   Container(
-                      height: getProportionateScreenHeight(85),
+                      height: getProportionateScreenHeight(95),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.only(

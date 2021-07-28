@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 import 'package:salonmobile/models/Barber.dart';
 import 'package:salonmobile/models/KatokModel.dart';
 import 'package:salonmobile/models/Salon.dart';
@@ -226,6 +227,23 @@ class _Map extends State<Map> {
     }
     return galleryList;
   }
+  void _currentLocation() async {
+    LocationData currentLocation;
+    var location = new Location();
+    try {
+      currentLocation = await location.getLocation();
+    } on Exception {
+      currentLocation = null;
+    }
+
+    _controller.animateCamera(CameraUpdate.newCameraPosition(
+      CameraPosition(
+        bearing: 0,
+        target: LatLng(currentLocation.latitude, currentLocation.longitude),
+        zoom: 17.0,
+      ),
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -233,8 +251,9 @@ class _Map extends State<Map> {
     return Stack(
       children: [
         GoogleMap(
-          myLocationButtonEnabled: true,
-          myLocationEnabled: true,
+          // myLocationButtonEnabled: true,
+          // myLocationEnabled: true,
+          // padding: EdgeInsets.only(top: getProportionateScreenHeight(100)),
           zoomControlsEnabled: false,
           initialCameraPosition: _initialPosition,
           mapType: MapType.normal,
@@ -264,84 +283,97 @@ class _Map extends State<Map> {
             left: 0,
             top: 0,
             right: 0,
-            child: Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical: getProportionateScreenHeight(60),
-                    horizontal: getProportionateScreenWidth(60)),
+            child: Stack(children: [
+              Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: getProportionateScreenHeight(60),
+                      horizontal: getProportionateScreenWidth(70)),
 
-                /// search suggestion
-                child: Container(
-                    width: SizeConfig.screenWidth * 0.6,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: TypeAheadField<Salon>(
-                      hideSuggestionsOnKeyboardHide: false,
-                      textFieldConfiguration: TextFieldConfiguration(
-                          controller: controllerSuggestion,
-                          onChanged: (query) {
-                            if (query.isEmpty) {
-                              setState(() {
-                                this.bottomPosition = INVISIBLE_POSITION;
-                              });
-                              clearMarker();
-                              setMarkerAllSalons();
-                            }
-                          },
-                          decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(
-                                  horizontal: getProportionateScreenWidth(20),
-                                  vertical: getProportionateScreenWidth(9)),
-                              border: InputBorder.none,
-                              focusedBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                              hintText: "Search salons",
-                              prefixIcon: Icon(Icons.search))),
-                      suggestionsCallback: (query) async {
-                        if (query.isEmpty) {
-                          return await null;
-                          // return listEmpty;
-                        } else {
-                          return await SalonUtilsService()
-                              .getSalonsFromCitySuggestions(widget.city, query);
-                        }
-                      },
-                      itemBuilder: (context, Salon suggestion) {
-                        final salons = suggestion;
-                        return ListTile(
-                            leading: Container(
-                                width: getProportionateScreenWidth(50),
-                                height: getProportionateScreenHeight(50),
-                                child: ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
-                                  child: CachedNetworkImage(
-                                      cacheManager: cacheManager,
-                                      imageUrl: URL_IMAGE + salons.photos[0],
-                                      fit: BoxFit.cover,
-                                      placeholder: _loader,
-                                      errorWidget: _error),
-                                )),
-                            title: Text(salons.name));
-                      },
-                      onSuggestionSelected: (Salon suggestion) {
-                        controllerSuggestion.text = suggestion.name;
-                        final salons = suggestion;
-                        print(salons.name);
-                        setState(() {
-                          this.bottomPosition = INVISIBLE_POSITION;
-                        });
-                        clearMarker();
-                        setMarkerSearchSalon(salons.id,salons.name, salons.latitude,
-                            salons.longitude, salons.address, salons.photos[0]);
+                  /// search suggestion
+                  child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: TypeAheadField<Salon>(
+                        hideSuggestionsOnKeyboardHide: false,
+                        textFieldConfiguration: TextFieldConfiguration(
+                            controller: controllerSuggestion,
+                            onChanged: (query) {
+                              if (query.isEmpty) {
+                                setState(() {
+                                  this.bottomPosition = INVISIBLE_POSITION;
+                                });
+                                clearMarker();
+                                setMarkerAllSalons();
+                              }
+                            },
+                            decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(
+                                    horizontal: getProportionateScreenWidth(20),
+                                    vertical: getProportionateScreenWidth(9)),
+                                border: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                hintText: "Search salons",
+                                prefixIcon: Icon(Icons.search))),
+                        suggestionsCallback: (query) async {
+                          if (query.isEmpty) {
+                            return await null;
+                            // return listEmpty;
+                          } else {
+                            return await SalonUtilsService()
+                                .getSalonsFromCitySuggestions(widget.city, query);
+                          }
+                        },
+                        itemBuilder: (context, Salon suggestion) {
+                          final salons = suggestion;
+                          return ListTile(
+                              leading: Container(
+                                  width: getProportionateScreenWidth(50),
+                                  height: getProportionateScreenHeight(50),
+                                  child: ClipRRect(
+                                    borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                                    child: CachedNetworkImage(
+                                        cacheManager: cacheManager,
+                                        imageUrl: URL_IMAGE + salons.photos[0],
+                                        fit: BoxFit.cover,
+                                        placeholder: _loader,
+                                        errorWidget: _error),
+                                  )),
+                              title: Text(salons.name));
+                        },
+                        onSuggestionSelected: (Salon suggestion) {
+                          controllerSuggestion.text = suggestion.name;
+                          final salons = suggestion;
+                          print(salons.name);
+                          setState(() {
+                            this.bottomPosition = INVISIBLE_POSITION;
+                          });
+                          clearMarker();
+                          setMarkerSearchSalon(salons.id,salons.name, salons.latitude,
+                              salons.longitude, salons.address, salons.photos[0]);
 
-                        /// tạo function add marker search, gán salons = salons (khởi tạo)
-                      },
-                      noItemsFoundBuilder: (context) {
-                        return Center(child: Text("No salons found"));
-                      },
-                    )))),
+                          /// tạo function add marker search, gán salons = salons (khởi tạo)
+                        },
+                        noItemsFoundBuilder: (context) {
+                          return Center(child: Text("No salons found"));
+                        },
+                      ))),
+              Padding(
+                  padding: EdgeInsets.only(
+                      top: getProportionateScreenHeight(60),
+                      right: getProportionateScreenWidth(20)
+                  ),
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: IconButton(
+                        onPressed: _currentLocation,
+                        icon: Icon(Icons.location_on,size: getProportionateScreenWidth(25))),
+                  ))
+            ],)
+        ),
         AnimatedPositioned(
             duration: Duration(milliseconds: 500),
             curve: Curves.easeInOut,
