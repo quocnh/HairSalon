@@ -687,8 +687,9 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                       children: [
                         Image.network(
                           widget.galleryList[0].img,
-                          height: 500,
-                          fit: BoxFit.cover,
+                          height: getProportionateScreenHeight(500),
+                          width: double.maxFinite,
+                          fit: BoxFit.fill,
                         ),
                         Container(
                           margin: EdgeInsets.only(bottom: 35),
@@ -702,13 +703,16 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  Text(
-                                    widget.salonInfo.name,//'Marguerite Cross',
-                                    style: TextStyle(
-                                      color: whiteColor,
-                                      fontSize: 16,
+                                  Container(
+                                    width: getProportionateScreenWidth(250),
+                                    child: Text(
+                                      widget.salonInfo.name,//'Marguerite Cross',
+                                      style: TextStyle(
+                                        color: whiteColor,
+                                        fontSize: 16,
+                                      ),
+                                      textAlign: TextAlign.left,
                                     ),
-                                    textAlign: TextAlign.left,
                                   ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -727,10 +731,13 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   //Text('Day Salon', style: TextStyle(color: whiteColor, fontSize: 16), textAlign: TextAlign.left),
-                                  Text("${widget.salonInfo.address}", style: TextStyle(color: whiteColor, fontSize: 16), textAlign: TextAlign.left),
                                   Container(
-                                    height: 25,
-                                    width: 65,
+                                    width: getProportionateScreenWidth(250),
+                                    child: Text("${widget.salonInfo.address}", style: TextStyle(color: whiteColor, fontSize: 16), textAlign: TextAlign.left),
+                                  ),
+                                  Container(
+                                    height: getProportionateScreenHeight(25),
+                                    width: getProportionateScreenWidth(70),
                                     margin: EdgeInsets.only(right: 16),
                                     child: FlatButton(
                                       onPressed: () {},

@@ -71,7 +71,7 @@ class _ItemList extends State<ItemList> {
            (listAllSalons != []) 
             ? SlidingUpPanel(
               maxHeight: getProportionateScreenHeight(600),
-              minHeight: getProportionateScreenHeight(85),
+              minHeight: getProportionateScreenHeight(95),
               backdropEnabled: true,
               borderRadius: radius,
               panel: Column(

@@ -1,6 +1,5 @@
 import 'package:salonmobile/models/Barber.dart';
 import 'package:salonmobile/models/Salon.dart';
-import 'package:salonmobile/models/Service.dart';
 import 'package:salonmobile/services/http_service.dart';
 
 class SalonUtilsService {

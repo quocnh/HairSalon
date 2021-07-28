@@ -224,7 +224,6 @@ class _Map extends State<Map> {
         GoogleMap(
           myLocationButtonEnabled: true,
           myLocationEnabled: true,
-          padding: EdgeInsets.only(bottom: 100),
           zoomControlsEnabled: false,
           initialCameraPosition: _initialPosition,
           mapType: MapType.normal,
