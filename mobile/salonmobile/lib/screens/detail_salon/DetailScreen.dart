@@ -590,21 +590,34 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  reviewList[index].name,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: KatokAppTextColorPrimary,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      reviewList[index].name,
+                                      style: TextStyle(
+                                        fontSize: getProportionateScreenWidth(15),
+                                        color: KatokAppTextColorPrimary,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: getProportionateScreenWidth(20),
+                                    ),
+                                    Text(
+                                      // "12-01-1999" ?? "",
+                                      reviewList[index].day ?? "",
+                                      style: TextStyle(
+                                        fontSize: getProportionateScreenWidth(15),
+                                        color: KatokGreyColor.withOpacity(0.7),
+                                      ),
+                                    )
+                                  ],
                                 ),
-                                8.height,
                                 Text(
-                                  reviewList[index].day ?? "",
+                                  reviewList[index].review,
                                   style: TextStyle(
-                                    fontSize: 12,
-                                    color: KatokGreyColor,
-                                    fontWeight: FontWeight.bold,
+                                    color: KatokAppTextColorSecondary,
+                                    fontSize: 14,
                                   ),
                                 ),
                               ],
@@ -626,13 +639,6 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                               ],
                             ),
                           ],
-                        ),
-                        Text(
-                          reviewList[index].review,
-                          style: TextStyle(
-                            color: KatokAppTextColorSecondary,
-                            fontSize: 14,
-                          ),
                         ),
                       ],
                     ),
