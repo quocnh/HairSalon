@@ -9,6 +9,7 @@ import 'package:salonmobile/models/Barber.dart';
 import 'package:salonmobile/models/KatokModel.dart';
 import 'package:salonmobile/models/Salon.dart';
 import 'package:salonmobile/models/Service.dart';
+import 'package:salonmobile/models/Comment.dart';
 import 'package:salonmobile/screens/detail_salon/PackageOffersScreen.dart';
 import 'package:salonmobile/services/salon_utils_service.dart';
 import 'package:salonmobile/utils/AppWidget.dart';
@@ -33,14 +34,13 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
   int _radioValue1 = 0;
   TabController controller;
 
-  List<KatokGalleryModel> galleryList;
-  List<KatokCategoryModel> categoryList;
-  List<KatokOfferModel> offerList;
-  List<KatokServicesModel> servicesList;
-  List<KatokReviewModel> reviewList;
-  List<KatokHairStyleModel> hairStyleList;
-  List<KatokMakeUpModel> makeupList;
-  List<Barber> barberList = [];
+  List<KatokGalleryModel> galleryList = [];
+  List<KatokCategoryModel> categoryList = [];
+  List<KatokOfferModel> offerList = [];
+  List<KatokServicesModel> servicesList = [];
+  List<KatokReviewModel> reviewList = [];
+  List<KatokHairStyleModel> hairStyleList = [];
+  List<KatokMakeUpModel> makeupList = [];
 
   // Salon salonInfo;
   final URL_IMAGE = 'https://awinst.com:3000/app/';
@@ -52,15 +52,16 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
     categoryList = getCategory();
     offerList = getOfferList();
     servicesList = getServicesList();
-    reviewList = getReviewList();
-    //hairStyleList = await loadHairStyleList(widget.salonInfo.id);
-    hairStyleList = getDefaultHairStyleList();
+    //reviewList = getReviewList();
+    //hairStyleList = getDefaultHairStyleList();
+    loadHairStyleList(widget.salonInfo.id);
+    loadCommentsInfo(widget.salonInfo.id);
     makeupList = getMakeupList();
     galleryList = getSalonPhotoList();
   }
 
   List<KatokServicesModel> getServicesList() {
-    List<KatokServicesModel> sList = List<KatokServicesModel>();
+    List<KatokServicesModel> sList = [];
     for(int i = 0; i < widget.salonInfo.services.length; i++) {
       Service service = widget.salonInfo.services[i];
       sList.add(KatokServicesModel(img: service.image, serviceName: service.name, time: service.time.toString(), price: service.price.toInt(), radioVal: i+1));
@@ -82,16 +83,15 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
     return galleryList;
   }
 
-  Future<List<KatokHairStyleModel>> loadHairStyleList(String salonId) async{
-    List<KatokHairStyleModel> hsList = <KatokHairStyleModel>[];
+  Future loadHairStyleList(String salonId) async{
+    //List<KatokHairStyleModel> hsList = <KatokHairStyleModel>[];
     final results = await SalonUtilsService().getBarbersFromSalonId(salonId);
-
-    barberList = results;
-    hsList = getHairStyleList();
-    return hsList;
+    setState(() {
+      hairStyleList = getHairStyleList(results);
+    });
   }
 
-  List<KatokHairStyleModel> getHairStyleList() {
+  List<KatokHairStyleModel> getHairStyleList(List<Barber> barberList) {
     List<KatokHairStyleModel> bbList = <KatokHairStyleModel>[];
     if(barberList == null) {
       bbList = getDefaultHairStyleList();
@@ -103,6 +103,26 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
       }
     }
     return bbList;
+  }
+
+  Future loadCommentsInfo(String salonId) async{
+    final results = await SalonUtilsService().getCommentsFromSalonId(salonId);
+    print(results[0].content);
+    setState(() {
+      reviewList = getCommentList(results);
+      //print("Number of comments list: " + reviewList.length.toString());
+    });
+  }
+
+  List<KatokReviewModel> getCommentList(List<Comment> commentList) {
+    List<KatokReviewModel> cmList = <KatokReviewModel>[];
+    //Load user_profile
+    print("Number of comments list: " + commentList.length.toString());
+    for(int i = 0; i < commentList.length; i++) {
+      cmList.add(KatokReviewModel(img: "assets/images/default-avatar.png", name:"abc", rating: 5.0, day: commentList[i].date, review: commentList[i].content));
+    }
+
+    return cmList;
   }
 
   void something(int value) {
@@ -140,7 +160,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                     8.height,
                     Row(
                       children: [
-                        Text(widget.salonInfo.info, style: TextStyle(color: KatokAppTextColorSecondary, fontSize: 14)),
+                        Text(widget.salonInfo.info ?? 'N/A', style: TextStyle(color: KatokAppTextColorSecondary, fontSize: 14)),
                       ],
                     ),
                   ],
@@ -561,6 +581,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                           children: [
                             CircleAvatar(
                               backgroundImage: AssetImage(reviewList[index].img),
+                              //child:commonCacheImageWidget(reviewList[index].img, 80, width: 80, fit: BoxFit.cover),
                               radius: 30,
                             ),
                             8.width,
@@ -577,7 +598,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                                 ),
                                 8.height,
                                 Text(
-                                  reviewList[index].day,
+                                  reviewList[index].day ?? "",
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: KatokGreyColor,
@@ -631,6 +652,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
             children: [
               Text(KatokTxtHairStyle, style: TextStyle(color: KatokAppTextColorPrimary, fontWeight: FontWeight.bold, fontSize: 16)),
               Container(
+
                 height: 180,
                 child: ListView.builder(
                   padding: EdgeInsets.symmetric(vertical: 8),
@@ -678,7 +700,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-                            child: commonCacheImageWidget(hairStyleList[index].img, 110, width: 120, fit: BoxFit.cover),
+                            child: commonCacheImageWidget(makeupList[index].img, 110, width: 120, fit: BoxFit.cover),
                           ),
                           Padding(
                             padding: EdgeInsets.all(8),
