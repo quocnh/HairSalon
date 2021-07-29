@@ -6,18 +6,18 @@ import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
 class SalonsCard extends StatelessWidget {
+  final Salon salons;
   SalonsCard({
     Key key,
 
     this.salons,
   }) : super(key: key);
 
-
-  final Salon salons;
   final cacheManager = CacheManager(Config(
     'customCache',
     stalePeriod: Duration(days: 1),
   ));
+
   @override
   Widget build(BuildContext context) {
     return Padding(

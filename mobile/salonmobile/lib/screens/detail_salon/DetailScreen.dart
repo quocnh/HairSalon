@@ -110,7 +110,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
   List<KatokHairStyleModel> getHairStyleList(List<Barber> barberList) {
     List<KatokHairStyleModel> bbList = <KatokHairStyleModel>[];
     if(barberList == null) {
-      bbList = getDefaultHairStyleList();
+      // bbList = getDefaultHairStyleList();
     } else {
       for(int i = 0; i < barberList.length; i++) {
         // String salonPhoto = URL_IMAGE + salonInfo.photos[i];

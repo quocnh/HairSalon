@@ -43,6 +43,7 @@ class _Map extends State<Map> {
   String addressSalon = '';
   String imgSalon = '';
   bool reloadMarkers = false;
+
   final cacheManager = CacheManager(Config(
     'customCache',
     stalePeriod: Duration(days: 1),

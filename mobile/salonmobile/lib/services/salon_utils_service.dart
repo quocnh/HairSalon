@@ -5,12 +5,15 @@ import 'package:salonmobile/models/User.dart';
 import 'package:salonmobile/services/http_service.dart';
 
 class SalonUtilsService {
+
   HttpService hS = new HttpService();
+
   Future<List<Salon>> getAllSalons() async {
     //HttpService hS = new HttpService();
     List response = await this.hS.sget('salons');
     return response.map((json) => new Salon.fromJson(json)).toList();
   }
+
   Future<List<Salon>> getAllSalonSuggestions(String query) async {
     //HttpService hS = new HttpService();
     List response = await this.hS.sget('salons');
