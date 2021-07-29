@@ -821,7 +821,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                       Tab(
                         child: Align(alignment: Alignment.center, child: Text(KatokTabServices, style: TextStyle(fontSize: 14))),
                       ),
-                      Tab(
+                      Tab( 
                         child: Align(alignment: Alignment.center, child: Text(KatokTabReview, style: TextStyle(fontSize: 14))),
                       ),
                       Tab(
