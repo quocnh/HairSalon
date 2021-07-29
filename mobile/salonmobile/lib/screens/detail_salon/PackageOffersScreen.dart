@@ -9,6 +9,7 @@ import 'package:salonmobile/utils/KatokColors.dart';
 import 'package:salonmobile/utils/KatokConstants.dart';
 import 'package:salonmobile/utils/KatokDataProvider.dart';
 import 'package:salonmobile/utils/KatokImages.dart';
+import 'package:salonmobile/utils/size_config.dart';
 
 
 
@@ -168,6 +169,7 @@ class KatokPackageOffersScreenState extends State<KatokPackageOffersScreen> {
                           ),
                         );
                       }),
+                  Container(height: getProportionateScreenHeight(50),)
                   //16.height,
                 ],
               ),

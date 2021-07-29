@@ -15,6 +15,7 @@ import 'package:salonmobile/models/KatokModel.dart';
 import 'package:salonmobile/models/Salon.dart';
 import 'package:salonmobile/screens/detail_salon/DetailScreen.dart';
 import 'package:salonmobile/services/salon_utils_service.dart';
+import 'package:salonmobile/utils/KatokColors.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
@@ -283,7 +284,7 @@ class _Map extends State<Map> {
                     /// search suggestion
                     child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: KatokGreyColor.withOpacity(0.25),
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: TypeAheadField<Salon>(
@@ -308,6 +309,7 @@ class _Map extends State<Map> {
                                   focusedBorder: InputBorder.none,
                                   enabledBorder: InputBorder.none,
                                   hintText: "Search salons",
+                                  hintStyle: TextStyle(color: KatokGreyColor),
                                   prefixIcon: Icon(Icons.search))),
                           suggestionsCallback: (query) async {
                             if (query.isEmpty) {
@@ -368,7 +370,7 @@ class _Map extends State<Map> {
                       alignment: Alignment.centerRight,
                       child: IconButton(
                           onPressed: _currentLocation,
-                          icon: Icon(Icons.location_on,
+                          icon: Icon(Icons.my_location_outlined,
                               size: getProportionateScreenWidth(25))),
                     ))
               ],

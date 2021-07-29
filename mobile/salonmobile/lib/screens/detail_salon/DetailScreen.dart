@@ -1,15 +1,16 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:salonmobile/models/Barber.dart';
+import 'package:salonmobile/models/Comment.dart';
 import 'package:salonmobile/models/KatokModel.dart';
 import 'package:salonmobile/models/Salon.dart';
 import 'package:salonmobile/models/Service.dart';
-import 'package:salonmobile/models/Comment.dart';
 import 'package:salonmobile/screens/detail_salon/PackageOffersScreen.dart';
 import 'package:salonmobile/services/salon_utils_service.dart';
 import 'package:salonmobile/utils/AppWidget.dart';
@@ -441,6 +442,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                 );
               },
             ),
+            Container(height: getProportionateScreenHeight(60),)
             // Container(
             //   width: MediaQuery.of(context).size.width,
             //   margin: EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 16),
@@ -739,135 +741,138 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
             child: Text(KatokBtnBookAppointment, style: TextStyle(color: whiteColor, fontSize: 16, fontWeight: FontWeight.bold)),
           ),
         ),
-        body: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return <Widget>[
-              Container(
-                child: SliverAppBar(
-                  brightness: Brightness.dark,
-                  leading: IconButton(icon: Icon(Icons.arrow_back,color: white),onPressed: (){
-                    Navigator.pop(context);
-                  },),
-                  backgroundColor: KatokColorPrimary,
-                  pinned: true,
-                  elevation: 2,
-                  expandedHeight: 300,
-                  flexibleSpace: FlexibleSpaceBar(
-                    collapseMode: CollapseMode.parallax,
-                    titlePadding: EdgeInsets.all(10),
-                    background: Stack(
-                      overflow: Overflow.visible,
-                      children: [
-                        Image.network(
-                          galleryList[0].img,
-                          height: getProportionateScreenHeight(500),
-                          width: double.maxFinite,
-                          fit: BoxFit.fill,
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(bottom: 35),
-                          padding: EdgeInsets.all(8),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Container(
-                                    width: getProportionateScreenWidth(250),
-                                    child: Text(
-                                      widget.salonInfo.name,//'Marguerite Cross',
-                                      style: TextStyle(
-                                        color: whiteColor,
-                                        fontSize: 16,
-                                      ),
-                                      textAlign: TextAlign.left,
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        widget.salonInfo.rating.toString(),//'4.5',
-                                        style: TextStyle(color: whiteColor, fontSize: 16),
-                                      ),
-                                      IconButton(icon: Icon(Icons.star, color: KatokColorPrimary), onPressed: () {})
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  //Text('Day Salon', style: TextStyle(color: whiteColor, fontSize: 16), textAlign: TextAlign.left),
-                                  Container(
-                                    width: getProportionateScreenWidth(250),
-                                    child: Text("${widget.salonInfo.address}", style: TextStyle(color: whiteColor, fontSize: 16), textAlign: TextAlign.left),
-                                  ),
-                                  Container(
-                                    height: getProportionateScreenHeight(25),
-                                    width: getProportionateScreenWidth(70),
-                                    margin: EdgeInsets.only(right: 16),
-                                    child: FlatButton(
-                                      onPressed: () {},
-                                      child: Text(KatokBtnOpen, style: TextStyle(color: whiteColor, fontSize: 13)),
-                                      color: KatokColorPrimary,
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ],
+        body: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle.dark,
+          child: NestedScrollView(
+            headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                Container(
+                  child: SliverAppBar(
+                    brightness: Brightness.dark,
+                    leading: IconButton(icon: Icon(Icons.arrow_back,color: white),onPressed: (){
+                      Navigator.pop(context);
+                    },),
+                    backgroundColor: KatokColorPrimary,
+                    pinned: true,
+                    elevation: 2,
+                    expandedHeight: 300,
+                    flexibleSpace: FlexibleSpaceBar(
+                      collapseMode: CollapseMode.parallax,
+                      titlePadding: EdgeInsets.all(10),
+                      background: Stack(
+                        overflow: Overflow.visible,
+                        children: [
+                          Image.network(
+                            galleryList[0].img,
+                            height: getProportionateScreenHeight(500),
+                            width: double.maxFinite,
+                            fit: BoxFit.fill,
                           ),
-                        )
-                      ],
+                          Container(
+                            margin: EdgeInsets.only(bottom: 35),
+                            padding: EdgeInsets.all(8),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Container(
+                                      width: getProportionateScreenWidth(250),
+                                      child: Text(
+                                        widget.salonInfo.name,//'Marguerite Cross',
+                                        style: TextStyle(
+                                          color: whiteColor,
+                                          fontSize: 16,
+                                        ),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          widget.salonInfo.rating.toString(),//'4.5',
+                                          style: TextStyle(color: whiteColor, fontSize: 16),
+                                        ),
+                                        IconButton(icon: Icon(Icons.star, color: KatokColorPrimary), onPressed: () {})
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    //Text('Day Salon', style: TextStyle(color: whiteColor, fontSize: 16), textAlign: TextAlign.left),
+                                    Container(
+                                      width: getProportionateScreenWidth(250),
+                                      child: Text("${widget.salonInfo.address}", style: TextStyle(color: whiteColor, fontSize: 16), textAlign: TextAlign.left),
+                                    ),
+                                    Container(
+                                      height: getProportionateScreenHeight(25),
+                                      width: getProportionateScreenWidth(70),
+                                      margin: EdgeInsets.only(right: 16),
+                                      child: FlatButton(
+                                        onPressed: () {},
+                                        child: Text(KatokBtnOpen, style: TextStyle(color: whiteColor, fontSize: 13)),
+                                        color: KatokColorPrimary,
+                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      centerTitle: true,
                     ),
-                    centerTitle: true,
-                  ),
-                  bottom: TabBar(
-                    labelColor: whiteColor,
-                    unselectedLabelColor: whiteColor,
-                    isScrollable: true,
-                    indicatorColor: KatokColorPrimary,
-                    tabs: [
-                      Tab(
-                        child: Align(alignment: Alignment.center, child: Text(KatokTabAbout, style: TextStyle(fontSize: 14))),
-                      ),
-                      Tab(
-                        child: Align(alignment: Alignment.center, child: Text(KatokTabGallery, style: TextStyle(fontSize: 14))),
-                      ),
-                      Tab(
-                        child: Align(alignment: Alignment.center, child: Text(KatokTabServices, style: TextStyle(fontSize: 14))),
-                      ),
-                      Tab( 
-                        child: Align(alignment: Alignment.center, child: Text(KatokTabReview, style: TextStyle(fontSize: 14))),
-                      ),
-                      Tab(
-                        child: Align(alignment: Alignment.center, child: Text(KatokTabSalonSpecialList, style: TextStyle(fontSize: 14))),
-                      ),
+                    bottom: TabBar(
+                      labelColor: whiteColor,
+                      unselectedLabelColor: whiteColor,
+                      isScrollable: true,
+                      indicatorColor: KatokColorPrimary,
+                      tabs: [
+                        Tab(
+                          child: Align(alignment: Alignment.center, child: Text(KatokTabAbout, style: TextStyle(fontSize: 14))),
+                        ),
+                        Tab(
+                          child: Align(alignment: Alignment.center, child: Text(KatokTabGallery, style: TextStyle(fontSize: 14))),
+                        ),
+                        Tab(
+                          child: Align(alignment: Alignment.center, child: Text(KatokTabServices, style: TextStyle(fontSize: 14))),
+                        ),
+                        Tab(
+                          child: Align(alignment: Alignment.center, child: Text(KatokTabReview, style: TextStyle(fontSize: 14))),
+                        ),
+                        Tab(
+                          child: Align(alignment: Alignment.center, child: Text(KatokTabSalonSpecialList, style: TextStyle(fontSize: 14))),
+                        ),
+                      ],
+                      controller: controller,
+                    ),
+                    actions: [
+                      IconButton(icon: Icon(Icons.call, color: whiteColor, size: 16), onPressed: () {}),
+                      IconButton(icon: Icon(Icons.message, color: whiteColor, size: 16), onPressed: () {}),
                     ],
-                    controller: controller,
                   ),
-                  actions: [
-                    IconButton(icon: Icon(Icons.call, color: whiteColor, size: 16), onPressed: () {}),
-                    IconButton(icon: Icon(Icons.message, color: whiteColor, size: 16), onPressed: () {}),
-                  ],
                 ),
-              ),
-            ];
-          },
-          body: TabBarView(
-            children: [
-              aboutWidget(),
-              galleryWidget(),
-              serviceWidget(),
-              reviewWidget(),
-              specialListsWidget(),
-            ],
+              ];
+            },
+            body: TabBarView(
+              children: [
+                aboutWidget(),
+                galleryWidget(),
+                serviceWidget(),
+                reviewWidget(),
+                specialListsWidget(),
+              ],
+            ),
           ),
         ),
       ),

@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:flutter/services.dart';
 import 'package:salonmobile/screens/home/components/body.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
@@ -16,7 +17,10 @@ class _HomeScreenState extends State<HomeScreen>
     super.build(context);
     SizeConfig().init(context);
     return Scaffold(
-      body: Body(),
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.dark,
+        child: Body(),
+      ),
       // bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.home),
     );
   }
