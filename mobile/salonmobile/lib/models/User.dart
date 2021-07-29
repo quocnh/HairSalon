@@ -1,29 +1,46 @@
 import 'package:flutter/material.dart';
 
 class User {
-  // final int id;
+  final String id;
   final String email, password;
   final String firstname, lastname;
   final String phone;
   final String address;
   // final String state, city, country;
-  // final List<String> images;
+  final String avatar;
   // final List<Color> colors;
   // final double rating, price;
   // final bool isFavourite, isPopular;
 
   User({
-    // @required this.id,
-    @required this.email,
-    @required this.password,
-    this.firstname,
-    this.lastname,
+    @required this.id,
+    this.email="",
+    this.password="",
+    this.firstname="",
+    this.lastname="",
     this.phone = "",
-    this.address,
-    // this.state,
+    this.address="",
+    this.avatar="asset/images/default-avatar.png",
     // this.city,
     // this.country
   });
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    String firstname = "", lastname = "";
+    String avatar="assets/images/logo.png";
+    if (json['avatar'] != null)
+      avatar = json['avatar'];
+    if (json['firstname'] != null)
+      firstname = json['firstname'];
+    if (json['lastname'] != null)
+      lastname = json['lastname'];
+
+    return User(
+        id: json['_id'],
+        firstname: firstname,
+        lastname: lastname,
+        avatar: avatar);
+  }
 }
 
 List<User> demoUsers = [

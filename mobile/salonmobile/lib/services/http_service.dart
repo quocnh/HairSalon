@@ -17,7 +17,7 @@ class HttpService {
   static const String HERE_URL =
       'https://cors-anywhere.herokuapp.com/https://geocode.search.hereapi.com/v1/geocode?q=';
   static const String HERE_KEY = 'MdY-VgF6O64ulC_vNxa4bmEvIhrkkH85NIjw4ESTFs8';
-
+  var client = http.Client();
   // LOGIN API
   login(String username, String password) async {
     String url = ROOT_URL + '/api' + '/auth/signin';
@@ -45,8 +45,8 @@ class HttpService {
   sget(String params) async {
     String url = ROOT_URL + '/' + params;
     HttpOverrides.global = new MyHttpOverrides();
-    var client = http.Client();
-    var response = await client.get(Uri.parse(url));
+
+    var response = await this.client.get(Uri.parse(url));
     if (response.statusCode == 200) {
       List jsonString = json.decode(response.body);
       // var jsonMap = json.decode(jsonString);
