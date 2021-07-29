@@ -1,8 +1,10 @@
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -35,6 +37,10 @@ class KatokDetailScreen extends StatefulWidget {
 class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerProviderStateMixin {
   int _radioValue1 = 0;
   TabController controller;
+  final cacheManager = CacheManager(Config(
+    'customCache',
+    stalePeriod: Duration(days: 1),
+  ));
 
   List<KatokGalleryModel> galleryList = [];
   List<KatokCategoryModel> categoryList = [];
@@ -127,6 +133,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
     print(results[0].content);
     setState(() {
       reviewList = getCommentList(results, userList);
+      print(reviewList[0].img);
       //print("Number of comments list: " + reviewList.length.toString());
     });
   }
@@ -598,11 +605,22 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                       children: [
                         Row(
                           children: [
-                            CircleAvatar(
-                              //backgroundImage: AssetImage(reviewList[index].img),
-                              child:commonCacheImageWidget(reviewList[index].img, 80, width: 80, fit: BoxFit.cover),
-                              radius: 30,
-                            ),
+                            CachedNetworkImage(imageUrl: URL_IMAGE + reviewList[0].img,
+                                imageBuilder: (context, imageProvider){
+                                  return Container(
+                                    width: getProportionateScreenWidth(80),
+                                    height: getProportionateScreenHeight(80),
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(
+                                            image: imageProvider, fit: BoxFit.cover
+                                        )
+                                    ),
+                                  );
+                                },
+                                cacheManager: cacheManager,
+                                placeholder: _loader,
+                                errorWidget: _error),
                             8.width,
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -901,4 +919,13 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
       ),
     );
   }
+}
+Widget _loader(BuildContext context, String url) {
+  return Container(
+      width: getProportionateScreenWidth(80),
+      height: getProportionateScreenHeight(80),
+      child: Center(child: CircularProgressIndicator()));
+}
+Widget _error(BuildContext context, String url, dynamic error) {
+  return Center(child: Text('ERROR'));
 }

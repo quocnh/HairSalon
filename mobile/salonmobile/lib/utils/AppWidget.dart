@@ -89,7 +89,7 @@ void changeStatusColor(Color color) async {
   }
 }
 
-Widget commonCacheImageWidget(String url, double height,
+Widget commonCacheImageWidget(String  url, double height,
     {double width, BoxFit fit}) {
   final URL_IMAGE = 'https://awinst.com:3000/app/';
   if (url.validate().startsWith('http')) {
