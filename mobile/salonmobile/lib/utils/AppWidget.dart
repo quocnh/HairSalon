@@ -91,6 +91,7 @@ void changeStatusColor(Color color) async {
 
 Widget commonCacheImageWidget(String url, double height,
     {double width, BoxFit fit}) {
+  final URL_IMAGE = 'https://awinst.com:3000/app/';
   if (url.validate().startsWith('http')) {
     if (isMobile) {
       return CachedNetworkImage(
@@ -103,7 +104,21 @@ Widget commonCacheImageWidget(String url, double height,
     } else {
       return Image.network(url, height: height, width: width, fit: fit);
     }
-  } else if (url.validate().contains('base64')){
+  } else if (url.validate().startsWith('uploads/')) {
+    var newUrl = URL_IMAGE + url;
+    if (isMobile) {
+      return CachedNetworkImage(
+        placeholder: placeholderWidgetFn(),
+        imageUrl: '$newUrl',
+        height: height,
+        width: width,
+        fit: fit,
+      );
+    } else {
+      return Image.network(newUrl, height: height, width: width, fit: fit);
+    }
+  }
+  else if (url.validate().contains('base64')){
     return Image.memory(base64Decode(url.split(',').last), height: height, width: width, fit: fit);
   } else {
     return Image.asset(url, height: height, width: width, fit: fit);

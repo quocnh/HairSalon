@@ -1,6 +1,7 @@
 import 'package:salonmobile/models/Barber.dart';
 import 'package:salonmobile/models/Comment.dart';
 import 'package:salonmobile/models/Salon.dart';
+import 'package:salonmobile/models/User.dart';
 import 'package:salonmobile/services/http_service.dart';
 
 class SalonUtilsService {
@@ -66,6 +67,12 @@ class SalonUtilsService {
     String para = 'comments/salon/' + salonId;
     List response = await this.hS.sget(para);
     return response.map((json) => new Comment.fromJson(json)).toList();
+  }
+  Future<List<User>> getUserInfo(String userId) async {
+    //HttpService hS = new HttpService();
+    String para = 'api/user/getUser/' + userId;
+    List response = await this.hS.sget(para);
+    return response.map((json) => new User.fromJson(json)).toList();
   }
 
 }

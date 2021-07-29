@@ -11,6 +11,7 @@ import 'package:salonmobile/models/Comment.dart';
 import 'package:salonmobile/models/KatokModel.dart';
 import 'package:salonmobile/models/Salon.dart';
 import 'package:salonmobile/models/Service.dart';
+import 'package:salonmobile/models/User.dart';
 import 'package:salonmobile/screens/detail_salon/PackageOffersScreen.dart';
 import 'package:salonmobile/services/salon_utils_service.dart';
 import 'package:salonmobile/utils/AppWidget.dart';
@@ -115,20 +116,28 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
   }
 
   Future loadCommentsInfo(String salonId) async{
+    List<User> userList = [];
     final results = await SalonUtilsService().getCommentsFromSalonId(salonId);
+    for(int i = 0; i < results.length; i++){
+      final ul = await SalonUtilsService().getUserInfo(results[i].userId);
+      userList.add(ul[0]);
+      print("LARRY ~~~ " + ul[0].firstname);
+    }
+
     print(results[0].content);
     setState(() {
-      reviewList = getCommentList(results);
+      reviewList = getCommentList(results, userList);
       //print("Number of comments list: " + reviewList.length.toString());
     });
   }
 
-  List<KatokReviewModel> getCommentList(List<Comment> commentList) {
+  List<KatokReviewModel> getCommentList(List<Comment> commentList, List<User> userList) {
     List<KatokReviewModel> cmList = <KatokReviewModel>[];
     //Load user_profile
     print("Number of comments list: " + commentList.length.toString());
     for(int i = 0; i < commentList.length; i++) {
-      cmList.add(KatokReviewModel(img: "assets/images/default-avatar.png", name:"abc", rating: 5.0, day: commentList[i].date, review: commentList[i].content));
+      var name = userList[i].firstname + " " + userList[i].lastname;
+          cmList.add(KatokReviewModel(img: userList[i].avatar ?? "assets/images/default-avatar.png", name: name, rating: 5.0, day: commentList[i].date, review: commentList[i].content));
     }
 
     return cmList;
@@ -590,8 +599,8 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                         Row(
                           children: [
                             CircleAvatar(
-                              backgroundImage: AssetImage(reviewList[index].img),
-                              //child:commonCacheImageWidget(reviewList[index].img, 80, width: 80, fit: BoxFit.cover),
+                              //backgroundImage: AssetImage(reviewList[index].img),
+                              child:commonCacheImageWidget(reviewList[index].img, 80, width: 80, fit: BoxFit.cover),
                               radius: 30,
                             ),
                             8.width,
