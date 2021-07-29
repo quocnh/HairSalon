@@ -22,7 +22,7 @@ import 'package:salonmobile/utils/size_config.dart';
 
 
 class KatokDetailScreen extends StatefulWidget {
-  Salon salonInfo;
+  Salon salonInfo = Salon();
 
   KatokDetailScreen({this.salonInfo});
   static String tag = '/NewSliverCustom';
@@ -55,17 +55,25 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
     servicesList = getServicesList();
     //reviewList = getReviewList();
     //hairStyleList = getDefaultHairStyleList();
-    loadHairStyleList(widget.salonInfo.id);
-    loadCommentsInfo(widget.salonInfo.id);
+    if (widget.salonInfo != null){
+      loadHairStyleList(widget.salonInfo.id);
+      loadCommentsInfo(widget.salonInfo.id);
+    }
     makeupList = getMakeupList();
     galleryList = getSalonPhotoList();
   }
 
   List<KatokServicesModel> getServicesList() {
     List<KatokServicesModel> sList = [];
-    for(int i = 0; i < widget.salonInfo.services.length; i++) {
-      Service service = widget.salonInfo.services[i];
-      sList.add(KatokServicesModel(img: service.image, serviceName: service.name, time: service.time.toString(), price: service.price.toInt(), radioVal: i+1));
+    if(widget.salonInfo != null && widget.salonInfo.services != null) {
+      for (int i = 0; i < widget.salonInfo.services.length; i++) {
+        Service service = widget.salonInfo.services[i];
+        sList.add(KatokServicesModel(img: service.image,
+            serviceName: service.name,
+            time: service.time.toString(),
+            price: service.price.toInt(),
+            radioVal: i + 1));
+      }
     }
     return sList;
   }
