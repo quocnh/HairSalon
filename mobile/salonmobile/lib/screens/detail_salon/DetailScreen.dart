@@ -9,6 +9,7 @@ import 'package:salonmobile/models/Barber.dart';
 import 'package:salonmobile/models/KatokModel.dart';
 import 'package:salonmobile/models/Salon.dart';
 import 'package:salonmobile/models/Service.dart';
+import 'package:salonmobile/models/Comment.dart';
 import 'package:salonmobile/screens/detail_salon/PackageOffersScreen.dart';
 import 'package:salonmobile/services/salon_utils_service.dart';
 import 'package:salonmobile/utils/AppWidget.dart';
@@ -51,9 +52,10 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
     categoryList = getCategory();
     offerList = getOfferList();
     servicesList = getServicesList();
-    reviewList = getReviewList();
+    //reviewList = getReviewList();
     //hairStyleList = getDefaultHairStyleList();
     loadHairStyleList(widget.salonInfo.id);
+    loadCommentsInfo(widget.salonInfo.id);
     makeupList = getMakeupList();
     galleryList = getSalonPhotoList();
   }
@@ -101,6 +103,26 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
       }
     }
     return bbList;
+  }
+
+  Future loadCommentsInfo(String salonId) async{
+    final results = await SalonUtilsService().getCommentsFromSalonId(salonId);
+    print(results[0].content);
+    setState(() {
+      reviewList = getCommentList(results);
+      //print("Number of comments list: " + reviewList.length.toString());
+    });
+  }
+
+  List<KatokReviewModel> getCommentList(List<Comment> commentList) {
+    List<KatokReviewModel> cmList = <KatokReviewModel>[];
+    //Load user_profile
+    print("Number of comments list: " + commentList.length.toString());
+    for(int i = 0; i < commentList.length; i++) {
+      cmList.add(KatokReviewModel(img: "assets/images/default-avatar.png", name:"abc", rating: 5.0, day: commentList[i].date, review: commentList[i].content));
+    }
+
+    return cmList;
   }
 
   void something(int value) {
@@ -559,6 +581,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                           children: [
                             CircleAvatar(
                               backgroundImage: AssetImage(reviewList[index].img),
+                              //child:commonCacheImageWidget(reviewList[index].img, 80, width: 80, fit: BoxFit.cover),
                               radius: 30,
                             ),
                             8.width,
@@ -575,7 +598,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                                 ),
                                 8.height,
                                 Text(
-                                  reviewList[index].day,
+                                  reviewList[index].day ?? "",
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: KatokGreyColor,

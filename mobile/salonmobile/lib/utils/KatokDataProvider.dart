@@ -177,7 +177,7 @@ List<KatokIncludeServiceModel> getIncludeServicesList() {
   return servicesList;
 }
 
-List<KatokReviewModel> getReviewList() {
+List<KatokReviewModel> getDefaultReviewList() {
   List<KatokReviewModel> reviewList = List<KatokReviewModel>();
   reviewList.add(KatokReviewModel(img: KatokDashedBoardImage1, name: 'Carlos Day', rating: 4.5, day: '4 Day ago', review: KatokReview));
   reviewList.add(KatokReviewModel(img: KatokUserImg, name: 'Sherman', rating: 2.5, day: '10 Day ago', review: KatokReview));
