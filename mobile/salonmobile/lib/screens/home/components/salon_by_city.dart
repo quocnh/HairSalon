@@ -87,8 +87,8 @@ class SalonByCityCard extends StatelessWidget {
               children: [
                 Image.asset(
                   image,
-                  width:250,
-                  fit: BoxFit.cover,
+                  width:getProportionateScreenWidth(250),
+                  fit: BoxFit.fill,
                 ),
                 Container(
                   decoration: BoxDecoration(
