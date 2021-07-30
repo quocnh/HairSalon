@@ -35,7 +35,7 @@ class SalonsCard extends StatelessWidget {
             children: [
               Container(
                 width: getProportionateScreenWidth(200),
-                height: getProportionateScreenHeight(150),
+                height: getProportionateScreenHeight(120),
                 child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                     child: CachedNetworkImage(
@@ -46,7 +46,6 @@ class SalonsCard extends StatelessWidget {
                         errorWidget: _error)
                 ),
               ),
-              SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -79,7 +78,7 @@ class SalonsCard extends StatelessWidget {
                     child: Text(
                       salons.address,
                       style: TextStyle(
-                        fontSize: getProportionateScreenWidth(14),
+                        fontSize: getProportionateScreenWidth(13),
                         fontWeight: FontWeight.w600,
                         color: kPrimaryColor,
                       ),

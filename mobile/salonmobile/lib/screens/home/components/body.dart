@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:salonmobile/screens/home/components/categories.dart';
 import 'package:salonmobile/screens/home/components/discount_banner.dart';
 import 'package:salonmobile/screens/home/components/salon_by_city.dart';
@@ -17,21 +16,21 @@ class _Body extends State<Body> {
   double latitude;
   double longitude;
 
-  void getCurrentLocation() async{
-    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    var lastPosition = await Geolocator.getLastKnownPosition();
-    print(lastPosition);
-    setState(() {
-      locationMessage = "${position.latitude}, ${position.longitude}";
-      latitude = position.latitude;
-      longitude = position.longitude;
-    });
-  }
+  // void getCurrentLocation() async{
+  //   Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  //   var lastPosition = await Geolocator.getLastKnownPosition();
+  //   print(lastPosition);
+  //   setState(() {
+  //     locationMessage = "${position.latitude}, ${position.longitude}";
+  //     latitude = position.latitude;
+  //     longitude = position.longitude;
+  //   });
+  // }
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getCurrentLocation();
+    // getCurrentLocation();
   }
   @override
   Widget build(BuildContext context) {
@@ -49,7 +48,7 @@ class _Body extends State<Body> {
               SizedBox(height: getProportionateScreenWidth(15)),
               SalonByCity(),
               SizedBox(height: getProportionateScreenWidth(30)),
-              SalonNearMe(latitude: latitude, longitude: longitude),
+              SalonNearMe(),
               SizedBox(height: getProportionateScreenWidth(30)),
             ],
           ),
