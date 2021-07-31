@@ -24,7 +24,7 @@ export class UserProfileComponent implements OnInit {
     genders = GlobalConstants.Genders;
 
     selectedFile: File = null;
-    modelDob: NgbDateStruct;
+    modelDob: NgbDateStruct ;
     today = this.calendar.getToday();
 
     keyword = 'name';
@@ -100,7 +100,7 @@ export class UserProfileComponent implements OnInit {
     }   
 
     updateUserProfile() {
-        if ((JSON.stringify(this.userDb) !== JSON.stringify(this.user)) || (this.selectedFile !== null)) {
+        if (JSON.stringify(this.userDb) !== JSON.stringify(this.user)) {
             // console.log('Khac' + JSON.stringify(this.userDb) + '---' + JSON.stringify(this.user));
             if (this.user.city !== this.userDb.city) {
             this.user.city = this.selectedCity.name;
@@ -108,9 +108,14 @@ export class UserProfileComponent implements OnInit {
             if (this.user.district !== this.userDb.district) {
             this.user.district = this.selectedDistrict.name;
             }
-            this.user.dob = new Date(this.modelDob.year, this.modelDob.month-1, this.modelDob.day, 0, 0, 0, 0);
+            if(this.modelDob === undefined){
+                this.user.dob = new Date(1980, 1, 1, 0, 0, 0, 0);
+            } else {
+                this.user.dob = new Date(this.modelDob.year, this.modelDob.month-1, this.modelDob.day, 0, 0, 0, 0);
+            }
+            
             // update user profile
-            this.salonUtilService.updateUserProfile(this.userId, this.user, this.selectedFile).subscribe(
+            this.salonUtilService.updateUserProfile(this.userId, this.user).subscribe(
                 // refresh page
                 () => {
                     this.refreshUserProfile(this.userId);
@@ -126,12 +131,12 @@ export class UserProfileComponent implements OnInit {
     refreshUserProfile(userId) {
         this.salonUtilService.getUser(userId).subscribe(
             (user: User) => {
-                // console.log(user);
+                //console.log(user);
                 this.user = Object.assign({}, user[0]);
                 this.userDb = Object.assign({}, user[0]);
                 // console.log(this.user.avatar);
                 if ((this.user.avatar !== 'null') && (this.user.avatar !== undefined)){
-                    this.strAvatar = environment.dbAddress+ '/' + this.user.avatar;
+                    this.strAvatar = this.user.avatar;
                 }
                 if (this.user.dob !== undefined){
                     this.modelDob = this.ngbDateParserFormatter.parse(this.user.dob.toString());
@@ -140,16 +145,99 @@ export class UserProfileComponent implements OnInit {
             });
     }
 
-    onFileSelected(event) {
-        this.selectedFile = event.target.files[0];
+    // onFileSelected(event) {
+    //     this.selectedFile = event.target.files[0];
 
-        const reader = new FileReader();
-        reader.readAsDataURL(this.selectedFile);
-        reader.onload = (_event) => {
-            this.strAvatar = reader.result;
+    //     const reader = new FileReader();
+    //     reader.readAsDataURL(this.selectedFile);
+    //     reader.onload = (_event) => {
+    //         this.strAvatar = reader.result;
+    //     }
+    //     console.log(this.selectedFile);
+    // }
+
+    onFileSelected(event) {
+        var resizedImage;
+        this.selectedFile = event.target.files[0];
+        // Ensure it's an image
+        if (this.selectedFile.type.match(/image.*/)) {
+          console.log('An image has been loaded');
+    
+          // Load the image
+          var reader = new FileReader();
+          reader.onload = (_event) => {
+            var image = new Image();
+            image.src = URL.createObjectURL(this.selectedFile);
+            image.onload = (imageEvent) => {
+              // //TODO: limit size 300x300 ~ 30Kb
+              var canvas = document.createElement('canvas'),
+                max_size = 300,
+                width = image.width,
+                height = image.height;
+              if (width > max_size) {
+                width = max_size;
+              }
+              if (height > max_size) {
+                height = max_size;
+              }
+              canvas.width = width;
+              canvas.height = height;
+              canvas.getContext('2d').drawImage(image, 0, 0, width, height);
+              resizedImage = canvas.toDataURL('image/jpeg');
+    
+              this.strAvatar = resizedImage;
+              //console.log(resizedImage);
+              this.user.avatar = this.strAvatar;
+            }
+    
+          }
+          reader.readAsDataURL(this.selectedFile);
         }
-        console.log(this.selectedFile);
     }
+    
+    //   resizeAndLoadImage(target, imageFile) {
+    
+    //   }
+    
+    //   onFileModifyServiceImage(event, idx) {
+    
+    //     var resizedImage;
+    //     var file = event.target.files[0];
+    //     // Ensure it's an image
+    //     if (file.type.match(/image.*/)) {
+    //       console.log('An image has been loaded');
+    
+    //       // Load the image
+    //       var reader = new FileReader();
+    //       reader.onload = (_event) => {
+    //         var image = new Image();
+    //         image.src = URL.createObjectURL(file);
+    //         image.onload = (imageEvent) => {
+    //           // //TODO: limit size 300x300 ~ 30Kb
+    //           var canvas = document.createElement('canvas'),
+    //             max_size = 300,
+    //             width = image.width,
+    //             height = image.height;
+    //           if (width > max_size) {
+    //             width = max_size;
+    //           }
+    //           if (height > max_size) {
+    //             height = max_size;
+    //           }
+    //           canvas.width = width;
+    //           canvas.height = height;
+    //           canvas.getContext('2d').drawImage(image, 0, 0, width, height);
+    //           resizedImage = canvas.toDataURL('image/jpeg');
+    
+    //           this.salon.services[idx].image = resizedImage;
+    //           //console.log(resizedImage);
+    //         }
+    
+    //       }
+    //       reader.readAsDataURL(file);
+    //     }
+    //   }
+
 
     selectCityEvent(event) {
         // console.log(event);
