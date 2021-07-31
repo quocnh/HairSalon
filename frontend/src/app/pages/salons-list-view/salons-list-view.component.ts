@@ -127,8 +127,8 @@ export class SalonsListViewComponent implements OnInit {
         console.log('RESULT: added salon name' + result.name);
         this.addedSalon = result;
         console.log('RESULT: owner salon id' + this.addedSalon._salonOwnerId);
-        this.addedSalon.rate = 0;
-        this.addedSalon.numRate = 0;
+        this.addedSalon.ratingAverage = 4.5;
+        this.addedSalon.ratingQuantity = 0;
         if (this.isListAllSalons) {
           // Case list all salons from admin account
           if ((this.addedSalon.name !== null) && (this.addedSalon._salonOwnerId !== null)) {

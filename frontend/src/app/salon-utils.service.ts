@@ -127,7 +127,7 @@ export class SalonUtilsService {
     const salonId: String  = salon._id;
     const fd = new FormData();
     //avatar
-    console.log(deletedList);
+    //console.log(deletedList);
 
     for (let i = 0; i < files.length; i++) {
       if (files[i]) {
@@ -555,6 +555,7 @@ export class SalonUtilsService {
     fd.append('salonId', newComment.salon._id);
     fd.append('userId', newComment.user._id);
     fd.append('content', newComment.content);
+    fd.append('rating', newComment.rating.toString());
 
     return this.webService.post( `comments`, fd);
   }

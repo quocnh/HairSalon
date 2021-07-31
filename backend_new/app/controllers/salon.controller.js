@@ -74,8 +74,8 @@ salonRouter.post('/', upload.array('newPhotos[]', 10), (req, res) => {
         services: req.body.services,
         priceFrom: '0',
         priceTo: '0',
-        rate: '0',
-        numRate: '0',
+        ratingAverage: 4.5,
+        ratingQuantity: 0,
         photos: strDefaultPhoto,
     });
 
@@ -179,25 +179,25 @@ salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
         }  
     }
 
+    if(req.body.deletedPhotoList !== undefined){
+        for (i = 0; i < strPhotoPath.length; i++) {
+            if (req.body.deletedPhotoList[i] === '1') {
+                // need to defind index as a const
+                const index = i;
+                //console.log('Xoa pphoto: ' + index);
+                //console.log(req.body.photos[index]);
+                strPhotoPath[index] = 'null';
 
-    // console.log(req.body.deletedPhotoList);
-    for (i = 0; i < strPhotoPath.length; i++) {
-        if (req.body.deletedPhotoList[i] === '1') {
-            // need to defind index as a const
-            const index = i;
-            //console.log('Xoa pphoto: ' + index);
-            //console.log(req.body.photos[index]);
-            strPhotoPath[index] = 'null';
-
-            if (req.body.photos[index] !== 'uploads/salonPhotos/default.jpg') {
-                fs.exists(req.body.photos[index], function (exists) {
-                    if (exists) {
-                        fs.unlink(req.body.photos[index], (err) => {
-                            if (err) throw err;
-                            console.log(req.body.photos[index] + ' was deleted.');
-                        });
-                    }
-                });
+                if (req.body.photos[index] !== 'uploads/salonPhotos/default.jpg') {
+                    fs.exists(req.body.photos[index], function (exists) {
+                        if (exists) {
+                            fs.unlink(req.body.photos[index], (err) => {
+                                if (err) throw err;
+                                console.log(req.body.photos[index] + ' was deleted.');
+                            });
+                        }
+                    });
+                }
             }
         }
     }
@@ -256,8 +256,8 @@ salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
                     //services: [req.body.services[],
                     priceFrom: req.body.priceFrom,
                     priceTo: req.body.priceTo,
-                    rate: req.body.rate,
-                    numRate: req.body.numRate,
+                    ratingAverage: req.body.ratingAverage,
+                    ratingQuantity: req.body.ratingQuantity,
                     photos: strPhotoPath
                 },
             },

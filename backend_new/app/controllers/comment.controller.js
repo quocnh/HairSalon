@@ -55,16 +55,19 @@ commentRouter.post('/', upload.array('newPhotos[]', 10), (req, res) => {
         strPhotoPath.push(req.files[i].path);
     }
 
-
+    //console.log(req.body);
     const comment = new Comment({
         userId: req.body.userId,
         salonId: req.body.salonId,
         content: req.body.content,
+        rating: req.body.rating,
         photos: strDefaultPhoto,
     });
 
     comment.save()
-        .then(newComment => res.send(newComment))
+        .then(newComment => {
+            res.send(newComment);
+        })
         .catch((error) => {
             console.log(error);            
             res.status(500).json({ error: 'Server error' });
