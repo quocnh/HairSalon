@@ -16,7 +16,6 @@ class _MenuPageBuilderScreenState extends State<MenuPageBuilderScreen> {
   List<Widget> _screens = [
     HomeScreen(),
     SearchSalonsScreen(),
-    // AppointmentScreen(),
     KatokAppointmentScreen(),
     ProfileScreen(),
   ];
