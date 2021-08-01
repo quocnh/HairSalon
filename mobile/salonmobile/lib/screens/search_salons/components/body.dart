@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:salonmobile/screens/search_salons/components/item_list.dart';
-import 'package:salonmobile/screens/search_salons/components/map.dart';
+import 'package:salonmobile/screens/search_salons/components/map1.dart';
 
 
 class Body extends StatefulWidget {
