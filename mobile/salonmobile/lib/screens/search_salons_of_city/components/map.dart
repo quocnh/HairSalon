@@ -387,12 +387,14 @@ class _Map extends State<Map> {
                   if (snapshot.hasData) {
                     return InkWell(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  KatokDetailScreen(salonInfo: salonInfo)),
-                        );
+                        if(salonInfo != null) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    KatokDetailScreen(salonInfo: salonInfo)),
+                          );
+                        }
                       },
                       child: (imgSalon == "")
                           ? Container()

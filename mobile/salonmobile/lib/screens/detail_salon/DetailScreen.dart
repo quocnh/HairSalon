@@ -127,13 +127,12 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
     for(int i = 0; i < results.length; i++){
       final ul = await SalonUtilsService().getUserInfo(results[i].userId);
       userList.add(ul[0]);
-      print("LARRY ~~~ " + ul[0].firstname);
     }
 
     print(results[0].content);
     setState(() {
       reviewList = getCommentList(results, userList);
-      print(reviewList[0].img);
+      //print(reviewList[0].img);
       //print("Number of comments list: " + reviewList.length.toString());
     });
   }
@@ -144,7 +143,9 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
     print("Number of comments list: " + commentList.length.toString());
     for(int i = 0; i < commentList.length; i++) {
       var name = userList[i].firstname + " " + userList[i].lastname;
-          cmList.add(KatokReviewModel(img: userList[i].avatar ?? "assets/images/default-avatar.png", name: name, rating: 5.0, day: commentList[i].date, review: commentList[i].content));
+      var day = commentList[i].date.substring(0, 10) + "  " + commentList[i].date.substring(11, 16);
+
+      cmList.add(KatokReviewModel(img: userList[i].avatar ?? "assets/images/default-avatar.png", name: name, rating: double.parse(commentList[i].rating), day: day, review: commentList[i].content));
     }
 
     return cmList;
@@ -286,7 +287,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                     ),
                     8.width,
                     //Text('301 Dorthy walks,chicago,Us.', style: TextStyle(color: KatokColorPrimary, fontSize: 14)),
-                    Container(child: Text("${widget.salonInfo.address}, PHAN HUU TUNG", style: TextStyle(color: KatokColorPrimary, fontSize: 14)),width: getProportionateScreenWidth(230)),
+                    Container(child: Text("${widget.salonInfo.address}", style: TextStyle(color: KatokColorPrimary, fontSize: 14)),width: getProportionateScreenWidth(230)),
                   ],
                 ),
               ),
@@ -605,22 +606,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                       children: [
                         Row(
                           children: [
-                            CachedNetworkImage(imageUrl: URL_IMAGE + reviewList[0].img,
-                                imageBuilder: (context, imageProvider){
-                                  return Container(
-                                    width: getProportionateScreenWidth(80),
-                                    height: getProportionateScreenHeight(80),
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                            image: imageProvider, fit: BoxFit.cover
-                                        )
-                                    ),
-                                  );
-                                },
-                                cacheManager: cacheManager,
-                                placeholder: _loader,
-                                errorWidget: _error),
+                            commonCacheImageWidget(reviewList[index].img, 80, width: 80, fit: BoxFit.cover),
                             8.width,
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -638,15 +624,16 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                                     SizedBox(
                                       width: getProportionateScreenWidth(20),
                                     ),
-                                    Text(
-                                      // "12-01-1999" ?? "",
-                                      reviewList[index].day ?? "",
-                                      style: TextStyle(
-                                        fontSize: getProportionateScreenWidth(15),
-                                        color: KatokGreyColor.withOpacity(0.7),
-                                      ),
-                                    )
+
                                   ],
+                                ),
+                                Text(
+                                  // "12-01-1999" ?? "",
+                                  reviewList[index].day ?? "",
+                                  style: TextStyle(
+                                    fontSize: getProportionateScreenWidth(10),
+                                    color: KatokGreyColor.withOpacity(0.7),
+                                  ),
                                 ),
                                 Text(
                                   reviewList[index].review,
