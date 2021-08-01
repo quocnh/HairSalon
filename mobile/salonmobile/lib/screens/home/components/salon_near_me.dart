@@ -28,53 +28,54 @@ class SalonNearMe extends StatelessWidget {
               return Center(child: Center(child: CircularProgressIndicator()));
             else
               return (salonController.latitude.value == 0 &&
-                      salonController.longitude.value == 0)
+                  salonController.longitude.value == 0)
                   ? SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          ...List.generate(
-                            (salonController.salonList.length > 5)
-                                ? 5
-                                : salonController.salonList.length,
-                            (index) {
-                              return SalonsCard(
-                                  salons: salonController.salonList[index]);
-                              // if (demoProducts[index].isPopular)
-                              //   return ProductCard(product: demoProducts[index]);
-                              // return SizedBox
-                              //     .shrink(); // here by default width and height is 0
-                            },
-                          ),
-                          SizedBox(width: getProportionateScreenWidth(20)),
-                        ],
-                      ),
-                    )
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    ...List.generate(
+                      (salonController.salonList.length > 5)
+                          ? 5
+                          : salonController.salonList.length,
+                          (index) {
+                        return SalonsCard(
+                            salons: salonController.salonList[index]);
+                        // if (demoProducts[index].isPopular)
+                        //   return ProductCard(product: demoProducts[index]);
+                        // return SizedBox
+                        //     .shrink(); // here by default width and height is 0
+                      },
+                    ),
+                    SizedBox(width: getProportionateScreenWidth(20)),
+                  ],
+                ),
+              )
                   : (salonController.salonFromLocationList.isEmpty)
-                      ? Center(child: Center(child: Text("TRỐNG")))
-                      : SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              ...List.generate(
-                                (salonController.salonFromLocationList.length >
-                                        5)
-                                    ? 5
-                                    : salonController.salonFromLocationList.length,
-                                (index) {
-                                  return SalonsCard(
-                                      salons: salonController
-                                          .salonFromLocationList[index]);
-                                  // if (demoProducts[index].isPopular)
-                                  //   return ProductCard(product: demoProducts[index]);
-                                  // return SizedBox
-                                  //     .shrink(); // here by default width and height is 0
-                                },
-                              ),
-                              SizedBox(width: getProportionateScreenWidth(20)),
-                            ],
-                          ),
-                        );
+                  ? Center(child: Center(child: Text("TRỐNG")))
+                  : SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    ...List.generate(
+                      (salonController.salonFromLocationList.length >
+                          5)
+                          ? 5
+                          : salonController
+                          .salonFromLocationList.length,
+                          (index) {
+                        return SalonsCard(
+                            salons: salonController
+                                .salonFromLocationList[index]);
+                        // if (demoProducts[index].isPopular)
+                        //   return ProductCard(product: demoProducts[index]);
+                        // return SizedBox
+                        //     .shrink(); // here by default width and height is 0
+                      },
+                    ),
+                    SizedBox(width: getProportionateScreenWidth(20)),
+                  ],
+                ),
+              );
           }))
         ],
       ),
