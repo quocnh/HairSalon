@@ -50,9 +50,11 @@ commentRouter.post('/', upload.array('newPhotos[]', 10), (req, res) => {
     var strPhotoPath = "";
     var strDefaultPhoto = Array();
 
-    for (var i = 0; i < req.files.length; i++) {
-        // console.log(req.files);
-        strPhotoPath.push(req.files[i].path);
+    if (req.files != null) {
+        for (var i = 0; i < req.files.length; i++) {
+            // console.log(req.files);
+            strPhotoPath.push(req.files[i].path);
+        }
     }
 
     //console.log(req.body);

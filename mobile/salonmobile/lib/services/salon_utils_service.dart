@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:salonmobile/models/Barber.dart';
 import 'package:salonmobile/models/Comment.dart';
 import 'package:salonmobile/models/Salon.dart';
@@ -76,6 +78,22 @@ class SalonUtilsService {
     String para = 'api/user/getUser/' + userId;
     List response = await this.hS.sget(para);
     return response.map((json) => new User.fromJson(json)).toList();
+  }
+
+  Future<List<Comment>> addNewComment(Comment comment) async {
+    //HttpService hS = new HttpService();
+    String para = 'comments';
+    Map data = {
+      'salonId': comment.salonId,
+      'userId': comment.userId,
+      'createdDate': comment.date,
+      'content': comment.content,
+      'rating':comment.rating,
+      'photos':comment.image,
+    };
+    String body = json.encode(data);
+    List response = await this.hS.spost(para, body);
+    return response.map((json) => new Comment.fromJson(json));
   }
 
 }

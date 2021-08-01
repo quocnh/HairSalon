@@ -50,6 +50,9 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
   List<KatokHairStyleModel> hairStyleList = [];
   List<KatokMakeUpModel> makeupList = [];
 
+  var yourRating = 4.0;
+  var yourReviewContent = TextEditingController();
+
   // Salon salonInfo;
   final URL_IMAGE = 'https://awinst.com:3000/app/';
 
@@ -521,8 +524,9 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                     RatingBar(
                       onRatingUpdate: (rating) {
                         print(rating);
+                        yourRating = rating;
                       },
-                      initialRating: 2.5,
+                      initialRating: 4.0,
                       glow: true,
                       glowColor: KatokGreyColor,
                       direction: Axis.horizontal,
@@ -541,6 +545,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                         Container(
                           height: 45,
                           child: TextFormField(
+                            controller: yourReviewContent,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               hintText: 'Say something...',
@@ -573,7 +578,14 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                             color: KatokColorPrimary,
                           ),
                           child: IconButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              print("Rate: " + yourRating.toString());
+                              print("Content: " + yourReviewContent.text);
+                              Comment cmt = Comment(salonId:'60390a3c4584eb5e75d6fc71', userId:'6010a16dccc79257c99a62e3', date: '2021/1/8', content: yourReviewContent.text, rating: yourRating.toString());
+
+                              final results = await SalonUtilsService().addNewComment(cmt);
+
+                            },
                             icon: Icon(
                               Icons.arrow_forward_ios,
                               color: whiteColor,
