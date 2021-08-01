@@ -43,6 +43,7 @@ export class SalonViewComponent implements OnInit {
   newComment: Comment = new Comment();
   comments: Comment[] = new Array();
   selectedBaber: Barber = new Barber;
+  currentRate: number = 4;
 
   isLoggedIn = false;
   user: any;
@@ -124,7 +125,7 @@ export class SalonViewComponent implements OnInit {
       (comments: any) => {
         for(var i = 0; i < comments.length; i++) {
           //console.log(comments[i].userId);
-          this.createComment(comments[i].userId, comments[i]).then(data => {
+          this.displayComment(comments[i].userId, comments[i]).then(data => {
             // console.log(idx + ':' + data);
             this.comments.push(data);
             
@@ -134,7 +135,7 @@ export class SalonViewComponent implements OnInit {
       });
   }
 
-  async createComment(userId: string, comment:any): Promise<Comment> {
+  async displayComment(userId: string, comment:any): Promise<Comment> {
     let retUser = new User;
     await this.salonUtilService.getUser(userId)
     .toPromise()
@@ -153,8 +154,9 @@ export class SalonViewComponent implements OnInit {
     tmpComment.salon._id = comment.salonId;
     tmpComment.user._id = comment.userId;
     tmpComment.content = comment.content;
+    tmpComment.rating = comment.rating;
     if ((retUser.avatar !== null) && (retUser.avatar !== undefined)) {
-      tmpComment.avatar = environment.dbAddress + '/' + retUser.avatar;
+      tmpComment.avatar = retUser.avatar;
     }
     else {
       tmpComment.avatar = '../../assets/img/default-avatar.png';
@@ -185,7 +187,7 @@ export class SalonViewComponent implements OnInit {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
     if (this.isLoggedIn) {
       this.user = this.tokenStorageService.getUser();
-      console.log(this.user);
+      //console.log(this.user);
     } else {
       this.login();
       return;
@@ -303,7 +305,7 @@ export class SalonViewComponent implements OnInit {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
     if (this.isLoggedIn) {
       this.user = this.tokenStorageService.getUser();
-      console.log(this.user);
+      //console.log(this.user);
     } else {
       const ref = this.modalService.open(LoginComponent);
       ref.result.then((result) => {
@@ -318,12 +320,21 @@ export class SalonViewComponent implements OnInit {
     this.newComment.salon = new Salon();
     this.newComment.user = new User();
     this.newComment.salon._id = this.salonId;
-    this.newComment.user._id = this.user.id;    
+    this.newComment.user._id = this.user.id;
+    this.newComment.rating = this.currentRate;    
     this.salonUtilService.addNewComment(this.newComment).subscribe(
-      (comemnt: Comment) => {
-        console.log(comemnt);
-        this.getAllComment(this.salonId);
+      (comment: Comment) => {
+        //console.log(comment);
+        this.getAllComment(this.salonId);        
         this.newComment.content = '';
+        //update rating for salon
+        this.salon.ratingQuantity += 1;
+        this.salon.ratingAverage = (this.salon.ratingAverage * (this.salon.ratingQuantity-1) + comment.rating)/this.salon.ratingQuantity;
+        this.salonUtilService.updateSalon(this.salon, [], []).subscribe(
+          (salon: Salon) => {
+            //console.log(salon);
+            this.currentRate = 4; // reset to default value
+          });
       });
   }
 
@@ -342,19 +353,19 @@ export class SalonViewComponent implements OnInit {
       })
   }
 
-  onSubmit(contactForm: NgForm) {
-    if (contactForm.valid) {
-      const email = contactForm.value;
-      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-      this.http.post('https://formspree.io/f/xayadklo',
-        { name: email.name, replyto: email.email, message: email.messages },
-        { 'headers': headers }).subscribe(
-          response => {
-            console.log(response);
-          }
-        );
-    }
-  }
+  // onSubmit(contactForm: NgForm) {
+  //   if (contactForm.valid) {
+  //     const email = contactForm.value;
+  //     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  //     this.http.post('https://formspree.io/f/xayadklo',
+  //       { name: email.name, replyto: email.email, message: email.messages },
+  //       { 'headers': headers }).subscribe(
+  //         response => {
+  //           console.log(response);
+  //         }
+  //       );
+  //   }
+  // }
 
 
   

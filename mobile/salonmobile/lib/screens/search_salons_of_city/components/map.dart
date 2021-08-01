@@ -41,7 +41,7 @@ class _Map extends State<Map> {
   final CameraPosition _initialPositionHCM = CameraPosition(
       target: LatLng(10.815518357444795, 106.70793665499389), zoom: 11);
   final CameraPosition _initialPositionHN = CameraPosition(
-      target: LatLng(21.11445802074394, 105.83349303108615), zoom: 11);
+      target: LatLng(21.012539454101425, 105.84159569816919), zoom: 11);
   final List<Marker> markers = [];
   List<Salon> salonInfoList = [];
   List<KatokHairStyleModel> hairStyleList = [];
@@ -389,12 +389,14 @@ class _Map extends State<Map> {
                   if (snapshot.hasData) {
                     return InkWell(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  KatokDetailScreen(salonInfo: salonInfo)),
-                        );
+                        if(salonInfo != null) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    KatokDetailScreen(salonInfo: salonInfo)),
+                          );
+                        }
                       },
                       child: (imgSalon == "")
                           ? Container()

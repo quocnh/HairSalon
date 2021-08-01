@@ -22,6 +22,13 @@ const CommentSchema = new mongoose.Schema({
         type: String , 
         required: [true, 'Salon short Info ']
     },
+
+    rating: { 
+        type: Number , 
+        default: 4.5, 
+        min: [1, 'Rating must be above 1.0'],
+        max: [5, 'Rating must be below 5.0']
+    },
     
     photos: [{
         type: String,

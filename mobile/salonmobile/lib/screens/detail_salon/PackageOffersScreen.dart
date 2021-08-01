@@ -169,7 +169,7 @@ class KatokPackageOffersScreenState extends State<KatokPackageOffersScreen> {
                           ),
                         );
                       }),
-                  Container(height: getProportionateScreenHeight(50),)
+                  Container(height: getProportionateScreenHeight(50))
                   //16.height,
                 ],
               ),

@@ -113,7 +113,7 @@ export class DistributorProfileComponent implements OnInit {
           this.distributor.district = this.selectedDistrict.name;
         }
         // update user profile
-        this.salonUtilService.updateUserProfile(this.distributor._id, this.distributor, this.selectedFile).subscribe(
+        this.salonUtilService.updateUserProfile(this.distributor._id, this.distributor).subscribe(
             // refresh page
             (distributor:Distributor) => this.refreshProfile(distributor._id)
         );
@@ -127,7 +127,7 @@ export class DistributorProfileComponent implements OnInit {
             this.distributor = Object.assign({}, user[0]);
             this.distributorDb = Object.assign({}, user[0]);
             if (this.distributor.avatar) {
-                this.strAvatar = environment.dbAddress+ '/' + this.distributor.avatar;
+                this.strAvatar = this.distributor.avatar;
             }
             //console.log(this.salonOwnerDb);
             //this.modelDob = this.ngbDateParserFormatter.parse(this.salonOwner.dob);
@@ -136,15 +136,43 @@ export class DistributorProfileComponent implements OnInit {
   }
 
   onFileSelected(event) {
-    this.selectedFile = event.target.files[0];
+    var resizedImage;
+    var file = event.target.files[0];
+    // Ensure it's an image
+    if (file.type.match(/image.*/)) {
+      console.log('An image has been loaded');
 
-    const reader = new FileReader();
-    reader.readAsDataURL(this.selectedFile);
-    reader.onload = (_event) => {
-        this.strAvatar = reader.result;
+      // Load the image
+      var reader = new FileReader();
+      reader.onload = (_event) => {
+        var image = new Image();
+        image.src = URL.createObjectURL(file);
+        image.onload = (imageEvent) => {
+          // //TODO: limit size 300x300 ~ 30Kb
+          var canvas = document.createElement('canvas'),
+            max_size = 300,
+            width = image.width,
+            height = image.height;
+          if (width > max_size) {
+            width = max_size;
+          }
+          if (height > max_size) {
+            height = max_size;
+          }
+          canvas.width = width;
+          canvas.height = height;
+          canvas.getContext('2d').drawImage(image, 0, 0, width, height);
+          resizedImage = canvas.toDataURL('image/jpeg');
+
+          this.strAvatar = resizedImage;
+          this.distributor.avatar = this.strAvatar;
+          //console.log(resizedImage);
+        }
+
+      }
+      reader.readAsDataURL(file);
     }
-    console.log(this.selectedFile);
-  }
+}
 
   selectCityEvent(event){
     // console.log(event);

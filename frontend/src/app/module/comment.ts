@@ -10,4 +10,5 @@ export default class Comment {
     content: string;
     photos: string[];
     createdDate: Date;
+    rating: number;
 }

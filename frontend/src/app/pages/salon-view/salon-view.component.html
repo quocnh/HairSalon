@@ -1,24 +1,25 @@
 <div class="card card-plain">
   <div class="card-header">
-    <h4 class="card-title"> {{salon.name}}</h4>
+    <h4 class="card-title"> {{salon.name}}</h4>    
     <div class="row">
-      <div class="col-9">
-        <p class="card-category"> <i class="fa fa-map-marker text-danger"></i> {{salon.address}}</p>
+      <div class="col-10">
+        <p class="card-category"> <i class="fa fa-map-marker text-danger"></i> {{salon.address}}</p>        
       </div>
-      <!-- <div class="col-3">
-        <p class="pull-right"> <i class="fa fa-star text-danger"></i> 4.5 (232)</p>
-      </div> -->
+      <div class="col-2">
+        <p class="pull-right"> <i class="fa fa-star text-danger"></i> {{salon.ratingAverage | number:'1.1-1'}} ({{salon.ratingQuantity}})</p>      
+      </div>
+
     </div>
 
   </div>
 </div>
 
-<form (ngSubmit)="onSubmit(contactForm)" #contactForm="ngForm">
+<!-- <form (ngSubmit)="onSubmit(contactForm)" #contactForm="ngForm">
   <input type="text" placeholder="Name" name="name" ngModel required #name="ngModel">
   <input type="text" placeholder="Email" email name="email" ngModel required #email="ngModel">
   <textarea placeholder="Messages" name="messages" ngModel required #messages="ngModel"></textarea>
   <input type="submit" value="Send">
-</form>
+</form> -->
 
 <div class="row">
   <div class="col-md-6">
@@ -76,9 +77,9 @@
                 <div class="icon-big icon-warning">
                   <img class="productPhoto border-gray" src="{{item.image}}">
                 </div>
-                <div  style="color:red" *ngIf="item.discount > 0">
-                  <img  src="../../../assets/img/sale.png" width="30" height="30" >{{item.discount}}% 
-              </div>
+                <div style="color:red" *ngIf="item.discount > 0">
+                  <img src="../../../assets/img/sale.png" width="30" height="30">{{item.discount}}%
+                </div>
               </div>
               <div class="col-8" *ngIf="item.discount > 0; else noDiscount">
                 <h6 class="card-title addressStyle">{{item.name}}</h6>
@@ -301,7 +302,16 @@
 
 <form name="form">
   <textarea style="width: 100%; max-width: 100%;" name="Text1" rows="5" placeholder="Bình luận & Nhận xét"
-    [(ngModel)]="newComment.content" [ngModelOptions]="{standalone: true}"></textarea>
+    [(ngModel)]="newComment.content" [ngModelOptions]="{standalone: true}">
+  </textarea>
+
+  <pre>Đánh giá: <b>{{currentRate}}</b></pre>
+  <ngb-rating [max]="5" [(rate)]="currentRate" [readonly]="false">
+    <ng-template let-fill="fill">
+      <span class="star color{{2}}" [class.filled]="fill === 100">&#9733;</span>
+    </ng-template>
+  </ngb-rating>    
+  <hr>
   <div class="btn btn-booking card-btn" (click)="addNewComment()">
     Gửi
   </div>

@@ -10,3 +10,20 @@
 .addressStyle.collapsed {
     transform:scaleY(0); 
   }
+
+  .star {
+    font-size: 1.5rem;
+    color: #b0c4de;
+  }
+  .filled.color1 {
+    color: red;
+  }
+  .filled.color2 {
+    color: orange;
+  } 
+  .filled.color4 {
+    color: green;
+  } 
+  .filled.color3 {
+    color: grey;
+  }

@@ -15,8 +15,8 @@ export default class Salon {
     services: Service[];
     priceFrom: number;
     priceTo: number;
-    rate: number;
-    numRate: number;
+    ratingAverage: number;
+    ratingQuantity: number;
     photos: string[];
     _barberId: string[];
     customerPhotos: string[];

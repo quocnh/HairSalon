@@ -36,6 +36,7 @@ class SalonController extends GetxController {
     getCurrentLocation();
     super.onInit();
   }
+
   void getCurrentLocation() async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
@@ -160,7 +161,6 @@ class SalonController extends GetxController {
       for(int i = 0; i < results.length; i++){
         final ul = await SalonUtilsService().getUserInfo(results[i].userId);
         userList.add(ul[0]);
-        print("LARRY ~~~ " + ul[0].firstname);
       }
       print(results[0].content);
       reviewList.value = getCommentList(results, userList);

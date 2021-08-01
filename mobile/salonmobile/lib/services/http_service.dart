@@ -56,5 +56,22 @@ class HttpService {
     }
   }
   // POST
+  spost(String params, String map) async {
+    String url = ROOT_URL + '/' + params;
+    HttpOverrides.global = new MyHttpOverrides();
 
+    var response = await this.client.post(
+      Uri.parse(url),
+      headers: {"Content-Type": "application/json"},
+      body: map
+    );
+
+    if (response.statusCode == 200) {
+      List jsonString = json.decode(response.body);
+      // var jsonMap = json.decode(jsonString);
+      return jsonString;
+    } else {
+      throw Exception('Failed to load the API');
+    }
+  }
 }

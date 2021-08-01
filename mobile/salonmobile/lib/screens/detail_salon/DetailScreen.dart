@@ -1,5 +1,4 @@
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,26 +9,22 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:salonmobile/controllers/salon_controller.dart';
-import 'package:salonmobile/models/Barber.dart';
 import 'package:salonmobile/models/Comment.dart';
-import 'package:salonmobile/models/KatokModel.dart';
 import 'package:salonmobile/models/Salon.dart';
-import 'package:salonmobile/models/Service.dart';
-import 'package:salonmobile/models/User.dart';
 import 'package:salonmobile/screens/detail_salon/PackageOffersScreen.dart';
 import 'package:salonmobile/services/salon_utils_service.dart';
 import 'package:salonmobile/utils/AppWidget.dart';
 import 'package:salonmobile/utils/KatokColors.dart';
 import 'package:salonmobile/utils/KatokConstants.dart';
-import 'package:salonmobile/utils/KatokDataProvider.dart';
 import 'package:salonmobile/utils/flutter_rating_bar.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
 
 class KatokDetailScreen extends StatefulWidget {
-  static String tag = '/NewSliverCustom';
-  Salon salonInfo;
+  Salon salonInfo = Salon();
+
   KatokDetailScreen({this.salonInfo});
+  static String tag = '/NewSliverCustom';
 
   @override
   KatokDetailScreenState createState() => KatokDetailScreenState();
@@ -44,6 +39,9 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
   ));
   final SalonController salonController = Get.find();
 
+
+  var yourRating = 4.0;
+  var yourReviewContent = TextEditingController();
 
   // Salon salonInfo;
   final URL_IMAGE = 'https://awinst.com:3000/app/';
@@ -190,7 +188,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                     ),
                     8.width,
                     //Text('301 Dorthy walks,chicago,Us.', style: TextStyle(color: KatokColorPrimary, fontSize: 14)),
-                    Container(child: Text("${salonController.salonInfo.value.address}, PHAN HUU TUNG", style: TextStyle(color: KatokColorPrimary, fontSize: 14)),width: getProportionateScreenWidth(230)),
+                    Container(child: Text("${salonController.salonInfo.value.address}", style: TextStyle(color: KatokColorPrimary, fontSize: 14)),width: getProportionateScreenWidth(230)),
                   ],
                 ),
               ),
@@ -424,8 +422,9 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                     RatingBar(
                       onRatingUpdate: (rating) {
                         print(rating);
+                        yourRating = rating;
                       },
-                      initialRating: 2.5,
+                      initialRating: 4.0,
                       glow: true,
                       glowColor: KatokGreyColor,
                       direction: Axis.horizontal,
@@ -444,6 +443,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                         Container(
                           height: 45,
                           child: TextFormField(
+                            controller: yourReviewContent,
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               hintText: 'Say something...',
@@ -476,7 +476,14 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                             color: KatokColorPrimary,
                           ),
                           child: IconButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              print("Rate: " + yourRating.toString());
+                              print("Content: " + yourReviewContent.text);
+                              Comment cmt = Comment(salonId:'60390a3c4584eb5e75d6fc71', userId:'6010a16dccc79257c99a62e3', date: '2021/1/8', content: yourReviewContent.text, rating: yourRating.toString());
+
+                              final results = await SalonUtilsService().addNewComment(cmt);
+
+                            },
                             icon: Icon(
                               Icons.arrow_forward_ios,
                               color: whiteColor,
@@ -509,24 +516,10 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                       children: [
                         Row(
                           children: [
-                            CachedNetworkImage(imageUrl: URL_IMAGE + salonController.reviewList[0].img,
-                                imageBuilder: (context, imageProvider){
-                                  return Container(
-                                    width: getProportionateScreenWidth(80),
-                                    height: getProportionateScreenHeight(80),
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                            image: imageProvider, fit: BoxFit.cover
-                                        )
-                                    ),
-                                  );
-                                },
-                                cacheManager: cacheManager,
-                                placeholder: _loader,
-                                errorWidget: _error),
+                            commonCacheImageWidget(salonController.reviewList[index].img, 80, width: 80, fit: BoxFit.cover),
                             8.width,
                             Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
@@ -542,22 +535,18 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                                     SizedBox(
                                       width: getProportionateScreenWidth(20),
                                     ),
-                                    Text(
-                                      // "12-01-1999" ?? "",
-                                      salonController.reviewList[index].day ?? "",
-                                      style: TextStyle(
-                                        fontSize: getProportionateScreenWidth(15),
-                                        color: KatokGreyColor.withOpacity(0.7),
-                                      ),
-                                    )
+
                                   ],
                                 ),
-                                Text(
-                                  salonController.reviewList[index].review,
-                                  style: TextStyle(
-                                    color: KatokAppTextColorSecondary,
-                                    fontSize: 14,
+                                Container(
+                                  child: Text(
+                                    salonController.reviewList[index].review,
+                                    style: TextStyle(
+                                      color: KatokAppTextColorSecondary,
+                                      fontSize: 14,
+                                    ),
                                   ),
+                                  padding: EdgeInsets.only(right: getProportionateScreenWidth(20)),
                                 ),
                               ],
                             ).expand(),
@@ -579,11 +568,24 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                             ),
                           ],
                         ),
+                        Align(
+                          child: Text(
+                            // "12-01-1999" ?? "",
+                            salonController.reviewList[index].day ?? "",
+                            style: TextStyle(
+                              fontSize: getProportionateScreenWidth(12),
+                              color: KatokGreyColor.withOpacity(0.7),
+                            ),
+                          ),
+                          alignment: Alignment.centerRight,
+                        )
                       ],
                     ),
                   );
                 },
               ),
+              Container(height: getProportionateScreenHeight(60))
+
             ],
           ),
         ),
@@ -829,12 +831,4 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
     );
   }
 }
-Widget _loader(BuildContext context, String url) {
-  return Container(
-      width: getProportionateScreenWidth(80),
-      height: getProportionateScreenHeight(80),
-      child: Center(child: CircularProgressIndicator()));
-}
-Widget _error(BuildContext context, String url, dynamic error) {
-  return Center(child: Text('ERROR'));
-}
+

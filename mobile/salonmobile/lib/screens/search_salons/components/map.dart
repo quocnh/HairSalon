@@ -8,8 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:salonmobile/controllers/salon_controller.dart';
 import 'package:salonmobile/models/Salon.dart';
 import 'package:salonmobile/screens/detail_salon/DetailScreen.dart';
 import 'package:salonmobile/services/salon_utils_service.dart';
@@ -31,7 +33,6 @@ class Map extends StatefulWidget {
 class _Map extends State<Map> {
   final URL_IMAGE = 'https://awinst.com:3000/app/';
   double bottomPosition = INVISIBLE_POSITION;
-  List<Salon> listSalons = [];
   GoogleMapController _controller;
   final CameraPosition _initialPosition = CameraPosition(
       target: LatLng(10.815518357444795, 106.70793665499389), zoom: 11);
@@ -43,6 +44,8 @@ class _Map extends State<Map> {
   String addressSalon = '';
   String imgSalon = '';
   bool reloadMarkers = false;
+
+  final SalonController salonController = Get.find();
 
   final cacheManager = CacheManager(Config(
     'customCache',
@@ -68,36 +71,31 @@ class _Map extends State<Map> {
   }
 
   void setMarkerAllSalons() async {
-    final results = await SalonUtilsService().getAllSalons();
-    setState(() {
-      listSalons = results;
-      print(listSalons);
-    });
+
 
     final Uint8List markerIcon = await getBytesFromAsset('assets/images/hairdresser.png', getProportionateScreenWidth(80).toInt(), getProportionateScreenHeight(100).toInt());
-    for (var i = 0; i < listSalons.length; i++) {
+    for (var i = 0; i < salonController.salonList.length; i++) {
       setState(() {
         markers.add(Marker(
           icon: BitmapDescriptor.fromBytes(markerIcon),
           markerId: MarkerId(i.toString()),
-          position: LatLng(double.parse(listSalons[i].latitude),
-              double.parse(listSalons[i].longitude)),
+          position: LatLng(double.parse(salonController.salonList[i].latitude),
+              double.parse(salonController.salonList[i].longitude)),
           // infoWindow: InfoWindow(
           //     title: listSalons[i].name, snippet: listSalons[i].address),
           onTap: () async{
             setState(() {
               clearMarker();
               reloadMarkers = true;
-              setMarkerSearchSalon(listSalons[i].id,listSalons[i].name, listSalons[i].latitude, listSalons[i].longitude, listSalons[i].address, listSalons[i].photos[0]);
-              nameSalon = listSalons[i].name;
-              addressSalon = listSalons[i].address;
-              imgSalon = listSalons[i].photos[0];
-              idSalon = listSalons[i].id;
+              setMarkerSearchSalon(salonController.salonList[i].id,salonController.salonList[i].name, salonController.salonList[i].latitude, salonController.salonList[i].longitude, salonController.salonList[i].address, salonController.salonList[i].photos[0]);
+              nameSalon = salonController.salonList[i].name;
+              addressSalon = salonController.salonList[i].address;
+              imgSalon = salonController.salonList[i].photos[0];
+              idSalon = salonController.salonList[i].id;
               loadSalonInfo(idSalon);
               this.bottomPosition = VISIBLE_POSITION;
             });
             print('$i' + 'PHAN HUU TUNG');
-            print("${listSalons[i].services[0].name}, PHAN HUU TUNG");
           },
         ));
       });
@@ -259,7 +257,7 @@ class _Map extends State<Map> {
                               decoration: InputDecoration(
                                   contentPadding: EdgeInsets.symmetric(
                                       horizontal:
-                                          getProportionateScreenWidth(20),
+                                      getProportionateScreenWidth(20),
                                       vertical: getProportionateScreenWidth(9)),
                                   border: InputBorder.none,
                                   focusedBorder: InputBorder.none,
@@ -284,11 +282,11 @@ class _Map extends State<Map> {
                                     height: getProportionateScreenHeight(50),
                                     child: ClipRRect(
                                       borderRadius:
-                                          BorderRadius.all(Radius.circular(10)),
+                                      BorderRadius.all(Radius.circular(10)),
                                       child: CachedNetworkImage(
                                           cacheManager: cacheManager,
                                           imageUrl:
-                                              URL_IMAGE + salons.photos[0],
+                                          URL_IMAGE + salons.photos[0],
                                           fit: BoxFit.cover,
                                           placeholder: _loader,
                                           errorWidget: _error),
@@ -342,10 +340,15 @@ class _Map extends State<Map> {
                   if (snapshot.hasData) {
                     return InkWell(
                       onTap: (){
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => KatokDetailScreen(salonInfo: salonInfo)),
-                          );
+                        salonController.updateIdSalon(idSalon);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => KatokDetailScreen()),
+                        );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(builder: (context) => Test()),
+                        // );
 
                       },
                       child: (imgSalon == "") ? Container() : Container(

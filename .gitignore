@@ -50,3 +50,4 @@ backend_new/uploads/products/*
 frontend/dist.zip
 backend_new/.env
 salonmobile/pubspec.lock
+mobile/salonmobile/pubspec.lock

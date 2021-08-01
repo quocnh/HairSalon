@@ -127,7 +127,7 @@ export class SalonUtilsService {
     const salonId: String  = salon._id;
     const fd = new FormData();
     //avatar
-    console.log(deletedList);
+    //console.log(deletedList);
 
     for (let i = 0; i < files.length; i++) {
       if (files[i]) {
@@ -499,20 +499,10 @@ export class SalonUtilsService {
     return this.webService.get(`api/user/getAllCustomer`);
   }
 
-  updateUserProfile(userId: string, user: User, file: File) {
-    const fd = new FormData();
-    let key;
-    if (file) {
-      fd.append('avatar', file, file.name);
-      console.log('update Customer : ' + userId + file.name);
-    }
-    // console.log(user);
-
-    // tslint:disable-next-line: forin
-    for (key in user) {
-      fd.append(key, user[key]);
-    }
-    return this.webService.patch( `api/user/update/${userId}`, fd);
+  updateUserProfile(userId: string, user: User) {
+    //console.log("Update User Profile ");
+    //console.log(user);
+    return this.webService.patch( `api/user/update/${userId}`, user);
   }
 
   // -- Product Order >>>>>  
@@ -565,6 +555,7 @@ export class SalonUtilsService {
     fd.append('salonId', newComment.salon._id);
     fd.append('userId', newComment.user._id);
     fd.append('content', newComment.content);
+    fd.append('rating', newComment.rating.toString());
 
     return this.webService.post( `comments`, fd);
   }

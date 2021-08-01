@@ -16,21 +16,10 @@ class _Body extends State<Body> {
   double latitude;
   double longitude;
 
-  // void getCurrentLocation() async{
-  //   Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-  //   var lastPosition = await Geolocator.getLastKnownPosition();
-  //   print(lastPosition);
-  //   setState(() {
-  //     locationMessage = "${position.latitude}, ${position.longitude}";
-  //     latitude = position.latitude;
-  //     longitude = position.longitude;
-  //   });
-  // }
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    // getCurrentLocation();
   }
   @override
   Widget build(BuildContext context) {

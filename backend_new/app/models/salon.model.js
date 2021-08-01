@@ -80,13 +80,15 @@ const SalonSchema = new mongoose.Schema({
         type: Number, 
         required: [false, 'PRice to Info ']
     },
-    rate: { 
-        type: Number, 
-        required: [false, 'Salon Info ']
+    ratingAverage: { 
+        type: Number ,
+        default: 4.5, 
+        min: [1, 'Rating must be above 1.0'],
+        max: [5, 'Rating must be below 5.0']
     },
-    numRate: { 
+    ratingQuantity: { 
         type: Number, 
-        required: [false, 'Salon Info ']
+        default: 0
     },
     photos: [{
         type: String,

@@ -55,7 +55,7 @@ distributorRouter.get('/:distributorId', (req, res) => {
         .catch((error) => console.log(error));
 });
 
-distributorRouter.patch('/:distributorId', upload.single('avatar'), (req, res) => {
+distributorRouter.patch('/:distributorId', (req, res) => {
     console.log(req.params.distributorId);
     Distributor.findOneAndUpdate({ _id: req.params.distributorId}, 
     {
@@ -68,7 +68,8 @@ distributorRouter.patch('/:distributorId', upload.single('avatar'), (req, res) =
             district: req.body.district,
             city: req.body.city,
             address: req.body.address,
-            phone: req.body.phone,            
+            phone: req.body.phone,
+            avatar: req.body.avatar,            
         },
     },
     {new: true})
