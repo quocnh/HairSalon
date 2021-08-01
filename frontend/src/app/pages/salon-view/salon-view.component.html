@@ -6,7 +6,7 @@
         <p class="card-category"> <i class="fa fa-map-marker text-danger"></i> {{salon.address}}</p>        
       </div>
       <div class="col-2">
-        <p class="pull-right"> <i class="fa fa-star text-danger"></i> 4.5 (232)</p>      
+        <p class="pull-right"> <i class="fa fa-star text-danger"></i> {{salon.ratingAverage | number:'1.1-1'}} ({{salon.ratingQuantity}})</p>      
       </div>
 
     </div>
@@ -306,7 +306,7 @@
   </textarea>
 
   <pre>Đánh giá: <b>{{currentRate}}</b></pre>
-  <ngb-rating [color]="red" [max]="5" [(rate)]="currentRate" [readonly]="false">
+  <ngb-rating [max]="5" [(rate)]="currentRate" [readonly]="false">
     <ng-template let-fill="fill">
       <span class="star color{{2}}" [class.filled]="fill === 100">&#9733;</span>
     </ng-template>
