@@ -340,7 +340,7 @@ class _Map extends State<Map> {
                   if (snapshot.hasData) {
                     return InkWell(
                       onTap: (){
-                        salonController.updateIdSalon(idSalon);
+                        salonController.getIdSalon(idSalon);
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => KatokDetailScreen()),

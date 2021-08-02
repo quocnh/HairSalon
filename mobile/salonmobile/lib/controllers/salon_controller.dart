@@ -15,8 +15,10 @@ class SalonController extends GetxController {
   var latitude = RxDouble(0);
   var longitude = RxDouble(0);
   var idSalon = RxString("");
+  var citySalon = RxString("");
 
   var salonList = <Salon>[].obs;
+  var salonCityList = <Salon>[].obs;
   var salonFromLocationList = <Salon>[].obs;
   var hairStyleList = <KatokHairStyleModel>[].obs;
   var reviewList = <KatokReviewModel>[].obs;
@@ -58,6 +60,17 @@ class SalonController extends GetxController {
       isLoading(false);
     }
   }
+  void fetchSalonsOfCity() async {
+    try {
+      isLoading(true);
+      var salons = await SalonUtilsService().getSalonsFromCity(citySalon.value);
+      if (salons != null) {
+        salonCityList.value = salons;
+      }
+    } finally {
+      isLoading(false);
+    }
+  }
 
   void fetchSalonsFromLocation() async {
     try {
@@ -90,10 +103,15 @@ class SalonController extends GetxController {
       isLoading(false);
     }
   }
-  void updateIdSalon (String id){
+  void getIdSalon (String id){
     idSalon.value = id;
     print(idSalon.value);
     fetchSalonDetail(idSalon.value);
+  }
+  void getCitySalon (String city){
+    citySalon.value = city;
+    print(citySalon.value);
+    fetchSalonsOfCity();
   }
 
   List<KatokServicesModel> getServicesList() {

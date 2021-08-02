@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:salonmobile/controllers/salon_controller.dart';
 import 'package:salonmobile/models/Product.dart';
 import 'package:salonmobile/screens/search_salons_of_city/search_salons_screen_of_city.dart';
 import 'package:salonmobile/utils/size_config.dart';
@@ -6,7 +8,8 @@ import 'package:salonmobile/utils/size_config.dart';
 import 'section_title.dart';
 
 class SalonByCity extends StatelessWidget {
-  const SalonByCity({
+  final SalonController salonController = Get.find();
+   SalonByCity({
     Key key,
   }) : super(key: key);
 
@@ -33,6 +36,7 @@ class SalonByCity extends StatelessWidget {
                 numOfBrands: 18,
                 press: () {
                   print(demoProducts.length);
+                  salonController.getCitySalon("Hồ Chí Minh");
                   Navigator.push(context, MaterialPageRoute(builder: (context) => SearchSalonsOfCityScreen(city: "Hồ Chí Minh")));
                   // Navigator.push(
                   //     context,
@@ -47,6 +51,7 @@ class SalonByCity extends StatelessWidget {
                 numOfBrands: 24,
                 press: () {
                   print(demoProducts.length);
+                  salonController.getCitySalon("Hà Nội");
                   Navigator.push(context, MaterialPageRoute(builder: (context) => SearchSalonsOfCityScreen(city: "Hà Nội")));
                 },
               ),

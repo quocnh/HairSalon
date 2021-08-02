@@ -82,11 +82,15 @@ class _Map extends State<Map> {
   }
 
   void setMarkerAllSalons() async {
-    final results = await SalonUtilsService().getSalonsFromCity(widget.city);
-    setState(() {
-      listSalons = results;
-      print(listSalons);
-    });
+    if(salonController.isLoading.value == true){
+      final results = await SalonUtilsService().getSalonsFromCity(salonController.citySalon.value); // KHÔNG XÓAA
+      setState(() {
+        listSalons = salonController.salonCityList;
+        print(listSalons);
+      });
+    }else{
+      print("a");
+    }
 
     final Uint8List markerIcon = await getBytesFromAsset(
         'assets/images/hairdresser.png',
@@ -116,7 +120,6 @@ class _Map extends State<Map> {
               addressSalon = listSalons[i].address;
               imgSalon = listSalons[i].photos[0];
               idSalon = listSalons[i].id;
-              loadSalonInfo(idSalon);
               this.bottomPosition = VISIBLE_POSITION;
               //print("Load babers List ");
               //loadBarberInfo(salonInfo.id);
@@ -147,7 +150,6 @@ class _Map extends State<Map> {
             addressSalon = address;
             imgSalon = photos;
             idSalon = id;
-            loadSalonInfo(idSalon);
             this.bottomPosition = VISIBLE_POSITION;
           });
         },
@@ -192,37 +194,7 @@ class _Map extends State<Map> {
     });
   }
 
-  void loadSalonInfo(String salonId) async {
-    final results = await SalonUtilsService().getSalonFromId(salonId);
-    setState(() {
-      salonInfoList = results;
-      salonInfo = results[0];
-      //print(salonInfo.info);
-    });
-  }
 
-  // void loadBarberInfo(String salonId) async{
-  //   final results = await SalonUtilsService().getBarbersFromSalonId(salonId);
-  //   setState(() {
-  //     barberList = results;
-  //     hairStyleList = getBarberList();
-  //     print("Number of barber list: " + hairStyleList.length.toString());
-  //   });
-  // }
-
-  // List<KatokHairStyleModel> getBarberList() {
-  //   List<KatokHairStyleModel> bbList = <KatokHairStyleModel>[];
-  //   if(salonInfo == null) {
-  //     bbList = getHairStyleList();
-  //   } else {
-  //     for(int i = 0; i < barberList.length; i++) {
-  //       // String salonPhoto = URL_IMAGE + salonInfo.photos[i];
-  //       // print(salonPhoto);
-  //       bbList.add(KatokHairStyleModel(img: URL_IMAGE + barberList[i].avatar, name:barberList[i].firstname +" "+ barberList[i].lastname));
-  //     }
-  //   }
-  //   return bbList;
-  // }
   void _currentLocation() async {
     LocationData currentLocation;
     var location = new Location();
@@ -251,7 +223,7 @@ class _Map extends State<Map> {
           // myLocationEnabled: true,
           // padding: EdgeInsets.only(top: getProportionateScreenHeight(100)),
           zoomControlsEnabled: false,
-          initialCameraPosition: (widget.city == "Hồ Chí Minh") ? _initialPositionHCM : _initialPositionHN,
+          initialCameraPosition: (salonController.citySalon.value == "Hồ Chí Minh") ? _initialPositionHCM : _initialPositionHN,
           mapType: MapType.normal,
           onMapCreated: (controller) {
             setState(() {
@@ -392,7 +364,7 @@ class _Map extends State<Map> {
                   if (snapshot.hasData) {
                     return InkWell(
                       onTap: () {
-                        salonController.updateIdSalon(idSalon);
+                        salonController.getIdSalon(idSalon);
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => KatokDetailScreen()),

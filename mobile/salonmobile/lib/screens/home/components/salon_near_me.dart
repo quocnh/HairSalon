@@ -8,7 +8,7 @@ import 'package:salonmobile/utils/size_config.dart';
 // ignore: must_be_immutable
 class SalonNearMe extends StatelessWidget {
   // declare controller
-  final SalonController salonController = Get.put(SalonController());
+  final SalonController salonController = Get.find();
 
   @override
   Widget build(BuildContext context) {
