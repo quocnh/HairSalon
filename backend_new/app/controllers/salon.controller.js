@@ -38,7 +38,7 @@ const upload = multer({
 });
 
 salonRouter.get('/', (req, res) => {
-    console.log('Get all salons');
+    //console.log('Get all salons');
     Salon.find({})
         .then(salons => res.send(salons))
         .catch((error) => console.log(error));
@@ -115,7 +115,7 @@ salonRouter.get('/city_district/:city/:district', (req, res) => {
 });
 
 salonRouter.get('/city/:city', (req, res) => {
-    console.log(req.params);
+    //console.log(req.params);
     Salon.find({
         city: req.params.city
     })
@@ -128,7 +128,7 @@ salonRouter.get('/city/:city', (req, res) => {
 });
 
 salonRouter.get('/location/:long/:lat', (req, res) => {
-    console.log(req.params);
+    //console.log(req.params);
     Salon.find({
         location:
         {
@@ -170,7 +170,7 @@ salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
                     if(exists) {
                         fs.unlink(req.body.photos[index], (err) => {
                             if (err) throw err;
-                            console.log(req.body.photos[index] + ' was deleted!');
+                            //console.log(req.body.photos[index] + ' was deleted!');
                         });
                     }
                 });
@@ -211,7 +211,7 @@ salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
         //console.log(req.body.services.price);
 
         const fullAddress = req.body.address + ' ' + req.body.district + ' ' + req.body.city;
-        console.log(fullAddress);
+        //console.log(fullAddress);
 
         //     const longitude = loc[0].longitude;
         //     const latitude = loc[0].latitute;
@@ -279,7 +279,7 @@ salonRouter.patch('/:salonId/addCustomerPhotos', upload.array('customerPhotos[]'
     //for (i = 0; i < req.body.customerPhotos.length; i++) {
     //    strPhotoPath.push(req.body.customerPhotos[i]);
     //}
-    console.log(req.body.customerPhotos);
+    //console.log(req.body.customerPhotos);
     
 
     if (req.files[0].path) {
@@ -288,7 +288,7 @@ salonRouter.patch('/:salonId/addCustomerPhotos', upload.array('customerPhotos[]'
         // console.log(req.body.photos[index]);            
     }  
 
-    console.log(strPhotoPath);
+    //console.log(strPhotoPath);
     Salon.findOneAndUpdate({ '_id': req.params.salonId },
         {
             $push:
@@ -313,7 +313,7 @@ salonRouter.patch('/:salonId/deleteCustomerPhotos',upload.array('customerPhotos[
         if (exists) {
             fs.unlink(strPhotoPath, (err) => {
                 if (err) throw err;
-                console.log(strPhotoPath + ' was deleted.');
+                //console.log(strPhotoPath + ' was deleted.');
             });
         }
     });
@@ -339,6 +339,7 @@ salonRouter.patch('/:salonId/addService', (req, res) => {
     
 
     const addedService = Object.create(Service);
+    
     if (req.body.name) {
         //console.log(req.body);
         addedService.name = req.body.name;
@@ -347,6 +348,7 @@ salonRouter.patch('/:salonId/addService', (req, res) => {
         addedService.event = req.body.event;
         addedService.image = req.body.image;
         addedService.time = req.body.time;
+        addedService.type = req.body.type;
         //console.log(addedService);
 
         Salon.findOneAndUpdate({ '_id': req.params.salonId },
@@ -404,6 +406,7 @@ salonRouter.patch('/:salonId/updateService/:sIndex', (req, res) => {
         service.event = req.body.event;
         service.image = req.body.image;
         service.time = req.body.time;
+        service.type = req.body.type;
         //console.log(tid);
         Salon.findOneAndUpdate({ '_id': req.params.salonId },
             {
@@ -425,11 +428,11 @@ salonRouter.get('/:salonId/barbers', (req, res) => {
 salonRouter.post('/:salonId/barbers', upload.single('avatar'), (req, res) => {
     var strAvatarPath = "";
     if (req.file) {
-        console.log(req.file);
+        //console.log(req.file);
         strAvatarPath = req.file.path;
     }
 
-    console.log(req.body);
+    //console.log(req.body);
     //var strBody = JSON.parse(JSON.stringify(req.body));
 
     const barber = new Barber({

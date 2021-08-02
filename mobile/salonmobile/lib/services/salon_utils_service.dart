@@ -93,7 +93,9 @@ class SalonUtilsService {
     };
     String body = json.encode(data);
     List response = await this.hS.spost(para, body);
-    return response.map((json) => new Comment.fromJson(json));
+    print("${response[0].statusCode}");
+    print("${response[0].body}");
+    return response.map((json) => new Comment.fromJson(json)).toList();
   }
 
 }
