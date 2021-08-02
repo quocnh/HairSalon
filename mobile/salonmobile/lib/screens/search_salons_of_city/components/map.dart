@@ -8,8 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:salonmobile/controllers/salon_controller.dart';
 import 'package:salonmobile/models/Barber.dart';
 import 'package:salonmobile/models/KatokModel.dart';
 import 'package:salonmobile/models/Salon.dart';
@@ -58,6 +60,7 @@ class _Map extends State<Map> {
   ));
   final controllerSuggestion = TextEditingController();
   List<Salon> listEmpty = [];
+  final SalonController salonController = Get.find();
 
   @override
   void initState() {
@@ -389,14 +392,11 @@ class _Map extends State<Map> {
                   if (snapshot.hasData) {
                     return InkWell(
                       onTap: () {
-                        if(salonInfo != null) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    KatokDetailScreen(salonInfo: salonInfo)),
-                          );
-                        }
+                        salonController.updateIdSalon(idSalon);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => KatokDetailScreen()),
+                        );
                       },
                       child: (imgSalon == "")
                           ? Container()

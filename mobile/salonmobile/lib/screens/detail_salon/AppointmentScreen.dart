@@ -1,9 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:salonmobile/utils/AppWidget.dart';
 import 'package:salonmobile/utils/KatokColors.dart';
 import 'package:salonmobile/utils/KatokConstants.dart';
 import 'package:salonmobile/utils/KatokImages.dart';
@@ -75,11 +73,7 @@ class KatokAppointmentScreenState extends State<KatokAppointmentScreen> with Sin
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
-                        child: CachedNetworkImage(
-                          placeholder: placeholderWidgetFn(),
-                          imageUrl: KatokDashedBoardImage4,
-                            height: 70, width: 130, fit: BoxFit.cover
-                        ),
+                        child: Image.asset(KatokDashedBoardImage6, height: 70, width: 130, fit: BoxFit.cover)
                       ),
                       8.width,
                       Column(
@@ -171,11 +165,7 @@ class KatokAppointmentScreenState extends State<KatokAppointmentScreen> with Sin
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
-                        child: CachedNetworkImage(
-                            placeholder: placeholderWidgetFn(),
-                            imageUrl: KatokDashedBoardImage4,
-                            height: 70, width: 130, fit: BoxFit.cover
-                        ),
+                        child: Image.asset(KatokDashedBoardImage6, height: 70, width: 130, fit: BoxFit.cover)
                       ),
                       8.width,
                       Column(
@@ -227,23 +217,25 @@ class KatokAppointmentScreenState extends State<KatokAppointmentScreen> with Sin
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
-      child: Scaffold(
-        backgroundColor: whiteColor,
-        appBar: TabBar(
-          labelColor: KatokColorPrimary,
-          unselectedLabelColor: KatokAppTextColorPrimary,
-          indicatorColor: KatokColorPrimary,
-          onTap: (index) {},
-          tabs: [
-            Tab(child: Text(KatokTabOngoing, style: TextStyle(fontSize: 14))),
-            Tab(child: Text(KatokTabHistory, style: TextStyle(fontSize: 14))),
-          ],
-        ),
-        body: TabBarView(
-          children: [
-            ongoingAppointmentWidget(),
-            historyAppointmentWidget(),
-          ],
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: whiteColor,
+          appBar: TabBar(
+            labelColor: KatokColorPrimary,
+            unselectedLabelColor: KatokAppTextColorPrimary,
+            indicatorColor: KatokColorPrimary,
+            onTap: (index) {},
+            tabs: [
+              Tab(child: Text(KatokTabOngoing, style: TextStyle(fontSize: 14))),
+              Tab(child: Text(KatokTabHistory, style: TextStyle(fontSize: 14))),
+            ],
+          ),
+          body: TabBarView(
+            children: [
+              ongoingAppointmentWidget(),
+              historyAppointmentWidget(),
+            ],
+          ),
         ),
       ),
     );
