@@ -8,6 +8,7 @@ import { environment } from 'environments/environment';
 import { SearchService } from 'app/_services/search.service';
 import { newArray } from '@angular/compiler/src/util';
 import GLocation from 'app/module/location';
+import { GlobalConstants } from 'app/module/global-constants';
 // import { HereService } from '../../module/here.service';
 
 declare var google: any;
@@ -42,6 +43,8 @@ export class SalonEditComponent implements OnInit {
   selectedDistrict: any;
   flagUpdate = false;
 
+  serviceTypes = GlobalConstants.ServiceTypes;
+
   map: any;
   marker: any;
 
@@ -68,6 +71,7 @@ export class SalonEditComponent implements OnInit {
     //Initialize default info for addedService
     this.addedService.image = 'assets/img/no_photo_available.png';
     this.addedService.time = 0;
+    this.addedService.type = GlobalConstants.ServiceTypes[0];
 
     this.searchService.getCities().then(cities => {
       this.cities = cities;
@@ -245,6 +249,7 @@ export class SalonEditComponent implements OnInit {
         this.addedService.time = 0;
         this.addedService.name = null;
         this.addedService.price = null;
+        this.addedService.type = GlobalConstants.ServiceTypes[0];
         // console.log(this.salon);
       });
   }
@@ -529,6 +534,11 @@ export class SalonEditComponent implements OnInit {
         }
       }
     );
+  }
+
+  selectServiceTypeOnChange(sIndex) {
+    //console.log(this.serviceTypes[sIndex]);
+    this.addedService.type = this.serviceTypes[sIndex];
   }
 
 }

@@ -94,4 +94,13 @@ export class GlobalConstants {
         'Tiền mặt',
         'Chuyển khoản'
     ];
+
+    public static ServiceTypes = [
+        'Tóc',
+        'Trang điểm',
+        'Nail',
+        'Da',
+        'Spa',
+        'Tatoo'        
+    ]
 }

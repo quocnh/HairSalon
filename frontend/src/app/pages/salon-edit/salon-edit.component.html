@@ -143,22 +143,25 @@
         <h5 class="card-title">Danh sách Dịch vụ</h5>
         <div class="row">
           <div class="col-md-2">
-            Hình ảnh
+            <label>Hình ảnh</label>
           </div>
           <div class="col-md-2">
-            Tên dịch vụ
+            <label>Tên dịch vụ</label>
           </div>
           <div class="col-md-2">
-            Giá
+            <label>Giá</label>
           </div>
           <div class="col-md-1">
-            Giảm giá(%)
+            <label>Giảm giá(%)</label>
           </div>
           <div class="col-md-2">
-            Khuyến mãi
+            <label>Khuyến mãi</label>
           </div>
-          <div class="col-md-2">
-            Thời gian (phút)
+          <div class="col-md-1">
+            <label>Thời gian (phút)</label>
+          </div>
+          <div class="col-md-1">
+            <label>Loại</label>
           </div>
         </div>
         <div class="row" *ngFor="let s of salon.services; let i = index">
@@ -174,7 +177,7 @@
               [(ngModel)]="s.name" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col-md-2">
-            <input id="p-{{i}}" type="text" class="form-control card-title" placeholder="Giá" value="{{s.price }}"
+            <input id="p-{{i}}" type="text" class="form-control card-title" placeholder="Giá" value="{{s.price | currency:'VND'}}"
               [(ngModel)]="s.price" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col-md-1">
@@ -189,7 +192,18 @@
             <input id="e-{{i}}" type="text" class="form-control card-title" value="{{s.time }}" [(ngModel)]="s.time"
               [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col-md-2">
+          <div class="col-md-1">
+            <div class="form-group">
+              <select input type="text" class="form-control"
+                (change)="selectServiceTypeOnChange($event.target.options.selectedIndex)" [(ngModel)]="s.type" [ngModelOptions]="{standalone: true}">
+                <option *ngFor="let b of serviceTypes ; let i = index">
+                  <p style="text-align:left;"> {{b}} </p>
+                </option>
+              </select>
+
+            </div>
+          </div>
+          <div class="col-md-1">
             <button class="btn btn-sm btn-danger btn-round btn-icon pull-right" (click)="deleteService(s)">
               <a data-toggle="tooltip" data-placement="top" title="Xóa"> <i class="fa fa-trash"></i></a>
             </button>
@@ -210,6 +224,22 @@
         
         <h5 class="card-title">Thêm Dịch vụ mới</h5>
         <div class="row">
+          <div class="col-md-1">
+          </div>
+          <div class="col-md-3">
+            <label>Tên dịch vụ</label>
+          </div>
+          <div class="col-md-2">
+            <label>Giá</label>
+          </div>
+          <div class="col-md-2">
+            <label>Thời gian (phút)</label>
+          </div>
+          <div class="col-md-2">
+            <label>Loại</label>
+          </div>
+        </div>
+        <div class="row">
           <div class="col-md-1" style="padding: 1px; margin:0">
             <div class=" btn-image" (click)="detailfileServiceImageInput.click()" style="padding: 2px; margin:0">
               <img src="{{addedService.image}}" style="width:100%">
@@ -225,11 +255,22 @@
             <input name="addedServicePrice" type="text" class="form-control card-title" placeholder="Giá (&#x20AB;)"
               [(ngModel)]="addedService.price" [ngModelOptions]="{standalone: true}">
           </div>
-          <div class="col-md-3">
+          <div class="col-md-2">
             <input name="addedServiceTime" type="text" class="form-control card-title" placeholder="Thời gian (phút)"
               [(ngModel)]="addedService.time" [ngModelOptions]="{standalone: true}">
           </div>
           <div class="col-md-2">
+            <div class="form-group">
+              <select input type="text" class="form-control"
+                (change)="selectServiceTypeOnChange($event.target.options.selectedIndex)">
+                <option *ngFor="let b of serviceTypes ; let i = index">
+                  <p style="text-align:left;"> {{b}} </p>
+                </option>
+              </select>
+
+            </div>
+          </div>
+          <div class="col-md-1">
             <button class="btn btn-sm btn-success btn-round btn-icon pull-right" (click)="addNewService(addedService)">
               <a data-toggle="tooltip" data-placement="top" title="Thêm mới dịch vụ"> <i
                   class="nc-icon nc-simple-add"></i></a>

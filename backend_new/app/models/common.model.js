@@ -8,4 +8,5 @@ const Service = {
     event: String,
     image: String,
     time: Number,
+    type: String,
 };

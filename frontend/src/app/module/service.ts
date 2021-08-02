@@ -5,4 +5,5 @@ export default class Service {
     event: string;
     image: string;
     time: number;
+    type: string;
 }
