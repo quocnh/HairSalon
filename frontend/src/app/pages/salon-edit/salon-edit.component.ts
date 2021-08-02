@@ -44,7 +44,8 @@ export class SalonEditComponent implements OnInit {
   flagUpdate = false;
 
   serviceTypes = GlobalConstants.ServiceTypes;
-
+  serviceTypeImages = GlobalConstants.ServiceTypeImages;
+  
   map: any;
   marker: any;
 

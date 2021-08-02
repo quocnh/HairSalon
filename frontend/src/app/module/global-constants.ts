@@ -103,4 +103,13 @@ export class GlobalConstants {
         'Spa',
         'Tatoo'        
     ]
+
+    public static ServiceTypeImages = [
+        'assets/img/icon_hair.png',
+        'assets/img/icon_makeup.png',
+        'assets/img/icon_nail.png',
+        'assets/img/icon_skin.png',
+        'assets/img/icon_spa.png',
+        'assets/img/icon_tatoo.png'        
+    ]
 }

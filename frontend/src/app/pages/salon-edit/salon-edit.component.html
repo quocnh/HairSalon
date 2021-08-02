@@ -129,6 +129,9 @@
     <div class="card card-chart">
       <div class="card-header">
         <h5 class="card-title">Thông tin salon</h5>
+        <label *ngFor="let s of serviceTypeImages; let i = index">
+          <img src="../../../{{s}}" width="25" height="25">
+        </label>
         <textarea style="width: 100%; max-width: 100%;" name="Text1" rows="5" placeholder="Salon info"
           value="{{ salon.info }}" [(ngModel)]="salon.info" [ngModelOptions]="{standalone: true}"></textarea>
       </div>
