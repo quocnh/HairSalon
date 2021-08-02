@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:salonmobile/screens/detail_salon/AppointmentScreen.dart';
 import 'package:salonmobile/screens/detail_salon/DetailScreen.dart';
 import 'package:salonmobile/screens/home/home_screen.dart';
 import 'package:salonmobile/screens/profile/profile_screen.dart';
@@ -15,8 +16,7 @@ class _MenuPageBuilderScreenState extends State<MenuPageBuilderScreen> {
   List<Widget> _screens = [
     HomeScreen(),
     SearchSalonsScreen(),
-    // AppointmentScreen(),
-    KatokDetailScreen(),
+    KatokAppointmentScreen(),
     ProfileScreen(),
   ];
   int _selectedIndex = 0;
@@ -59,7 +59,7 @@ class _MenuPageBuilderScreenState extends State<MenuPageBuilderScreen> {
                   Icons.history,
                   color: _selectedIndex == 2 ? Colors.blue : Colors.grey,
                 ),
-                title: Text("History",
+                title: Text("Appointment",
                     style: TextStyle(
                         color:
                             _selectedIndex == 2 ? Colors.blue : Colors.grey))),

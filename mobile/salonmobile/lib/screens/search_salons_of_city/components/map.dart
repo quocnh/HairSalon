@@ -24,7 +24,6 @@ double INVISIBLE_POSITION = -(getProportionateScreenHeight(550));
 
 class Map extends StatefulWidget {
   String city;
-
   Map({this.city});
 
   @override
@@ -39,8 +38,10 @@ class _Map extends State<Map> {
   double bottomPosition = INVISIBLE_POSITION;
   List<Salon> listSalons = [];
   GoogleMapController _controller;
-  final CameraPosition _initialPosition = CameraPosition(
+  final CameraPosition _initialPositionHCM = CameraPosition(
       target: LatLng(10.815518357444795, 106.70793665499389), zoom: 11);
+  final CameraPosition _initialPositionHN = CameraPosition(
+      target: LatLng(21.012539454101425, 105.84159569816919), zoom: 11);
   final List<Marker> markers = [];
   List<Salon> salonInfoList = [];
   List<KatokHairStyleModel> hairStyleList = [];
@@ -63,6 +64,7 @@ class _Map extends State<Map> {
     // TODO: implement initState
     super.initState();
     setMarkerAllSalons();
+    print(widget.city);
   }
 
   Future<Uint8List> getBytesFromAsset(
@@ -246,7 +248,7 @@ class _Map extends State<Map> {
           // myLocationEnabled: true,
           // padding: EdgeInsets.only(top: getProportionateScreenHeight(100)),
           zoomControlsEnabled: false,
-          initialCameraPosition: _initialPosition,
+          initialCameraPosition: (widget.city == "Hồ Chí Minh") ? _initialPositionHCM : _initialPositionHN,
           mapType: MapType.normal,
           onMapCreated: (controller) {
             setState(() {

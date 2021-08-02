@@ -1,5 +1,4 @@
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,19 +6,16 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:salonmobile/models/Barber.dart';
+import 'package:salonmobile/controllers/salon_controller.dart';
 import 'package:salonmobile/models/Comment.dart';
-import 'package:salonmobile/models/KatokModel.dart';
 import 'package:salonmobile/models/Salon.dart';
-import 'package:salonmobile/models/Service.dart';
-import 'package:salonmobile/models/User.dart';
 import 'package:salonmobile/screens/detail_salon/PackageOffersScreen.dart';
 import 'package:salonmobile/services/salon_utils_service.dart';
 import 'package:salonmobile/utils/AppWidget.dart';
 import 'package:salonmobile/utils/KatokColors.dart';
 import 'package:salonmobile/utils/KatokConstants.dart';
-import 'package:salonmobile/utils/KatokDataProvider.dart';
 import 'package:salonmobile/utils/flutter_rating_bar.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
@@ -41,14 +37,8 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
     'customCache',
     stalePeriod: Duration(days: 1),
   ));
+  final SalonController salonController = Get.find();
 
-  List<KatokGalleryModel> galleryList = [];
-  List<KatokCategoryModel> categoryList = [];
-  List<KatokOfferModel> offerList = [];
-  List<KatokServicesModel> servicesList = [];
-  List<KatokReviewModel> reviewList = [];
-  List<KatokHairStyleModel> hairStyleList = [];
-  List<KatokMakeUpModel> makeupList = [];
 
   var yourRating = 4.0;
   var yourReviewContent = TextEditingController();
@@ -59,100 +49,8 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
   @override
   void initState() {
     super.initState();
-
-    categoryList = getCategory();
-    offerList = getOfferList();
-    servicesList = getServicesList();
-    //reviewList = getReviewList();
-    //hairStyleList = getDefaultHairStyleList();
-    if (widget.salonInfo != null){
-      loadHairStyleList(widget.salonInfo.id);
-      loadCommentsInfo(widget.salonInfo.id);
-    }
-    makeupList = getMakeupList();
-    galleryList = getSalonPhotoList();
   }
 
-  List<KatokServicesModel> getServicesList() {
-    List<KatokServicesModel> sList = [];
-    if(widget.salonInfo != null && widget.salonInfo.services != null) {
-      for (int i = 0; i < widget.salonInfo.services.length; i++) {
-        Service service = widget.salonInfo.services[i];
-        sList.add(KatokServicesModel(img: service.image,
-            serviceName: service.name,
-            time: service.time.toString(),
-            price: service.price.toInt(),
-            radioVal: i + 1));
-      }
-    }
-    return sList;
-  }
-
-  List<KatokGalleryModel> getSalonPhotoList() {
-    List<KatokGalleryModel> galleryList = <KatokGalleryModel>[];
-    if(widget.salonInfo == null) {
-      galleryList = getGalleryList();
-    } else {
-      for(int i = 0; i < widget.salonInfo.photos.length; i++) {
-        // String salonPhoto = URL_IMAGE + salonInfo.photos[i];
-        // print(salonPhoto);
-        galleryList.add(KatokGalleryModel(img: URL_IMAGE + widget.salonInfo.photos[i]));
-      }
-    }
-    return galleryList;
-  }
-
-  Future loadHairStyleList(String salonId) async{
-    //List<KatokHairStyleModel> hsList = <KatokHairStyleModel>[];
-    final results = await SalonUtilsService().getBarbersFromSalonId(salonId);
-    setState(() {
-      hairStyleList = getHairStyleList(results);
-    });
-  }
-
-  List<KatokHairStyleModel> getHairStyleList(List<Barber> barberList) {
-    List<KatokHairStyleModel> bbList = <KatokHairStyleModel>[];
-    if(barberList == null) {
-      // bbList = getDefaultHairStyleList();
-    } else {
-      for(int i = 0; i < barberList.length; i++) {
-        // String salonPhoto = URL_IMAGE + salonInfo.photos[i];
-        // print(salonPhoto);
-        bbList.add(KatokHairStyleModel(img: URL_IMAGE + barberList[i].avatar, name:barberList[i].firstname + barberList[i].lastname));
-      }
-    }
-    return bbList;
-  }
-
-  Future loadCommentsInfo(String salonId) async{
-    List<User> userList = [];
-    final results = await SalonUtilsService().getCommentsFromSalonId(salonId);
-    for(int i = 0; i < results.length; i++){
-      final ul = await SalonUtilsService().getUserInfo(results[i].userId);
-      userList.add(ul[0]);
-    }
-
-    print(results[0].content);
-    setState(() {
-      reviewList = getCommentList(results, userList);
-      //print(reviewList[0].img);
-      //print("Number of comments list: " + reviewList.length.toString());
-    });
-  }
-
-  List<KatokReviewModel> getCommentList(List<Comment> commentList, List<User> userList) {
-    List<KatokReviewModel> cmList = <KatokReviewModel>[];
-    //Load user_profile
-    print("Number of comments list: " + commentList.length.toString());
-    for(int i = 0; i < commentList.length; i++) {
-      var name = userList[i].firstname + " " + userList[i].lastname;
-      var day = commentList[i].date.substring(0, 10) + "  " + commentList[i].date.substring(11, 16);
-
-      cmList.add(KatokReviewModel(img: userList[i].avatar ?? "assets/images/default-avatar.png", name: name, rating: double.parse(commentList[i].rating), day: day, review: commentList[i].content));
-    }
-
-    return cmList;
-  }
 
   void something(int value) {
     setState(() {
@@ -189,7 +87,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                     8.height,
                     Row(
                       children: [
-                        Text(widget.salonInfo.info ?? 'N/A', style: TextStyle(color: KatokAppTextColorSecondary, fontSize: 14)),
+                        Text(salonController.salonInfo.value.info ?? 'N/A', style: TextStyle(color: KatokAppTextColorSecondary, fontSize: 14)),
                       ],
                     ),
                   ],
@@ -290,7 +188,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                     ),
                     8.width,
                     //Text('301 Dorthy walks,chicago,Us.', style: TextStyle(color: KatokColorPrimary, fontSize: 14)),
-                    Container(child: Text("${widget.salonInfo.address}", style: TextStyle(color: KatokColorPrimary, fontSize: 14)),width: getProportionateScreenWidth(230)),
+                    Container(child: Text("${salonController.salonInfo.value.address}", style: TextStyle(color: KatokColorPrimary, fontSize: 14)),width: getProportionateScreenWidth(230)),
                   ],
                 ),
               ),
@@ -303,11 +201,11 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
     Widget galleryWidget() {
       return StaggeredGridView.countBuilder(
         crossAxisCount: 4,
-        itemCount: galleryList.length,
+        itemCount: salonController.galleryList.length,
         padding: EdgeInsets.all(16),
         itemBuilder: (BuildContext context, int index) => ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(5)),
-          child: Image.network(galleryList[index].img, fit: BoxFit.cover),
+          child: Image.network(salonController.galleryList[index].img, fit: BoxFit.cover),
         ),
         staggeredTileBuilder: (int index) => new StaggeredTile.count(2, index.isEven ? 2 : 3),
         mainAxisSpacing: 16.0,
@@ -324,16 +222,16 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
               height: getProportionateScreenHeight(120),
               child: ListView.builder(
                 padding: EdgeInsets.all(getProportionateScreenWidth(8)),
-                itemCount: categoryList.length,
+                itemCount: salonController.categoryList.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                     margin: EdgeInsets.all(getProportionateScreenWidth(8)),
                     child: Column(
                       children: <Widget>[
-                        SvgPicture.asset(categoryList[index].img, height: getProportionateScreenHeight(33), width: getProportionateScreenWidth(33)),
+                        SvgPicture.asset(salonController.categoryList[index].img, height: getProportionateScreenHeight(33), width: getProportionateScreenWidth(33)),
                         SizedBox(height: getProportionateScreenHeight(8)),
-                        Text(categoryList[index].categoryName, style: TextStyle(color: KatokAppTextColorSecondary, fontSize: getProportionateScreenWidth(13)))
+                        Text(salonController.categoryList[index].categoryName, style: TextStyle(color: KatokAppTextColorSecondary, fontSize: getProportionateScreenWidth(13)))
                       ],
                     ),
                   );
@@ -349,7 +247,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
               height: 220,
               child: ListView.builder(
                 padding: EdgeInsets.all(8),
-                itemCount: offerList.length,
+                itemCount: salonController.offerList.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
@@ -364,12 +262,12 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-                            child: commonCacheImageWidget(offerList[index].img, 100, width: 250, fit: BoxFit.cover),
+                            child: commonCacheImageWidget(salonController.offerList[index].img, 100, width: 250, fit: BoxFit.cover),
                           ),
                           Padding(
                             padding: EdgeInsets.all(8),
                             child: Text(
-                              offerList[index].offerName,
+                              salonController.offerList[index].offerName,
                               style: TextStyle(fontSize: 14, color: KatokAppTextColorPrimary, fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -381,7 +279,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Text(
-                                  offerList[index].offerDate,
+                                  salonController.offerList[index].offerDate,
                                   style: TextStyle(color: KatokAppTextColorSecondary, fontSize: 14),
                                   textAlign: TextAlign.left,
                                 ),
@@ -389,12 +287,12 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     Text(
-                                      '\$${offerList[index].offerOldPrice}',
+                                      '\$${salonController.offerList[index].offerOldPrice}',
                                       style: TextStyle(color: KatokAppTextColorSecondary, fontSize: 14, decoration: TextDecoration.lineThrough),
                                     ),
                                     8.width,
                                     Text(
-                                      '\$${offerList[index].offerNewPrice}',
+                                      '\$${salonController.offerList[index].offerNewPrice}',
                                       style: TextStyle(color: KatokColorPrimary, fontWeight: FontWeight.bold, fontSize: 16),
                                     ),
                                   ],
@@ -414,7 +312,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
               child: Text(KatokTxtPopularServices, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: KatokAppTextColorPrimary)),
             ),
             ListView.builder(
-              itemCount: servicesList.length,
+              itemCount: salonController.servicesList.length,
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               padding: EdgeInsets.all(8),
@@ -431,7 +329,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
-                        child:commonCacheImageWidget(servicesList[index].img, 80, width: 80, fit: BoxFit.cover),
+                        child:commonCacheImageWidget(salonController.servicesList[index].img, 80, width: 80, fit: BoxFit.cover),
                       ),
                       8.width,
                       Column(
@@ -439,7 +337,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              servicesList[index].serviceName,
+                              salonController.servicesList[index].serviceName,
                               style: TextStyle(fontWeight: FontWeight.bold, color: KatokAppTextColorPrimary, fontSize: 14),
                             ),
                           ),
@@ -447,12 +345,12 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                           Row(
                             children: [
                               Text(
-                                servicesList[index].time + " Min",
+                                salonController.servicesList[index].time + " Min",
                                 style: TextStyle(color: KatokAppTextColorSecondary, fontSize: 14),
                               ),
                               8.width,
                               Text(
-                                '\$${servicesList[index].price}',
+                                '\$${salonController.servicesList[index].price}',
                                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: KatokColorPrimary),
                               ),
                             ],
@@ -460,7 +358,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                         ],
                       ).expand(),
                       Radio(
-                        value: servicesList[index].radioVal,
+                        value: salonController.servicesList[index].radioVal,
                         groupValue: _radioValue1,
                         activeColor: KatokColorPrimary,
                         onChanged: (value) => something(value),
@@ -598,7 +496,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                 ),
               ),
               ListView.builder(
-                itemCount: reviewList.length,
+                itemCount: salonController.reviewList.length,
                 shrinkWrap: true,
                 padding: EdgeInsets.only(top: 0),
                 physics: NeverScrollableScrollPhysics(),
@@ -618,15 +516,16 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                       children: [
                         Row(
                           children: [
-                            commonCacheImageWidget(reviewList[index].img, 80, width: 80, fit: BoxFit.cover),
+                            commonCacheImageWidget(salonController.reviewList[index].img, 80, width: 80, fit: BoxFit.cover),
                             8.width,
                             Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
                                   children: [
                                     Text(
-                                      reviewList[index].name,
+                                      salonController.reviewList[index].name,
                                       style: TextStyle(
                                         fontSize: getProportionateScreenWidth(15),
                                         color: KatokAppTextColorPrimary,
@@ -639,27 +538,22 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
 
                                   ],
                                 ),
-                                Text(
-                                  // "12-01-1999" ?? "",
-                                  reviewList[index].day ?? "",
-                                  style: TextStyle(
-                                    fontSize: getProportionateScreenWidth(10),
-                                    color: KatokGreyColor.withOpacity(0.7),
+                                Container(
+                                  child: Text(
+                                    salonController.reviewList[index].review,
+                                    style: TextStyle(
+                                      color: KatokAppTextColorSecondary,
+                                      fontSize: 14,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  reviewList[index].review,
-                                  style: TextStyle(
-                                    color: KatokAppTextColorSecondary,
-                                    fontSize: 14,
-                                  ),
+                                  padding: EdgeInsets.only(right: getProportionateScreenWidth(20)),
                                 ),
                               ],
                             ).expand(),
                             Row(
                               children: [
                                 Text(
-                                  reviewList[index].rating.toString(),
+                                  salonController.reviewList[index].rating.toString(),
                                   style: TextStyle(
                                     color: KatokAppTextColorSecondary,
                                     fontSize: 12,
@@ -674,11 +568,24 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                             ),
                           ],
                         ),
+                        Align(
+                          child: Text(
+                            // "12-01-1999" ?? "",
+                            salonController.reviewList[index].day ?? "",
+                            style: TextStyle(
+                              fontSize: getProportionateScreenWidth(12),
+                              color: KatokGreyColor.withOpacity(0.7),
+                            ),
+                          ),
+                          alignment: Alignment.centerRight,
+                        )
                       ],
                     ),
                   );
                 },
               ),
+              Container(height: getProportionateScreenHeight(60))
+
             ],
           ),
         ),
@@ -698,7 +605,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                 height: 180,
                 child: ListView.builder(
                   padding: EdgeInsets.symmetric(vertical: 8),
-                  itemCount: hairStyleList.length,
+                  itemCount: salonController.hairStyleList.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
                     return Card(
@@ -710,12 +617,12 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-                            child:commonCacheImageWidget(hairStyleList[index].img, 110, width: 120, fit: BoxFit.cover),
+                            child:commonCacheImageWidget(salonController.hairStyleList[index].img, 110, width: 120, fit: BoxFit.cover),
                           ),
                           Padding(
                             padding: EdgeInsets.all(8),
                             child: Text(
-                              hairStyleList[index].name,
+                              salonController.hairStyleList[index].name,
                               style: TextStyle(fontSize: 14, color: KatokAppTextColorSecondary),
                             ),
                           ),
@@ -730,7 +637,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                 height: 180,
                 child: ListView.builder(
                   padding: EdgeInsets.symmetric(vertical: 8),
-                  itemCount: makeupList.length,
+                  itemCount: salonController.makeupList.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
                     return Card(
@@ -742,12 +649,12 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-                            child: commonCacheImageWidget(makeupList[index].img, 110, width: 120, fit: BoxFit.cover),
+                            child: commonCacheImageWidget(salonController.makeupList[index].img, 110, width: 120, fit: BoxFit.cover),
                           ),
                           Padding(
                             padding: EdgeInsets.all(8),
                             child: Text(
-                              makeupList[index].name,
+                              salonController.makeupList[index].name,
                               style: TextStyle(fontSize: 14, color: KatokAppTextColorSecondary),
                             ),
                           ),
@@ -781,150 +688,147 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
             child: Text(KatokBtnBookAppointment, style: TextStyle(color: whiteColor, fontSize: 16, fontWeight: FontWeight.bold)),
           ),
         ),
-        body: AnnotatedRegion<SystemUiOverlayStyle>(
-          value: SystemUiOverlayStyle.dark,
-          child: NestedScrollView(
-            headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-              return <Widget>[
-                Container(
-                  child: SliverAppBar(
-                    brightness: Brightness.dark,
-                    leading: IconButton(icon: Icon(Icons.arrow_back,color: white),onPressed: (){
-                      Navigator.pop(context);
-                    },),
-                    backgroundColor: KatokColorPrimary,
-                    pinned: true,
-                    elevation: 2,
-                    expandedHeight: 300,
-                    flexibleSpace: FlexibleSpaceBar(
-                      collapseMode: CollapseMode.parallax,
-                      titlePadding: EdgeInsets.all(10),
-                      background: Stack(
-                        overflow: Overflow.visible,
-                        children: [
-                          Image.network(
-                            galleryList[0].img,
-                            height: getProportionateScreenHeight(500),
-                            width: double.maxFinite,
-                            fit: BoxFit.fill,
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(bottom: 35),
-                            padding: EdgeInsets.all(8),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Container(
-                                      width: getProportionateScreenWidth(250),
-                                      child: Text(
-                                        widget.salonInfo.name,//'Marguerite Cross',
-                                        style: TextStyle(
-                                          color: whiteColor,
-                                          fontSize: 16,
-                                        ),
-                                        textAlign: TextAlign.left,
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          widget.salonInfo.rating.toString(),//'4.5',
-                                          style: TextStyle(color: whiteColor, fontSize: 16),
-                                        ),
-                                        IconButton(icon: Icon(Icons.star, color: KatokColorPrimary), onPressed: () {})
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    //Text('Day Salon', style: TextStyle(color: whiteColor, fontSize: 16), textAlign: TextAlign.left),
-                                    Container(
-                                      width: getProportionateScreenWidth(250),
-                                      child: Text("${widget.salonInfo.address}", style: TextStyle(color: whiteColor, fontSize: 16), textAlign: TextAlign.left),
-                                    ),
-                                    Container(
-                                      height: getProportionateScreenHeight(25),
-                                      width: getProportionateScreenWidth(70),
-                                      margin: EdgeInsets.only(right: 16),
-                                      child: FlatButton(
-                                        onPressed: () {},
-                                        child: Text(KatokBtnOpen, style: TextStyle(color: whiteColor, fontSize: 13)),
-                                        color: KatokColorPrimary,
-                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ],
+        body: Obx((){
+          if (salonController.isLoading.value)
+            return Center(child: Center(child: CircularProgressIndicator()));
+          else
+            return AnnotatedRegion<SystemUiOverlayStyle>(
+            value: SystemUiOverlayStyle.dark,
+            child: NestedScrollView(
+              headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+                return <Widget>[
+                  Container(
+                    child: SliverAppBar(
+                      brightness: Brightness.dark,
+                      leading: IconButton(icon: Icon(Icons.arrow_back,color: white),onPressed: (){
+                        Navigator.pop(context);
+                      },),
+                      backgroundColor: KatokColorPrimary,
+                      pinned: true,
+                      elevation: 2,
+                      expandedHeight: 300,
+                      flexibleSpace: FlexibleSpaceBar(
+                        collapseMode: CollapseMode.parallax,
+                        titlePadding: EdgeInsets.all(10),
+                        background: Stack(
+                          overflow: Overflow.visible,
+                          children: [
+                            Image.network(
+                              salonController.galleryList[0].img,
+                              height: getProportionateScreenHeight(500),
+                              width: double.maxFinite,
+                              fit: BoxFit.fill,
                             ),
-                          )
-                        ],
+                            Container(
+                              margin: EdgeInsets.only(bottom: 35),
+                              padding: EdgeInsets.all(8),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Container(
+                                        width: getProportionateScreenWidth(250),
+                                        child: Text(
+                                          salonController.salonInfo.value.name,//'Marguerite Cross',
+                                          style: TextStyle(
+                                            color: whiteColor,
+                                            fontSize: 16,
+                                          ),
+                                          textAlign: TextAlign.left,
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            salonController.salonInfo.value.rating.toString(),//'4.5',
+                                            style: TextStyle(color: whiteColor, fontSize: 16),
+                                          ),
+                                          IconButton(icon: Icon(Icons.star, color: KatokColorPrimary), onPressed: () {})
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      //Text('Day Salon', style: TextStyle(color: whiteColor, fontSize: 16), textAlign: TextAlign.left),
+                                      Container(
+                                        width: getProportionateScreenWidth(250),
+                                        child: Text("${salonController.salonInfo.value.address}", style: TextStyle(color: whiteColor, fontSize: 16), textAlign: TextAlign.left),
+                                      ),
+                                      Container(
+                                        height: getProportionateScreenHeight(25),
+                                        width: getProportionateScreenWidth(70),
+                                        margin: EdgeInsets.only(right: 16),
+                                        child: FlatButton(
+                                          onPressed: () {},
+                                          child: Text(KatokBtnOpen, style: TextStyle(color: whiteColor, fontSize: 13)),
+                                          color: KatokColorPrimary,
+                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                        centerTitle: true,
                       ),
-                      centerTitle: true,
-                    ),
-                    bottom: TabBar(
-                      labelColor: whiteColor,
-                      unselectedLabelColor: whiteColor,
-                      isScrollable: true,
-                      indicatorColor: KatokColorPrimary,
-                      tabs: [
-                        Tab(
-                          child: Align(alignment: Alignment.center, child: Text(KatokTabAbout, style: TextStyle(fontSize: 14))),
-                        ),
-                        Tab(
-                          child: Align(alignment: Alignment.center, child: Text(KatokTabGallery, style: TextStyle(fontSize: 14))),
-                        ),
-                        Tab(
-                          child: Align(alignment: Alignment.center, child: Text(KatokTabServices, style: TextStyle(fontSize: 14))),
-                        ),
-                        Tab(
-                          child: Align(alignment: Alignment.center, child: Text(KatokTabReview, style: TextStyle(fontSize: 14))),
-                        ),
-                        Tab(
-                          child: Align(alignment: Alignment.center, child: Text(KatokTabSalonSpecialList, style: TextStyle(fontSize: 14))),
-                        ),
+                      bottom: TabBar(
+                        labelColor: whiteColor,
+                        unselectedLabelColor: whiteColor,
+                        isScrollable: true,
+                        indicatorColor: KatokColorPrimary,
+                        tabs: [
+                          Tab(
+                            child: Align(alignment: Alignment.center, child: Text(KatokTabAbout, style: TextStyle(fontSize: 14))),
+                          ),
+                          Tab(
+                            child: Align(alignment: Alignment.center, child: Text(KatokTabGallery, style: TextStyle(fontSize: 14))),
+                          ),
+                          Tab(
+                            child: Align(alignment: Alignment.center, child: Text(KatokTabServices, style: TextStyle(fontSize: 14))),
+                          ),
+                          Tab(
+                            child: Align(alignment: Alignment.center, child: Text(KatokTabReview, style: TextStyle(fontSize: 14))),
+                          ),
+                          Tab(
+                            child: Align(alignment: Alignment.center, child: Text(KatokTabSalonSpecialList, style: TextStyle(fontSize: 14))),
+                          ),
+                        ],
+                        controller: controller,
+                      ),
+                      actions: [
+                        IconButton(icon: Icon(Icons.call, color: whiteColor, size: 16), onPressed: () {}),
+                        IconButton(icon: Icon(Icons.message, color: whiteColor, size: 16), onPressed: () {}),
                       ],
-                      controller: controller,
                     ),
-                    actions: [
-                      IconButton(icon: Icon(Icons.call, color: whiteColor, size: 16), onPressed: () {}),
-                      IconButton(icon: Icon(Icons.message, color: whiteColor, size: 16), onPressed: () {}),
-                    ],
                   ),
-                ),
-              ];
-            },
-            body: TabBarView(
-              children: [
-                aboutWidget(),
-                galleryWidget(),
-                serviceWidget(),
-                reviewWidget(),
-                specialListsWidget(),
-              ],
+                ];
+              },
+              body: TabBarView(
+                children: [
+                  aboutWidget(),
+                  galleryWidget(),
+                  serviceWidget(),
+                  reviewWidget(),
+                  specialListsWidget(),
+                ],
+              ),
             ),
-          ),
-        ),
+          );
+        }),
       ),
     );
   }
 }
-Widget _loader(BuildContext context, String url) {
-  return Container(
-      width: getProportionateScreenWidth(80),
-      height: getProportionateScreenHeight(80),
-      child: Center(child: CircularProgressIndicator()));
-}
-Widget _error(BuildContext context, String url, dynamic error) {
-  return Center(child: Text('ERROR'));
-}
+
