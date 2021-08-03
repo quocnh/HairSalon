@@ -36,7 +36,7 @@ class _Body extends State<Body> {
               Categories(),
               SizedBox(height: getProportionateScreenWidth(15)),
               SalonByCity(),
-              SizedBox(height: getProportionateScreenWidth(30)),
+              SizedBox(height: getProportionateScreenWidth(20)),
               SalonNearMe(),
               SizedBox(height: getProportionateScreenWidth(30)),
             ],
