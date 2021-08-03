@@ -149,6 +149,7 @@ class _ItemList extends State<ItemList> {
                                     (listAllSalons.length > 6) ? lengthList : listAllSalons.length,
                                     (index) {
                                       return ItemGridViewSearchSalonsCard(
+                                        id: listAllSalons[index].id,
                                         image: listAllSalons[index].photos[0],
                                         name: listAllSalons[index].name,
                                       );
@@ -197,9 +198,7 @@ class _ItemList extends State<ItemList> {
                             footerTriggerDistance: 30,
                           ),
                         )
-                      :
-
-                  Expanded(
+                      : Expanded(
                           child: RefreshConfiguration.copyAncestor(
                             enableLoadingWhenFailed: true,
                             context: context,
@@ -214,6 +213,7 @@ class _ItemList extends State<ItemList> {
                                   itemCount: (listAllSalons.length > 6) ? lengthList : listAllSalons.length ,
                                   itemBuilder: (context, index) {
                                     return ItemListViewSearchSalonsCard(
+                                      id: listAllSalons[index].id,
                                       image: listAllSalons[index].photos[0],
                                       name: listAllSalons[index].name,
                                       address: listAllSalons[index].address,

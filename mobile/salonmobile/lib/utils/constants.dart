@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
+
+
 final URL_IMAGE = 'https://awinst.com:3000/app/';
 final cacheManager = CacheManager(Config(
   'customCache',

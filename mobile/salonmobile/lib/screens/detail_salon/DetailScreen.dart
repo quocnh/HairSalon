@@ -12,6 +12,7 @@ import 'package:salonmobile/controllers/salon_controller.dart';
 import 'package:salonmobile/models/Comment.dart';
 import 'package:salonmobile/models/Salon.dart';
 import 'package:salonmobile/screens/detail_salon/PackageOffersScreen.dart';
+import 'package:salonmobile/screens/menu_page_builder/menu_page_builder_screen.dart';
 import 'package:salonmobile/services/salon_utils_service.dart';
 import 'package:salonmobile/utils/AppWidget.dart';
 import 'package:salonmobile/utils/KatokColors.dart';
@@ -38,6 +39,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
     stalePeriod: Duration(days: 1),
   ));
   final SalonController salonController = Get.find();
+  int _selectedIndex = 4;
 
 
   var yourRating = 4.0;
@@ -670,165 +672,219 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
       );
     }
 
-    return DefaultTabController(
-      length: 5,
-      child: Scaffold(
-        bottomSheet: Container(
-          width: MediaQuery.of(context).size.width,
-          margin: EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-          child: RaisedButton(
-            padding: EdgeInsets.all(12),
-            onPressed: () {
-              KatokPackageOffersScreen().launch(context);
-            },
-            color: KatokColorPrimary,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.light,
+      child: DefaultTabController(
+        length: 5,
+        child: Scaffold(
+          bottomNavigationBar: BottomNavigationBar(
+              onTap: _onItemTapped,
+              showSelectedLabels: true,
+              showUnselectedLabels: true,
+              type: BottomNavigationBarType.fixed,
+              items: [
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.home,
+                      color: _selectedIndex == 0 ? Colors.blue : Colors.grey,
+                    ),
+                    title: Text(
+                      "Home",
+                      style: TextStyle(
+                          color: _selectedIndex == 0 ? Colors.blue : Colors.grey),
+                    )),
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.search_sharp,
+                      color: _selectedIndex == 1 ? Colors.blue : Colors.grey,
+                    ),
+                    title: Text(
+                      "Search",
+                      style: TextStyle(
+                          color: _selectedIndex == 1 ? Colors.blue : Colors.grey),
+                    )),
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.history,
+                      color: _selectedIndex == 2 ? Colors.blue : Colors.grey,
+                    ),
+                    title: Text("Appointment",
+                        style: TextStyle(
+                            color:
+                            _selectedIndex == 2 ? Colors.blue : Colors.grey))),
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.person,
+                      color: _selectedIndex == 3 ? Colors.blue : Colors.grey,
+                    ),
+                    title: Text("Profile",
+                        style: TextStyle(
+                            color:
+                            _selectedIndex == 3 ? Colors.blue : Colors.grey))),
+              ],
             ),
-            child: Text(KatokBtnBookAppointment, style: TextStyle(color: whiteColor, fontSize: 16, fontWeight: FontWeight.bold)),
+          bottomSheet: Container(
+            width: MediaQuery.of(context).size.width,
+            margin: EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 20),
+            child: RaisedButton(
+              padding: EdgeInsets.all(12),
+              onPressed: () {
+                KatokPackageOffersScreen().launch(context);
+              },
+              color: KatokColorPrimary,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Text(KatokBtnBookAppointment, style: TextStyle(color: whiteColor, fontSize: 16, fontWeight: FontWeight.bold)),
+            ),
           ),
-        ),
-        body: Obx((){
-          if (salonController.isLoading.value)
-            return Center(child: Center(child: CircularProgressIndicator()));
-          else
-            return AnnotatedRegion<SystemUiOverlayStyle>(
-            value: SystemUiOverlayStyle.dark,
-            child: NestedScrollView(
-              headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-                return <Widget>[
-                  Container(
-                    child: SliverAppBar(
-                      brightness: Brightness.dark,
-                      leading: IconButton(icon: Icon(Icons.arrow_back,color: white),onPressed: (){
-                        Navigator.pop(context);
-                      },),
-                      backgroundColor: KatokColorPrimary,
-                      pinned: true,
-                      elevation: 2,
-                      expandedHeight: 300,
-                      flexibleSpace: FlexibleSpaceBar(
-                        collapseMode: CollapseMode.parallax,
-                        titlePadding: EdgeInsets.all(10),
-                        background: Stack(
-                          overflow: Overflow.visible,
-                          children: [
-                            Image.network(
-                              salonController.galleryList[0].img,
-                              height: getProportionateScreenHeight(500),
-                              width: double.maxFinite,
-                              fit: BoxFit.fill,
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(bottom: 35),
-                              padding: EdgeInsets.all(8),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          body: Obx((){
+            if (salonController.isLoading.value)
+              return Center(child: Center(child: CircularProgressIndicator()));
+            else
+              return AnnotatedRegion<SystemUiOverlayStyle>(
+                value: SystemUiOverlayStyle.dark,
+                child: NestedScrollView(
+                  headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+                    return <Widget>[
+                      Container(
+                        child: SliverAppBar(
+                          brightness: Brightness.light,
+                          leading: IconButton(icon: Icon(Icons.arrow_back,color: white),onPressed: (){
+                            Navigator.pop(context);
+                          },),
+                          backgroundColor: KatokColorPrimary,
+                          pinned: true,
+                          elevation: 2,
+                          expandedHeight: 300,
+                          flexibleSpace: FlexibleSpaceBar(
+                            collapseMode: CollapseMode.parallax,
+                            titlePadding: EdgeInsets.all(10),
+                            background: Stack(
+                              overflow: Overflow.visible,
+                              children: [
+                                Image.network(
+                                  salonController.galleryList[0].img,
+                                  height: getProportionateScreenHeight(500),
+                                  width: double.maxFinite,
+                                  fit: BoxFit.fill,
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(bottom: 35),
+                                  padding: EdgeInsets.all(8),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
                                     crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      Container(
-                                        width: getProportionateScreenWidth(250),
-                                        child: Text(
-                                          salonController.salonInfo.value.name,//'Marguerite Cross',
-                                          style: TextStyle(
-                                            color: whiteColor,
-                                            fontSize: 16,
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Container(
+                                            width: getProportionateScreenWidth(250),
+                                            child: Text(
+                                              salonController.salonInfo.value.name,//'Marguerite Cross',
+                                              style: TextStyle(
+                                                color: whiteColor,
+                                                fontSize: 16,
+                                              ),
+                                              textAlign: TextAlign.left,
+                                            ),
                                           ),
-                                          textAlign: TextAlign.left,
-                                        ),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                salonController.salonInfo.value.rating.toString(),//'4.5',
+                                                style: TextStyle(color: whiteColor, fontSize: 16),
+                                              ),
+                                              IconButton(icon: Icon(Icons.star, color: KatokColorPrimary), onPressed: () {})
+                                            ],
+                                          ),
+                                        ],
                                       ),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Text(
-                                            salonController.salonInfo.value.rating.toString(),//'4.5',
-                                            style: TextStyle(color: whiteColor, fontSize: 16),
+                                          //Text('Day Salon', style: TextStyle(color: whiteColor, fontSize: 16), textAlign: TextAlign.left),
+                                          Container(
+                                            width: getProportionateScreenWidth(250),
+                                            child: Text("${salonController.salonInfo.value.address}", style: TextStyle(color: whiteColor, fontSize: 16), textAlign: TextAlign.left),
                                           ),
-                                          IconButton(icon: Icon(Icons.star, color: KatokColorPrimary), onPressed: () {})
+                                          Container(
+                                            height: getProportionateScreenHeight(25),
+                                            width: getProportionateScreenWidth(70),
+                                            margin: EdgeInsets.only(right: 16),
+                                            child: FlatButton(
+                                              onPressed: () {},
+                                              child: Text(KatokBtnOpen, style: TextStyle(color: whiteColor, fontSize: 13)),
+                                              color: KatokColorPrimary,
+                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                            ),
+                                          )
                                         ],
                                       ),
                                     ],
                                   ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      //Text('Day Salon', style: TextStyle(color: whiteColor, fontSize: 16), textAlign: TextAlign.left),
-                                      Container(
-                                        width: getProportionateScreenWidth(250),
-                                        child: Text("${salonController.salonInfo.value.address}", style: TextStyle(color: whiteColor, fontSize: 16), textAlign: TextAlign.left),
-                                      ),
-                                      Container(
-                                        height: getProportionateScreenHeight(25),
-                                        width: getProportionateScreenWidth(70),
-                                        margin: EdgeInsets.only(right: 16),
-                                        child: FlatButton(
-                                          onPressed: () {},
-                                          child: Text(KatokBtnOpen, style: TextStyle(color: whiteColor, fontSize: 13)),
-                                          color: KatokColorPrimary,
-                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ],
+                                )
+                              ],
+                            ),
+                            centerTitle: true,
+                          ),
+                          bottom: TabBar(
+                            labelColor: whiteColor,
+                            unselectedLabelColor: whiteColor,
+                            isScrollable: true,
+                            indicatorColor: KatokColorPrimary,
+                            tabs: [
+                              Tab(
+                                child: Align(alignment: Alignment.center, child: Text(KatokTabAbout, style: TextStyle(fontSize: 14))),
                               ),
-                            )
+                              Tab(
+                                child: Align(alignment: Alignment.center, child: Text(KatokTabGallery, style: TextStyle(fontSize: 14))),
+                              ),
+                              Tab(
+                                child: Align(alignment: Alignment.center, child: Text(KatokTabServices, style: TextStyle(fontSize: 14))),
+                              ),
+                              Tab(
+                                child: Align(alignment: Alignment.center, child: Text(KatokTabReview, style: TextStyle(fontSize: 14))),
+                              ),
+                              Tab(
+                                child: Align(alignment: Alignment.center, child: Text(KatokTabSalonSpecialList, style: TextStyle(fontSize: 14))),
+                              ),
+                            ],
+                            controller: controller,
+                          ),
+                          actions: [
+                            IconButton(icon: Icon(Icons.call, color: whiteColor, size: 16), onPressed: () {}),
+                            IconButton(icon: Icon(Icons.message, color: whiteColor, size: 16), onPressed: () {}),
                           ],
                         ),
-                        centerTitle: true,
                       ),
-                      bottom: TabBar(
-                        labelColor: whiteColor,
-                        unselectedLabelColor: whiteColor,
-                        isScrollable: true,
-                        indicatorColor: KatokColorPrimary,
-                        tabs: [
-                          Tab(
-                            child: Align(alignment: Alignment.center, child: Text(KatokTabAbout, style: TextStyle(fontSize: 14))),
-                          ),
-                          Tab(
-                            child: Align(alignment: Alignment.center, child: Text(KatokTabGallery, style: TextStyle(fontSize: 14))),
-                          ),
-                          Tab(
-                            child: Align(alignment: Alignment.center, child: Text(KatokTabServices, style: TextStyle(fontSize: 14))),
-                          ),
-                          Tab(
-                            child: Align(alignment: Alignment.center, child: Text(KatokTabReview, style: TextStyle(fontSize: 14))),
-                          ),
-                          Tab(
-                            child: Align(alignment: Alignment.center, child: Text(KatokTabSalonSpecialList, style: TextStyle(fontSize: 14))),
-                          ),
-                        ],
-                        controller: controller,
-                      ),
-                      actions: [
-                        IconButton(icon: Icon(Icons.call, color: whiteColor, size: 16), onPressed: () {}),
-                        IconButton(icon: Icon(Icons.message, color: whiteColor, size: 16), onPressed: () {}),
-                      ],
-                    ),
+                    ];
+                  },
+                  body: TabBarView(
+                    children: [
+                      aboutWidget(),
+                      galleryWidget(),
+                      serviceWidget(),
+                      reviewWidget(),
+                      specialListsWidget(),
+                    ],
                   ),
-                ];
-              },
-              body: TabBarView(
-                children: [
-                  aboutWidget(),
-                  galleryWidget(),
-                  serviceWidget(),
-                  reviewWidget(),
-                  specialListsWidget(),
-                ],
-              ),
-            ),
-          );
-        }),
-      ),
+                ),
+              );
+          }),
+        ),
+      )
     );
+
+  }
+  void _onItemTapped(int selectedIndex) {
+    // print(selectedIndex);
+    Get.to(MenuPageBuilderScreen());
   }
 }
 

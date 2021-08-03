@@ -7,10 +7,12 @@ class SearchSalonsScreen extends StatelessWidget {
   static String routeName = "";
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.dark,
-        child: Body(),
+    return SafeArea(
+      child: Scaffold(
+        body: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle.dark,
+          child: Body(),
+        ),
       ),
     );
   }

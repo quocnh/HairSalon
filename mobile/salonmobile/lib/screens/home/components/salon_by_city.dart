@@ -37,7 +37,7 @@ class SalonByCity extends StatelessWidget {
                 press: () {
                   print(demoProducts.length);
                   salonController.getCitySalon("Hồ Chí Minh");
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => SearchSalonsOfCityScreen(city: "Hồ Chí Minh")));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SearchSalonsOfCityScreen()));
                   // Navigator.push(
                   //     context,
                   //     MaterialPageRoute(
@@ -52,7 +52,7 @@ class SalonByCity extends StatelessWidget {
                 press: () {
                   print(demoProducts.length);
                   salonController.getCitySalon("Hà Nội");
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => SearchSalonsOfCityScreen(city: "Hà Nội")));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SearchSalonsOfCityScreen()));
                 },
               ),
               SizedBox(width: getProportionateScreenWidth(20)),

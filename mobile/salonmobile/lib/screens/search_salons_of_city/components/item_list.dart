@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:salonmobile/components/item_gridview_search_salons_card.dart';
 import 'package:salonmobile/components/item_listview_search_salons_card.dart';
+import 'package:salonmobile/controllers/salon_controller.dart';
 import 'package:salonmobile/models/Salon.dart';
 import 'package:salonmobile/services/salon_utils_service.dart';
 import 'package:salonmobile/utils/constants.dart';
@@ -10,8 +12,6 @@ import 'package:salonmobile/utils/size_config.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class ItemList extends StatefulWidget {
-  String city;
-  ItemList({this.city});
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -27,6 +27,7 @@ class _ItemList extends State<ItemList> {
   GlobalKey _refresherKey = GlobalKey();
   List<Salon> listAllSalons = [];
   int lengthList = 6;
+  final SalonController salonController = Get.find();
 
   _onLoading()  async{
      await Future.delayed(Duration(seconds: 2));
@@ -52,7 +53,7 @@ class _ItemList extends State<ItemList> {
     });
   }
   void loadAllSalonsFromCity() async{
-    final results = await SalonUtilsService().getSalonsFromCity(widget.city);
+    final results = await SalonUtilsService().getSalonsFromCity(salonController.citySalon.value);
     setState(() {
       listAllSalons = results;
     });
@@ -151,6 +152,7 @@ class _ItemList extends State<ItemList> {
                                     (listAllSalons.length > 6) ? lengthList : listAllSalons.length,
                                     (index) {
                                       return ItemGridViewSearchSalonsCard(
+                                        id: listAllSalons[index].id,
                                         image: listAllSalons[index].photos[0],
                                         name: listAllSalons[index].name,
                                       );
@@ -199,9 +201,7 @@ class _ItemList extends State<ItemList> {
                             footerTriggerDistance: 30,
                           ),
                         )
-                      :
-
-                  Expanded(
+                      : Expanded(
                           child: RefreshConfiguration.copyAncestor(
                             enableLoadingWhenFailed: true,
                             context: context,
@@ -216,6 +216,7 @@ class _ItemList extends State<ItemList> {
                                   itemCount: (listAllSalons.length > 6) ? lengthList : listAllSalons.length ,
                                   itemBuilder: (context, index) {
                                     return ItemListViewSearchSalonsCard(
+                                      id: listAllSalons[index].id,
                                       image: listAllSalons[index].photos[0],
                                       name: listAllSalons[index].name,
                                       address: listAllSalons[index].address,

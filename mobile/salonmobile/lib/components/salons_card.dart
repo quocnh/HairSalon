@@ -1,11 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:get/get.dart';
+import 'package:salonmobile/controllers/salon_controller.dart';
 import 'package:salonmobile/models/Salon.dart';
+import 'package:salonmobile/screens/detail_salon/DetailScreen.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
 class SalonsCard extends StatelessWidget {
+  final SalonController salonController = Get.find();
+
   final Salon salons;
   SalonsCard({
     Key key,
@@ -25,11 +30,10 @@ class SalonsCard extends StatelessWidget {
       child: Container(
         width: getProportionateScreenWidth(210),
         child: GestureDetector(
-          // onTap: () => Navigator.pushNamed(
-          //   context,
-          //   DetailProductScreen.routeName,
-          //   arguments: ProductDetailsArguments(product: salons),
-          // ),
+          onTap: () {
+            salonController.getIdSalon(salons.id);
+            Get.to(KatokDetailScreen());
+          },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

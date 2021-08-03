@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:salonmobile/controllers/salon_controller.dart';
+import 'package:salonmobile/helper/keyboard.dart';
 import 'package:salonmobile/models/Barber.dart';
 import 'package:salonmobile/models/KatokModel.dart';
 import 'package:salonmobile/models/Salon.dart';
@@ -25,8 +26,6 @@ double VISIBLE_POSITION = getProportionateScreenHeight(250);
 double INVISIBLE_POSITION = -(getProportionateScreenHeight(550));
 
 class Map extends StatefulWidget {
-  String city;
-  Map({this.city});
 
   @override
   State<StatefulWidget> createState() {
@@ -67,7 +66,6 @@ class _Map extends State<Map> {
     // TODO: implement initState
     super.initState();
     setMarkerAllSalons();
-    print(widget.city);
   }
 
   Future<Uint8List> getBytesFromAsset(
@@ -243,6 +241,7 @@ class _Map extends State<Map> {
               }
               // controllerSuggestion.text = '';
             });
+            KeyboardUtil.hideKeyboard(context);
             _controller.animateCamera(CameraUpdate.newLatLng(cordinate));
             // addMarker(cordinate);
           },
@@ -295,7 +294,7 @@ class _Map extends State<Map> {
                             } else {
                               return await SalonUtilsService()
                                   .getSalonsFromCitySuggestions(
-                                      widget.city, query);
+                                      salonController.citySalon.value, query);
                             }
                           },
                           itemBuilder: (context, Salon suggestion) {
@@ -359,7 +358,7 @@ class _Map extends State<Map> {
             right: 0,
             bottom: this.bottomPosition,
             child: FutureBuilder<List<Salon>>(
-                future: SalonUtilsService().getSalonsFromCity(widget.city),
+                future: SalonUtilsService().getSalonsFromCity(salonController.citySalon.value),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return InkWell(

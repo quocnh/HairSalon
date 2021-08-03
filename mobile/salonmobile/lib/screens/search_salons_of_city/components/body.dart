@@ -6,8 +6,6 @@ import 'package:salonmobile/utils/size_config.dart';
 
 
 class Body extends StatefulWidget {
-  String city;
-  Body({this.city});
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -22,7 +20,7 @@ class _Body extends State<Body> with AutomaticKeepAliveClientMixin{
     // TODO: implement build
     return Stack(
         children: [
-          Map(city: widget.city),
+          Map(),
           /// back
           Positioned(
               left: -(getProportionateScreenWidth(330)),
@@ -38,7 +36,7 @@ class _Body extends State<Body> with AutomaticKeepAliveClientMixin{
                           onPressed: () {
                             Navigator.pop(context);
                           })))),
-          ItemList(city: widget.city),
+          ItemList(),
 
         ],
       );

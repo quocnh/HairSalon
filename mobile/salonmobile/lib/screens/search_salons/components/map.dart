@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:salonmobile/controllers/salon_controller.dart';
+import 'package:salonmobile/helper/keyboard.dart';
 import 'package:salonmobile/models/Salon.dart';
 import 'package:salonmobile/screens/detail_salon/DetailScreen.dart';
 import 'package:salonmobile/services/salon_utils_service.dart';
@@ -220,6 +221,7 @@ class _Map extends State<Map> {
               }
               // controllerSuggestion.text = '';
             });
+            KeyboardUtil.hideKeyboard(context);
             _controller.animateCamera(CameraUpdate.newLatLng(cordinate));
             // addMarker(cordinate);
           },
