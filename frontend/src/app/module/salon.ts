@@ -20,4 +20,5 @@ export default class Salon {
     photos: string[];
     _barberId: string[];
     customerPhotos: string[];
+    serviceType:string[];
 }

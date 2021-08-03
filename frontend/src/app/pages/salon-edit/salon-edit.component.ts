@@ -45,7 +45,7 @@ export class SalonEditComponent implements OnInit {
 
   serviceTypes = GlobalConstants.ServiceTypes;
   serviceTypeImages = GlobalConstants.ServiceTypeImages;
-  
+  serviceTypeOfSalon : any = [];
   map: any;
   marker: any;
 
@@ -129,7 +129,7 @@ export class SalonEditComponent implements OnInit {
       ]
 
     }
-    console.log(document.getElementById("map"));
+    //console.log(document.getElementById("map"));
     this.map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
     const locationButton = document.createElement("button");
@@ -236,6 +236,7 @@ export class SalonEditComponent implements OnInit {
         this.salon.services[i].image = "../../../assets/img/no_photo_available.png";
       }
     }
+    this.updateServiceTypeIcon(this.salon);
   }
 
   addNewService(service: Service) {
@@ -252,7 +253,59 @@ export class SalonEditComponent implements OnInit {
         this.addedService.price = null;
         this.addedService.type = GlobalConstants.ServiceTypes[0];
         // console.log(this.salon);
+
+        //Update service Type for salon
+        // this.salon.serviceType = [];
+        // var i,j;
+        // for(i = 0; i < this.salon.services.length; i++){
+        //   for(j = 0; j < this.salon.serviceType.length; j++){
+        //     if (this.salon.services[i].type == this.salon.serviceType[j]){
+        //       break;
+        //     }
+        //   }
+        //   if( j == this.salon.serviceType.length) {
+        //     this.salon.serviceType.push(this.salon.services[i].type);            
+        //   }          
+        // }
+        this.updateServiceType(this.salon);
+
+        this.updateServiceTypeIcon(this.salon);
+        //console.log(this.salon.serviceType);
+       
+        // this.salonUtilService.updateSalon(this.salon, [], []);
       });
+  }
+  updateServiceType(salon: Salon){
+    salon.serviceType = [];
+    var i,j;
+    for(i = 0; i < salon.services.length; i++){
+      for(j = 0; j < salon.serviceType.length; j++){
+        if (salon.services[i].type == salon.serviceType[j]){
+          break;
+        }
+      }
+      if( j == salon.serviceType.length) {
+        salon.serviceType.push(salon.services[i].type);            
+      }          
+    }
+
+    this.salonUtilService.updateSalon(salon, [], []).subscribe(
+      (salon: Salon) => {
+        //console.log(salon);
+      });
+  }
+
+  updateServiceTypeIcon(salon: Salon){
+    this.serviceTypeOfSalon = [];
+    //console.log(salon);
+    for(var j = 0; j < salon.serviceType.length; j++){
+      for(var k = 0; k < this.serviceTypes.length; k++){
+        if(this.serviceTypes[k] == salon.serviceType[j]){
+          this.serviceTypeOfSalon.push(k);
+          break;
+        }
+      }
+    }
   }
 
   deleteService(service: Service) {
@@ -263,6 +316,8 @@ export class SalonEditComponent implements OnInit {
       (salon: Salon) => {
         this.loadSalonInfo(salon);
         // console.log(this.salon);
+        this.updateServiceType(salon);
+        this.updateServiceTypeIcon(salon);
       });
   }
 
@@ -274,6 +329,8 @@ export class SalonEditComponent implements OnInit {
       (salon: Salon) => {
         this.loadSalonInfo(salon);
         // console.log(this.salon);
+        this.updateServiceType(salon);
+        this.updateServiceTypeIcon(salon);
       });
   }
 

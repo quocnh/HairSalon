@@ -77,6 +77,7 @@ salonRouter.post('/', upload.array('newPhotos[]', 10), (req, res) => {
         ratingAverage: 4.5,
         ratingQuantity: 0,
         photos: strDefaultPhoto,
+        serviceType:[],
     });
 
     salon.save()
@@ -147,7 +148,8 @@ salonRouter.get('/location/:long/:lat', (req, res) => {
 salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
     var fs = require('fs');
     var strPhotoPath = Array(10);
-
+    
+    //console.log(req.body);
     for (i = 0; i < strPhotoPath.length; i++) {
         if (req.body.photos[i] !== 'null') {
             strPhotoPath[i] = req.body.photos[i];
@@ -201,8 +203,6 @@ salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
             }
         }
     }
-
-    // console.log(req.body);
 
     if (req.body.name) {
 
@@ -258,12 +258,12 @@ salonRouter.patch('/:salonId', upload.array('newPhotos[]', 10), (req, res) => {
                     priceTo: req.body.priceTo,
                     ratingAverage: req.body.ratingAverage,
                     ratingQuantity: req.body.ratingQuantity,
-                    photos: strPhotoPath
+                    photos: strPhotoPath,
+                    serviceType: req.body.serviceType
                 },
             },
             { new: true })
             .then(salon => {
-                // salon.update();
                 res.send(salon);
             })
             .catch((error) => console.log(error));

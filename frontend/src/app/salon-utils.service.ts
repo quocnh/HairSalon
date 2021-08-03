@@ -127,7 +127,6 @@ export class SalonUtilsService {
     const salonId: String  = salon._id;
     const fd = new FormData();
     //avatar
-    //console.log(deletedList);
 
     for (let i = 0; i < files.length; i++) {
       if (files[i]) {
@@ -146,13 +145,19 @@ export class SalonUtilsService {
 
     // tslint:disable-next-line: forin
     for (key in salon) {      
-      if(key !== 'photos') {
+      if(key === 'photos') {
+        for (let i = 0; i < salon.photos.length; i++) {
+          fd.append('photos[]', salon.photos[i]);
+        }        
+      } else if (key === 'serviceType') {
+        for (let i = 0; i < salon.serviceType.length; i++) {
+          fd.append('serviceType[]', salon.serviceType[i]);
+        }        
+      } else {
         fd.append(key, salon[key]);
       }
     }
-    for (let i = 0; i < salon.photos.length; i++) {
-      fd.append('photos[]', salon.photos[i]);
-    }
+    
 
     return this.webService.patch( `salons/${salonId}`, fd);
   }
