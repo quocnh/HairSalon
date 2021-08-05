@@ -6,12 +6,12 @@ class Categories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> categories = [
-      {"icon": "assets/icons/hair1.svg", "text": "Hair"},
-      {"icon": "assets/icons/makeup.svg", "text": "Makeup"},
-      {"icon": "assets/icons/skin.svg", "text": "Skin"},
-      {"icon": "assets/icons/nail.svg", "text": "Nail"},
-      {"icon": "assets/icons/tatoo.svg", "text": "Tatoo"},
-      {"icon": "assets/icons/spa.svg", "text": "Spa"},
+      {"icon": "assets/icons/bh_hairColor.svg", "text": "Hair"},
+      {"icon": "assets/icons/bh_makeUp.svg", "text": "Makeup"},
+      {"icon": "assets/icons/bh_skinCare.svg", "text": "Skin"},
+      {"icon": "assets/icons/bh_nail.svg", "text": "Nail"},
+      {"icon": "assets/icons/bh_tattoo.svg", "text": "Tatoo"},
+      {"icon": "assets/icons/bh_spa.svg", "text": "Spa"},
     ];
     return Padding(
       padding: EdgeInsets.all(getProportionateScreenWidth(10)),
@@ -52,7 +52,7 @@ class CategoryCard extends StatelessWidget {
           children: [
             Container(
               padding:
-              EdgeInsets.all(getProportionateScreenWidth(5)),
+              EdgeInsets.all(getProportionateScreenWidth(10)),
               height: getProportionateScreenWidth(55),
               width: getProportionateScreenWidth(55),
               decoration: BoxDecoration(

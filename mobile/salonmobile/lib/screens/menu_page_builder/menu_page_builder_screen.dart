@@ -49,7 +49,7 @@ class _MenuPageBuilderScreenState extends State<MenuPageBuilderScreen> {
                   color: _selectedIndex == 1 ? Colors.blue : Colors.grey,
                 ),
                 title: Text(
-                  "Search",
+                  "Explore",
                   style: TextStyle(
                       color: _selectedIndex == 1 ? Colors.blue : Colors.grey),
                 )),

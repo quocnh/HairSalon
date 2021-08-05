@@ -27,7 +27,7 @@ class _Body extends State<Body> {
       child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: getProportionateScreenWidth(10)),
+              // SizedBox(height: getProportionateScreenWidth(10)),
               DiscountBanner(),
               Categories(),
               SizedBox(height: getProportionateScreenWidth(15)),

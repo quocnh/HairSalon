@@ -87,7 +87,7 @@ class SalonByCityCard extends StatelessWidget {
           width: getProportionateScreenWidth(200),
           height: getProportionateScreenWidth(100),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(15),
             child: Stack(
               children: [
                 Image.asset(

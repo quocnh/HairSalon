@@ -68,11 +68,11 @@ class DiscountBanner extends StatelessWidget {
             bottom: getProportionateScreenHeight(0)),
         padding: EdgeInsets.symmetric(
           horizontal: getProportionateScreenWidth(10),
-          vertical: getProportionateScreenWidth(15),
+          vertical: getProportionateScreenWidth(10),
         ),
         decoration: BoxDecoration(
           // color: Color(0xFF4A3298),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(15),
         ),
         child: CarouselSlider(
           options: CarouselOptions(

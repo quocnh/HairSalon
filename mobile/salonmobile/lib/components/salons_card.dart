@@ -41,7 +41,7 @@ class SalonsCard extends StatelessWidget {
                 width: getProportionateScreenWidth(200),
                 height: getProportionateScreenHeight(120),
                 child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
                     child: CachedNetworkImage(
                         cacheManager: cacheManager,
                         imageUrl: URL_IMAGE + salons.photos[0],
