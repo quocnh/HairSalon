@@ -22,7 +22,8 @@ exports.signup = (req, res) => {
     const user = new User({
         username: req.body.username,
         email: req.body.email,
-        password: bcrypt.hashSync(req.body.password, 8)
+        password: bcrypt.hashSync(req.body.password, 8),
+        isActivated: false,
     });
 
     const customer = new Customer({
@@ -155,8 +156,7 @@ exports.signup = (req, res) => {
                                 // res.send({ message: "Customer was registered successfully!" });
                             });
                         });
-                    });
-
+                    });                    
                     res.send({ message: "User was registered successfully!" });
                 });
             });
@@ -190,6 +190,13 @@ exports.signin = (req, res) => {
                 return res.status(401).send({
                     accessToken: null,
                     message: "Invalid Password!"
+                });
+            }
+
+            if(user.isActivated == false){
+                return res.status(402).send({
+                    accessToken: null,
+                    message: "Account is not activated yet."
                 });
             }
 

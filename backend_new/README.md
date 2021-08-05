@@ -107,6 +107,10 @@ mongo -u admin -p myadminpassword 171.244.39.13/admin
 mongodb://admin:myadminpassword@171.244.39.13:27017/?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&ssl=false
 ```
 
+*** Setup send email:
+npm install --save @sendgrid/mail
+npm install crypto --save
+
 * How to configure .env at server
 1. npm install dotenv
 2. Create .env with the below content:

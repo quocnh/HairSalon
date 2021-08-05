@@ -21,6 +21,8 @@ const productRoutes = require('../controllers/product.controller');
 const productOrderRoutes = require('../controllers/productOrder.controller');
 const commentRoutes = require('../controllers/comment.controller');
 const userRoutes = require('../controllers/user.controller');
+const messageRoutes = require('../controllers/message.controller');
+
 //const passport = require("passport");
 
 //require("./utils/passport")(passport);
@@ -82,6 +84,7 @@ module.exports = function (app) {
     app.use('/products',        productRoutes);
     app.use('/productOrder',    productOrderRoutes);
     app.use('/comments',        commentRoutes);
+    app.use('/email',        messageRoutes);
 
 
     app.use(express.json());

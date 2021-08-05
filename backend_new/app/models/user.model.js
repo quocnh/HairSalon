@@ -61,6 +61,11 @@ const User = mongoose.model(
     avatar: {
         type: String,
         require: [false, 'profile avatar']
+    },
+    isActivated: {
+      type: Boolean,
+      default: false,      
+      require: [false, 'is Activated']
     }
   })
 );

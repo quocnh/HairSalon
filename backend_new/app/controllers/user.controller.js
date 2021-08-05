@@ -144,7 +144,7 @@ userRouter.patch('/update/:userId', (req, res) => {
                     city: req.body.city,
                     district: req.body.district,
                     address: req.body.address,
-                    avatar: req.body.avatar,
+                    avatar: req.body.avatar,                    
                 },
             },
             { new: true })
