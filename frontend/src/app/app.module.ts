@@ -76,6 +76,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { confirmProductOrderComponent } from './popup/confirm_productOrder/confirm_productOrder.component';
 import { ForgetPasswordComponent } from './popup/forget-password/forget-password.component';
 import { SelectBarberComponent } from './popup/select-barber/select-barber.component';
+import { EmailVerificationComponent } from './pages/emailVerification/emailVerification.component';
+import { EmailForgetPasswordComponent } from './pages/emailForgetPassword/emailForgetPassword.component';
 
 @NgModule({
   declarations: [
@@ -115,6 +117,8 @@ import { SelectBarberComponent } from './popup/select-barber/select-barber.compo
     SalonsListViewComponent,
     DashboardComponent,
     UserProfileComponent,
+    EmailVerificationComponent,
+    EmailForgetPasswordComponent,
     BarberProfileViewComponent,
     BarberViewComponent,
     CustomersListComponent,

@@ -50,13 +50,14 @@ messageRouter.post('/activate', (req, res) => {
 */
 
 messageRouter.get('/verification/:username/:encryptedData', (req, res) => {
-    console.log(req.params);
+    //console.log(req.params);
     User.findOne({
         username: req.params.username
     })
         .populate("roles", "-__v")
         .exec((err, user) => {
             if (err) {
+                console.log(err);
                 res.status(500).send({ message: err });
                 return;
             }
@@ -84,7 +85,7 @@ messageRouter.get('/verification/:username/:encryptedData', (req, res) => {
             { new: true })
             .then(user => {
                 //console.log(user);
-                res.send("Xác nhận email thành công.");
+                res.send(user);
             })
             .catch((error) => {
                 console.log(error);

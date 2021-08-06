@@ -569,4 +569,8 @@ export class SalonUtilsService {
     return this.webService.get(`comments/salon/${salonId}`);
   }
 
+  verifyAccount(username: string, encryptedData: string) {
+    return this.webService.get(`email/verification/${username}/${encryptedData}`);
+  }
+
 }
