@@ -78,6 +78,7 @@ import { ForgetPasswordComponent } from './popup/forget-password/forget-password
 import { SelectBarberComponent } from './popup/select-barber/select-barber.component';
 import { EmailVerificationComponent } from './pages/emailVerification/emailVerification.component';
 import { EmailForgetPasswordComponent } from './pages/emailForgetPassword/emailForgetPassword.component';
+import { ConfirmForgetPasswordComponent } from './popup/confirm-forget-password/confirm-forget-password.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +98,7 @@ import { EmailForgetPasswordComponent } from './pages/emailForgetPassword/emailF
     BookingViewComponent,
     LoginComponent,
     ForgetPasswordComponent,
+    ConfirmForgetPasswordComponent,
     SelectBarberComponent,
     RegisterComponent,
     SalonEditComponent,

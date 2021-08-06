@@ -112,7 +112,7 @@ class _SignUpFormState extends State<SignUpForm> {
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
-        } else if (value.length >= 8) {
+        } else if (value.length >= 5) {
           removeError(error: kShortPassError);
         }
         inputPassword = value;
@@ -121,7 +121,7 @@ class _SignUpFormState extends State<SignUpForm> {
         if (value.isEmpty) {
           addError(error: kPassNullError);
           return "";
-        } else if (value.length < 8) {
+        } else if (value.length < 5) {
           addError(error: kShortPassError);
           return "";
         }

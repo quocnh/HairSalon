@@ -29,6 +29,15 @@ module.exports = function (app) {
         authController.signup
     );
 
+    app.post(
+        "/api/auth/requestChangePassword",
+        [
+            verifySignUp.checkMatchUsernameOrEmail,
+            verifySignUp.sendForgetPasswordEmail,
+        ],
+        authController.requestChangePassword
+    );
+
     app.post("/api/auth/signin", authController.signin);
     app.post("/api/auth/changePassword", authController.changePassword);
 

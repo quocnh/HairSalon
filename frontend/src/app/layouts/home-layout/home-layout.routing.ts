@@ -12,6 +12,6 @@ export const HomeLayoutRoutes: Routes = [
     { path: 'salons/:salonId',              component: SalonViewComponent},
     { path: 'profile',                      component: UserProfileComponent },
     { path: 'email/verification/:username/:encryptedData',           component: EmailVerificationComponent },
-    { path: 'email/forgetPassword/:username/:encryptedData',         component: EmailForgetPasswordComponent },
+    { path: 'email/forget/:username/:encryptedData',         component: EmailForgetPasswordComponent },
 
 ];

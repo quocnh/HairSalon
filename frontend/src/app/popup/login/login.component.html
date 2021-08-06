@@ -58,8 +58,8 @@ password: required, minLength=6 -->
     <div class="alert alert-success" *ngIf="isLoggedIn">
         Đã đăng nhập bằng tài khoản {{ roles }}.
     </div>
-    <div class="alert alert-success" *ngIf="isPasswordChanged">
-        Thay đổi mật khẩu thành công
+    <div class="alert alert-success" *ngIf="isEmailForgetPasswordSent">
+        Bạn sẽ nhận được email để thay đổi mật khẩu !!!
     </div>
 
     <!-- <div>

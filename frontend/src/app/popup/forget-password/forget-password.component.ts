@@ -13,33 +13,37 @@ export class ForgetPasswordComponent implements OnInit {
   isPasswordChanged = false;
   errorMessage = '';  
   isPasswordSame = false;
-  @Input() public username;
+  isPasswordUpdateFailed = false;
 
+  @Input() public username;
+  @Input() public encryptedData;
   constructor(
     public modal: NgbActiveModal,
     private authService: AuthService
   ) {
   }
 
-  ngOnInit(): void {
-    this.form.username = this.username;
+  ngOnInit(): void {    
+    this.form.username = this.username;    
   }
 
-  onSubmit(): void {
+  onSubmit(): void {    
     if(this.form.password1 === this.form.password2)
     {
       this.isPasswordSame = true;
       this.form.password = this.form.password1;
 
-      this.authService.changePassword(this.form).subscribe(
-        data => { 
+      this.authService.changePassword(this.form, this.encryptedData).subscribe(
+        data => {          
           this.isPasswordChanged = true;
+          this.isPasswordUpdateFailed = false;
           this.modal.close();
         },
         err => {
           this.errorMessage = err.error.message;
           this.isPasswordChanged = false;
-          this.modal.close();    
+          this.isPasswordUpdateFailed = true;
+          //this.modal.close();    
         }
       );
     }

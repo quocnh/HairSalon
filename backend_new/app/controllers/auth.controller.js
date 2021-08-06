@@ -17,6 +17,7 @@ const Distributor = db.distributor;
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
+const crypto = require("crypto");
 
 exports.signup = (req, res) => {
     const user = new User({
@@ -219,7 +220,39 @@ exports.signin = (req, res) => {
         });
 };
 
+exports.requestChangePassword = (req, res) => {
+    User.findOne({
+        username: req.body.username
+    })
+        .populate("roles", "-__v")
+        .exec((err, user) => {
+            if (err) {
+                res.status(500).send({ message: err });
+                return;
+            }
+
+            if (!user) {
+                return res.status(404).send({ message: "User Not found." });
+            }
+
+            res.status(200).send(user);
+        });
+};
+
 exports.changePassword = (req, res) => {
+    if (req.body.encryptedData == null){
+        return res.status(404).send({ message: "Verification is invalid !!!" });
+    }
+    const algorithm = "aes-256-cbc"; 
+    const decipher  = crypto.createDecipheriv(algorithm, config.AES256_SECURITY_KEY, config.AES256_INIT_VECTOR);
+
+    var decryptedData = decipher.update(req.body.encryptedData, "hex", "utf-8");
+    decryptedData += decipher.final("utf8");
+
+    //console.log(req.body);
+    if(decryptedData != req.body.username){
+        return res.status(404).send({ message: "Verification is invalid !!!" });
+    }
     User.findOneAndUpdate({
         username: req.body.username
     },

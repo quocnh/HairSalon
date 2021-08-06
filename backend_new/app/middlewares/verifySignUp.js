@@ -137,8 +137,8 @@ sendForgetPasswordEmail = (req, res, next) => {
   var subject = '[Katok] Thay đổi mật khẩu';
   var text = 'Xin vui lòng click vao link bên dưới để thay đổi mật khẩu cho '+ username;
   
-  var verifyHref = dbconfig.WEB_HOST + 'home/email/forget/' + username + '/' + encryptedData ;
-  var htmlContent = '<div class="row">' + text + '</div>' + '<div style="background:#00b2e9;width:242px;text-align:center;margin:0 auto;border-radius:50px;vertical-align:middle;padding:10px 0 10px 0">\
+  var verifyHref = dbconfig.WEB_HOST + '/home/email/forget/' + username + '/' + encryptedData ;
+  var htmlContent = '<div class="row"> <p>' + text + '</p></div>' + '<div class="row"> <p></p></div> <div style="background:#00b2e9;width:242px;text-align:center;margin:0 auto;border-radius:50px;vertical-align:middle;padding:10px 0 10px 0">\
   <a href=' + verifyHref+ '\
   style="color:#fff;text-decoration:none;font-size:16px">\
       Thay đổi mật khẩu \
@@ -190,10 +190,7 @@ checkMatchUsernameOrEmail = (req, res, next) => {
 const verifySignUp = {
   checkDuplicateUsernameOrEmail,
   checkRolesExisted,
-  sendVerificationEmail
-};
-
-const verifyForgetPassword = {
+  sendVerificationEmail,
   checkMatchUsernameOrEmail,
   sendForgetPasswordEmail
 };

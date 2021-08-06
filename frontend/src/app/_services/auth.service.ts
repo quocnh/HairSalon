@@ -23,11 +23,20 @@ export class AuthService {
     }, httpOptions);
   }
 
-  changePassword(credentials): Observable<any> {
+  changePassword(credentials, encryptedData): Observable<any> {
     //console.log("Change password: " + credentials.username + "," + credentials.password);
     return this.http.post(AUTH_API + 'changePassword', {
       username: credentials.username,
-      password: credentials.password
+      password: credentials.password,
+      encryptedData: encryptedData
+    }, httpOptions);
+  }
+
+  requestChangePassword(credentials): Observable<any> {
+    //console.log("Change password: " + credentials.username + "," + credentials.password);
+    return this.http.post(AUTH_API + 'requestChangePassword', {
+      username: credentials.username,
+      email: credentials.email
     }, httpOptions);
   }
 

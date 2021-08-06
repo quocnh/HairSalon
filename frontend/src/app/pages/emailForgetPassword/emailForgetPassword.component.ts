@@ -9,6 +9,7 @@ import { GlobalConstants } from 'app/module/global-constants';
 import User from 'app/module/userAccount';
 import { TokenStorageService } from 'app/_services/token-storage.service';
 import { ConfirmComponent } from 'app/popup/confirm/confirm.component';
+import { ForgetPasswordComponent } from 'app/popup/forget-password/forget-password.component';
 
 @Component({
     selector: 'app-email-forgetPassword',
@@ -27,25 +28,28 @@ export class EmailForgetPasswordComponent implements OnInit {
 
     ngOnInit() {
         this.route.params.subscribe((params: Params) => {
-            //console.log(params);
-            this.activateUserAccount(params.username, params.encryptedData);
-        });
-
-    }
-
-    activateUserAccount(username: string, encryptedData: string) {
-        this.salonUtilService.verifyAccount(username, encryptedData)
-            .subscribe((result) => {
-                console.log(result);
+            const ref = this.modalService.open(ForgetPasswordComponent);      
+            ref.componentInstance.username = params.username;
+            ref.componentInstance.encryptedData = params.encryptedData;
+            ref.result.then(
+                (result) => {
+                console.log("Update password for " + params.username);
                 const ref = this.modalService.open(ConfirmComponent);
-                ref.componentInstance.confirmInfo = 'Xác nhận email thành công. Xin vui lòng đăng nhập !!!';
+                ref.componentInstance.confirmInfo = 'Thay đổi mật khẩu thành công !!!';
                 ref.result.then((yes) => {
                     this.router.navigate(['home']);
                 },
                     (cancel) => {
                         console.log('cancel click');
-                    })
-            });
+                    })        
+                },
+                (cancel) => {
+                //this.isPasswordChanged = false;
+                console.log('cancel click');
+                })
+        });
+
     }
 
+    
 }

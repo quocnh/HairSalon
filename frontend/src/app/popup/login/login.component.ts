@@ -3,7 +3,8 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 declare const FB: any;
 import { AuthService } from '../../_services/auth.service';
 import { TokenStorageService } from '../../_services/token-storage.service';
-import { ForgetPasswordComponent } from '../forget-password/forget-password.component';
+import { ConfirmForgetPasswordComponent } from '../confirm-forget-password/confirm-forget-password.component';
+
 import { RegisterComponent } from '../register/register.component';
 
 @Component({
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   roles: string[] = [];
   isForgetPasswordFailed  = false;
-  isPasswordChanged = false;
+  isEmailForgetPasswordSent = false;
 
   constructor(
     public modal: NgbActiveModal,
@@ -85,15 +86,15 @@ export class LoginComponent implements OnInit {
     }
     else {
       this.isForgetPasswordFailed = false;      
-      const ref = this.modalService.open(ForgetPasswordComponent);      
+      const ref = this.modalService.open(ConfirmForgetPasswordComponent);      
       ref.componentInstance.username = username;
       ref.result.then(
         (result) => {
           console.log("Update pass for " + username);
-          this.isPasswordChanged = true;            
+          this.isEmailForgetPasswordSent = true;            
         },
         (cancel) => {
-          this.isPasswordChanged = false;
+          this.isEmailForgetPasswordSent = false;
           console.log('cancel click');
         })
     }
