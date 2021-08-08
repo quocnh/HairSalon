@@ -17,7 +17,6 @@ class ProductCard extends StatelessWidget {
 
   final double width, aspectRetio;
   final Product product;
-List<Salon> listSalons = store.get('listSalons');
   @override
   Widget build(BuildContext context) {
     return Padding(
