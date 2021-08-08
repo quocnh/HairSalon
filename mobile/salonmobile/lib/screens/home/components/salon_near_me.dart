@@ -14,7 +14,7 @@ class SalonNearMe extends StatelessWidget {
   Widget build(BuildContext context) {
     // var length = (listSalons.length > 5) ? 5: listSalons.length;
     return SizedBox(
-      height: getProportionateScreenHeight(220),
+      height: getProportionateScreenHeight(260),
       child: Column(
         children: [
           Padding(
@@ -25,80 +25,90 @@ class SalonNearMe extends StatelessWidget {
           SizedBox(
             height: getProportionateScreenHeight(15),
           ),
-          Expanded(child: Obx(() {
-            if (salonController.isLoading.value)
-              return Center(child: Center(child: CircularProgressIndicator()));
-            else
-              return (salonController.latitude.value == 0 &&
-                  salonController.longitude.value == 0)
-                  ? SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    ...List.generate(
-                      (salonController.salonList.length > 5)
-                          ? 5
-                          : salonController.salonList.length,
-                          (index) {
-                        return SalonsCard(
-                            salons: salonController.salonList[index]);
-                        // if (demoProducts[index].isPopular)
-                        //   return ProductCard(product: demoProducts[index]);
-                        // return SizedBox
-                        //     .shrink(); // here by default width and height is 0
-                      },
-                    ),
-                    SizedBox(width: getProportionateScreenWidth(20)),
-                  ],
+             Expanded(child: Obx(() {
+              if (salonController.isLoading.value)
+                return Center(child: Center(child: CircularProgressIndicator()));
+              else
+                return (salonController.latitude.value == 0 &&
+                    salonController.longitude.value == 0)
+                    ? Padding(
+                  padding: EdgeInsets.only(right: getProportionateScreenWidth(20)),
+                      child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                      children: [
+                        ...List.generate(
+                          (salonController.salonList.length > 5)
+                              ? 5
+                              : salonController.salonList.length,
+                              (index) {
+                            return SalonsCard(
+                                salons: salonController.salonList[index]);
+                            // if (demoProducts[index].isPopular)
+                            //   return ProductCard(product: demoProducts[index]);
+                            // return SizedBox
+                            //     .shrink(); // here by default width and height is 0
+                          },
+                        ),
+                        SizedBox(width: getProportionateScreenWidth(20)),
+                      ],
+                  ),
                 ),
-              )
-                  : (salonController.salonFromLocationList.isEmpty)
-                  ? SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    ...List.generate(
-                      (salonController.salonList.length > 5)
-                          ? 5
-                          : salonController.salonList.length,
-                          (index) {
-                        return SalonsCard(
-                            salons: salonController.salonList[index]);
-                        // if (demoProducts[index].isPopular)
-                        //   return ProductCard(product: demoProducts[index]);
-                        // return SizedBox
-                        //     .shrink(); // here by default width and height is 0
-                      },
-                    ),
-                    SizedBox(width: getProportionateScreenWidth(20)),
-                  ],
+                    )
+                    : (salonController.salonFromLocationList.isEmpty)
+                    ? Padding(
+                  padding: EdgeInsets.only(right: getProportionateScreenWidth(20)),
+                      child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                      children: [
+                        ...List.generate(
+                          (salonController.salonList.length > 5)
+                              ? 5
+                              : salonController.salonList.length,
+                              (index) {
+                            return SalonsCard(
+                                salons: salonController.salonList[index]);
+                            // if (demoProducts[index].isPopular)
+                            //   return ProductCard(product: demoProducts[index]);
+                            // return SizedBox
+                            //     .shrink(); // here by default width and height is 0
+                          },
+                        ),
+                        SizedBox(width: getProportionateScreenWidth(20)),
+                      ],
+                  ),
                 ),
-              )
-                  : SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    ...List.generate(
-                      (salonController.salonFromLocationList.length >
-                          5)
-                          ? 5
-                          : salonController
-                          .salonFromLocationList.length,
-                          (index) {
-                        return SalonsCard(
-                            salons: salonController
-                                .salonFromLocationList[index]);
-                        // if (demoProducts[index].isPopular)
-                        //   return ProductCard(product: demoProducts[index]);
-                        // return SizedBox
-                        //     .shrink(); // here by default width and height is 0
-                      },
-                    ),
-                    SizedBox(width: getProportionateScreenWidth(20)),
-                  ],
+                    )
+                    : Padding(
+                  padding: EdgeInsets.only(right: getProportionateScreenWidth(20)),
+                      child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                      children: [
+                        ...List.generate(
+                          (salonController.salonFromLocationList.length >
+                              5)
+                              ? 5
+                              : salonController
+                              .salonFromLocationList.length,
+                              (index) {
+                            return SalonsCard(
+                                salons: salonController
+                                    .salonFromLocationList[index]);
+                            // if (demoProducts[index].isPopular)
+                            //   return ProductCard(product: demoProducts[index]);
+                            // return SizedBox
+                            //     .shrink(); // here by default width and height is 0
+                          },
+                        ),
+                        SizedBox(width: getProportionateScreenWidth(20)),
+                      ],
+                  ),
                 ),
-              );
-          }))
+                    );
+            })),
+
         ],
       ),
     );

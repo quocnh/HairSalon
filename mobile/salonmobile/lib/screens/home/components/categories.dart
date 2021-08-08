@@ -14,7 +14,7 @@ class Categories extends StatelessWidget {
       {"icon": "assets/icons/bh_spa.svg", "text": "Spa"},
     ];
     return Padding(
-      padding: EdgeInsets.all(getProportionateScreenWidth(10)),
+      padding: EdgeInsets.only(top:getProportionateScreenWidth(10), bottom: getProportionateScreenWidth(10), right: getProportionateScreenWidth(20), left: getProportionateScreenWidth(20)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,

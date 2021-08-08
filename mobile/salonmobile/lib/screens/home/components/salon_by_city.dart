@@ -26,37 +26,40 @@ class SalonByCity extends StatelessWidget {
           ),
         ),
         SizedBox(height: getProportionateScreenWidth(20)),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              SalonByCityCard(
-                image: "assets/images/hcm2.jpg",
-                category: "Hồ Chí Minh",
-                numOfBrands: 18,
-                press: () {
-                  print(demoProducts.length);
-                  salonController.getCitySalon("Hồ Chí Minh");
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => SearchSalonsOfCityScreen()));
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => ListStoreScreen(
-                  //             )));
-                },
-              ),
-              SalonByCityCard(
-                image: "assets/images/hanoi.jpg",
-                category: "Hà Nội",
-                numOfBrands: 24,
-                press: () {
-                  print(demoProducts.length);
-                  salonController.getCitySalon("Hà Nội");
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => SearchSalonsOfCityScreen()));
-                },
-              ),
-              SizedBox(width: getProportionateScreenWidth(20)),
-            ],
+        Padding(
+          padding: EdgeInsets.only(right: getProportionateScreenWidth(20)),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                SalonByCityCard(
+                  image: "assets/images/hcm2.jpg",
+                  category: "Hồ Chí Minh",
+                  numOfBrands: 18,
+                  press: () {
+                    print(demoProducts.length);
+                    salonController.getCitySalon("Hồ Chí Minh");
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => SearchSalonsOfCityScreen()));
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => ListStoreScreen(
+                    //             )));
+                  },
+                ),
+                SalonByCityCard(
+                  image: "assets/images/hanoi.jpg",
+                  category: "Hà Nội",
+                  numOfBrands: 24,
+                  press: () {
+                    print(demoProducts.length);
+                    salonController.getCitySalon("Hà Nội");
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => SearchSalonsOfCityScreen()));
+                  },
+                ),
+                SizedBox(width: getProportionateScreenWidth(20)),
+              ],
+            ),
           ),
         ),
       ],
@@ -84,7 +87,7 @@ class SalonByCityCard extends StatelessWidget {
       child: GestureDetector(
         onTap: press,
         child: SizedBox(
-          width: getProportionateScreenWidth(200),
+          width: getProportionateScreenWidth(180),
           height: getProportionateScreenWidth(100),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(15),
@@ -92,7 +95,7 @@ class SalonByCityCard extends StatelessWidget {
               children: [
                 Image.asset(
                   image,
-                  width:getProportionateScreenWidth(250),
+                  width:getProportionateScreenWidth(180),
                   fit: BoxFit.fill,
                 ),
                 Container(
