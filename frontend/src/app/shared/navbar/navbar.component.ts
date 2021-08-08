@@ -43,6 +43,7 @@ export class NavbarComponent implements OnInit {
   selectedCityName:string = 'none';
   selectedDistrictName:string = 'none';
   messages: any[] = [];
+  userId: string;
 
   private listTitles: any[];
   // tslint:disable-next-line: member-ordering
@@ -99,6 +100,8 @@ export class NavbarComponent implements OnInit {
       this.showDistributorBoard = this.roles.includes('ROLE_DISTRIBUTOR');
             
       this.username = user.username;
+      this.userId = user.id;
+      //console.log(user);
     }
 
     this.searchService.getCities().then(cities => {
@@ -145,6 +148,11 @@ export class NavbarComponent implements OnInit {
       })
 
     
+  }
+
+  history() {
+    console.log('history');
+    this.router.navigate(['/main/history/' + this.userId]);
   }
   // call signup modal function
   register() {
@@ -219,7 +227,7 @@ export class NavbarComponent implements OnInit {
     const navbar = document.getElementsByTagName('nav')[0];
 
     
-    console.log(navbar);
+    //console.log(navbar);
     if (!this.isCollapsed) {
       // navbar.classList.remove('navbar-transparent');
       navbar.classList.add('bg-white');
@@ -231,7 +239,7 @@ export class NavbarComponent implements OnInit {
   }
 
   selectCityEvent(event){
-    console.log(event);
+    //console.log(event);
     this.selectedCity = event;
     this.districts = event.district;
     this.selectedCityName = this.selectedCity.name;
@@ -239,7 +247,7 @@ export class NavbarComponent implements OnInit {
     this.selectedDistrictName = 'none';
   }
   selectDistrictEvent(event){
-    console.log(event);
+    //console.log(event);
     this.selectedDistrict = event;
     this.selectedDistrictName = this.selectedDistrict.name;
   }

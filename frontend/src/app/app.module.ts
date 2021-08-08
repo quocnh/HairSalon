@@ -79,6 +79,7 @@ import { SelectBarberComponent } from './popup/select-barber/select-barber.compo
 import { EmailVerificationComponent } from './pages/emailVerification/emailVerification.component';
 import { EmailForgetPasswordComponent } from './pages/emailForgetPassword/emailForgetPassword.component';
 import { ConfirmForgetPasswordComponent } from './popup/confirm-forget-password/confirm-forget-password.component';
+import { HistoryBookingsListViewComponent } from './pages/history-bookings-list-view/history-bookings-list-view.component';
 
 @NgModule({
   declarations: [
@@ -105,6 +106,7 @@ import { ConfirmForgetPasswordComponent } from './popup/confirm-forget-password/
     ManagerLayoutComponent,
     BookingsSalonListComponent,
     BookingsListViewComponent,
+    HistoryBookingsListViewComponent,
     DistributorLayoutComponent,
     ProductsListViewComponent,
     ProductOrdersListViewComponent,

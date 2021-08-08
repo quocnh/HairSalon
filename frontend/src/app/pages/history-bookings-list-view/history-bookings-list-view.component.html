@@ -1,0 +1,47 @@
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title"> Lịch sử đặt lịch</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+                  <th>Salon</th>                  
+                  <th (click)="sort('bookingDate')">Ngày đặt&nbsp;<i class="fa fa-sort"></i></th>
+                  <th (click)="sort('bookingTime')">Thời gian&nbsp;<i class="fa fa-sort"></i></th>
+                  <th>Yêu cầu thợ</th>
+                  <th (click)="sort('status')">Trạng thái&nbsp;<i class="fa fa-sort"></i></th>
+                  <th>&nbsp;</th>
+                </thead>
+                <tbody>
+                    
+                    <tr *ngFor="let book of bookingList | orderBy: key: reverse | paginate: {itemsPerPage:10,currentPage:page}; let i = index">
+                        <td>{{ salonList[i].name }}</td>                       
+                        <td>{{ book.bookingDate | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{ book.bookingTime}}</td>
+                        <td>{{ barberList[i].firstname}} {{ barberList[i].lastname}}</td>
+                        <td>{{ book.status}}</td>
+                        
+                        <td >
+                            <button class="btn btn-sm btn-danger btn-round btn-icon pull-right" (click)= "deleteBooking(book._id, i)">
+                              <a data-toggle="tooltip" data-placement="top" title="Xóa"> <i class="fa fa-trash"></i></a>
+                            </button>
+                            <p class="pull-right"> &#160; </p>
+                            <button class="btn btn-sm btn-info btn-round btn-icon pull-right" (click)= "modifyBooking(book._id, i)">
+                              <a data-toggle="tooltip" data-placement="top" title="Sửa"><i class="fa fa-pencil"></i></a>
+                            </button>
+                        </td>
+                    </tr>
+                  
+                </tbody>
+                <pagination-controls (pageChange) = "page = $event" previousLabel="Previous" nextLabel="Next"></pagination-controls>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>   
+  

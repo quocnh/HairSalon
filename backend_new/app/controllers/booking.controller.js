@@ -63,6 +63,14 @@ bookingRouter.get('/salon/:salonId', (req, res) => {
         .catch((error) => console.log(error));
 });
 
+// Get all booking from userId
+bookingRouter.get('/user/:userId', (req, res) => {
+    //console.log(req.params.salonId);
+    Booking.find({_userId:req.params.userId})
+        .then(bookings => res.send(bookings))
+        .catch((error) => console.log(error));
+});
+
 // Get booking from bookingId
 bookingRouter.get('/:bookingId', (req, res) => {
     //console.log(req.params.salonId);

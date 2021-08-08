@@ -10,17 +10,18 @@ import { SalonUtilsService } from 'app/salon-utils.service';
 import { DeleteAnyComponent } from '../../popup/delete-any/delete-any.component';
 
 @Component({
-  selector: 'app-bookings-list-view',
-  templateUrl: './bookings-list-view.component.html',
-  styleUrls: ['./bookings-list-view.component.css']
+  selector: 'app-history-bookings-list-view',
+  templateUrl: './history-bookings-list-view.component.html',
+  styleUrls: ['./history-bookings-list-view.component.css']
 })
-export class BookingsListViewComponent implements OnInit {
+export class HistoryBookingsListViewComponent implements OnInit {
 
   salonId: string;
   userId: string;
   bookingList: Booking[];
   salon: Salon = new Salon();
   customerList: User[] = [];
+  salonList: Salon[] = [];
   barberList: Barber[] = [];
   customer_username: string;
   modal_index: number;
@@ -37,14 +38,10 @@ export class BookingsListViewComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       console.log(params);
       
-      if (this.salonId) {
-        this.salonId = params.salonId;
-        this.getBookingsList(this.salonId);
-        this.getSalonInfo(this.salonId);
-      } else if (params.userId) {
-        this.userId = params.userId;
-        this.getBookingsListFromUserId(this.userId);
-      }
+
+      this.userId = params.userId;
+      this.getBookingsListFromUserId(this.userId);
+
     });
 
   }
@@ -58,75 +55,45 @@ export class BookingsListViewComponent implements OnInit {
     this.reverse = !this.reverse;
   }
 
-  getSalonInfo(salonId) {
-    this.salonUtilService.getOneSalon(salonId).subscribe(
-      (salons: Salon) => {
-        this.salon = Object.assign({}, salons[0]);
-      });
-  }
-
-  async getBookingsList(salonId: string) {
-    this.salonUtilService.getBookingsFromSalonId(salonId)
-      .subscribe((bookings: Booking[]) => {        
-        this.bookingList = bookings;        
-        for (var i = 0; i < bookings.length; i++) {
-          const idx = i;   
-          this.customerList[idx] = new User;
-          this.barberList[idx] = new Barber;
-          //console.log(bookings[idx]);
-          if (this.bookingList[idx]._userId) {  
-                   
-            this.getCustomerInfo(this.bookingList[idx]._userId, idx).then(data => {
-              //console.log(data);              
-            });
-          }
-          if (this.bookingList[idx]._barberId) {  
-                   
-            this.getBarberInfo(this.bookingList[idx]._barberId, idx).then(data => {
-              //console.log(data);              
-            });
-          }        
-        }
-      });
-  }
-
   async getBookingsListFromUserId(userId: string) {
     this.salonUtilService.getBookingsFromUserId(userId)
       .subscribe((bookings: Booking[]) => {        
-        this.bookingList = bookings;        
+                
         for (var i = 0; i < bookings.length; i++) {
           const idx = i;   
           this.customerList[idx] = new User;
           this.barberList[idx] = new Barber;
+          this.salonList[idx] = new Salon;
+          this.bookingList = bookings;
           //console.log(bookings[idx]);
-          if (this.bookingList[idx]._userId) {  
+          if (bookings[idx]._userId) {  
                    
-            this.getCustomerInfo(this.bookingList[idx]._userId, idx).then(data => {
+            this.getSalonInfo(bookings[idx]._salonId, idx).then(data => {
               //console.log(data);              
             });
           }
-          if (this.bookingList[idx]._barberId) {  
+          if (bookings[idx]._barberId) {  
                    
-            this.getBarberInfo(this.bookingList[idx]._barberId, idx).then(data => {
+            this.getBarberInfo(bookings[idx]._barberId, idx).then(data => {
               //console.log(data);              
             });
           }        
-        }
+        }        
       });
   }
 
-  async getCustomerInfo(_userId: string, index:number): Promise<User> {
-    let customer:User = new User();
-    await this.salonUtilService.getUser(_userId)
+  async getSalonInfo(salonId: string, index:number): Promise<Salon> {
+    let salon:Salon = new Salon();
+    await this.salonUtilService.getOneSalon(salonId)
     .toPromise()
     .then(
-      (users: User[]) => {        
-        return Object.assign({}, users[0]);
+      (salons: Salon[]) => {        
+        return Object.assign({}, salons[0]);
       }).then(data => {
-        customer = data;
-        this.customerList[index] = data;
+        salon = data;
+        this.salonList[index] = data;
       });    
-    return customer;
+    return salon;
   }
 
   async getBarberInfo(barberId: string, index:number): Promise<Barber> {
@@ -150,7 +117,7 @@ export class BookingsListViewComponent implements OnInit {
     ref.componentInstance.deletedText = 'thông tin booking của ' + this.customerList[idx].username;
     ref.result.then((yes) => {
       this.salonUtilService.deleteOneBooking(bookId).subscribe();
-      this.getBookingsList(this.salonId);
+      this.getBookingsListFromUserId(this.userId);
     },
     (cancel) => {
       console.log('cancel click');
@@ -171,7 +138,7 @@ export class BookingsListViewComponent implements OnInit {
         ref.componentInstance.salon = this.salon;
         ref.result.then((result) => {
           //console.log(result);
-          this.getBookingsList(this.salonId);
+          this.getBookingsListFromUserId(this.userId);
         },
         (cancel) => {
           console.log('cancel click');

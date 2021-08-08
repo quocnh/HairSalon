@@ -463,7 +463,11 @@ export class SalonUtilsService {
 
   getBookingsFromSalonId(salonId: string) {
     return this.webService.get(`bookings/salon/${salonId}`);
-  } 
+  }
+   
+  getBookingsFromUserId(userId: string) {
+    return this.webService.get(`bookings/user/${userId}`);
+  }
   getOneBooking(bookingId: string) {
     return this.webService.get(`bookings/${bookingId}`);
   } 

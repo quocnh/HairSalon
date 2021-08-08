@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:salonmobile/models/Barber.dart';
+import 'package:salonmobile/models/Booking.dart';
 import 'package:salonmobile/models/Comment.dart';
 import 'package:salonmobile/models/Salon.dart';
 import 'package:salonmobile/models/User.dart';
@@ -96,6 +97,32 @@ class SalonUtilsService {
     print("${response[0].statusCode}");
     print("${response[0].body}");
     return response.map((json) => new Comment.fromJson(json)).toList();
+  }
+
+  Future<List<Booking>> getBookingsFromUserId(String userId) async {
+    String para = 'bookings/user/' + userId;
+    List response = await this.hS.sget(para);
+    return response.map((json) => new Booking.fromJson(json)).toList();
+  }
+
+  Future<List<Booking>> createBooking(Booking booking) async {
+    //HttpService hS = new HttpService();
+    String para = 'bookings';
+    Map data = {
+      '_salonId': booking.salonId,
+      '_userId': booking.userId,
+      '_barberId': booking.barberId,
+      'createdDate': booking.createdDate,
+      'bookingDate': booking.bookingDate,
+      'bookingTime': booking.bookingTime,
+      'info':booking.info,
+      'status':booking.status,
+    };
+    String body = json.encode(data);
+    List response = await this.hS.spost(para, body);
+    print("${response[0].statusCode}");
+    print("${response[0].body}");
+    return response.map((json) => new Booking.fromJson(json)).toList();
   }
 
 }
