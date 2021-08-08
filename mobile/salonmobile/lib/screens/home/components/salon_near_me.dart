@@ -14,7 +14,7 @@ class SalonNearMe extends StatelessWidget {
   Widget build(BuildContext context) {
     // var length = (listSalons.length > 5) ? 5: listSalons.length;
     return SizedBox(
-      height: getProportionateScreenHeight(275),
+      height: getProportionateScreenHeight(220),
       child: Column(
         children: [
           Padding(
@@ -22,7 +22,9 @@ class SalonNearMe extends StatelessWidget {
                 horizontal: getProportionateScreenWidth(20)),
             child: SectionTitle(title: "Salons Near Me", press: () {}),
           ),
-          SizedBox(height: getProportionateScreenWidth(20)),
+          SizedBox(
+            height: getProportionateScreenHeight(15),
+          ),
           Expanded(child: Obx(() {
             if (salonController.isLoading.value)
               return Center(child: Center(child: CircularProgressIndicator()));
