@@ -159,7 +159,7 @@ export class MainPageComponent implements OnInit {
           this.salonUtilService.getSalonsFromCity(this.selectedCityName).subscribe(
             (salons: Salon[]) => {
               this.salons = salons;
-              console.log(this.salons);
+              //console.log(this.salons);
               if (this.salons[0]) {
                 // + : convert string to number
                 this.initLatitude = +this.salons[0].latitude;

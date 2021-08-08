@@ -3,7 +3,6 @@ import { EmailForgetPasswordComponent } from 'app/pages/emailForgetPassword/emai
 import { EmailVerificationComponent } from 'app/pages/emailVerification/emailVerification.component';
 import { HomeComponent } from 'app/pages/home/home.component';
 import { UserProfileComponent } from 'app/pages/userProfile/userProfile.component';
-import { MainPageComponent } from '../../pages/main-page/main-page.component';
 import { SalonViewComponent } from '../../pages/salon-view/salon-view.component';
 
 export const HomeLayoutRoutes: Routes = [
@@ -12,6 +11,5 @@ export const HomeLayoutRoutes: Routes = [
     { path: 'salons/:salonId',              component: SalonViewComponent},
     { path: 'profile',                      component: UserProfileComponent },
     { path: 'email/verification/:username/:encryptedData',           component: EmailVerificationComponent },
-    { path: 'email/forget/:username/:encryptedData',         component: EmailForgetPasswordComponent },
-
+    { path: 'email/forget/:username/:encryptedData',         component: EmailForgetPasswordComponent },    
 ];
