@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:salonmobile/controllers/salon_controller.dart';
+import 'package:salonmobile/controllers/user_controller.dart';
 import 'package:salonmobile/models/Product.dart';
 import 'package:salonmobile/screens/search_salons_of_city/search_salons_screen_of_city.dart';
 import 'package:salonmobile/utils/size_config.dart';
@@ -9,6 +10,7 @@ import 'section_title.dart';
 
 class SalonByCity extends StatelessWidget {
   final SalonController salonController = Get.find();
+  final UserController userController = Get.find();
    SalonByCity({
     Key key,
   }) : super(key: key);
@@ -22,7 +24,11 @@ class SalonByCity extends StatelessWidget {
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: SectionTitle(
             title: "Explore Salons",
-            press: () {},
+            press: () {
+              print(userController.user.value.id);
+              salonController.getCitySalon("Hồ Chí Minh");
+              Get.to(SearchSalonsOfCityScreen());
+            },
           ),
         ),
         SizedBox(height: getProportionateScreenWidth(20)),
@@ -39,7 +45,7 @@ class SalonByCity extends StatelessWidget {
                   press: () {
                     print(demoProducts.length);
                     salonController.getCitySalon("Hồ Chí Minh");
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => SearchSalonsOfCityScreen()));
+                    Get.to(SearchSalonsOfCityScreen());
                     // Navigator.push(
                     //     context,
                     //     MaterialPageRoute(
@@ -54,7 +60,7 @@ class SalonByCity extends StatelessWidget {
                   press: () {
                     print(demoProducts.length);
                     salonController.getCitySalon("Hà Nội");
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => SearchSalonsOfCityScreen()));
+                    Get.to(SearchSalonsOfCityScreen());
                   },
                 ),
                 SizedBox(width: getProportionateScreenWidth(20)),

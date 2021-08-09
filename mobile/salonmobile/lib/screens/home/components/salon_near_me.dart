@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:salonmobile/components/salons_card.dart';
 import 'package:salonmobile/controllers/salon_controller.dart';
 import 'package:salonmobile/screens/home/components/section_title.dart';
+import 'package:salonmobile/screens/search_salons_of_city/search_salons_screen_of_city.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
 // ignore: must_be_immutable
@@ -20,7 +21,10 @@ class SalonNearMe extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: getProportionateScreenWidth(20)),
-            child: SectionTitle(title: "Salons Near Me", press: () {}),
+            child: SectionTitle(title: "Salons Near Me", press: () {
+              salonController.getCitySalon("Hồ Chí Minh");
+              Get.to(SearchSalonsOfCityScreen());
+            }),
           ),
           SizedBox(
             height: getProportionateScreenHeight(15),
