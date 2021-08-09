@@ -7,10 +7,12 @@ import 'package:salonmobile/components/form_error.dart';
 import 'package:salonmobile/helper/keyboard.dart';
 import 'package:salonmobile/screens/forgot_password/forgot_password_screen.dart';
 import 'package:salonmobile/screens/menu_page_builder/menu_page_builder_screen.dart';
-import 'package:salonmobile/services/http_service.dart';
+import 'package:salonmobile/services/salon_utils_service.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/loading.dart';
 import 'package:salonmobile/utils/size_config.dart';
+import 'package:salonmobile/models/User.dart';
+
 class SignForm extends StatefulWidget {
   @override
   _SignFormState createState() => _SignFormState();
@@ -40,12 +42,11 @@ class _SignFormState extends State<SignForm> {
 
   void signIn(String email, String password) async {
 
-    HttpService hS = new HttpService();
-
-    var response = await hS.login(email, password);
-
-    if (response == true) {
+    User user = await SalonUtilsService().login(email, password);
+    //  response is a string of User Object
+    if (user != null) {
       //go to homescreens and remove all previous routes
+      print(user.toString());
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => MenuPageBuilderScreen()),

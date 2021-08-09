@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class User {
   final String id;
+  final String username;
   final String email, password;
   final String firstname, lastname;
   final String phone;
   final String address;
+  final String accessToken;
   // final String state, city, country;
   final String avatar;
   // final List<Color> colors;
@@ -14,12 +16,14 @@ class User {
 
   User({
     @required this.id,
+    this.username="",
     this.email="",
     this.password="",
     this.firstname="",
     this.lastname="",
     this.phone = "",
     this.address="",
+    this.accessToken="",
     this.avatar="asset/images/default-avatar.png",
     // this.city,
     // this.country
@@ -27,7 +31,7 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) {
     String firstname = "", lastname = "";
-    String avatar="assets/images/logo.png";
+    String avatar="assets/images/default-avatar.png";
     if (json['avatar'] != null)
       avatar = json['avatar'];
     if (json['firstname'] != null)
@@ -45,7 +49,7 @@ class User {
 
 List<User> demoUsers = [
   User(
-    // id: 1,
+    id: "1",
     email: "quoc.nguyen@ndsu.edu",
     password: "123123123",
     firstname: "Quoc",
@@ -57,7 +61,7 @@ List<User> demoUsers = [
     // country: "USA"
   ),
   User(
-    // id: 2,
+    id: "2",
     email: "huuquoc09@gmail.com",
     password: "123123123",
     firstname: "Mark",

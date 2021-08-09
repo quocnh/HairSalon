@@ -80,6 +80,21 @@ class SalonUtilsService {
     List response = await this.hS.sget(para);
     return response.map((json) => new User.fromJson(json)).toList();
   }
+  Future<User> login(String username, String password) async {
+    //HttpService hS = new HttpService();
+    String para = 'api/auth/signin';
+    Map data = {"username": username, "password": password};
+    String body = json.encode(data);
+    var response = await this.hS.slogin(para, body);
+    //print(response['username']);
+    User user = new User(id: response['id'],
+                    username: response['username'],
+                    password: response['password'],
+                    accessToken: response['accessToken'],
+                    email: response['email'],
+                    );
+    return user;
+  }
 
   Future<List<Comment>> addNewComment(Comment comment) async {
     //HttpService hS = new HttpService();

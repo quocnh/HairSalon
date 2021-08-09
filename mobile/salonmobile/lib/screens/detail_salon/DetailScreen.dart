@@ -573,7 +573,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                         Align(
                           child: Text(
                             // "12-01-1999" ?? "",
-                            salonController.reviewList[index].day ?? "",
+                            salonController.reviewList[index].day.substring(0, 10) + " " +  salonController.reviewList[index].day.substring(11, 16) ?? "",
                             style: TextStyle(
                               fontSize: getProportionateScreenWidth(12),
                               color: KatokGreyColor.withOpacity(0.7),
