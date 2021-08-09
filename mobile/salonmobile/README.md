@@ -17,6 +17,13 @@ https://flutter.dev/docs/get-started/install/macos
 3. Setup firebase OTP for android and iOS
 ```python
 https://www.youtube.com/watch?v=3NLP-1KX_Vk
+``` Android : 
+    - add google-services.json file
+    - add " classpath 'com.google.gms:google-services:4.3.8' "  (android/build.gradle)
+    - add " apply plugin: 'com.google.gms.google-services' " (android/app/build.gradle)
+    - add " 
+            implementation "androidx.browser:browser:1.2.0"
+            implementation platform('com.google.firebase:firebase-bom:28.1.0') " (android/app/build.gradle)
 ```
 4. Add google map api for Android and iOS
 ```python
