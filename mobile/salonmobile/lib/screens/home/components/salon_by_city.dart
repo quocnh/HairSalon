@@ -9,7 +9,8 @@ import 'section_title.dart';
 
 class SalonByCity extends StatelessWidget {
   final SalonController salonController = Get.find();
-   SalonByCity({
+
+  SalonByCity({
     Key key,
   }) : super(key: key);
 
@@ -19,15 +20,15 @@ class SalonByCity extends StatelessWidget {
       children: [
         Padding(
           padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(10)),
           child: SectionTitle(
             title: "Explore Salons",
             press: () {},
           ),
         ),
-        SizedBox(height: getProportionateScreenWidth(20)),
+        SizedBox(height: getProportionateScreenWidth(10)),
         Padding(
-          padding: EdgeInsets.only(right: getProportionateScreenWidth(20)),
+          padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(0)),
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
@@ -39,7 +40,10 @@ class SalonByCity extends StatelessWidget {
                   press: () {
                     print(demoProducts.length);
                     salonController.getCitySalon("Hồ Chí Minh");
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => SearchSalonsOfCityScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SearchSalonsOfCityScreen()));
                     // Navigator.push(
                     //     context,
                     //     MaterialPageRoute(
@@ -54,10 +58,12 @@ class SalonByCity extends StatelessWidget {
                   press: () {
                     print(demoProducts.length);
                     salonController.getCitySalon("Hà Nội");
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => SearchSalonsOfCityScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SearchSalonsOfCityScreen()));
                   },
                 ),
-                SizedBox(width: getProportionateScreenWidth(20)),
               ],
             ),
           ),
@@ -83,11 +89,12 @@ class SalonByCityCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
+      padding: EdgeInsets.symmetric(
+        horizontal: getProportionateScreenWidth(5)),
       child: GestureDetector(
         onTap: press,
         child: SizedBox(
-          width: getProportionateScreenWidth(180),
+          width: getProportionateScreenWidth(175),
           height: getProportionateScreenWidth(100),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(15),
@@ -95,7 +102,7 @@ class SalonByCityCard extends StatelessWidget {
               children: [
                 Image.asset(
                   image,
-                  width:getProportionateScreenWidth(180),
+                  width: getProportionateScreenWidth(175),
                   fit: BoxFit.fill,
                 ),
                 Container(
@@ -113,7 +120,7 @@ class SalonByCityCard extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: getProportionateScreenWidth(15.0),
-                    vertical: getProportionateScreenWidth(10),
+                    vertical: getProportionateScreenWidth(10.0),
                   ),
                   child: Text.rich(
                     TextSpan(

@@ -33,9 +33,9 @@ class SalonsCard extends StatelessWidget {
         Get.to(KatokDetailScreen());
       },
       child: Container(
-        width: getProportionateScreenWidth(200),
+        width: getProportionateScreenWidth(185),
         child: Padding(
-            padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
+            padding: EdgeInsets.only(left: getProportionateScreenWidth(10)),
             child: Container(
               height: getProportionateScreenHeight(210),
               decoration: BoxDecoration(
@@ -54,7 +54,7 @@ class SalonsCard extends StatelessWidget {
                     Container(
                       height: getProportionateScreenHeight(100),
                       child: ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0)),
                           child: CachedNetworkImage(
                             width: double.maxFinite,
                               cacheManager: cacheManager,
@@ -63,9 +63,9 @@ class SalonsCard extends StatelessWidget {
                               placeholder: _loader,
                               errorWidget: _error)),
                     ),
-                    SizedBox(height: getProportionateScreenHeight(10),),
+                    SizedBox(height: getProportionateScreenHeight(5),),
                     Container(
-                      margin: EdgeInsets.only(left: getProportionateScreenWidth(15)),
+                      margin: EdgeInsets.only(left: getProportionateScreenWidth(5)),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -91,7 +91,7 @@ class SalonsCard extends StatelessWidget {
                                     salons.address,
                                     style: TextStyle(
                                         fontSize:
-                                        getProportionateScreenWidth(12),
+                                        getProportionateScreenWidth(11),
                                         color: KatokGreyColor),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,

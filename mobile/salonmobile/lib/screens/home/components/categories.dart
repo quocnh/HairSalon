@@ -14,7 +14,11 @@ class Categories extends StatelessWidget {
       {"icon": "assets/icons/bh_spa.svg", "text": "Spa"},
     ];
     return Padding(
-      padding: EdgeInsets.only(top:getProportionateScreenWidth(10), bottom: getProportionateScreenWidth(10), right: getProportionateScreenWidth(20), left: getProportionateScreenWidth(20)),
+      padding: EdgeInsets.only(
+          top: getProportionateScreenWidth(5),
+          bottom: getProportionateScreenWidth(0),
+          right: getProportionateScreenWidth(7.5),
+          left: getProportionateScreenWidth(7.5)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,8 +55,7 @@ class CategoryCard extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              padding:
-              EdgeInsets.all(getProportionateScreenWidth(10)),
+              padding: EdgeInsets.all(getProportionateScreenWidth(10)),
               height: getProportionateScreenWidth(55),
               width: getProportionateScreenWidth(55),
               decoration: BoxDecoration(

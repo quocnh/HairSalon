@@ -19,11 +19,11 @@ class SalonNearMe extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: getProportionateScreenWidth(20)),
+                horizontal: getProportionateScreenWidth(10)),
             child: SectionTitle(title: "Salons Near Me", press: () {}),
           ),
           SizedBox(
-            height: getProportionateScreenHeight(15),
+            height: getProportionateScreenHeight(10),
           ),
              Expanded(child: Obx(() {
               if (salonController.isLoading.value)
@@ -32,7 +32,7 @@ class SalonNearMe extends StatelessWidget {
                 return (salonController.latitude.value == 0 &&
                     salonController.longitude.value == 0)
                     ? Padding(
-                  padding: EdgeInsets.only(right: getProportionateScreenWidth(20)),
+                  padding: EdgeInsets.only(right: getProportionateScreenWidth(10)),
                       child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
@@ -50,14 +50,14 @@ class SalonNearMe extends StatelessWidget {
                             //     .shrink(); // here by default width and height is 0
                           },
                         ),
-                        SizedBox(width: getProportionateScreenWidth(20)),
+                        SizedBox(width: getProportionateScreenWidth(10)),
                       ],
                   ),
                 ),
                     )
                     : (salonController.salonFromLocationList.isEmpty)
                     ? Padding(
-                  padding: EdgeInsets.only(right: getProportionateScreenWidth(20)),
+                  padding: EdgeInsets.only(right: getProportionateScreenWidth(5)),
                       child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
@@ -75,13 +75,13 @@ class SalonNearMe extends StatelessWidget {
                             //     .shrink(); // here by default width and height is 0
                           },
                         ),
-                        SizedBox(width: getProportionateScreenWidth(20)),
+                        SizedBox(width: getProportionateScreenWidth(5)),
                       ],
                   ),
                 ),
                     )
                     : Padding(
-                  padding: EdgeInsets.only(right: getProportionateScreenWidth(20)),
+                  padding: EdgeInsets.only(right: getProportionateScreenWidth(5)),
                       child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
@@ -102,7 +102,7 @@ class SalonNearMe extends StatelessWidget {
                             //     .shrink(); // here by default width and height is 0
                           },
                         ),
-                        SizedBox(width: getProportionateScreenWidth(20)),
+                        SizedBox(width: getProportionateScreenWidth(5)),
                       ],
                   ),
                 ),

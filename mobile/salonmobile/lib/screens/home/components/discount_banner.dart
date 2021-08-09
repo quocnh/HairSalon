@@ -13,7 +13,7 @@ final List<String> imgList = [
 final List<Widget> imageSliders = imgList
     .map((item) => Container(
           child: Container(
-            margin: EdgeInsets.all(5.0),
+            margin: EdgeInsets.all(2.0),
             child: ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 child: Stack(
@@ -63,12 +63,12 @@ class DiscountBanner extends StatelessWidget {
         // height: 90,
         width: double.infinity,
         margin: EdgeInsets.only(
-            right: getProportionateScreenWidth(10),
-            left: getProportionateScreenWidth(10),
-            bottom: getProportionateScreenHeight(0)),
+            right: getProportionateScreenWidth(0),
+            left: getProportionateScreenWidth(0),
+            bottom: getProportionateScreenHeight(5)),
         padding: EdgeInsets.symmetric(
-          horizontal: getProportionateScreenWidth(10),
-          vertical: getProportionateScreenWidth(10),
+          horizontal: getProportionateScreenWidth(0),
+          vertical: getProportionateScreenWidth(0),
         ),
         decoration: BoxDecoration(
           // color: Color(0xFF4A3298),
@@ -77,7 +77,7 @@ class DiscountBanner extends StatelessWidget {
         child: CarouselSlider(
           options: CarouselOptions(
             autoPlay: true,
-            aspectRatio: 2.3,
+            aspectRatio: 2.8,
             enlargeCenterPage: true,
             autoPlayInterval: Duration(seconds: 10),
             autoPlayAnimationDuration: Duration(milliseconds: 800),
