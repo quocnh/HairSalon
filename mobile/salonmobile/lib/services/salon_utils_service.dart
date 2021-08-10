@@ -96,7 +96,7 @@ class SalonUtilsService {
     return user;
   }
 
-  Future<List<Comment>> addNewComment(Comment comment) async {
+  Future<void> addNewComment(Comment comment) async {
     //HttpService hS = new HttpService();
     String para = 'comments';
     Map data = {
@@ -108,10 +108,12 @@ class SalonUtilsService {
       'photos':comment.image,
     };
     String body = json.encode(data);
-    List response = await this.hS.spost(para, body);
-    print("${response[0].statusCode}");
-    print("${response[0].body}");
-    return response.map((json) => new Comment.fromJson(json)).toList();
+    var response = await this.hS.spost(para, body);
+    //print("${response.statusCode}");
+    //print("${response.body}");
+    print(response);
+
+    return;
   }
 
   Future<List<Booking>> getBookingsFromUserId(String userId) async {

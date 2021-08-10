@@ -45,7 +45,7 @@ class HttpService {
     );
 
     if (response.statusCode == 200) {
-      List jsonString = json.decode(response.body);
+      var jsonString = json.decode(response.body);
       // var jsonMap = json.decode(jsonString);
       return jsonString;
     } else {

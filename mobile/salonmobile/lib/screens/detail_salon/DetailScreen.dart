@@ -9,6 +9,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:salonmobile/controllers/salon_controller.dart';
+import 'package:salonmobile/controllers/user_controller.dart';
 import 'package:salonmobile/models/Comment.dart';
 import 'package:salonmobile/models/Salon.dart';
 import 'package:salonmobile/screens/detail_salon/PackageOffersScreen.dart';
@@ -39,6 +40,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
     stalePeriod: Duration(days: 1),
   ));
   final SalonController salonController = Get.find();
+  final UserController userController = Get.find();
   int _selectedIndex = 4;
 
 
@@ -481,8 +483,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen> with SingleTickerP
                             onPressed: () async {
                               print("Rate: " + yourRating.toString());
                               print("Content: " + yourReviewContent.text);
-                              Comment cmt = Comment(salonId:'60390a3c4584eb5e75d6fc71', userId:'6010a16dccc79257c99a62e3', date: '2021/1/8', content: yourReviewContent.text, rating: yourRating.toString());
-
+                              Comment cmt = Comment(salonId:salonController.salonInfo.value.id, userId:userController.user.value.id, content: yourReviewContent.text, rating: yourRating.toString());
                               final results = await SalonUtilsService().addNewComment(cmt);
 
                             },
