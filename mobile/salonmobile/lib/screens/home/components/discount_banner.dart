@@ -13,7 +13,7 @@ final List<String> imgList = [
 final List<Widget> imageSliders = imgList
     .map((item) => Container(
           child: Container(
-            margin: EdgeInsets.all(2.0),
+            margin: EdgeInsets.all(5.0),
             child: ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 child: Stack(
@@ -35,7 +35,7 @@ final List<Widget> imageSliders = imgList
                           ),
                         ),
                         padding: EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 20.0),
+                            vertical: 0.0, horizontal: 0.0),
                         child: Text(
                           'No. ${imgList.indexOf(item)} image',
                           style: TextStyle(
@@ -65,7 +65,7 @@ class DiscountBanner extends StatelessWidget {
         margin: EdgeInsets.only(
             right: getProportionateScreenWidth(0),
             left: getProportionateScreenWidth(0),
-            bottom: getProportionateScreenHeight(5)),
+            bottom: getProportionateScreenHeight(0)),
         padding: EdgeInsets.symmetric(
           horizontal: getProportionateScreenWidth(0),
           vertical: getProportionateScreenWidth(0),
@@ -74,16 +74,25 @@ class DiscountBanner extends StatelessWidget {
           // color: Color(0xFF4A3298),
           borderRadius: BorderRadius.circular(15),
         ),
-        child: CarouselSlider(
+        child:
+        CarouselSlider(
           options: CarouselOptions(
-            autoPlay: true,
             aspectRatio: 2.8,
-            enlargeCenterPage: true,
-            autoPlayInterval: Duration(seconds: 10),
+            enlargeCenterPage: false,
+            scrollDirection: Axis.horizontal,
+            viewportFraction: 1.0,
+            autoPlay: true,
             autoPlayAnimationDuration: Duration(milliseconds: 800),
-            autoPlayCurve: Curves.ease,
+            // enableInfiniteScroll: true,
           ),
-          items: imageSliders,
+          items: imgList
+              .map((item) => Container(
+                    child: Center(
+                        child: Image.network(item,
+                            fit: BoxFit.cover,
+                            width: getProportionateScreenWidth(1000))),
+                  ))
+              .toList(),
         )
         // Text.rich(
         //   TextSpan(

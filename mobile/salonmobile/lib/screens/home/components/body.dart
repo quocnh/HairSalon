@@ -29,6 +29,7 @@ class _Body extends State<Body> {
             children: [
               // SizedBox(height: getProportionateScreenWidth(10)),
               DiscountBanner(),
+              SizedBox(height: getProportionateScreenWidth(10)),
               Categories(),
               SizedBox(height: getProportionateScreenWidth(10)),
               SalonByCity(),
