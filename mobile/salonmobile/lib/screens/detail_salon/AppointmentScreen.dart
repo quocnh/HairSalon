@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:salonmobile/controllers/booking_controller.dart';
 import 'package:salonmobile/utils/KatokColors.dart';
 import 'package:salonmobile/utils/KatokConstants.dart';
 import 'package:salonmobile/utils/KatokImages.dart';
@@ -17,6 +19,7 @@ class KatokAppointmentScreenState extends State<KatokAppointmentScreen> with Sin
   bool isSwitched = false;
 
   DateTime date;
+  final bookingController = Get.put(BookingController());
 
   _pickDate() async {
     DateTime time = await showDatePicker(
@@ -141,76 +144,81 @@ class KatokAppointmentScreenState extends State<KatokAppointmentScreen> with Sin
   }
 
   Widget historyAppointmentWidget() {
-    return Container(
-      color: KatokGreyColor.withOpacity(0.1),
-      child: ListView.builder(
-        itemCount: 10,
-        shrinkWrap: true,
-        padding: EdgeInsets.all(8),
-        itemBuilder: (context, index) {
-          return Container(
-            margin: EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: whiteColor,
-              boxShadow: [BoxShadow(color: KatokGreyColor.withOpacity(0.3), offset: Offset(0.0, 1.0), blurRadius: 2.0)],
-            ),
-            child: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        child: Image.asset(KatokDashedBoardImage6, height: 70, width: 130, fit: BoxFit.cover)
-                      ),
-                      8.width,
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Conado  Hair Studio',
-                            style: TextStyle(fontSize: 14, color: KatokAppTextColorPrimary, fontWeight: FontWeight.bold),
-                          ),
-                          8.height,
-                          Row(
-                            children: [
-                              Icon(Icons.location_on, size: 14, color: KatokAppTextColorSecondary),
-                              Text('301 Dorthy walks,chicago,Us.', style: TextStyle(fontSize: 12, color: KatokGreyColor)),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  8.height,
-                  Text('Makeup Marguerite', style: TextStyle(fontSize: 14, color: KatokAppTextColorPrimary, fontWeight: FontWeight.bold)),
-                  8.height,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(Icons.person, size: 14, color: KatokAppTextColorSecondary),
-                          Padding(
-                            padding: EdgeInsets.only(left: 4),
-                            child: Text('Lettie Neal', style: TextStyle(color: KatokAppTextColorSecondary, fontSize: 14)),
-                          ),
-                        ],
-                      ),
-                      Text('March 24, 2020', style: TextStyle(color: KatokAppTextColorPrimary, fontSize: 14)),
-                    ],
-                  ),
-                ],
+    return Obx((){
+      if (bookingController.isLoading.value)
+        return Center(child: Center(child: CircularProgressIndicator()));
+      else
+        return Container(
+        color: KatokGreyColor.withOpacity(0.1),
+        child: ListView.builder(
+          itemCount: bookingController.bookingList.length,
+          shrinkWrap: true,
+          padding: EdgeInsets.all(8),
+          itemBuilder: (context, index) {
+            return Container(
+              margin: EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: whiteColor,
+                boxShadow: [BoxShadow(color: KatokGreyColor.withOpacity(0.3), offset: Offset(0.0, 1.0), blurRadius: 2.0)],
               ),
-            ),
-          );
-        },
-      ),
-    );
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            child: Image.asset(KatokDashedBoardImage6, height: 70, width: 130, fit: BoxFit.cover)
+                        ),
+                        8.width,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Conado  Hair Studio',
+                              style: TextStyle(fontSize: 14, color: KatokAppTextColorPrimary, fontWeight: FontWeight.bold),
+                            ),
+                            8.height,
+                            Row(
+                              children: [
+                                Icon(Icons.location_on, size: 14, color: KatokAppTextColorSecondary),
+                                Text('301 Dorthy walks,chicago,Us.', style: TextStyle(fontSize: 12, color: KatokGreyColor)),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    8.height,
+                    Text('Makeup Marguerite', style: TextStyle(fontSize: 14, color: KatokAppTextColorPrimary, fontWeight: FontWeight.bold)),
+                    8.height,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(Icons.person, size: 14, color: KatokAppTextColorSecondary),
+                            Padding(
+                              padding: EdgeInsets.only(left: 4),
+                              child: Text('Lettie Neal', style: TextStyle(color: KatokAppTextColorSecondary, fontSize: 14)),
+                            ),
+                          ],
+                        ),
+                        Text(bookingController.bookingList[index].bookingDate, style: TextStyle(color: KatokAppTextColorPrimary, fontSize: 14)),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
+      );
+    });
   }
 
   @override
