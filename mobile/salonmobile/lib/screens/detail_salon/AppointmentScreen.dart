@@ -179,14 +179,14 @@ class KatokAppointmentScreenState extends State<KatokAppointmentScreen> with Sin
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Conado  Hair Studio',
+                              bookingController.salon[0].name,
                               style: TextStyle(fontSize: 14, color: KatokAppTextColorPrimary, fontWeight: FontWeight.bold),
                             ),
                             8.height,
                             Row(
                               children: [
                                 Icon(Icons.location_on, size: 14, color: KatokAppTextColorSecondary),
-                                Text('301 Dorthy walks,chicago,Us.', style: TextStyle(fontSize: 12, color: KatokGreyColor)),
+                                Text(bookingController.salon[0].address, style: TextStyle(fontSize: 12, color: KatokGreyColor)),
                               ],
                             ),
                           ],
