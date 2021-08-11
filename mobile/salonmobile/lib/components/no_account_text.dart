@@ -26,6 +26,7 @@ class NoAccountText extends StatelessWidget {
                 color: kPrimaryColor),
           ),
         ),
+
       ],
     );
   }

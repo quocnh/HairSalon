@@ -82,16 +82,16 @@ class _SignFormState extends State<SignForm> {
           // FormError(errors: errors),
           Row(
             children: [
-              Checkbox(
-                value: remember,
-                activeColor: kPrimaryColor,
-                onChanged: (value) {
-                  setState(() {
-                    remember = value;
-                  });
-                },
-              ),
-              Text("Nhớ thông tin"),
+              // Checkbox(
+              //   value: remember,
+              //   activeColor: kPrimaryColor,
+              //   onChanged: (value) {
+              //     setState(() {
+              //       remember = value;
+              //     });
+              //   },
+              // ),
+              // Text("Nhớ thông tin"),
               Spacer(),
               GestureDetector(
                 onTap: () => Navigator.pushNamed(

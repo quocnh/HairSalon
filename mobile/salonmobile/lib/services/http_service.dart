@@ -69,7 +69,8 @@ class HttpService {
       print(jsonString);
       return jsonString;
     } else {
-      throw Exception('Failed to load the API');
+      return null;
+      // throw Exception('Failed to load the API');
     }
   }
 }

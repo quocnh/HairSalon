@@ -8,7 +8,6 @@ import 'package:salonmobile/models/User.dart';
 import 'package:salonmobile/services/http_service.dart';
 
 class SalonUtilsService {
-
   HttpService hS = new HttpService();
 
   Future<List<Salon>> getAllSalons() async {
@@ -26,7 +25,9 @@ class SalonUtilsService {
       return nameSalon.contains(nameQuery);
     }).toList();
   }
-  Future<List<Salon>> getSalonsFromCitySuggestions(String city,String query) async {
+
+  Future<List<Salon>> getSalonsFromCitySuggestions(
+      String city, String query) async {
     //HttpService hS = new HttpService();
     List response = await this.hS.sget('salons/city/' + city);
     return response.map((json) => new Salon.fromJson(json)).where((user) {
@@ -42,9 +43,11 @@ class SalonUtilsService {
     return response.map((json) => new Salon.fromJson(json)).toList();
   }
 
-  Future<List<Salon>> getSalonsFromCityDistrict(String city, String district) async {
+  Future<List<Salon>> getSalonsFromCityDistrict(
+      String city, String district) async {
     //HttpService hS = new HttpService();
-    List response = await this.hS.sget('salons/city_district/' + city + '/' + district);
+    List response =
+        await this.hS.sget('salons/city_district/' + city + '/' + district);
     return response.map((json) => new Salon.fromJson(json)).toList();
   }
 
@@ -74,26 +77,33 @@ class SalonUtilsService {
     List response = await this.hS.sget(para);
     return response.map((json) => new Comment.fromJson(json)).toList();
   }
+
   Future<List<User>> getUserInfo(String userId) async {
     //HttpService hS = new HttpService();
     String para = 'api/user/getUser/' + userId;
     List response = await this.hS.sget(para);
     return response.map((json) => new User.fromJson(json)).toList();
   }
+
   Future<User> login(String username, String password) async {
     //HttpService hS = new HttpService();
     String para = 'api/auth/signin';
     Map data = {"username": username, "password": password};
     String body = json.encode(data);
+
     var response = await this.hS.slogin(para, body);
-    //print(response['username']);
-    User user = new User(id: response['id'],
-                    username: response['username'],
-                    password: response['password'],
-                    accessToken: response['accessToken'],
-                    email: response['email'],
-                    );
-    return user;
+    if (response != null) {
+      User user = new User(
+        id: response['id'],
+        username: response['username'],
+        password: response['password'],
+        accessToken: response['accessToken'],
+        email: response['email'],
+      );
+      return user;
+    } else {
+      return null;
+    }
   }
 
   Future<void> addNewComment(Comment comment) async {
@@ -104,8 +114,8 @@ class SalonUtilsService {
       'userId': comment.userId,
       'createdDate': comment.date,
       'content': comment.content,
-      'rating':comment.rating,
-      'photos':comment.image,
+      'rating': comment.rating,
+      'photos': comment.image,
     };
     String body = json.encode(data);
     var response = await this.hS.spost(para, body);
@@ -132,8 +142,8 @@ class SalonUtilsService {
       'createdDate': booking.createdDate,
       'bookingDate': booking.bookingDate,
       'bookingTime': booking.bookingTime,
-      'info':booking.info,
-      'status':booking.status,
+      'info': booking.info,
+      'status': booking.status,
     };
     String body = json.encode(data);
     List response = await this.hS.spost(para, body);
@@ -141,5 +151,4 @@ class SalonUtilsService {
     print("${response[0].body}");
     return response.map((json) => new Booking.fromJson(json)).toList();
   }
-
 }

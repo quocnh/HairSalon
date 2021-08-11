@@ -20,17 +20,16 @@ class UserController extends GetxController{
         print(userDB.toString());
         Get.off(MenuPageBuilderScreen());
       } else {
-        // changeLoading(); // isLoginLoading = false
-        isLoginLoading.value = false;
+        isLoading(false);
         Fluttertoast.showToast(
-            msg: "Incorrect Username or Password",
+            msg: "Incorrect username or password",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 2,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16.0);
-        print("Wrong usernamer/password");
+        print("Wrong username/password");
       }
     } finally {
       isLoading(false);
