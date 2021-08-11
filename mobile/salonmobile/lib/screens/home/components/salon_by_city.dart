@@ -94,7 +94,7 @@ class SalonByCityCard extends StatelessWidget {
       child: GestureDetector(
         onTap: press,
         child: SizedBox(
-          width: getProportionateScreenWidth(175),
+          width: getProportionateScreenWidth(200),
           height: getProportionateScreenWidth(100),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(15),
@@ -102,7 +102,7 @@ class SalonByCityCard extends StatelessWidget {
               children: [
                 Image.asset(
                   image,
-                  width: getProportionateScreenWidth(175),
+                  width: getProportionateScreenWidth(200),
                   fit: BoxFit.fill,
                 ),
                 Container(
