@@ -16,6 +16,7 @@ class SalonController extends GetxController {
   var longitude = RxDouble(0);
   var idSalon = RxString("");
   var citySalon = RxString("");
+  var lengthList = RxInt(10);
 
   var salonList = <Salon>[].obs;
   var salonCityList = <Salon>[].obs;
@@ -185,5 +186,15 @@ class SalonController extends GetxController {
     } finally {
       isLoading(false);
     }
+  }
+  void loadMore()  {
+    print("On Load More");
+      if(lengthList < reviewList.length && reviewList.length != 0)
+      {
+        lengthList = lengthList + 10;
+        if(lengthList > reviewList.length){
+          lengthList.value = reviewList.length;
+        }
+      }
   }
 }

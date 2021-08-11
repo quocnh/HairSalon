@@ -119,6 +119,7 @@ class _SignFormState extends State<SignForm> {
                 setState(()=>userController.isLoginLoading.value = true);
                 // userController.changeLoading();
                 userController.signIn(email, password);
+                print("AAAAAAAAAAAA");
                 // signIn(email, password);
                 // go to homescree and remove all previous routes
                 // Navigator.pushAndRemoveUntil(
