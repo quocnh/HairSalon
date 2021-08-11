@@ -90,7 +90,6 @@ class SalonUtilsService {
     String para = 'api/auth/signin';
     Map data = {"username": username, "password": password};
     String body = json.encode(data);
-
     var response = await this.hS.slogin(para, body);
     if (response != null) {
       User user = new User(

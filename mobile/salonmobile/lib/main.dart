@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
@@ -6,7 +8,21 @@ import 'package:salonmobile/routes.dart';
 import 'package:salonmobile/screens/splash/splash_screen.dart';
 import 'package:salonmobile/utils/app_localizations.dart';
 import 'package:salonmobile/utils/theme.dart';
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port){
+            final isValidHost = (host == "awinst.com");
+            return isValidHost;
+          };
+  }
+}
+
 void main() async {
+  HttpOverrides.global = new MyHttpOverrides();
   runApp(MyApp());
 }
 

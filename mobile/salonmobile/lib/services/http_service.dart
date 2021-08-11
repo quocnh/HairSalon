@@ -3,14 +3,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
-class MyHttpOverrides extends HttpOverrides {
-  @override
-  HttpClient createHttpClient(SecurityContext context) {
-    return super.createHttpClient(context)
-      ..badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
-  }
-}
+
 
 class HttpService {
   static const String ROOT_URL = 'https://awinst.com:3000';
@@ -22,7 +15,7 @@ class HttpService {
   // GET
   sget(String params) async {
     String url = ROOT_URL + '/' + params;
-    HttpOverrides.global = new MyHttpOverrides();
+    //HttpOverrides.global = new MyHttpOverrides();
 
     var response = await this.client.get(Uri.parse(url));
     if (response.statusCode == 200) {
@@ -36,14 +29,14 @@ class HttpService {
   // POST
   spost(String params, String map) async {
     String url = ROOT_URL + '/' + params;
-    HttpOverrides.global = new MyHttpOverrides();
+    //HttpOverrides.global = new MyHttpOverrides();
 
     var response = await this.client.post(
       Uri.parse(url),
       headers: {"Content-Type": "application/json"},
       body: map
     );
-
+    print(response);
     if (response.statusCode == 200) {
       var jsonString = json.decode(response.body);
       // var jsonMap = json.decode(jsonString);
@@ -55,7 +48,7 @@ class HttpService {
 
   slogin(String params, String map) async {
     String url = ROOT_URL + '/' + params;
-    HttpOverrides.global = new MyHttpOverrides();
+    //HttpOverrides.global = new MyHttpOverrides();
 
     var response = await this.client.post(
         Uri.parse(url),
@@ -66,7 +59,6 @@ class HttpService {
     if (response.statusCode == 200) {
       var jsonString = json.decode(response.body);
       // var jsonMap = json.decode(jsonString);
-      print(jsonString);
       return jsonString;
     } else {
       return null;
