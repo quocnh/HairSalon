@@ -8,7 +8,7 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).translate('sign_in')),
+        // title: Text(AppLocalizations.of(context).translate('sign_in')),
         centerTitle: true,
       ),
       body: Body(),

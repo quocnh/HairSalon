@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:salonmobile/components/no_account_text.dart';
 import 'package:salonmobile/components/socal_card.dart';
 import 'package:salonmobile/screens/sign_in/components/sign_in_screen.dart';
@@ -16,9 +17,16 @@ class Body extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: SizeConfig.screenHeight * 0.04),
+                SizedBox(height: SizeConfig.screenHeight * 0.00),
+                Container(
+                  width: 90.0,
+                  height: 90.0,
+                  child: SvgPicture.asset(
+                    "assets/icons/katok_logo.svg"
+                  ),
+                ),
                 Text(
-                  "Katok",
+                  "KATOK",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: getProportionateScreenWidth(28),
