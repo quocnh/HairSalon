@@ -7,6 +7,7 @@ import 'package:salonmobile/components/form_error.dart';
 import 'package:salonmobile/controllers/user_controller.dart';
 import 'package:salonmobile/helper/keyboard.dart';
 import 'package:salonmobile/screens/forgot_password/forgot_password_screen.dart';
+import 'package:salonmobile/utils/app_localizations.dart';
 import 'package:salonmobile/utils/constants.dart';
 import 'package:salonmobile/utils/loading.dart';
 import 'package:salonmobile/utils/size_config.dart';
@@ -97,7 +98,7 @@ class _SignFormState extends State<SignForm> {
                 onTap: () => Navigator.pushNamed(
                     context, ForgotPasswordScreen.routeName),
                 child: Text(
-                  "Quên mật khẩu",
+                  AppLocalizations.of(context).translate('forget_password'),
                   style: TextStyle(decoration: TextDecoration.underline),
                 ),
               )
@@ -106,7 +107,7 @@ class _SignFormState extends State<SignForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(20)),
           DefaultButton(
-            text: "Đăng nhập",
+            text: AppLocalizations.of(context).translate('sign_in'),
             press: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
@@ -158,8 +159,8 @@ class _SignFormState extends State<SignForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Tên đăng nhập",
-        hintText: "Nhập tên đăng nhập",
+        labelText: AppLocalizations.of(context).translate('login_label'),
+        hintText: AppLocalizations.of(context).translate('input_login_label'),
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
       ),
@@ -190,8 +191,8 @@ class _SignFormState extends State<SignForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Mật khẩu",
-        hintText: "Nhập mật khẩu",
+        labelText: AppLocalizations.of(context).translate('password'),
+        hintText: AppLocalizations.of(context).translate('forget_password'),
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
       ),

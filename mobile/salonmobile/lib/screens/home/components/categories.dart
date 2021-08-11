@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:salonmobile/utils/app_localizations.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
 class Categories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> categories = [
-      {"icon": "assets/icons/bh_hairColor.svg", "text": "Hair"},
-      {"icon": "assets/icons/bh_makeUp.svg", "text": "Makeup"},
-      {"icon": "assets/icons/bh_skinCare.svg", "text": "Skin"},
-      {"icon": "assets/icons/bh_nail.svg", "text": "Nail"},
-      {"icon": "assets/icons/bh_tattoo.svg", "text": "Tatoo"},
-      {"icon": "assets/icons/bh_spa.svg", "text": "Spa"},
+      {"icon": "assets/icons/bh_hairColor.svg", "text": AppLocalizations.of(context).translate('hair')},
+      {"icon": "assets/icons/bh_makeUp.svg", "text": AppLocalizations.of(context).translate('make_up')},
+      {"icon": "assets/icons/bh_skinCare.svg", "text": AppLocalizations.of(context).translate('skin')},
+      {"icon": "assets/icons/bh_nail.svg", "text": AppLocalizations.of(context).translate('nail')},
+      {"icon": "assets/icons/bh_tattoo.svg", "text": AppLocalizations.of(context).translate('tatoo')},
+      {"icon": "assets/icons/bh_spa.svg", "text": AppLocalizations.of(context).translate('spa')},
     ];
     return Padding(
       padding: EdgeInsets.only(

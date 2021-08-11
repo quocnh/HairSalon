@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:salonmobile/components/salons_card.dart';
 import 'package:salonmobile/controllers/salon_controller.dart';
 import 'package:salonmobile/screens/home/components/section_title.dart';
+import 'package:salonmobile/utils/app_localizations.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
 // ignore: must_be_immutable
@@ -20,7 +21,7 @@ class SalonNearMe extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: getProportionateScreenWidth(10)),
-            child: SectionTitle(title: "Salons Near Me", press: () {}),
+            child: SectionTitle(title: AppLocalizations.of(context).translate('salon_near_me'), press: () {}),
           ),
           SizedBox(
             height: getProportionateScreenHeight(10),

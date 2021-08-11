@@ -3,6 +3,7 @@ import 'package:salonmobile/screens/detail_salon/AppointmentScreen.dart';
 import 'package:salonmobile/screens/home/home_screen.dart';
 import 'package:salonmobile/screens/profile/profile_screen.dart';
 import 'package:salonmobile/screens/search_salons/search_salons_screen.dart';
+import 'package:salonmobile/utils/app_localizations.dart';
 
 class MenuPageBuilderScreen extends StatefulWidget {
   static String routeName = "/menu_screen";
@@ -39,7 +40,7 @@ class _MenuPageBuilderScreenState extends State<MenuPageBuilderScreen> {
                   color: _selectedIndex == 0 ? Colors.blue : Colors.grey,
                 ),
                 title: Text(
-                  "Home",
+                  AppLocalizations.of(context).translate('home'),
                   style: TextStyle(
                       color: _selectedIndex == 0 ? Colors.blue : Colors.grey),
                 )),
@@ -49,7 +50,7 @@ class _MenuPageBuilderScreenState extends State<MenuPageBuilderScreen> {
                   color: _selectedIndex == 1 ? Colors.blue : Colors.grey,
                 ),
                 title: Text(
-                  "Explore",
+                  AppLocalizations.of(context).translate('explore'),
                   style: TextStyle(
                       color: _selectedIndex == 1 ? Colors.blue : Colors.grey),
                 )),
@@ -58,7 +59,7 @@ class _MenuPageBuilderScreenState extends State<MenuPageBuilderScreen> {
                   Icons.history,
                   color: _selectedIndex == 2 ? Colors.blue : Colors.grey,
                 ),
-                title: Text("Appointment",
+                title: Text(AppLocalizations.of(context).translate('appointment'),
                     style: TextStyle(
                         color:
                             _selectedIndex == 2 ? Colors.blue : Colors.grey))),
@@ -67,7 +68,7 @@ class _MenuPageBuilderScreenState extends State<MenuPageBuilderScreen> {
                   Icons.person,
                   color: _selectedIndex == 3 ? Colors.blue : Colors.grey,
                 ),
-                title: Text("Profile",
+                title: Text(AppLocalizations.of(context).translate('profile'),
                     style: TextStyle(
                         color:
                             _selectedIndex == 3 ? Colors.blue : Colors.grey))),

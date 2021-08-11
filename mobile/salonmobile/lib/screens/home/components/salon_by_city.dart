@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:salonmobile/controllers/salon_controller.dart';
 import 'package:salonmobile/models/Product.dart';
 import 'package:salonmobile/screens/search_salons_of_city/search_salons_screen_of_city.dart';
+import 'package:salonmobile/utils/app_localizations.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
 import 'section_title.dart';
@@ -22,7 +23,7 @@ class SalonByCity extends StatelessWidget {
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(10)),
           child: SectionTitle(
-            title: "Explore Salons",
+            title: AppLocalizations.of(context).translate('explore_salon'),
             press: () {},
           ),
         ),
