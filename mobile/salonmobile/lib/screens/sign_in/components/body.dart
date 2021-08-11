@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:salonmobile/components/no_account_text.dart';
 import 'package:salonmobile/components/socal_card.dart';
 import 'package:salonmobile/screens/sign_in/components/sign_in_screen.dart';
+import 'package:salonmobile/utils/app_localizations.dart';
 import 'package:salonmobile/utils/size_config.dart';
 
 class Body extends StatelessWidget {
@@ -21,12 +22,10 @@ class Body extends StatelessWidget {
                 Container(
                   width: 90.0,
                   height: 90.0,
-                  child: SvgPicture.asset(
-                    "assets/icons/katok_logo.svg"
-                  ),
+                  child: SvgPicture.asset("assets/icons/katok_logo1.svg"),
                 ),
                 Text(
-                  "KATOK",
+                  "Katok",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: getProportionateScreenWidth(28),
@@ -34,7 +33,7 @@ class Body extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "Sáng tạo theo cách của bạn.",
+                  AppLocalizations.of(context).translate('katok_sologan'),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
