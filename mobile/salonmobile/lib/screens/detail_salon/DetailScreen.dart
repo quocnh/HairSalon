@@ -9,7 +9,6 @@ import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:salonmobile/controllers/salon_controller.dart';
 import 'package:salonmobile/controllers/user_controller.dart';
-import 'package:salonmobile/helper/keyboard.dart';
 import 'package:salonmobile/models/Comment.dart';
 import 'package:salonmobile/models/Salon.dart';
 import 'package:salonmobile/screens/detail_salon/PackageOffersScreen.dart';
@@ -601,10 +600,6 @@ class KatokDetailScreenState extends State<KatokDetailScreen>
                           ),
                           child: IconButton(
                             onPressed: () async {
-                              setState(() {
-                                yourReviewContent.clear();
-                                yourRating = 4.5;
-                              });
                               print("Rate: " + yourRating.toString());
                               print("Content: " + yourReviewContent.text);
                               Comment cmt = Comment(
@@ -614,6 +609,12 @@ class KatokDetailScreenState extends State<KatokDetailScreen>
                                   rating: yourRating.toString());
                               final results =
                                   await SalonUtilsService().addNewComment(cmt);
+                              setState(() {
+                                yourReviewContent.clear();
+                                yourRating = 4.5;
+                              });
+                              salonController.loadCommentsInfo(salonController.idSalon.value);
+                              print(salonController.idSalon.value);
                             },
                             icon: Icon(
                               Icons.arrow_forward_ios,
@@ -626,6 +627,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen>
                   ],
                 ),
               ),
+              (salonController.isLoadingComment.value) ? Center(child: CircularProgressIndicator()) :
               Obx(() {
                 return ListView.builder(
                   itemCount: salonController.reviewList.length >
@@ -733,6 +735,7 @@ class KatokDetailScreenState extends State<KatokDetailScreen>
                   },
                 );
               }),
+              Container(height: getProportionateScreenHeight(10)),
               (salonController.reviewList.length ==
                       salonController.lengthList.value)
                   ? Container()

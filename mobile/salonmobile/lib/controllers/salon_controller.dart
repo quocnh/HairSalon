@@ -11,6 +11,7 @@ import 'package:salonmobile/utils/KatokDataProvider.dart';
 
 class SalonController extends GetxController {
   var isLoading = true.obs;
+  var isLoadingComment = true.obs;
   var salonInfo = Rx(Salon());
   var latitude = RxDouble(0);
   var longitude = RxDouble(0);
@@ -91,12 +92,11 @@ class SalonController extends GetxController {
       var salons = await SalonUtilsService().getSalonFromId(id);
       if (salons != null) {
         salonInfo.value = salons[0];
-
         categoryList.value = getCategory();
         offerList.value = getOfferList();
         servicesList.value = getServicesList();
         loadHairStyleList(idSalon.value); // hairStyleList
-        loadCommentsInfo(idSalon.value); // reviewList
+        // loadCommentsInfo(idSalon.value); // reviewList
         makeupList.value = getMakeupList();
         galleryList.value = getSalonPhotoList();
       }
@@ -108,6 +108,7 @@ class SalonController extends GetxController {
     idSalon.value = id;
     print(idSalon.value);
     fetchSalonDetail(idSalon.value);
+    loadCommentsInfo(idSalon.value); // reviewList
   }
   void getCitySalon (String city){
     citySalon.value = city;
@@ -175,16 +176,16 @@ class SalonController extends GetxController {
   }
   void loadCommentsInfo(String salonId) async{
     try {
+      isLoadingComment(true);
       List<User> userList = [];
       final results = await SalonUtilsService().getCommentsFromSalonId(salonId);
       for(int i = 0; i < results.length; i++){
         final ul = await SalonUtilsService().getUserInfo(results[i].userId);
         userList.add(ul[0]);
       }
-      print(results[0].content);
-      reviewList.value = getCommentList(results, userList);
+      reviewList.value = getCommentList(results, userList).reversed.toList();
     } finally {
-      isLoading(false);
+      isLoadingComment(false);
     }
   }
   void loadMore()  {
