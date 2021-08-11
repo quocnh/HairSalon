@@ -67,7 +67,11 @@ bookingRouter.get('/salon/:salonId', (req, res) => {
 bookingRouter.get('/user/:userId', (req, res) => {
     //console.log(req.params.salonId);
     Booking.find({_userId:req.params.userId})
-        .then(bookings => res.send(bookings))
+        .then(bookings => {
+            
+            res.send(bookings);
+
+        })
         .catch((error) => console.log(error));
 });
 
