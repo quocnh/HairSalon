@@ -774,8 +774,9 @@
   
   .representative-image{
     overflow: hidden;
-    height: 200px;
+    height: 170px;
     position: relative;
     border-top-right-radius: 1px;
     border-top-left-radius: 1px;
+
 }

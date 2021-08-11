@@ -36,9 +36,8 @@ export class BookingsListViewComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       console.log(params);
-      
-      if (this.salonId) {
-        this.salonId = params.salonId;
+      this.salonId = params.salonId;
+      if (this.salonId) {        
         this.getBookingsList(this.salonId);
         this.getSalonInfo(this.salonId);
       } else if (params.userId) {
@@ -66,6 +65,7 @@ export class BookingsListViewComponent implements OnInit {
   }
 
   async getBookingsList(salonId: string) {
+    console.log(salonId);
     this.salonUtilService.getBookingsFromSalonId(salonId)
       .subscribe((bookings: Booking[]) => {        
         this.bookingList = bookings;        
