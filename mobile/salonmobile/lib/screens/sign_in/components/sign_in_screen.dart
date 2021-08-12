@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:salonmobile/components/custom_surfix_icon.dart';
@@ -18,7 +17,6 @@ class SignForm extends StatefulWidget {
 }
 
 class _SignFormState extends State<SignForm> {
-
   final userController = Get.put(UserController());
 
   final _formKey = GlobalKey<FormState>();
@@ -72,68 +70,72 @@ class _SignFormState extends State<SignForm> {
 
   @override
   Widget build(BuildContext context) {
-    return userController.isLoginLoading.value ? Loading() : Form(
-      key: _formKey,
-      child: Column(
-        children: [
-          buildEmailFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
-          buildPasswordFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
-          // FormError(errors: errors),
-          Row(
+    return Obx((){
+      return userController.isLoginLoading.value
+          ? Loading()
+          : Form(
+          key: _formKey,
+          child: Column(
             children: [
-              // Checkbox(
-              //   value: remember,
-              //   activeColor: kPrimaryColor,
-              //   onChanged: (value) {
-              //     setState(() {
-              //       remember = value;
-              //     });
-              //   },
-              // ),
-              // Text("Nhớ thông tin"),
-              Spacer(),
-              GestureDetector(
-                onTap: () => Navigator.pushNamed(
-                    context, ForgotPasswordScreen.routeName),
-                child: Text(
-                  AppLocalizations.of(context).translate('forget_password'),
-                  style: TextStyle(decoration: TextDecoration.underline),
-                ),
+              buildEmailFormField(),
+              SizedBox(height: getProportionateScreenHeight(30)),
+              buildPasswordFormField(),
+              SizedBox(height: getProportionateScreenHeight(30)),
+              // FormError(errors: errors),
+              Row(
+                children: [
+                  // Checkbox(
+                  //   value: remember,
+                  //   activeColor: kPrimaryColor,
+                  //   onChanged: (value) {
+                  //     setState(() {
+                  //       remember = value;
+                  //     });
+                  //   },
+                  // ),
+                  // Text("Nhớ thông tin"),
+                  Spacer(),
+                  GestureDetector(
+                    onTap: () => Navigator.pushNamed(
+                        context, ForgotPasswordScreen.routeName),
+                    child: Text(
+                      AppLocalizations.of(context)
+                          .translate('forget_password'),
+                      style: TextStyle(decoration: TextDecoration.underline),
+                    ),
+                  )
+                ],
+              ),
+              FormError(errors: errors),
+              SizedBox(height: getProportionateScreenHeight(20)),
+              DefaultButton(
+                text: AppLocalizations.of(context).translate('sign_in'),
+                press: () {
+                  if (_formKey.currentState.validate()) {
+                    _formKey.currentState.save();
+                    // if all are valid then go to success screen
+                    KeyboardUtil.hideKeyboard(context);
+                    print(email);
+                    print(password);
+
+
+                    userController.changeLoading();
+                    userController.signIn(email, password);
+                    print("AAAAAAAAAAAA");
+                    // signIn(email, password);
+                    // go to homescree and remove all previous routes
+                    // Navigator.pushAndRemoveUntil(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //       builder: (context) => MenuPageBuilderScreen()),
+                    //   (Route<dynamic> route) => false,
+                    // );
+                  }
+                },
               )
             ],
-          ),
-          FormError(errors: errors),
-          SizedBox(height: getProportionateScreenHeight(20)),
-          DefaultButton(
-            text: AppLocalizations.of(context).translate('sign_in'),
-            press: () {
-              if (_formKey.currentState.validate()) {
-                _formKey.currentState.save();
-                // if all are valid then go to success screen
-                KeyboardUtil.hideKeyboard(context);
-                print(email);
-                print(password);
-
-                setState(()=>userController.isLoginLoading.value = true);
-                // userController.changeLoading();
-                userController.signIn(email, password);
-                print("AAAAAAAAAAAA");
-                // signIn(email, password);
-                // go to homescree and remove all previous routes
-                // Navigator.pushAndRemoveUntil(
-                //   context,
-                //   MaterialPageRoute(
-                //       builder: (context) => MenuPageBuilderScreen()),
-                //   (Route<dynamic> route) => false,
-                // );
-              }
-            },
-          ),
-        ],
-      ),
-    );
+          ));
+    });
   }
 
   TextFormField buildEmailFormField() {

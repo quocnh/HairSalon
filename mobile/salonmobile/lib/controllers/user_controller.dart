@@ -20,7 +20,7 @@ class UserController extends GetxController{
         print(userDB.toString());
         Get.off(MenuPageBuilderScreen());
       } else {
-        isLoading(false);
+        changeLoading();
         Fluttertoast.showToast(
             msg: "Incorrect username or password",
             toastLength: Toast.LENGTH_SHORT,
@@ -37,6 +37,6 @@ class UserController extends GetxController{
   }
 
   void changeLoading(){
-    isLoginLoading.value = true;
+    isLoginLoading.toggle();
   }
 }
