@@ -87,8 +87,7 @@ class SalonsCard extends StatelessWidget {
                               //     color: KatokAppTextColorSecondary),
                               Container(
                                   width: getProportionateScreenWidth(150),
-                                  child: Text(
-                                    salons.address,
+                                  child: Text("${salons.address} • ${salons.district} • ${salons.city}",
                                     style: TextStyle(
                                         fontSize:
                                         getProportionateScreenWidth(11),

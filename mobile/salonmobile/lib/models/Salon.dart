@@ -5,6 +5,8 @@ class Salon {
   final String id;
   final String name;
   final String address;
+  final String district;
+  final String city;
   final String latitude;
   final String longitude;
   final String info;
@@ -18,6 +20,8 @@ class Salon {
         this.id,
         this.name,
         this.address,
+        this.district,
+        this.city,
         this.latitude,
         this.longitude,
         this.info,
@@ -33,6 +37,8 @@ class Salon {
         id: json['_id'],
         name: json['name'],
         address: json['address'],
+        district: json['district'],
+        city: json['city'],
         latitude: json['latitude'],
         longitude: json['longitude'],
         info: json['info'],
